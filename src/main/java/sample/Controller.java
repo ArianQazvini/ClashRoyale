@@ -1,31 +1,22 @@
 package sample;
+import enums.Speed;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Background;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
-import javafx.util.Callback;
 import javafx.util.Duration;
 
-import java.awt.*;
 import java.io.File;
-import java.text.DecimalFormat;
 
 public class Controller {
 
@@ -74,7 +65,7 @@ public class Controller {
 //                    }
 //                }
 //        );
-        Fighter fighter = new Fighter("Wizard",Speed.MID,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
+        Fighter fighter = new Fighter("Wizard", Speed.MEDIUM,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
 
         Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
 
@@ -87,7 +78,7 @@ public class Controller {
     }
     private void add()
     {
-        Fighter fighter = new Fighter("Wizard",Speed.MID,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
+        Fighter fighter = new Fighter("Wizard",Speed.MEDIUM,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
         Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(100);
@@ -118,7 +109,7 @@ public class Controller {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Fighter fighter = new Fighter("Wizard",Speed.MID,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
+                Fighter fighter = new Fighter("Wizard",Speed.MEDIUM,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
                 Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
                 ImagePattern imagePattern = new ImagePattern(image);
                 fighter.setFill(imagePattern);

@@ -1,5 +1,6 @@
 package sample;
 
+import enums.Speed;
 import javafx.scene.shape.Rectangle;
 
 public class Fighter extends Rectangle {
