@@ -74,9 +74,9 @@ public class Controller {
 //                    }
 //                }
 //        );
-        Fighter fighter = new Fighter("Wizard",Speed.MID,"Wizard.jpg","Wizard.jpg");
+        Fighter fighter = new Fighter("Wizard",Speed.MID,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
 
-        Image image = new Image(new File("Wizard.jpg").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
 
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);
@@ -87,8 +87,8 @@ public class Controller {
     }
     private void add()
     {
-        Fighter fighter = new Fighter("Wizard",Speed.MID,"Wizard.jpg","Wizard.jpg");
-        Image image = new Image(new File("Wizard.jpg").toURI().toString());
+        Fighter fighter = new Fighter("Wizard",Speed.MID,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
+        Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(100);
         imageView.setFitWidth(100);
@@ -118,8 +118,8 @@ public class Controller {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Fighter fighter = new Fighter("Wizard",Speed.MID,"Wizard.jpg","Wizard.jpg");
-                Image image= new Image(new File("Wizard.jpg").toURI().toString());
+                Fighter fighter = new Fighter("Wizard",Speed.MID,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
+                Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
                 ImagePattern imagePattern = new ImagePattern(image);
                 fighter.setFill(imagePattern);
                 fighter.setHeight(90);
