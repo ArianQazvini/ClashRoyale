@@ -6,11 +6,14 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.File;
+
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
+        File file;
+        Parent root = FXMLLoader.load(new File("src/main/java/View/sample.fxml").toURI().toURL());
         Scene scene = new Scene(root);
         primaryStage.setTitle("ClashRoyale");
         primaryStage.setScene(scene);

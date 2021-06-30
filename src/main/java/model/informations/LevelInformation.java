@@ -1,4 +1,4 @@
-package models.informations;
+package model.informations;
 
 import enums.Level;
 

@@ -1,4 +1,4 @@
-package sample;
+package Controller;
 import enums.Speed;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -15,6 +15,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
+import sample.Fighter;
 
 import java.io.File;
 
