@@ -7,6 +7,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -15,18 +16,23 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
 import javafx.util.Duration;
+import model.GameTimer;
 import sample.Fighter;
 
 import java.io.File;
 
 public class Controller {
-
+    GameTimer gameTimer;
     @FXML
     private BorderPane MainGround;
     // private HBox Deck= new HBox(5);
     private ImageView temp;
     @FXML
     private HBox Deck;
+    @FXML
+    private TextField minuteTimerTextField;
+    @FXML
+    private TextField secondTimerTextField;
 
     @FXML
     private Button Button1;
@@ -76,9 +82,10 @@ public class Controller {
         imageView.setPreserveRatio(true);
         Button1.setGraphic(imageView);
         Button1.setText("Wizard");
+        gameTimer=new GameTimer(secondTimerTextField,minuteTimerTextField);
+        startTimer();
     }
-    private void add()
-    {
+    private void add() {
         Fighter fighter = new Fighter("Wizard",Speed.MEDIUM,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
         Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
         ImageView imageView = new ImageView(image);
@@ -105,8 +112,21 @@ public class Controller {
             }
         });
     }
-    private void Task(double x,double y)
-    {
+    void timerTask(){
+        Platform.runLater(gameTimer);
+    }
+    void startTimer(){
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                timerTask();
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+
+    }
+    private void Task(double x,double y) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
