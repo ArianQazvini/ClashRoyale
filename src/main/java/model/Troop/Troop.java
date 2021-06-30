@@ -7,13 +7,30 @@ import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
 public class Troop extends AttackCard {
-    //area splash
     private int count;
     private Speed speed;
+    private boolean isAreaSplash;
+    public int getCount() {
+        return count;
+    }
 
-    public Troop(int cost, String avatar, String animation, LevelInformation levelInformation, LevelValue level1, LevelValue level2, LevelValue level3, LevelValue level4, int hp, int damage, int hitSpeed, Target target, int range, int count, Speed speed) {
-        super(cost, avatar, animation, levelInformation, level1, level2, level3, level4, hp, damage, hitSpeed, target, range);
+    public boolean isAreaSplash() {
+        return isAreaSplash;
+    }
+
+    public void setAreaSplash(boolean areaSplash) {
+        isAreaSplash = areaSplash;
+    }
+
+    public void setCount(int count) {
         this.count = count;
+    }
+
+    public Speed getSpeed() {
+        return speed;
+    }
+
+    public void setSpeed(Speed speed) {
         this.speed = speed;
     }
 }
