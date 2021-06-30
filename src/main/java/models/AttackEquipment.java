@@ -1,9 +1,11 @@
 package models;
 
+import enums.Target;
+
 public class AttackEquipment extends Equipment{
     private int hp;
     private int damage;
     private int hitSpeed;
-    private int target;
+    private Target target;
     private int range;
 }
