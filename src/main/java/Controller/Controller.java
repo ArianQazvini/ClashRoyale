@@ -7,31 +7,28 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
+import javafx.util.Callback;
 import javafx.util.Duration;
-import model.GameTimer;
 import sample.Fighter;
 
 import java.io.File;
 import java.text.DecimalFormat;
 
 public class Controller {
-    GameTimer gameTimer;
+
     @FXML
     private AnchorPane MainGround;
     private ImageView temp;
     @FXML
     private HBox Deck;
-    @FXML
-    private TextField minuteTimerTextField;
-    @FXML
-    private TextField secondTimerTextField;
 
     @FXML
     private Button Button1;
@@ -61,9 +58,6 @@ public class Controller {
         imageView.setPreserveRatio(true);
         Button1.setGraphic(imageView);
         CreateMap();
-        Button1.setText("Wizard");
-        gameTimer=new GameTimer(secondTimerTextField,minuteTimerTextField);
-        startTimer();
     }
 //    private void add()
 //    {
@@ -92,21 +86,8 @@ public class Controller {
             }
         });
     }
-    void timerTask(){
-        Platform.runLater(gameTimer);
-    }
-    void startTimer(){
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                timerTask();
-            }
-        });
-        thread.setDaemon(true);
-        thread.start();
-
-    }
-    private void Task(double x,double y) {
+    private void Task(double x,double y)
+    {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
