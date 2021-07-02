@@ -46,8 +46,8 @@ public class Controller {
     private AnchorPane PlayGround;
     private Timeline timeline;
     private final int blockSize = 20;
-    private final int rows =18;
-    private final int cols = 32;
+//    private final int rows =18;
+//    private final int cols = 32;
     private ImageView[][] blocks = new ImageView[32][18];
     public void initialize()
     {
