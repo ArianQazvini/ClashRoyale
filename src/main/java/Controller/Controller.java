@@ -50,8 +50,7 @@ public class Controller {
     private AnchorPane PlayGround;
     private Timeline timeline;
     // private final ObservableList<Fighter> fighterObservableList= FXCollections.observableArrayList();
-    public void initialize()
-    {
+    public void initialize() {
 //        fighterObservableList.add(new Fighter("Wizard",Speed.MID,"C:/Users/ASUS/Desktop/AP-HOMEWORKS/Final-Project/WizardCard.png","C:/Users/ASUS/Desktop/AP-HOMEWORKS/Final-Project/WizardCard.png"));
 //        Deck.setItems(fighterObservableList);
 //        Deck.getSelectionModel().selectedItemProperty().
