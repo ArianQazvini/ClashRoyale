@@ -7,23 +7,25 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.ImagePattern;
+import javafx.util.Callback;
 import javafx.util.Duration;
 import sample.Fighter;
 
 import java.io.File;
+import java.text.DecimalFormat;
 
 public class Controller {
 
     @FXML
-    private BorderPane MainGround;
-    // private HBox Deck= new HBox(5);
+    private AnchorPane MainGround;
     private ImageView temp;
     @FXML
     private HBox Deck;
@@ -43,50 +45,29 @@ public class Controller {
     @FXML
     private AnchorPane PlayGround;
     private Timeline timeline;
-    // private final ObservableList<Fighter> fighterObservableList= FXCollections.observableArrayList();
+    private final int blockSize = 20;
+    private final int rows =18;
+    private final int cols = 32;
+    private ImageView[][] blocks = new ImageView[32][18];
     public void initialize()
     {
-//        fighterObservableList.add(new Fighter("Wizard",Speed.MID,"C:/Users/ASUS/Desktop/AP-HOMEWORKS/Final-Project/WizardCard.png","C:/Users/ASUS/Desktop/AP-HOMEWORKS/Final-Project/WizardCard.png"));
-//        Deck.setItems(fighterObservableList);
-//        Deck.getSelectionModel().selectedItemProperty().
-//                addListener(
-//                        new ChangeListener<Fighter>() {
-//                            @Override
-//                            public void changed(ObservableValue<? extends Fighter> ov,
-//                                                Fighter oldValue, Fighter newValue) {
-//                                temp.setImage(new Image(newValue.getAvatar()));
-//                            }
-//                        }
-//                );
-//        Deck.setCellFactory(
-//                new Callback<ListView<Fighter>, ListCell<Fighter>>() {
-//                    @Override
-//                    public ListCell<Fighter> call(ListView<Fighter> listView) {
-//                        return new Cell();
-//                    }
-//                }
-//        );
-        Fighter fighter = new Fighter("Wizard", Speed.MEDIUM,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
-
         Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
-
         ImageView imageView = new ImageView(image);
         imageView.setFitHeight(70);
-        imageView.setFitWidth(90);
+        imageView.setFitWidth(70);
         imageView.setPreserveRatio(true);
         Button1.setGraphic(imageView);
-        Button1.setText("Wizard");
+        CreateMap();
     }
-    private void add()
-    {
-        Fighter fighter = new Fighter("Wizard",Speed.MEDIUM,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
-        Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(100);
-        imageView.setFitWidth(100);
-        Deck.getChildren().add(imageView);
-        //"C:/Users/ASUS/Desktop/AP-HOMEWORKS/Final-Project/Wizard.jpg"
-    }
+//    private void add()
+//    {
+//        Fighter fighter = new Fighter("Wizard",Speed.MID,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
+//        Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
+//        ImageView imageView = new ImageView(image);
+//        imageView.setFitHeight(100);
+//        imageView.setFitWidth(100);
+//        Deck.getChildren().add(imageView);
+//    }
 
     @FXML
     void Press(ActionEvent event) {
@@ -114,18 +95,17 @@ public class Controller {
                 Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
                 ImagePattern imagePattern = new ImagePattern(image);
                 fighter.setFill(imagePattern);
-                fighter.setHeight(90);
-                fighter.setWidth(70);
+                fighter.setHeight(20);
+                fighter.setWidth(20);
                 fighter.setX(x);
                 fighter.setY(y);
-//                Image image= new Image(new File("Wizard.jpg").toURI().toString());
-//                ImageView imageView = new ImageView(image);
                 PlayGround.getChildren().add(fighter);
-                //imageView.setY(imageView.getY()+1);
-                // }
-                KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.2),event ->{
-                    // imageView.setY(imageView.getY()+1);
-                    fighter.setY(fighter.getY()+1);
+                KeyFrame keyFrame = new KeyFrame(Duration.seconds(0.3),event ->{
+                    if(fighter.getY()>0)
+                    {
+                        fighter.setY(fighter.getY()-blockSize);
+
+                    }
                 });
                 timeline = new Timeline(keyFrame);
                 timeline.setCycleCount(Timeline.INDEFINITE);
@@ -133,4 +113,45 @@ public class Controller {
             }
         });
     }
+    private void CreateMap()
+    {
+        double help_col = 0.0;
+        double help_row = 0.0;
+        for (int i=0;i<32;i++)
+        {
+            if(i==15 || i==16)
+            {
+                for (int j=0;j<18;j++)
+                {
+                    Image image = new Image(new File("src/main/resources/pics/terrainTile6.png").toURI().toString());
+                    blocks[i][j] = new ImageView(image);
+                    blocks[i][j].setFitWidth(20);
+                    blocks[i][j].setFitHeight(20);
+                    blocks[i][j].setY(help_row);
+                    blocks[i][j].setX(help_col);
+                    help_col += blockSize;
+                    PlayGround.getChildren().add(blocks[i][j]);
+                }
+                help_col =0.0;
+                help_row+= blockSize;
+            }
+            else
+            {
+                for (int j=0;j<18;j++)
+                {
+                    Image image = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+                    blocks[i][j] = new ImageView(image);
+                    blocks[i][j].setFitWidth(20);
+                    blocks[i][j].setFitHeight(20);
+                    blocks[i][j].setY(help_row);
+                    blocks[i][j].setX(help_col);
+                    help_col += blockSize;
+                    PlayGround.getChildren().add(blocks[i][j]);
+                }
+                help_col =0.0;
+                help_row+= blockSize;
+            }
+        }
+    }
 }
+

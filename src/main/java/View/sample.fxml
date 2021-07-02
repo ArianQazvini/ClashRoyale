@@ -1,26 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 
-<BorderPane fx:id="MainGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
-    <bottom>
-        <HBox fx:id="Deck" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="100.0" prefWidth="200.0" spacing="10.0" BorderPane.alignment="CENTER">
-            <children>
-                <Button fx:id="Button1" mnemonicParsing="false" onAction="#Press" prefHeight="90.0" prefWidth="70.0" text="Button" />
-                <Button fx:id="Button2" mnemonicParsing="false" prefHeight="90.0" prefWidth="70.0" text="Button" />
-                <Button fx:id="Button3" mnemonicParsing="false" prefHeight="90.0" prefWidth="70.0" text="Button" />
-                <Button fx:id="Button4" mnemonicParsing="false" prefHeight="90.0" prefWidth="70.0" text="Button" />
-            </children>
-            <padding>
-                <Insets bottom="5.0" left="170.0" top="5.0" />
-            </padding>
-        </HBox>
-    </bottom>
-    <center>
-        <AnchorPane fx:id="PlayGround" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
-    </center>
-</BorderPane>
+<AnchorPane fx:id="MainGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
+    <children>
+        <AnchorPane fx:id="PlayGround" layoutX="70.0" layoutY="52.0" prefHeight="640.0" prefWidth="360.0" />
+        <Button fx:id="Button1" graphicTextGap="0.0" layoutX="83.0" layoutY="701.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#Press" prefHeight="70.0" prefWidth="70.0" />
+        <Button fx:id="Button2" graphicTextGap="0.0" layoutX="179.0" layoutY="701.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#Press" prefHeight="70.0" prefWidth="70.0" />
+        <Button fx:id="Button3" graphicTextGap="0.0" layoutX="262.0" layoutY="701.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#Press" prefHeight="70.0" prefWidth="70.0" />
+        <Button fx:id="Button4" graphicTextGap="0.0" layoutX="359.0" layoutY="701.0" maxHeight="-Infinity" maxWidth="-Infinity" mnemonicParsing="false" onAction="#Press" prefHeight="70.0" prefWidth="70.0" />
+    </children>
+</AnchorPane>
