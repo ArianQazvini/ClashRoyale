@@ -132,8 +132,7 @@ public class Controller {
             }
         });
     }
-    private void CreateMap()
-    {
+    private void CreateMap() {
         double help_col = 0.0;
         double help_row = 0.0;
         for (int i=0;i<32;i++)

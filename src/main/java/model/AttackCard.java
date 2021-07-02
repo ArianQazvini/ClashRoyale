@@ -6,10 +6,10 @@ import model.informations.LevelValue;
 
 public class AttackCard extends Card {
     private int hp;
-    private int damage;
+    private Damage damage;
     private float hitSpeed;
     private Target target;
-    private int range;
+    private float range;
 
     public float getHitSpeed() {
         return hitSpeed;
@@ -27,11 +27,11 @@ public class AttackCard extends Card {
         this.target = target;
     }
 
-    public int getRange() {
+    public float getRange() {
         return range;
     }
 
-    public void setRange(int range) {
+    public void setRange(float range) {
         this.range = range;
     }
 }

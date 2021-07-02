@@ -1,11 +1,12 @@
 package model.informations;
 
 import enums.Level;
+import model.Damage;
 
 public class ACLevelValue extends LevelValue {
     int hp;
-    int damage;
-    public ACLevelValue(int hp, int damage, Level level) {
+    Damage damage;
+    public ACLevelValue(int hp, Damage damage, Level level) {
         super(level);
         this.hp=hp;
         this.damage=damage;
