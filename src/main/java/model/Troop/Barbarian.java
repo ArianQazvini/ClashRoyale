@@ -6,6 +6,7 @@ import model.informations.ACLevelValue;
 
 public class Barbarian extends Troop{
     public Barbarian(){
+        int test;
         super.setCount(4);
         super.setCost(5);
         super.setHitSpeed(1.5F);
