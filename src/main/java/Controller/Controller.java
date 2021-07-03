@@ -86,8 +86,8 @@ public class Controller {
             }
         });
     }
-    private void Task(double x,double y)
-    {
+
+    private void Task(double x,double y) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
