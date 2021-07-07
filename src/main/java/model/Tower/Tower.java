@@ -2,50 +2,37 @@ package model.Tower;
 
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Rectangle;
+import model.Damage;
+import model.WarObject;
+import model.informations.LevelInformation;
+import model.informations.LevelValue;
 
-public class Tower{
-    private int hp;
-    private int damage;
-    private int hitSpeed;
-    private int range;
+public class Tower extends WarObject {
+    private float hitSpeed;
+    private float range;
     private ImageView[][] imageViews;
 
-    public Tower(int hp, int damage, int hitSpeed, int range) {
-        this.hp = hp;
-        this.damage = damage;
-        this.hitSpeed = hitSpeed;
-        this.range = range;
-    }
+//    public Tower(int hp, Damage damage, int hitSpeed, int range) {
+//        this.hp = hp;
+//        this.damage = damage;
+//        this.hitSpeed = hitSpeed;
+//        this.range = range;
+//    }
 
-    public int getHp() {
-        return hp;
-    }
 
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    public int getDamage() {
-        return damage;
-    }
-
-    public void setDamage(int damage) {
-        this.damage = damage;
-    }
-
-    public int getHitSpeed() {
+    public float getHitSpeed() {
         return hitSpeed;
     }
 
-    public void setHitSpeed(int hitSpeed) {
+    public void setHitSpeed(float hitSpeed) {
         this.hitSpeed = hitSpeed;
     }
 
-    public int getRange() {
+    public float getRange() {
         return range;
     }
 
-    public void setRange(int range) {
+    public void setRange(float range) {
         this.range = range;
     }
 

@@ -86,8 +86,8 @@ public class Controller {
             }
         });
     }
-    private void Task(double x,double y)
-    {
+
+    private void Task(double x,double y) {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
@@ -113,8 +113,7 @@ public class Controller {
             }
         });
     }
-    private void CreateMap()
-    {
+    private void CreateMap() {
         double help_col = 0.0;
         double help_row = 0.0;
         for (int i=0;i<32;i++)

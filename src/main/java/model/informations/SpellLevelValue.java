@@ -3,8 +3,8 @@ package model.informations;
 import enums.Level;
 
 public class SpellLevelValue extends LevelValue{
-    int value;
-    public SpellLevelValue(Level level, int value) {
+    float value;
+    public SpellLevelValue(Level level, float value) {
         super(level);
         this.value=value;
     }
