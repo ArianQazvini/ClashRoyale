@@ -39,9 +39,14 @@ public class LogInController {
             }
         }
         setBorderName();
-
         setBorderPass();
-
+        if (player.getName()!=null&&player.getPassword()!=null) {
+            try {
+                gameManager.setRoot("menu");
+            }catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
     public void initialize(){
         ViewService.setBackground(pageArea,"start_page.jpg");

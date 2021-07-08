@@ -15,12 +15,12 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         File file;
+        gameManager.init();
+        gameManager.setStage(primaryStage);
         gameManager.setRoot("log_in");
-        Scene scene = new Scene(gameManager.getRoot());
-        primaryStage.setTitle("ClashRoyale");
-        primaryStage.setScene(scene);
-        primaryStage.show();
+        gameManager.getStage().show();
     }
+
 
 
     public static void main(String[] args) {

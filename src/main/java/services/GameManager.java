@@ -1,20 +1,27 @@
 package services;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import model.Directions;
 import model.Player;
 import sample.Fighter;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 public class GameManager {
     private final int blockSize=20;
     private Player player=new Player();
     private Parent root;
+    private String opponent;
+    private Stage stage;
+    private Scene scene;
     private final int rows =18;
     private final int cols = 32;
     private ImageView[][] blocks = new ImageView[32][18];
@@ -76,6 +83,11 @@ public class GameManager {
         }
         return null;
     }
+
+    public void setOpponent(String opponent) {
+        this.opponent = opponent;
+    }
+
     public void CreateMap()
     {
         double help_col = 0.0;
@@ -174,8 +186,22 @@ public class GameManager {
         }
     }
 
+    public Stage getStage() {
+        return stage;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
+    }
+    public void init() throws IOException {
+        root = FXMLLoader.load(new File("src/main/java/View/log_in.fxml").toURI().toURL());
+        scene=new Scene(root);
+    }
     public void setRoot(String viewName) throws Exception{
         root = FXMLLoader.load(new File("src/main/java/View/"+viewName+".fxml").toURI().toURL());
+        scene.setRoot(root);
+        stage.setScene(scene);
+        stage.sizeToScene();
     }
 
     public Parent getRoot() {
@@ -185,7 +211,13 @@ public class GameManager {
     public Player getPlayer() {
         return player;
     }
-
+    public void checkState() throws Exception {
+       while (true){
+           if (player.isAnonymous()){
+               setRoot("menu");
+           }
+       }
+    }
     public ImageView[][] getBlocks() {
         return blocks;
     }

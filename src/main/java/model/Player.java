@@ -18,6 +18,10 @@ public class Player {
     boolean anonymous=false;
     private int elixir =0;
 
+    public void setAnonymous(boolean anonymous) {
+        this.anonymous = anonymous;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
