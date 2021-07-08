@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -9,10 +10,13 @@
 
 <AnchorPane fx:id="pageArea" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogInController">
    <children>
-      <TextField fx:id="nameText" layoutX="55.0" layoutY="138.0" prefHeight="30.0" prefWidth="190.0" />
-      <TextField fx:id="passwordText" layoutX="55.0" layoutY="192.0" prefHeight="30.0" prefWidth="190.0" />
+      <TextField fx:id="nameText" layoutX="55.0" layoutY="138.0" prefHeight="30.0" prefWidth="190.0" promptText="username" />
+      <TextField fx:id="passwordText" layoutX="55.0" layoutY="192.0" prefHeight="30.0" prefWidth="190.0" promptText="password" />
       <ImageView fx:id="nameIcon" fitHeight="31.0" fitWidth="32.0" layoutX="4.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true" />
       <ImageView fx:id="passwordIcon" fitHeight="31.0" fitWidth="32.0" layoutX="4.0" layoutY="192.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="signUpButton" contentDisplay="CENTER" layoutX="54.0" layoutY="255.0" mnemonicParsing="false" onAction="#signUp" prefHeight="30.0" prefWidth="190.0" text="sign up" />
+      <Button fx:id="signUpButton" contentDisplay="CENTER" layoutX="54.0" layoutY="255.0" mnemonicParsing="false" onAction="#signUp" prefHeight="30.0" prefWidth="190.0" text="sign up" textAlignment="JUSTIFY">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Button>
    </children>
 </AnchorPane>

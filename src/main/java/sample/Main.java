@@ -14,7 +14,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         File file;
-        Parent root = FXMLLoader.load(new File("src/main/java/View/log_in.fxml").toURI().toURL());
+        Parent root = FXMLLoader.load(new File("src/main/java/View/menu.fxml").toURI().toURL());
         Scene scene = new Scene(root);
         primaryStage.setTitle("ClashRoyale");
         primaryStage.setScene(scene);

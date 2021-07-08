@@ -10,6 +10,7 @@ import javafx.scene.layout.*;
 import model.Player;
 
 import sample.Main;
+import services.ViewService;
 
 import java.io.File;
 
@@ -41,12 +42,8 @@ public class LogInController {
 
     }
     public void initialize(){
-        Image img=new Image(new File("src/main/resources/pics/start_page.jpg").toURI().toString());
-        BackgroundImage bgImg = new BackgroundImage(img,
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.DEFAULT,
-                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, false, false, true, false));
-        pageArea.setBackground(new Background(bgImg));
+        ViewService.setBackground(pageArea,"start_page.jpg");
+        signUpButton.setStyle("-fx-background-color:#ffaa00");
 //        ImageView buttBg=new ImageView(new Image(new File("src/main/resources/pics/20.png").toURI().toString()));
 //        buttBg.setFitWidth(190);
 //        buttBg.setFitHeight(30);
