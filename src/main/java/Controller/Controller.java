@@ -73,15 +73,8 @@ public class Controller {
         imageView.setFitWidth(70);
         imageView.setPreserveRatio(true);
         Button1.setGraphic(imageView);
-        CreateMap();
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                StartTimer();
-            }
-        });
-        thread.setDaemon(true);
-        thread.start();
+        UpdatePage();
+        StartTimer();
     }
     @FXML
     void Press(ActionEvent event) {
@@ -189,8 +182,9 @@ public class Controller {
             }
         }
     }
-    private void CreateMap()
+    private void UpdatePage()
     {
+        PlayGround.getChildren().clear();
         for (int i=0;i<32;i++)
         {
             if(i==15 || i==16)
@@ -251,6 +245,10 @@ public class Controller {
                 }
             }
         }
+        for (int i=0;i<gameManager.getPlayer().getFighters().size();i++)
+        {
+            PlayGround.getChildren().add(gameManager.getPlayer().getFighters().get(i).getPicHandler());
+        }
     }
     private void StartTimer()
     {
@@ -273,14 +271,8 @@ public class Controller {
     {
         if(gameManager.getPlayer().getFighters().size()!=0)
         {
-//            for (int i=0;i<gameManager.getFighters().size();i++)
-//            {
-//               PlayGround.getChildren().add(gameManager.getFighters().get(i).getPicHandler());
-//            }
-
+            UpdatePage();
             gameManager.Move();
-//            elements= gameManager.getFighters();
-//            remove();
         }
     }
     private void remove()
