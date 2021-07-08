@@ -1,7 +1,8 @@
-package model;
+package services;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import model.Directions;
 import sample.Fighter;
 
 import java.io.File;
@@ -15,7 +16,7 @@ public class GameManager {
     private ImageView[][] blocks = new ImageView[32][18];
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
-    public Directions CharacterExist(Fighter fighter,Directions directions)
+    public Directions CharacterExist(Fighter fighter, Directions directions)
     {
         if(directions==Directions.TOP)
         {
