@@ -10,12 +10,14 @@ import javafx.scene.layout.*;
 import model.Player;
 
 import sample.Main;
+import services.GameManager;
 import services.ViewService;
 
 import java.io.File;
 
 public class LogInController {
-    Player player = Main.player;
+    GameManager gameManager=Main.gameManager;
+    Player player= gameManager.getPlayer();
     @FXML
     TextField nameText;
     @FXML

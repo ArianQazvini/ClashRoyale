@@ -163,7 +163,7 @@ public class Controller {
                 fighter.getPicHandler().setWalkingMode();
                 FixLocation(fighter,x,y);
                 fighter.setSeconds(seconds);
-                gameManager.getFighters().add(fighter);
+                gameManager.getPlayer().getFighters().add(fighter);
                 PlayGround.getChildren().add(fighter.getPicHandler());
             }
         });
@@ -271,7 +271,7 @@ public class Controller {
     }
     private void update()
     {
-        if(gameManager.getFighters().size()!=0)
+        if(gameManager.getPlayer().getFighters().size()!=0)
         {
 //            for (int i=0;i<gameManager.getFighters().size();i++)
 //            {

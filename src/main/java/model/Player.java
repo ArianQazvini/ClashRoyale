@@ -2,11 +2,14 @@ package model;
 
 import model.Tower.KingTower;
 import model.Tower.PrinceTower;
+import sample.Fighter;
 
 import java.util.ArrayList;
 
 public class Player {
-    private ArrayList<Card> Deck;
+    private ArrayList<Fighter> fighters = new ArrayList<>();
+    private ArrayList<Card>cardsCollection=new ArrayList<>();
+    private Deck deck;
     private String name;
     private String password;
     private KingTower kingTower;
@@ -33,5 +36,9 @@ public class Player {
 
     public String getPassword() {
         return password;
+    }
+
+    public ArrayList<Fighter> getFighters() {
+        return fighters;
     }
 }

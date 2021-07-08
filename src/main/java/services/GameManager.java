@@ -1,8 +1,11 @@
 package services;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import model.Directions;
+import model.Player;
 import sample.Fighter;
 
 import java.io.File;
@@ -10,7 +13,8 @@ import java.util.ArrayList;
 
 public class GameManager {
     private final int blockSize=20;
-    private ArrayList<Fighter> fighters = new ArrayList<>();
+    private Player player=new Player();
+    private Parent root;
     private final int rows =18;
     private final int cols = 32;
     private ImageView[][] blocks = new ImageView[32][18];
@@ -20,11 +24,11 @@ public class GameManager {
     {
         if(directions==Directions.TOP)
         {
-            for (int i=0;i<fighters.size();i++)
+            for (int i=0;i<player.getFighters().size();i++)
             {
-                if(!fighters.get(i).getPicHandler().equals(fighter.getPicHandler()))
+                if(!player.getFighters().get(i).getPicHandler().equals(fighter.getPicHandler()))
                 {
-                    if(fighters.get(i).getY_Current()- fighter.getY_Current()== -20 && fighters.get(i).getX_Current()==fighter.getX_Current())
+                    if(player.getFighters().get(i).getY_Current()- fighter.getY_Current()== -20 && player.getFighters().get(i).getX_Current()==fighter.getX_Current())
                     {
                         return Directions.TOP;
                     }
@@ -33,11 +37,11 @@ public class GameManager {
         }
         else if(directions==Directions.LEFT)
         {
-            for (int i=0;i<fighters.size();i++)
+            for (int i=0;i<player.getFighters().size();i++)
             {
-                if(!fighters.get(i).getPicHandler().equals(fighter.getPicHandler()))
+                if(!player.getFighters().get(i).getPicHandler().equals(fighter.getPicHandler()))
                 {
-                    if(fighters.get(i).getX_Current()- fighter.getX_Current()== -20 && fighters.get(i).getY_Current()==fighter.getY_Current())
+                    if(player.getFighters().get(i).getX_Current()- fighter.getX_Current()== -20 && player.getFighters().get(i).getY_Current()==fighter.getY_Current())
                     {
                         return Directions.LEFT;
                     }
@@ -46,11 +50,11 @@ public class GameManager {
         }
         else if(directions==Directions.RIGHT)
         {
-            for (int i=0;i<fighters.size();i++)
+            for (int i=0;i<player.getFighters().size();i++)
             {
-                if(!fighters.get(i).getPicHandler().equals(fighter.getPicHandler()))
+                if(!player.getFighters().get(i).getPicHandler().equals(fighter.getPicHandler()))
                 {
-                    if(fighters.get(i).getX_Current()- fighter.getX_Current()== 20 && fighter.getY_Current()==fighters.get(i).getY_Current())
+                    if(player.getFighters().get(i).getX_Current()- fighter.getX_Current()== 20 && fighter.getY_Current()==player.getFighters().get(i).getY_Current())
                     {
                         return Directions.RIGHT;
                     }
@@ -59,11 +63,11 @@ public class GameManager {
         }
         else if(directions==Directions.DOWN)
         {
-            for (int i=0;i<fighters.size();i++)
+            for (int i=0;i<player.getFighters().size();i++)
             {
-                if(!fighters.get(i).getPicHandler().equals(fighter.getPicHandler()))
+                if(!player.getFighters().get(i).getPicHandler().equals(fighter.getPicHandler()))
                 {
-                    if(fighters.get(i).getY_Current()- fighter.getY_Current()== 20 && fighters.get(i).getX_Current()==fighter.getX_Current())
+                    if(player.getFighters().get(i).getY_Current()- fighter.getY_Current()== 20 && player.getFighters().get(i).getX_Current()==fighter.getX_Current())
                     {
                         return Directions.DOWN;
                     }
@@ -170,9 +174,18 @@ public class GameManager {
         }
     }
 
-    public ArrayList<Fighter> getFighters() {
-        return fighters;
+    public void setRoot(String viewName) throws Exception{
+        root = FXMLLoader.load(new File("src/main/java/View/"+viewName+".fxml").toURI().toURL());
     }
+
+    public Parent getRoot() {
+        return root;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
     public ImageView[][] getBlocks() {
         return blocks;
     }
@@ -188,19 +201,19 @@ public class GameManager {
     }
     public void Move()
     {
-        for (int i=0;i<fighters.size();i++)
+        for (int i=0;i<player.getFighters().size();i++)
         {
-            if(fighters.get(i).getY_Current()>0)
+            if(player.getFighters().get(i).getY_Current()>0)
             {
-                Directions help = this.CharacterExist(fighters.get(i),Directions.TOP);
+                Directions help = this.CharacterExist(player.getFighters().get(i),Directions.TOP);
                 if(help==null)
                 {
-                    fighters.get(i).Forward();
+                    player.getFighters().get(i).Forward();
                     //   Range(fighters.get(i));
                 }
                 else
                 {
-                    fighters.get(i).Left();
+                    player.getFighters().get(i).Left();
                     // Range(fighters.get(i));
                 }
             }
