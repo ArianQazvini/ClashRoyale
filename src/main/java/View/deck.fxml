@@ -18,12 +18,15 @@
             <HBox fx:id="deckHBox2" prefHeight="100.0" prefWidth="290.0" spacing="2.5" />
          </children>
       </VBox>
-      <ScrollPane fx:id="cardCollectionScrollPane" layoutX="10.0" layoutY="310.0" prefHeight="105.0" prefWidth="280.0">
+      <ScrollPane fx:id="cardCollectionScrollPane" layoutX="6.0" layoutY="306.0" prefHeight="117.0" prefWidth="290.0">
          <content>
             <HBox fx:id="cardCollectionHBox" alignment="CENTER" prefHeight="100.0" spacing="5.0" />
          </content>
+         <padding>
+            <Insets bottom="1.0" top="1.0" />
+         </padding>
       </ScrollPane>
-      <Button onAction="#back" fx:id="Back" layoutX="10.0" layoutY="9.0" mnemonicParsing="false" text="Back" />
+      <Button fx:id="Back" layoutX="10.0" layoutY="9.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>
    <padding>
       <Insets bottom="5.0" left="2.5" right="2.5" top="5.0" />

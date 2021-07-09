@@ -21,5 +21,6 @@ public class Giant extends Troop{
         super.setLevel4(new ACLevelValue(2660,new Damage<>(167),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(2920,new Damage<>(183),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
+        setAvatar("giant.png");
     }
 }

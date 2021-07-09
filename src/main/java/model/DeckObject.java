@@ -27,7 +27,7 @@ public class DeckObject extends ImageView {
     GameManager gameManager= Main.gameManager;
     public DeckObject(HBox hBox,HBox hBox1,HBox hBox2,Card card) {
         this.avatar = card.getAvatar();
-        image = new Image(new File("src/main/resources/pics/"+ avatar).toURI().toString());
+        image = new Image(new File("src/main/resources/pics/cards/"+ avatar).toURI().toString());
         setImage(image);
         setFitHeight(100);
         setFitWidth(70);

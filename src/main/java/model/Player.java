@@ -2,13 +2,13 @@ package model;
 
 import model.Tower.KingTower;
 import model.Tower.PrinceTower;
+import model.Troop.Giant;
 import sample.Fighter;
 
 import java.util.ArrayList;
 
 public class Player {
     private ArrayList<Fighter> fighters = new ArrayList<>();
-    private ArrayList<String>cardsCollection=new ArrayList<>();
     private ArrayList<Card>cards=new ArrayList<>();
     private Deck deck=new Deck();
     private String name;
@@ -19,16 +19,27 @@ public class Player {
     boolean anonymous=false;
     private int elixir =0;
 
+    public Player(){
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+        cards.add(new Giant());
+
+    }
     public ArrayList<Card> getCards() {
         return cards;
     }
-
     public void setAnonymous(boolean anonymous) {
         this.anonymous = anonymous;
-    }
-
-    public ArrayList<String> getCardsCollection() {
-        return cardsCollection;
     }
 
     public Deck getDeck() {
@@ -36,8 +47,6 @@ public class Player {
     }
 
     public void setName(String name) {
-        cardsCollection.add("20.png");
-        cardsCollection.add("roadTile.png");
         this.name = name;
     }
 
