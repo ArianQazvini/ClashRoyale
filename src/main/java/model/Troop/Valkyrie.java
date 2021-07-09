@@ -7,7 +7,8 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 public class Valkyrie extends Troop{
-    public Valkyrie(){
+    public Valkyrie(String WalkingPic){
+        super(WalkingPic);
         super.setCount(1);
         super.setCost(4);
         //super.setRange(melee);

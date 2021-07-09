@@ -7,7 +7,8 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 public class Giant extends Troop{
-    public Giant(){
+    public Giant(String WalkingPic){
+        super(WalkingPic);
         super.setCount(1);
         super.setCost(5);
         //super.setRange(melee);

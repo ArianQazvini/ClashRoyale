@@ -7,7 +7,8 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 public class Wizard extends Troop{
-    public Wizard(){
+    public Wizard(String WalkingPic){
+        super(WalkingPic);
         super.setCount(1);
         super.setCost(5);
         super.setRange(5);

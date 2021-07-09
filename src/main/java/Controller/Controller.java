@@ -14,9 +14,10 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
+import model.AttackCard;
+import model.Troop.Troop;
+import model.Troop.Wizard;
 import services.GameManager;
-import sample.Fighter;
-import sample.PicHandler;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -59,7 +60,7 @@ public class Controller {
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
     private GameManager gameManager;
-    private ArrayList<Fighter> elements = new ArrayList<>();
+   // private ArrayList<Fighter> elements = new ArrayList<>();
     private int check =0;
     //    private ArrayList<Fighter> fighters = new ArrayList<>();
     public void initialize()
@@ -152,16 +153,15 @@ public class Controller {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Fighter fighter = new Fighter("Wizard",Speed.MEDIUM,"src/main/resources/pics/Wizard.jpg","src/main/resources/pics/Wizard.jpg");
-                fighter.getPicHandler().setWalkingMode();
-                FixLocation(fighter,x,y);
-                fighter.setSeconds(seconds);
-                gameManager.getPlayer().getFighters().add(fighter);
-                PlayGround.getChildren().add(fighter.getPicHandler());
+                Wizard wizard = new Wizard("src/main/resources/pics/Wizard.jpg");
+                wizard.getPicHandler().setWalkingMode();
+                FixLocation(wizard,x,y);
+                gameManager.getPlayer().getTroops().add(wizard);
+                PlayGround.getChildren().add(wizard.getPicHandler());
             }
         });
     }
-    private void FixLocation(Fighter temp , double mouse_x,double mouse_y)
+    private void FixLocation(Troop temp , double mouse_x, double mouse_y)
     {
         int xPass = (int)mouse_x/blockSize;
         int yPass = (int)mouse_y/blockSize;
@@ -245,9 +245,9 @@ public class Controller {
                 }
             }
         }
-        for (int i=0;i<gameManager.getPlayer().getFighters().size();i++)
+        for (int i=0;i<gameManager.getPlayer().getTroops().size();i++)
         {
-            PlayGround.getChildren().add(gameManager.getPlayer().getFighters().get(i).getPicHandler());
+            PlayGround.getChildren().add(gameManager.getPlayer().getTroops().get(i).getPicHandler());
         }
     }
     private void StartTimer()
@@ -269,36 +269,36 @@ public class Controller {
     }
     private void update()
     {
-        if(gameManager.getPlayer().getFighters().size()!=0)
+        if(gameManager.getPlayer().getTroops().size()!=0)
         {
             UpdatePage();
             gameManager.Move();
         }
     }
-    private void remove()
-    {
-        Iterator<Node> it = PlayGround.getChildren().iterator();
-        int z = 0;
-        while (it.hasNext())
-        {
-            Node temp = it.next();
-            if(temp instanceof PicHandler)
-            {
-                PicHandler temp2 = (PicHandler) temp;
-                if(temp2.equals(elements.get(z).getPicHandler()))
-                {
-                    it.remove();
-                    z++;
-                }
-                else
-                {
-                }
-            }
-            else
-            {
-
-            }
-        }
-        elements.clear();;
-    }
+//    private void remove()
+//    {
+//        Iterator<Node> it = PlayGround.getChildren().iterator();
+//        int z = 0;
+//        while (it.hasNext())
+//        {
+//            Node temp = it.next();
+//            if(temp instanceof PicHandler)
+//            {
+//                PicHandler temp2 = (PicHandler) temp;
+//                if(temp2.equals(elements.get(z).getPicHandler()))
+//                {
+//                    it.remove();
+//                    z++;
+//                }
+//                else
+//                {
+//                }
+//            }
+//            else
+//            {
+//
+//            }
+//        }
+//        elements.clear();;
+//    }
 }

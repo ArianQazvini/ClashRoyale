@@ -1,17 +1,16 @@
-package sample;
+package model;
 
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-
 import java.io.File;
 
 public class PicHandler extends Rectangle {
-    private Fighter owner;
+    private Card owner;
     private String walkingPic;
     private static int index=0;
     private String id ;
-    public PicHandler(Fighter owner, String walkingPic) {
+    public PicHandler(Card owner, String walkingPic) {
         this.owner = owner;
         this.walkingPic = walkingPic;
         index++;
@@ -54,10 +53,11 @@ public class PicHandler extends Rectangle {
             }
         }
     }
-    public void setOwner(Fighter owner) {
+
+    public void setOwner(Card owner) {
         this.owner = owner;
     }
-    public Fighter getOwner() {
+    public Card getOwner() {
         return owner;
     }
 }

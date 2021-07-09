@@ -8,8 +8,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import model.Directions;
 import model.Player;
-import sample.Fighter;
-
+import model.Troop.Troop;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -27,15 +26,15 @@ public class GameManager {
     private ImageView[][] blocks = new ImageView[32][18];
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
-    public Directions CharacterExist(Fighter fighter, Directions directions)
+    public Directions CharacterExist(Troop troop, Directions directions)
     {
         if(directions==Directions.TOP)
         {
-            for (int i=0;i<player.getFighters().size();i++)
+            for (int i=0;i<player.getTroops().size();i++)
             {
-                if(!player.getFighters().get(i).getPicHandler().equals(fighter.getPicHandler()))
+                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
                 {
-                    if(player.getFighters().get(i).getY_Current()- fighter.getY_Current()== -20 && player.getFighters().get(i).getX_Current()==fighter.getX_Current())
+                    if(player.getTroops().get(i).getY_Current()- troop.getY_Current()== -20 && player.getTroops().get(i).getX_Current()==troop.getX_Current())
                     {
                         return Directions.TOP;
                     }
@@ -44,11 +43,11 @@ public class GameManager {
         }
         else if(directions==Directions.LEFT)
         {
-            for (int i=0;i<player.getFighters().size();i++)
+            for (int i=0;i<player.getTroops().size();i++)
             {
-                if(!player.getFighters().get(i).getPicHandler().equals(fighter.getPicHandler()))
+                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
                 {
-                    if(player.getFighters().get(i).getX_Current()- fighter.getX_Current()== -20 && player.getFighters().get(i).getY_Current()==fighter.getY_Current())
+                    if(player.getTroops().get(i).getX_Current()- troop.getX_Current()== -20 && player.getTroops().get(i).getY_Current()==troop.getY_Current())
                     {
                         return Directions.LEFT;
                     }
@@ -57,11 +56,11 @@ public class GameManager {
         }
         else if(directions==Directions.RIGHT)
         {
-            for (int i=0;i<player.getFighters().size();i++)
+            for (int i=0;i<player.getTroops().size();i++)
             {
-                if(!player.getFighters().get(i).getPicHandler().equals(fighter.getPicHandler()))
+                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
                 {
-                    if(player.getFighters().get(i).getX_Current()- fighter.getX_Current()== 20 && fighter.getY_Current()==player.getFighters().get(i).getY_Current())
+                    if(player.getTroops().get(i).getX_Current()- troop.getX_Current()== 20 && troop.getY_Current()==player.getTroops().get(i).getY_Current())
                     {
                         return Directions.RIGHT;
                     }
@@ -70,11 +69,11 @@ public class GameManager {
         }
         else if(directions==Directions.DOWN)
         {
-            for (int i=0;i<player.getFighters().size();i++)
+            for (int i=0;i<player.getTroops().size();i++)
             {
-                if(!player.getFighters().get(i).getPicHandler().equals(fighter.getPicHandler()))
+                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
                 {
-                    if(player.getFighters().get(i).getY_Current()- fighter.getY_Current()== 20 && player.getFighters().get(i).getX_Current()==fighter.getX_Current())
+                    if(player.getTroops().get(i).getY_Current()- troop.getY_Current()== 20 && player.getTroops().get(i).getX_Current()==troop.getX_Current())
                     {
                         return Directions.DOWN;
                     }
@@ -227,25 +226,25 @@ public class GameManager {
     public ImageView[][] getRoads() {
         return roads;
     }
-    public void add(Fighter fighter, AnchorPane anchorPane)
-    {
-        anchorPane.getChildren().add(fighter.getPicHandler());
-    }
+//    public void add(Fighter fighter, AnchorPane anchorPane)
+//    {
+//        anchorPane.getChildren().add(fighter.getPicHandler());
+//    }
     public void Move()
     {
-        for (int i=0;i<player.getFighters().size();i++)
+        for (int i=0;i<player.getTroops().size();i++)
         {
-            if(player.getFighters().get(i).getY_Current()>0)
+            if(player.getTroops().get(i).getY_Current()>0)
             {
-                Directions help = this.CharacterExist(player.getFighters().get(i),Directions.TOP);
+                Directions help = this.CharacterExist(player.getTroops().get(i),Directions.TOP);
                 if(help==null)
                 {
-                    player.getFighters().get(i).Forward();
+                    player.getTroops().get(i).Forward();
                     //   Range(fighters.get(i));
                 }
                 else
                 {
-                    player.getFighters().get(i).Left();
+                    player.getTroops().get(i).Left();
                     // Range(fighters.get(i));
                 }
             }
