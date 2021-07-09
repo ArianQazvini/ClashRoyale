@@ -7,8 +7,7 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 public class MiniPEKKA extends Troop{
-    public MiniPEKKA(String WalkingPic){
-        super(WalkingPic);
+    public MiniPEKKA(){
         super.setCount(1);
         super.setCost(4);
         //super.setRange(melee);

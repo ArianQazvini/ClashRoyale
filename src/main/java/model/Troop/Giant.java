@@ -7,11 +7,9 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 public class Giant extends Troop{
-    public Giant(String WalkingPic){
-        super(WalkingPic);
+    public Giant(){
         super.setCount(1);
         super.setCost(5);
-        //super.setRange(melee);
         setSpeed(Speed.SLOW);
         super.setHitSpeed(1.5F);
         super.setTarget(Target.BUILDING);

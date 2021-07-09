@@ -153,7 +153,7 @@ public class Controller {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                Wizard wizard = new Wizard("src/main/resources/pics/Wizard.jpg");
+                Wizard wizard = new Wizard();
                 wizard.getPicHandler().setWalkingMode();
                 FixLocation(wizard,x,y);
                 gameManager.getPlayer().getTroops().add(wizard);

@@ -7,8 +7,7 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 public class BabyDragon extends Troop{
-    public BabyDragon(String WalkingPic){
-        super(WalkingPic);
+    public BabyDragon(){
         super.setCount(1);
         super.setCost(4);
         super.setRange(3);

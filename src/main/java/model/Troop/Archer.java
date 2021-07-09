@@ -7,8 +7,7 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 public class Archer extends Troop{
-    public Archer(String WalkingPic){
-        super(WalkingPic);
+    public Archer(){
         super.setCount(2);
         super.setCost(3);
         super.setRange(5);

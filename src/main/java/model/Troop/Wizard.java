@@ -4,11 +4,13 @@ import enums.Level;
 import enums.Speed;
 import enums.Target;
 import model.Damage;
+import model.PicHandler;
 import model.informations.ACLevelValue;
 
 public class Wizard extends Troop{
-    public Wizard(String WalkingPic){
-        super(WalkingPic);
+    public Wizard(){
+        setWalking("src/main/resources/pics/Wizard.jpg");
+        setPicHandler(new PicHandler(this,getWalking()));
         super.setCount(1);
         super.setCost(5);
         super.setRange(5);

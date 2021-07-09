@@ -19,11 +19,11 @@ public class Troop extends AttackCard {
     private double y_destination;
     private double x_Current;
     private double y_Current;
-    public Troop(String WalkingPic)
-    {
-        this.WalkingPic = WalkingPic;
-        this.picHandler = new PicHandler(this,this.WalkingPic);
+
+    public void setPicHandler(PicHandler picHandler) {
+        this.picHandler = picHandler;
     }
+
     public int getCount() {
         return count;
     }

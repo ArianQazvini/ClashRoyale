@@ -7,8 +7,7 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 public class Barbarian extends Troop{
-    public Barbarian(String WalkingPic){
-        super(WalkingPic);
+    public Barbarian(){
         super.setCount(4);
         super.setCost(5);
         super.setHitSpeed(1.5F);
