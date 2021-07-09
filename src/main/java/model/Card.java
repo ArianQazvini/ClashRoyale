@@ -7,7 +7,6 @@ import javafx.scene.shape.Rectangle;
 
 public class Card extends WarObject {
     private int cost;
-
     public int getCost() {
         return cost;
     }
@@ -15,6 +14,5 @@ public class Card extends WarObject {
     public void setCost(int cost) {
         this.cost = cost;
     }
-
 
 }
