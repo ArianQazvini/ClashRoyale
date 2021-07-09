@@ -7,7 +7,6 @@ import sample.Main;
 import services.GameManager;
 import services.ViewService;
 
-import java.awt.*;
 
 public class RobotLevelController {
     GameManager gameManager= Main.gameManager;

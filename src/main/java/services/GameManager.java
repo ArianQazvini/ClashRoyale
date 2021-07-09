@@ -211,13 +211,7 @@ public class GameManager {
     public Player getPlayer() {
         return player;
     }
-    public void checkState() throws Exception {
-       while (true){
-           if (player.isAnonymous()){
-               setRoot("menu");
-           }
-       }
-    }
+
     public ImageView[][] getBlocks() {
         return blocks;
     }

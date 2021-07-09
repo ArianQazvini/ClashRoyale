@@ -9,24 +9,21 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DeckController">
+<AnchorPane fx:id="pageArea" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.DeckController">
    <children>
       <Text layoutX="10.0" layoutY="251.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="280.6708984375" />
-      <VBox layoutX="6.0" layoutY="40.0" prefHeight="200.0" prefWidth="100.0" spacing="5.0">
+      <VBox layoutX="6.0" layoutY="40.0" prefHeight="200.0" prefWidth="290.0" spacing="5.0">
          <children>
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.5" />
-            <HBox prefHeight="100.0" prefWidth="200.0" spacing="2.5" />
+            <HBox fx:id="deckHBox1" prefHeight="100.0" prefWidth="290.0" spacing="2.5" />
+            <HBox fx:id="deckHBox2" prefHeight="100.0" prefWidth="290.0" spacing="2.5" />
          </children>
       </VBox>
-      <HBox fx:id="cardCollectionHBox" layoutX="6.0" layoutY="271.0" prefHeight="100.0" prefWidth="200.0" spacing="2.5">
-         <children>
-            <ImageView fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-            <ImageView fitHeight="100.0" fitWidth="70.0" pickOnBounds="true" preserveRatio="true" />
-         </children>
-      </HBox>
+      <ScrollPane fx:id="cardCollectionScrollPane" layoutX="10.0" layoutY="310.0" prefHeight="105.0" prefWidth="280.0">
+         <content>
+            <HBox fx:id="cardCollectionHBox" alignment="CENTER" prefHeight="100.0" spacing="5.0" />
+         </content>
+      </ScrollPane>
+      <Button onAction="#back" fx:id="Back" layoutX="10.0" layoutY="9.0" mnemonicParsing="false" text="Back" />
    </children>
    <padding>
       <Insets bottom="5.0" left="2.5" right="2.5" top="5.0" />

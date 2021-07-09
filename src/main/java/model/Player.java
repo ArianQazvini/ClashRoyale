@@ -8,8 +8,9 @@ import java.util.ArrayList;
 
 public class Player {
     private ArrayList<Fighter> fighters = new ArrayList<>();
-    private ArrayList<Card>cardsCollection=new ArrayList<>();
-    private Deck deck;
+    private ArrayList<String>cardsCollection=new ArrayList<>();
+    private ArrayList<Card>cards=new ArrayList<>();
+    private Deck deck=new Deck();
     private String name;
     private String password;
     private KingTower kingTower;
@@ -18,11 +19,25 @@ public class Player {
     boolean anonymous=false;
     private int elixir =0;
 
+    public ArrayList<Card> getCards() {
+        return cards;
+    }
+
     public void setAnonymous(boolean anonymous) {
         this.anonymous = anonymous;
     }
 
+    public ArrayList<String> getCardsCollection() {
+        return cardsCollection;
+    }
+
+    public Deck getDeck() {
+        return deck;
+    }
+
     public void setName(String name) {
+        cardsCollection.add("20.png");
+        cardsCollection.add("roadTile.png");
         this.name = name;
     }
 
