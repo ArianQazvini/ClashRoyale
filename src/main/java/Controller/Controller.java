@@ -15,8 +15,11 @@ import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import model.AttackCard;
+import model.GameDeck;
+import model.GameDeckObject;
 import model.Troop.Troop;
 import model.Troop.Wizard;
+import sample.Main;
 import services.GameManager;
 
 import java.io.File;
@@ -31,7 +34,7 @@ public class Controller {
     private AnchorPane MainGround;
     private ImageView temp;
     @FXML
-    private HBox Deck;
+    private HBox deckOfGameHBox;
 
     @FXML
     private Button Button1;
@@ -45,13 +48,14 @@ public class Controller {
     @FXML
     private Button Button4;
     @FXML
-    private ProgressBar ElxirBar;
+    private ProgressBar ElixirBar;
     @FXML
-    private TextField Elxirs;
+    private TextField Elixirs;
     @FXML
     private TextField Warnings;
     @FXML
-    private AnchorPane PlayGround;
+    private AnchorPane playGround;
+    private GameDeck gameDeck;
     private Timer timer;
     private final int blockSize = 20;
     private final int rows =18;
@@ -59,28 +63,29 @@ public class Controller {
     private ImageView[][] blocks = new ImageView[32][18];
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
-    private GameManager gameManager;
+    private GameManager gameManager= Main.gameManager;
    // private ArrayList<Fighter> elements = new ArrayList<>();
     private int check =0;
     //    private ArrayList<Fighter> fighters = new ArrayList<>();
     public void initialize()
     {
-        gameManager = new GameManager();
         gameManager.CreateMap();
         Warnings.setVisible(false);
-        Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
-        ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(70);
-        imageView.setFitWidth(70);
-        imageView.setPreserveRatio(true);
-        Button1.setGraphic(imageView);
+//        Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
+//        ImageView imageView = new ImageView(image);
+//        imageView.setFitHeight(70);
+//        imageView.setFitWidth(70);
+//        imageView.setPreserveRatio(true);
+//        Button1.setGraphic(imageView);
+        gameDeck=new GameDeck(deckOfGameHBox);
+        gameDeck.start();
         UpdatePage();
         StartTimer();
     }
     @FXML
     void Press(ActionEvent event) {
-        PlayGround.setDisable(false);
-        PlayGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
+        playGround.setDisable(false);
+        playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
                 if(mouseEvent.getY()<=340.0)
@@ -111,11 +116,11 @@ public class Controller {
                     thread.setDaemon(true);
                     thread.start();
                 }
-                PlayGround.setDisable(true);
+                playGround.setDisable(true);
             }
         });
     }
-    private void ElxirStart()
+    private void ElixirStart()
     {
 
         Platform.runLater(new Runnable() {
@@ -125,8 +130,8 @@ public class Controller {
             @Override
             public void run() {
                 KeyFrame keyFrame = new KeyFrame(Duration.seconds(2),actionEvent -> {
-                    Elxirs.setText(String.valueOf(j));
-                    ElxirBar.setProgress(i);
+                    Elixirs.setText(String.valueOf(j));
+                    ElixirBar.setProgress(i);
                     i+=0.1;
                     j++;
                 });
@@ -137,12 +142,12 @@ public class Controller {
 
         });
     }
-    private void ElxirThread()
+    private void ElixirThread()
     {
         Thread thread= new Thread(new Runnable() {
             @Override
             public void run() {
-                ElxirStart();
+                ElixirStart();
             }
         });
         thread.setDaemon(true);
@@ -156,7 +161,7 @@ public class Controller {
                 Wizard wizard = new Wizard();
                 FixLocation(wizard,x,y);
                 gameManager.getPlayer().getTroops().add(wizard);
-                PlayGround.getChildren().add(wizard.getPicHandler());
+                playGround.getChildren().add(wizard.getPicHandler());
             }
         });
     }
@@ -183,7 +188,7 @@ public class Controller {
     }
     private void UpdatePage()
     {
-        PlayGround.getChildren().clear();
+        playGround.getChildren().clear();
         for (int i=0;i<32;i++)
         {
             if(i==15 || i==16)
@@ -211,11 +216,11 @@ public class Controller {
                         {
                             index=1;
                         }
-                        PlayGround.getChildren().add(gameManager.getRoads()[i][index]);
+                        playGround.getChildren().add(gameManager.getRoads()[i][index]);
                     }
                     else
                     {
-                        PlayGround.getChildren().add(gameManager.getRiver()[index2][z]);
+                        playGround.getChildren().add(gameManager.getRiver()[index2][z]);
                         z++;
                     }
                 }
@@ -235,18 +240,18 @@ public class Controller {
                         {
                             index=1;
                         }
-                        PlayGround.getChildren().add(gameManager.getRoads()[i][index]);
+                        playGround.getChildren().add(gameManager.getRoads()[i][index]);
                     }
                     else
                     {
-                        PlayGround.getChildren().add(gameManager.getBlocks()[i][j]);
+                        playGround.getChildren().add(gameManager.getBlocks()[i][j]);
                     }
                 }
             }
         }
         for (int i=0;i<gameManager.getPlayer().getTroops().size();i++)
         {
-            PlayGround.getChildren().add(gameManager.getPlayer().getTroops().get(i).getPicHandler());
+            playGround.getChildren().add(gameManager.getPlayer().getTroops().get(i).getPicHandler());
         }
     }
     private void StartTimer()
@@ -274,30 +279,5 @@ public class Controller {
             gameManager.Move();
         }
     }
-//    private void remove()
-//    {
-//        Iterator<Node> it = PlayGround.getChildren().iterator();
-//        int z = 0;
-//        while (it.hasNext())
-//        {
-//            Node temp = it.next();
-//            if(temp instanceof PicHandler)
-//            {
-//                PicHandler temp2 = (PicHandler) temp;
-//                if(temp2.equals(elements.get(z).getPicHandler()))
-//                {
-//                    it.remove();
-//                    z++;
-//                }
-//                else
-//                {
-//                }
-//            }
-//            else
-//            {
-//
-//            }
-//        }
-//        elements.clear();;
-//    }
+
 }

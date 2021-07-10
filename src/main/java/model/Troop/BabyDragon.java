@@ -8,6 +8,7 @@ import model.informations.ACLevelValue;
 
 public class BabyDragon extends Troop{
     public BabyDragon(){
+        setAvatar("baby-dragon.png");
         super.setCount(1);
         super.setCost(4);
         super.setRange(3);

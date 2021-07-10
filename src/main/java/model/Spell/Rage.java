@@ -8,6 +8,7 @@ public class Rage extends Spell{
     float speedBoost;
     float hitSpeedBoost;
     public Rage(){
+        setAvatar("rage.png");
         damageBoost=1.4F;
         speedBoost=1.4F;
         hitSpeedBoost=1.4F;

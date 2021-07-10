@@ -14,6 +14,7 @@ public class Cannon extends Building{
     private Circle CanonnBall = new Circle();
     private int ShootingTimeTick=0;
     public Cannon(){
+        setAvatar("cannon.png");
         setHitSpeed(0.8F);
         setTarget(Target.GROUND);
         setRange(5.5F);

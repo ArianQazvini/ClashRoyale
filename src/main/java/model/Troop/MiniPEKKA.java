@@ -8,6 +8,7 @@ import model.informations.ACLevelValue;
 
 public class MiniPEKKA extends Troop{
     public MiniPEKKA(){
+        setAvatar("mini-pekka.png");
         super.setCount(1);
         super.setCost(4);
         //super.setRange(melee);

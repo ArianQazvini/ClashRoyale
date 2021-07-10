@@ -8,6 +8,7 @@ import model.informations.ACLevelValue;
 
 public class Barbarian extends Troop{
     public Barbarian(){
+        setAvatar("barbarians.png");
         super.setCount(4);
         super.setCost(5);
         super.setHitSpeed(1.5F);
