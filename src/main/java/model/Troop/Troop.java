@@ -2,6 +2,7 @@ package model.Troop;
 
 import enums.Speed;
 import enums.Target;
+import javafx.scene.shape.Rectangle;
 import model.AttackCard;
 import model.PicHandler;
 import model.informations.LevelInformation;
@@ -9,21 +10,14 @@ import model.informations.LevelValue;
 
 import java.util.TreeMap;
 
-public class Troop extends AttackCard {
+public abstract class Troop extends AttackCard {
     private int count;
     private Speed speed;
     private boolean isAreaSplash;
     private String WalkingPic;
-    private PicHandler picHandler;
+    private Rectangle picHandler = new Rectangle();
     private double x_destination;
     private double y_destination;
-    private double x_Current;
-    private double y_Current;
-
-    public void setPicHandler(PicHandler picHandler) {
-        this.picHandler = picHandler;
-    }
-
     public int getCount() {
         return count;
     }
@@ -47,28 +41,28 @@ public class Troop extends AttackCard {
         this.speed = speed;
     }
 
-    public PicHandler getPicHandler() {
+    public Rectangle getPicHandler() {
         return picHandler;
     }
-    public void Left()
+    public void Left(double dist)
     {
-        x_Current = picHandler.getX()-20;
-        picHandler.setX(x_Current);
+        super.setX_Current( picHandler.getX()-dist);
+        picHandler.setX(super.getX());
     }
-    public void Right()
+    public void Right(double dist)
     {
-        x_Current=picHandler.getX()+20;
-        picHandler.setX(x_Current);
+        super.setX_Current(picHandler.getX()+dist);
+        picHandler.setX(super.getX());
     }
-    public void Forward()
+    public void Forward(double dist)
     {
-        y_Current=picHandler.getY()-20;
-        picHandler.setY(y_Current);
+        super.setY_Current(picHandler.getY()-dist);
+        picHandler.setY(super.getY());
     }
-    public void Backward()
+    public void Backward(double dist)
     {
-        y_Current=picHandler.getY()+20;
-        picHandler.setY(y_Current);
+        super.setY_Current(picHandler.getY()+dist);
+        picHandler.setY(super.getY());
     }
     public void setWalking(String walking) {
         this.WalkingPic = walking;
@@ -83,8 +77,8 @@ public class Troop extends AttackCard {
     }
     public void setCurrent(double x,double y)
     {
-        this.x_Current=x;
-        this.y_Current=y;
+        super.setX_Current(x);
+        super.setY_Current(y);
         picHandler.setX(x);
         picHandler.setY(y);
     }
@@ -94,10 +88,12 @@ public class Troop extends AttackCard {
     public double getY_destination() {
         return y_destination;
     }
-    public double getX_Current() {
-        return x_Current;
-    }
-    public double getY_Current() {
-        return y_Current;
-    }
+    public abstract void WalkingTopMode();
+    public abstract void WalkingLeftMode();
+    public abstract void WalkingRightMode();
+    public abstract void WalkingDownMode();
+    public abstract void HitUpMode();
+    public abstract void HitDownMode();
+    public abstract void HitLeftMode();
+    public abstract void HitRightMode();
 }

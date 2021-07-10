@@ -154,7 +154,6 @@ public class Controller {
             @Override
             public void run() {
                 Wizard wizard = new Wizard();
-                wizard.getPicHandler().setWalkingMode();
                 FixLocation(wizard,x,y);
                 gameManager.getPlayer().getTroops().add(wizard);
                 PlayGround.getChildren().add(wizard.getPicHandler());

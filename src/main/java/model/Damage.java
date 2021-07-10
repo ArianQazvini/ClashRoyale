@@ -5,4 +5,7 @@ public class Damage<T>{
     public Damage(T value){
         this.value=value;
     }
+    public T getValue() {
+        return value;
+    }
 }

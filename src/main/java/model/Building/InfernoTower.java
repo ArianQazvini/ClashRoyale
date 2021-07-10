@@ -2,8 +2,13 @@ package model.Building;
 
 import enums.Level;
 import enums.Target;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Line;
 import model.Damage;
 import model.informations.ACLevelValue;
+
+import java.io.File;
 
 public class InfernoTower extends Building{
     private Damage currentDamage;
@@ -19,7 +24,15 @@ public class InfernoTower extends Building{
         setLevel4(new ACLevelValue(1064,new Damage<>(new DamageVary(26,532)),Level.LEVEL4));
         setLevel5(new ACLevelValue(1168,new Damage<>(new DamageVary(29,584)),Level.LEVEL5));
         setLevelInformation(super.getLevel1());
+        Image image = new Image(new File("src/main/java/resources/pics/Characters/InfernoTower.png").toURI().toString());
+        ImagePattern imagePattern = new ImagePattern(image);
+        super.getPicHandler().setFill(imagePattern);
+        super.getPicHandler().setHeight(20);
+        super.getPicHandler().setWidth(20);
+        super.getPicHandler().setX(super.getX_Current());
+        super.getPicHandler().setY(super.getY_Current());
     }
+
 }
 class DamageVary {
     int min;

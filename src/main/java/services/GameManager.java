@@ -230,17 +230,17 @@ public class GameManager {
         {
             if(player.getTroops().get(i).getY_Current()>0)
             {
-                Directions help = this.CharacterExist(player.getTroops().get(i),Directions.TOP);
-                if(help==null)
-                {
-                    player.getTroops().get(i).Forward();
+//                Directions help = this.CharacterExist(player.getTroops().get(i),Directions.TOP);
+//                if(help==null)
+//                {
+                    player.getTroops().get(i).Forward(blockSize);
                     //   Range(fighters.get(i));
-                }
-                else
-                {
-                    player.getTroops().get(i).Left();
-                    // Range(fighters.get(i));
-                }
+//                }
+//                else
+//                {
+//                    player.getTroops().get(i).Left(blockSize);
+//                    // Range(fighters.get(i));
+//                }
             }
         }
     }
