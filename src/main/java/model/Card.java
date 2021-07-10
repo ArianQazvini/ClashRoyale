@@ -14,5 +14,8 @@ public class Card extends WarObject {
     public void setCost(int cost) {
         this.cost = cost;
     }
+    public void doAction(){
 
+    }
+    public void setCurrent(double x,double y){}
 }

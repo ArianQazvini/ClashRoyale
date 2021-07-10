@@ -5,6 +5,7 @@ import model.informations.SpellLevelValue;
 
 public class Arrows extends Spell{
     public Arrows(){
+        setAvatar("arrows.png");
         setRadius(4);
         setCost(3);
         setLevel1(new SpellLevelValue(Level.LEVEL1,144));

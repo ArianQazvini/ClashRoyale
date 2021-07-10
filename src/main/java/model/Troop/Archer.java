@@ -8,6 +8,7 @@ import model.informations.ACLevelValue;
 
 public class Archer extends Troop{
     public Archer(){
+        setAvatar("archers.png");
         super.setCount(2);
         super.setCost(3);
         super.setRange(5);

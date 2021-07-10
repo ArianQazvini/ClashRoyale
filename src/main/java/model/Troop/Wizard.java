@@ -9,6 +9,7 @@ import model.informations.ACLevelValue;
 
 public class Wizard extends Troop{
     public Wizard(){
+        setAvatar("wizard.png");
         setWalking("src/main/resources/pics/Wizard.jpg");
         setPicHandler(new PicHandler(this,getWalking()));
         super.setCount(1);

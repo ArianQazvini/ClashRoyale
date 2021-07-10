@@ -8,6 +8,7 @@ import model.informations.ACLevelValue;
 public class InfernoTower extends Building{
     private Damage currentDamage;
     public InfernoTower(){
+        setAvatar("inferno-tower.png");
         setHitSpeed(0.4F);
         setTarget(Target.AIR_GROUND);
         setRange(6);

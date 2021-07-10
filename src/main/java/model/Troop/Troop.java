@@ -81,6 +81,7 @@ public class Troop extends AttackCard {
         this.x_destination=x;
         this.y_destination=y;
     }
+    @Override
     public void setCurrent(double x,double y)
     {
         this.x_Current=x;
@@ -99,5 +100,10 @@ public class Troop extends AttackCard {
     }
     public double getY_Current() {
         return y_Current;
+    }
+
+    @Override
+    public void doAction() {
+        getPicHandler().setWalkingMode();
     }
 }

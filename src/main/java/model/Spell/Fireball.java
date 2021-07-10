@@ -5,6 +5,7 @@ import model.informations.SpellLevelValue;
 
 public class Fireball extends Spell{
     public Fireball(){
+        setAvatar("fireball.png");
         setRadius(2.5F);
         setCost(4);
         setLevel1(new SpellLevelValue(Level.LEVEL1,325));

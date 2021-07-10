@@ -7,6 +7,7 @@ import model.informations.ACLevelValue;
 
 public class Cannon extends Building{
     public Cannon(){
+        setAvatar("cannon.png");
         setHitSpeed(0.8F);
         setTarget(Target.GROUND);
         setRange(5.5F);

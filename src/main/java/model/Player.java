@@ -1,9 +1,14 @@
 package model;
 
+import model.Building.Cannon;
+import model.Building.InfernoTower;
+import model.Spell.Arrows;
+import model.Spell.Fireball;
+import model.Spell.Rage;
 import model.Tower.KingTower;
 import model.Tower.PrinceTower;
-import model.Troop.Troop;
-import model.Troop.Giant;
+import model.Troop.*;
+
 import java.util.ArrayList;
 
 public class Player {
@@ -21,18 +26,17 @@ public class Player {
 
     public Player(){
         cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
-        cards.add(new Giant());
+        cards.add(new Arrows());
+        cards.add(new Archer());
+        cards.add(new Barbarian());
+        cards.add(new BabyDragon());
+        cards.add(new MiniPEKKA());
+        cards.add(new Valkyrie());
+        cards.add(new Wizard());
+        cards.add(new Cannon());
+        cards.add(new InfernoTower());
+        cards.add(new Rage());
+        cards.add(new Fireball());
 
     }
     public ArrayList<Card> getCards() {
