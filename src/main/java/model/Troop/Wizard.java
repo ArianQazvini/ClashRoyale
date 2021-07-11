@@ -3,11 +3,19 @@ package model.Troop;
 import enums.Level;
 import enums.Speed;
 import enums.Target;
+import javafx.scene.image.Image;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import model.Damage;
+import model.Directions;
 import model.PicHandler;
 import model.informations.ACLevelValue;
 
+import java.io.File;
+
 public class Wizard extends Troop{
+    private Circle fireball = new Circle();
+    private int ShootingTimeTick=0;
     public Wizard(){
         setAvatar("wizard.png");
         setWalking("src/main/resources/pics/Wizard.jpg");

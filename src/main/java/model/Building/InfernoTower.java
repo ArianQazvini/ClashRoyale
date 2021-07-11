@@ -33,6 +33,11 @@ public class InfernoTower extends Building{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
+    @Override
+    public void Hit()
+    {
+
+    }
 
 }
 class DamageVary {

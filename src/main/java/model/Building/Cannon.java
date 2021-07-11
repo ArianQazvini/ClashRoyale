@@ -94,40 +94,76 @@ public class Cannon extends Building{
     {
         if(super.getLockedTarget().getHp()>0)
         {
-            ShootingTimeTick++;
-            if(ShootingTimeTick== (super.getHitSpeed() *10))
+            if(super.targetDistance()<= this.getRange() * 20)
             {
-                super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
-            }
-            double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
-            double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
-            double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
-            //------------------------
-            double xMoveVector = x_Vector/distPart;
-            double yMoveVector = y_Vector/distPart;
-            //------------------------
-            if(xMoveVector>0)
-            {
-                this.CannonBallRight(xMoveVector);
+                ShootingTimeTick++;
+                if(ShootingTimeTick== (super.getHitSpeed() *10))
+                {
+                    super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
+                }
+                double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
+                double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
+                //*************************
+                if(Math.abs(x_Vector)>Math.abs(y_Vector))
+                {
+                    if(y_Vector>0)
+                    {
+                        DownPic();
+                    }
+                    else
+                    {
+                        UpPic();
+                    }
+                }
+                else
+                {
+                    if(x_Vector>0)
+                    {
+                        RightPic();
+                    }
+                    else
+                    {
+                        LeftPic();
+                    }
+                }
+                //------------------------
+                double xMoveVector = x_Vector/distPart;
+                double yMoveVector = y_Vector/distPart;
+                //------------------------
+                if(xMoveVector>0)
+                {
+                    this.CannonBallRight(xMoveVector);
+                }
+                else
+                {
+                    this.CannonBallLeft((-1)*xMoveVector);
+                }
+                //------------------------------
+                if(yMoveVector>0)
+                {
+                    this.CannonBallBackWard(yMoveVector);
+                }
+                else
+                {
+                    this.CannonBallForward((-1)*yMoveVector);
+                }
+                if(ShootingTimeTick== (super.getHitSpeed() *10))
+                {
+                    ShootingTimeTick=0;
+                }
             }
             else
             {
-                this.CannonBallLeft((-1)*xMoveVector);
-            }
-            //------------------------------
-            if(yMoveVector>0)
-            {
-                this.CannonBallBackWard(yMoveVector);
-            }
-            else
-            {
-                this.CannonBallForward((-1)*yMoveVector);
+                ShootingTimeTick=0;
             }
         }
         else
         {
             this.CanonnBall.setCenterX(super.getX_Current());
             this.CanonnBall.setCenterY(super.getY_Current());
+            super.setLockedTarget(null);
+            ShootingTimeTick=0;
         }
     }
     public Circle getCanonnBall() {

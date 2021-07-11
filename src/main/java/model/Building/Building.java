@@ -7,18 +7,12 @@ import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
 public abstract class Building extends AttackCard {
-    private int lifeTime;
+    private double lifeTime;
     private double x_Current;
     private double y_Current;
-    private Rectangle picHandler = new Rectangle();
-    public int getLifeTime() {
+    public double getLifeTime() {
         return lifeTime;
     }
-
-    public Rectangle getPicHandler() {
-        return picHandler;
-    }
-
     public double getX_Current() {
         return x_Current;
     }
@@ -33,11 +27,11 @@ public abstract class Building extends AttackCard {
         this.y_Current = y_Current;
     }
 
-    public void setLifeTime(int lifeTime) {
+    public void setLifeTime(double lifeTime) {
         this.lifeTime = lifeTime;
     }
-    public void decrementLife()
+    public void decrementLife(double value)
     {
-        lifeTime--;
+        lifeTime-=value;
     }
 }

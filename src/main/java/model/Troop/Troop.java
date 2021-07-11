@@ -4,10 +4,12 @@ import enums.Speed;
 import enums.Target;
 import javafx.scene.shape.Rectangle;
 import model.AttackCard;
+import model.Directions;
 import model.PicHandler;
 import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
+import javax.print.attribute.standard.Destination;
 import java.util.TreeMap;
 
 public abstract class Troop extends AttackCard {
@@ -15,7 +17,6 @@ public abstract class Troop extends AttackCard {
     private Speed speed;
     private boolean isAreaSplash;
     private String WalkingPic;
-    private Rectangle picHandler = new Rectangle();
     private double x_destination;
     private double y_destination;
     public int getCount() {
@@ -40,29 +41,25 @@ public abstract class Troop extends AttackCard {
     public void setSpeed(Speed speed) {
         this.speed = speed;
     }
-
-    public Rectangle getPicHandler() {
-        return picHandler;
-    }
-    public void Left(double dist)
+    public void Left()
     {
-        super.setX_Current( picHandler.getX()-dist);
-        picHandler.setX(super.getX());
+        super.setX_Current( super.getPicHandler().getX()-speed.getVelocity());
+        super.getPicHandler().setX(super.getX());
     }
-    public void Right(double dist)
+    public void Right()
     {
-        super.setX_Current(picHandler.getX()+dist);
-        picHandler.setX(super.getX());
+        super.setX_Current( super.getPicHandler().getX()+speed.getVelocity());
+        super.getPicHandler().setX(super.getX());
     }
-    public void Forward(double dist)
+    public void Forward()
     {
-        super.setY_Current(picHandler.getY()-dist);
-        picHandler.setY(super.getY());
+        super.setY_Current( super.getPicHandler().getY()-speed.getVelocity());
+        super.getPicHandler().setY(super.getY());
     }
-    public void Backward(double dist)
+    public void Backward()
     {
-        super.setY_Current(picHandler.getY()+dist);
-        picHandler.setY(super.getY());
+        super.setY_Current( super.getPicHandler().getY()+speed.getVelocity());
+        super.getPicHandler().setY(super.getY());;
     }
     public void setWalking(String walking) {
         this.WalkingPic = walking;
@@ -74,13 +71,6 @@ public abstract class Troop extends AttackCard {
     {
         this.x_destination=x;
         this.y_destination=y;
-    }
-    public void setCurrent(double x,double y)
-    {
-        super.setX_Current(x);
-        super.setY_Current(y);
-        picHandler.setX(x);
-        picHandler.setY(y);
     }
     public double getX_destination() {
         return x_destination;
@@ -96,4 +86,33 @@ public abstract class Troop extends AttackCard {
     public abstract void HitDownMode();
     public abstract void HitLeftMode();
     public abstract void HitRightMode();
+    public abstract void changePictoTarget();
+
+    public Directions closestDirectionTo(double x_dist,double y_dist)
+    {
+        double x_Vector =x_dist-this.getPicHandler().getX();
+        double y_Vector =y_dist-this.getPicHandler().getY();
+        if(Math.abs(x_Vector)>Math.abs(y_Vector))
+        {
+            if(y_Vector>0)
+            {
+                return Directions.DOWN;
+            }
+            else
+            {
+                return Directions.TOP;
+            }
+        }
+        else
+        {
+            if(x_Vector>0)
+            {
+                return Directions.RIGHT;
+            }
+            else
+            {
+                return Directions.LEFT;
+            }
+        }
+    }
 }

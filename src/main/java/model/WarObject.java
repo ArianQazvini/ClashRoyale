@@ -1,9 +1,9 @@
 package model;
 
+import javafx.scene.shape.Rectangle;
 import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
-import java.awt.*;
 
 public class WarObject extends Rectangle {
     private String avatar;

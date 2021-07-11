@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import model.Directions;
 import model.Player;
@@ -26,6 +27,7 @@ public class GameManager {
     private ImageView[][] blocks = new ImageView[32][18];
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
+    private ArrayList<Shape> shapes = new ArrayList<>();
     public Directions CharacterExist(Troop troop, Directions directions)
     {
         if(directions==Directions.TOP)
