@@ -140,6 +140,7 @@ public class Controller {
                     ElixirBar.setProgress(i);
                     i+=0.1;
                     j++;
+
                 });
                 timeline1= new Timeline(keyFrame);
                 timeline1.setCycleCount(Timeline.INDEFINITE);
