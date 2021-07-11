@@ -13,6 +13,8 @@ public abstract class Building extends AttackCard {
     public double getLifeTime() {
         return lifeTime;
     }
+
+
     public double getX_Current() {
         return x_Current;
     }

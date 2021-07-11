@@ -15,13 +15,17 @@ import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
 import javafx.util.Duration;
 import model.AttackCard;
+import model.Building.Building;
+import model.Card;
 import model.GameDeck;
 import model.GameDeckObject;
+import model.Spell.Spell;
 import model.Troop.Troop;
 import model.Troop.Wizard;
 import sample.Main;
 import services.GameManager;
 
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -82,8 +86,17 @@ public class Controller {
         UpdatePage();
         StartTimer();
     }
-    @FXML
-    void Press(ActionEvent event) {
+    private void setDeckOnClick(){
+        for (GameDeckObject g:gameDeck.getGameDeckObjects()){
+            g.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent mouseEvent) {
+                    press(g.getCard());
+                }
+            });
+        }
+    }
+    void press(Card card) {
         playGround.setDisable(false);
         playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -101,15 +114,8 @@ public class Controller {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-                            if(event.getSource()==Button1)
-                            {
-                                Task(mouseEvent.getX(),mouseEvent.getY(),300);
-                            }
-                            else
-                            {
-                                Task(mouseEvent.getX(),mouseEvent.getY(),400);
 
-                            }
+                                Task(mouseEvent.getX(),mouseEvent.getY(),card);
 
                         }
                     });
@@ -153,19 +159,20 @@ public class Controller {
         thread.setDaemon(true);
         thread.start();
     }
-    private void Task(double x,double y,int seconds)
-    {
-        Platform.runLater(new Runnable() {
-            @Override
-            public void run() {
-                Wizard wizard = new Wizard();
-                FixLocation(wizard,x,y);
-                gameManager.getPlayer().getTroops().add(wizard);
-                playGround.getChildren().add(wizard.getPicHandler());
-            }
-        });
+    private void Task(double x,double y,Card card) {
+        if (!(card instanceof Spell)) {
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    AttackCard tmp=(AttackCard)card;
+                    FixLocation(tmp, x, y);
+                    gameManager.getPlayer().getAttackCardsOnGround().add(tmp);
+                    playGround.getChildren().add(tmp.getPicHandler());
+                }
+            });
+        }
     }
-    private void FixLocation(Troop temp , double mouse_x, double mouse_y)
+    private void FixLocation(AttackCard temp , double mouse_x, double mouse_y)
     {
         int xPass = (int)mouse_x/blockSize;
         int yPass = (int)mouse_y/blockSize;

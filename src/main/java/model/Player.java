@@ -15,6 +15,7 @@ public class Player {
     private ArrayList<Troop> troops = new ArrayList<>();
     private ArrayList<Card>cardsCollection=new ArrayList<>();
     private ArrayList<Card>cards=new ArrayList<>();
+    private ArrayList<AttackCard>attackCardsOnGround=new ArrayList<>();
     private Deck deck=new Deck();
     private String name;
     private String password;
@@ -39,6 +40,11 @@ public class Player {
         cards.add(new Fireball());
 
     }
+
+    public ArrayList<AttackCard> getAttackCardsOnGround() {
+        return attackCardsOnGround;
+    }
+
     public ArrayList<Card> getCards() {
         return cards;
     }

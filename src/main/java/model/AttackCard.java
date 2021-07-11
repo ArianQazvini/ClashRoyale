@@ -33,6 +33,14 @@ public abstract class AttackCard extends Card {
         return LockedTarget;
     }
 
+    public Rectangle getPicHandler() {
+        return picHandler;
+    }
+
+    public void setPicHandler(Rectangle picHandler) {
+        this.picHandler = picHandler;
+    }
+
     public float getHitSpeed() {
         return hitSpeed;
     }
@@ -97,9 +105,7 @@ public abstract class AttackCard extends Card {
 
     //before using it -> call setLockedTarget
     public abstract void Hit();
-    public Rectangle getPicHandler() {
-        return picHandler;
-    }
+
     public boolean isLocked() {
         return isLocked;
     }
