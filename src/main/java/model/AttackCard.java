@@ -2,6 +2,7 @@ package model;
 
 import enums.Speed;
 import enums.Target;
+import javafx.scene.shape.Rectangle;
 import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
@@ -13,9 +14,20 @@ public abstract class AttackCard extends Card {
     private float range;
     private double x_Current;
     private double y_Current;
-    private AttackCard LockedTarget;
+    private AttackCard LockedTarget=null;
+    private boolean isLocked=false;
+    private Rectangle picHandler = new Rectangle();
     public void setLockedTarget(AttackCard lockedTarget) {
-        LockedTarget = lockedTarget;
+        if(lockedTarget==null)
+        {
+            isLocked=false;
+            this.LockedTarget=null;
+        }
+        else
+        {
+            LockedTarget = lockedTarget;
+            isLocked=true;
+        }
     }
     public AttackCard getLockedTarget() {
         return LockedTarget;
@@ -61,7 +73,20 @@ public abstract class AttackCard extends Card {
     public double getX_Current() {
         return x_Current;
     }
-
+    public void setCurrent(double x,double y)
+    {
+        this.setX_Current(x);
+        this.setY_Current(y);
+        picHandler.setX(x);
+        picHandler.setY(y);
+    }
+    public double targetDistance()
+    {
+        double tempx = this.getLockedTarget().getX() - this.getX_Current();
+        double tempy = this.getLockedTarget().getY() - this.getY_Current();
+        double sum = Math.pow(tempx,2)+Math.pow(tempy,2);
+        return Math.pow(sum,0.5);
+    }
     public double getY_Current() {
         return y_Current;
     }
@@ -72,5 +97,13 @@ public abstract class AttackCard extends Card {
 
     //before using it -> call setLockedTarget
     public abstract void Hit();
-
+    public Rectangle getPicHandler() {
+        return picHandler;
+    }
+    public boolean isLocked() {
+        return isLocked;
+    }
+    public void setLocked(boolean locked) {
+        isLocked = locked;
+    }
 }

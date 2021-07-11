@@ -263,7 +263,7 @@ public class Controller {
                 });
             }
         };
-        this.timer.schedule(timerTask,0,200);
+        this.timer.schedule(timerTask,0,100);
 
     }
     private void update()
