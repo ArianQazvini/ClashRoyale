@@ -87,4 +87,16 @@ public class Player {
     public ArrayList<Troop> getTroops() {
         return troops;
     }
+
+    public KingTower getKingTower() {
+        return kingTower;
+    }
+
+    public PrinceTower getPrinceTower1() {
+        return princeTower1;
+    }
+
+    public PrinceTower getPrinceTower2() {
+        return princeTower2;
+    }
 }

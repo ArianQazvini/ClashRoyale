@@ -191,7 +191,88 @@ public class GameManager {
             }
         }
     }
-
+    public void createPlayerTowers()
+    {
+        Image ground = new Image(new File("src/main/resources/pics/terrainTile4.png").toURI().toString());
+        Image pCrown = new Image(new File("src/main/resources/pics/PrinceCrown.png").toURI().toString());
+        Image kCrown = new Image(new File("src/main/resources/pics/KingCrown.png").toURI().toString());
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                if(i==1 && j==1)
+                {
+                    player.getKingTower().getImageViews()[i][j]=new ImageView(kCrown);
+                    player.getPrinceTower1().getImageViews()[i][j]= new ImageView(pCrown);
+                    player.getPrinceTower2().getImageViews()[i][j]= new ImageView(pCrown);
+                }
+                else
+                {
+                    player.getKingTower().getImageViews()[i][j]=new ImageView(ground);
+                    player.getPrinceTower1().getImageViews()[i][j]= new ImageView(ground);
+                    player.getPrinceTower2().getImageViews()[i][j]= new ImageView(ground);
+                }
+                player.getKingTower().getImageViews()[i][j].setFitWidth(20);
+                player.getKingTower().getImageViews()[i][j].setFitHeight(20);
+                player.getPrinceTower1().getImageViews()[i][j].setFitWidth(20);
+                player.getPrinceTower1().getImageViews()[i][j].setFitHeight(20);
+                player.getPrinceTower2().getImageViews()[i][j].setFitWidth(20);
+                player.getPrinceTower2().getImageViews()[i][j].setFitHeight(20);
+            }
+        }
+        int row ;
+        int col;
+        row=580;
+        col=100;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                player.getKingTower().getImageViews()[i][j].setY(row);
+                player.getKingTower().getImageViews()[i][j].setX(col);
+                col+=20;
+            }
+            row+=20;
+            col=100;
+        }
+        row=560;
+        col=280;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                player.getPrinceTower2().getImageViews()[i][j].setY(row);
+                player.getPrinceTower2().getImageViews()[i][j].setX(col);
+                col+=20;
+            }
+            row+=20;
+            col=280;
+        }
+        row=560;
+        col=20;
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                player.getPrinceTower1().getImageViews()[i][j].setY(row);
+                player.getPrinceTower1().getImageViews()[i][j].setX(col);
+                col+=20;
+            }
+            row+=20;
+            col=20;
+        }
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                fixblocks(player.getKingTower().getImageViews()[i][j].getX(),player.getKingTower().getImageViews()[i][j].getY(),player.getKingTower().getImageViews()[i][j].getImage());
+                fixblocks(player.getPrinceTower1().getImageViews()[i][j].getX(),player.getPrinceTower1().getImageViews()[i][j].getY(),player.getPrinceTower1().getImageViews()[i][j].getImage());
+                fixblocks(player.getPrinceTower2().getImageViews()[i][j].getX(),player.getPrinceTower1().getImageViews()[i][j].getY(),player.getPrinceTower2().getImageViews()[i][j].getImage());
+            }
+        }
+    }
+    public void fixblocks(double x,double y,Image image)
+    {
+        for (int i = 0; i < 32; i++) {
+            for (int j = 0; j < 18; j++) {
+                if(blocks[i][j].getX()==x && blocks[i][j].getY()==y)
+                {
+                    blocks[i][j].setImage(image);
+                    break;
+                }
+            }
+        }
+    }
     public Stage getStage() {
         return stage;
     }

@@ -3,6 +3,7 @@ package model.Building;
 import enums.Level;
 import enums.Target;
 import javafx.scene.image.Image;
+import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Line;
 import model.Damage;
@@ -35,6 +36,8 @@ public class InfernoTower extends Building{
         super.getPicHandler().setWidth(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        fireLine.setStroke(Color.ORANGERED);
+        fireLine.setStrokeWidth(5);
     }
     @Override
     public void Hit()
