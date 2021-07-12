@@ -33,16 +33,11 @@ public class GameDeck extends Thread{
             }
         }
     }
-    public void setDeck(){
-        for (int i=0;i<4;i++){
-            setNext();
-        }
-    }
+
     private void setNext(){
         hBox.getChildren().add(gameDeckObjects.get(0));
         GameDeckObject tmp=gameDeckObjects.get(0);
         gameDeckObjects.remove(tmp);
-        gameDeckObjects.add(tmp);
     }
 
     public ArrayList<GameDeckObject> getGameDeckObjects() {

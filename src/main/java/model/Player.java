@@ -18,12 +18,12 @@ public class Player {
     private ArrayList<AttackCard>attackCardsOnGround=new ArrayList<>();
     private Deck deck=new Deck();
     private String name;
+    private Elixir elixir=new Elixir();
     private String password;
     private KingTower kingTower;
     private PrinceTower princeTower1;
     private PrinceTower princeTower2;
     boolean anonymous=false;
-    private int elixir =0;
 
     public Player(){
         cards.add(new Giant());
@@ -39,6 +39,14 @@ public class Player {
         cards.add(new Rage());
         cards.add(new Fireball());
 
+    }
+
+    public Elixir getElixir() {
+        return elixir;
+    }
+
+    public void setElixir(double value) {
+        elixir.setValue(value);
     }
 
     public ArrayList<AttackCard> getAttackCardsOnGround() {

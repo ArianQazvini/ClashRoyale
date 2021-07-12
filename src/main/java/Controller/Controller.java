@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
+import javafx.scene.text.Text;
 import javafx.util.Duration;
 import model.AttackCard;
 import model.Building.Building;
@@ -39,22 +40,10 @@ public class Controller {
     private ImageView temp;
     @FXML
     private HBox deckOfGameHBox;
-
     @FXML
-    private Button Button1;
-
+    private HBox elixirHBox;
     @FXML
-    private Button Button2;
-
-    @FXML
-    private Button Button3;
-
-    @FXML
-    private Button Button4;
-    @FXML
-    private ProgressBar ElixirBar;
-    @FXML
-    private TextField Elixirs;
+    private Text valueTextOfElixir;
     @FXML
     private TextField Warnings;
     @FXML
@@ -75,13 +64,10 @@ public class Controller {
     {
         gameManager.CreateMap();
         Warnings.setVisible(false);
-//        Image image = new Image(new File("src/main/resources/pics/Wizard.jpg").toURI().toString());
-//        ImageView imageView = new ImageView(image);
-//        imageView.setFitHeight(70);
-//        imageView.setFitWidth(70);
-//        imageView.setPreserveRatio(true);
-//        Button1.setGraphic(imageView);
+        elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
+        valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         gameDeck=new GameDeck(deckOfGameHBox);
+        setDeckOnClick();
         gameDeck.start();
         UpdatePage();
         StartTimer();
@@ -91,6 +77,7 @@ public class Controller {
             g.setOnMouseClicked(new EventHandler<MouseEvent>() {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
+                    gameDeck.getGameDeckObjects().add(g);
                     press(g.getCard());
                 }
             });
@@ -98,6 +85,8 @@ public class Controller {
     }
     void press(Card card) {
         playGround.setDisable(false);
+        gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
+        valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -125,40 +114,6 @@ public class Controller {
                 playGround.setDisable(true);
             }
         });
-    }
-    private void ElixirStart()
-    {
-
-        Platform.runLater(new Runnable() {
-            Timeline timeline1 =null;
-            double i = 0.0;
-            int j =0;
-            @Override
-            public void run() {
-                KeyFrame keyFrame = new KeyFrame(Duration.seconds(2),actionEvent -> {
-                    Elixirs.setText(String.valueOf(j));
-                    ElixirBar.setProgress(i);
-                    i+=0.1;
-                    j++;
-
-                });
-                timeline1= new Timeline(keyFrame);
-                timeline1.setCycleCount(Timeline.INDEFINITE);
-                timeline1.play();
-            }
-
-        });
-    }
-    private void ElixirThread()
-    {
-        Thread thread= new Thread(new Runnable() {
-            @Override
-            public void run() {
-                ElixirStart();
-            }
-        });
-        thread.setDaemon(true);
-        thread.start();
     }
     private void Task(double x,double y,Card card) {
         if (!(card instanceof Spell)) {

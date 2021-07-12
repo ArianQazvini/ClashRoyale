@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -11,6 +12,11 @@
     <children>
         <AnchorPane fx:id="playGround" layoutX="70.0" layoutY="52.0" prefHeight="640.0" prefWidth="360.0" />
         <TextField fx:id="Warnings" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="159.0" />
-      <HBox fx:id="deckOfGameHBox" layoutX="240.0" layoutY="696.0" prefHeight="90.0" prefWidth="246.0" spacing="2.5" />
+        <HBox fx:id="deckOfGameHBox" layoutX="240.0" layoutY="696.0" prefHeight="90.0" prefWidth="246.0" spacing="2.5" />
+      <HBox fx:id="elixirHBox" prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Text fx:id="valueTextOfElixir" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+         </children>
+      </HBox>
     </children>
 </AnchorPane>
