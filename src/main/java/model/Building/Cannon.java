@@ -92,7 +92,7 @@ public class Cannon extends Building{
     @Override
     public void Hit()
     {
-        if(super.getLockedTarget().getHp()>0)
+        if(super.isLocked())
         {
             if(super.targetDistance()<= this.getRange() * 20)
             {
@@ -156,6 +156,7 @@ public class Cannon extends Building{
             else
             {
                 ShootingTimeTick=0;
+                super.setLockedTarget(null);
             }
         }
         else
@@ -168,5 +169,11 @@ public class Cannon extends Building{
     }
     public Circle getCanonnBall() {
         return CanonnBall;
+    }
+    public void setShootingTimeTick(int shootingTimeTick) {
+        ShootingTimeTick = shootingTimeTick;
+    }
+    public int getShootingTimeTick() {
+        return ShootingTimeTick;
     }
 }

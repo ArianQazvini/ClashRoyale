@@ -11,7 +11,10 @@ import model.informations.ACLevelValue;
 import java.io.File;
 
 public class InfernoTower extends Building{
-    private Damage currentDamage;
+    //private Damage currentDamage;
+    private int ShootingTimeTick=0;
+    private int FireTimeTick=0;
+    private Line fireLine = new Line();
     public InfernoTower(){
         setAvatar("inferno-tower.png");
         setHitSpeed(0.4F);
@@ -36,9 +39,66 @@ public class InfernoTower extends Building{
     @Override
     public void Hit()
     {
+        if(super.isLocked())
+        {
+            ShootingTimeTick++;
+            if(super.targetDistance()<= this.getRange() * 20)
+            {
+                ShootingTimeTick++;
+                if(ShootingTimeTick== (super.getHitSpeed() *10))
+                {
+                    FireTimeTick++;
+                    Damage();
+                }
+                double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
+                double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
+                //*************************
+                //------------------------
+                double xMoveVector = x_Vector/distPart;
+                double yMoveVector = y_Vector/distPart;
+                //------------------------
+                fireLine.setStartX(super.getX_Current());
+                fireLine.setStartY(super.getY_Current());
+                fireLine.setEndX(xMoveVector);
+                fireLine.setEndY(yMoveVector);
+            }
+            else
+            {
+                ShootingTimeTick=0;
+                FireTimeTick=0;
+                super.setLockedTarget(null);
+            }
 
+        }
+    }
+    private void Damage()
+    {
+        DamageVary damage = (DamageVary) super.getDamage().getValue();
+        double  range= (damage.max- damage.min);
+        double harm = (this.FireTimeTick/40.0)*range + damage.min;
+        super.getLockedTarget().Hurt(harm);
+    }
+    public void setShootingTimeTick(int shootingTimeTick) {
+        ShootingTimeTick = shootingTimeTick;
+    }
+    public int getShootingTimeTick() {
+        return ShootingTimeTick;
     }
 
+    public void setFireTimeTick(int fireTimeTick) {
+        FireTimeTick = fireTimeTick;
+    }
+
+    public int getFireTimeTick() {
+        return FireTimeTick;
+    }
+    public Line getFireLine() {
+        return fireLine;
+    }
+    public void setFireLine(Line fireLine) {
+        this.fireLine = fireLine;
+    }
 }
 class DamageVary {
     int min;
@@ -46,5 +106,11 @@ class DamageVary {
     public DamageVary(int min,int max){
         this.min=min;
         this.max=max;
+    }
+    public int getMax() {
+        return max;
+    }
+    public int getMin() {
+        return min;
     }
 }

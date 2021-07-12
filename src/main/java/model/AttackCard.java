@@ -7,7 +7,7 @@ import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
 public abstract class AttackCard extends Card {
-    private int hp;
+    private float hp;
     private Damage damage;
     private float hitSpeed;
     private Target target;
@@ -18,16 +18,7 @@ public abstract class AttackCard extends Card {
     private boolean isLocked=false;
     private Rectangle picHandler = new Rectangle();
     public void setLockedTarget(AttackCard lockedTarget) {
-        if(lockedTarget==null)
-        {
-            isLocked=false;
-            this.LockedTarget=null;
-        }
-        else
-        {
             LockedTarget = lockedTarget;
-            isLocked=true;
-        }
     }
     public AttackCard getLockedTarget() {
         return LockedTarget;
@@ -66,7 +57,7 @@ public abstract class AttackCard extends Card {
     public Damage getDamage() {
         return damage;
     }
-    public int getHp() {
+    public float getHp() {
         return hp;
     }
 
@@ -90,8 +81,8 @@ public abstract class AttackCard extends Card {
     }
     public double targetDistance()
     {
-        double tempx = this.getLockedTarget().getX() - this.getX_Current();
-        double tempy = this.getLockedTarget().getY() - this.getY_Current();
+        double tempx = this.getLockedTarget().getX_Current() - this.getX_Current();
+        double tempy = this.getLockedTarget().getY_Current() - this.getY_Current();
         double sum = Math.pow(tempx,2)+Math.pow(tempy,2);
         return Math.pow(sum,0.5);
     }
@@ -107,6 +98,14 @@ public abstract class AttackCard extends Card {
     public abstract void Hit();
 
     public boolean isLocked() {
+        if(LockedTarget==null)
+        {
+            setLocked(false);
+        }
+        else
+        {
+            setLocked(true);
+        }
         return isLocked;
     }
     public void setLocked(boolean locked) {

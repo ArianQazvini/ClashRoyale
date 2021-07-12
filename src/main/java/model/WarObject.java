@@ -5,7 +5,7 @@ import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
 
-public class WarObject extends Rectangle {
+public class WarObject {
     private String avatar;
     private String animation;
     private LevelInformation levelInformation;

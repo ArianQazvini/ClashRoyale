@@ -56,22 +56,6 @@ public class Wizard extends Troop{
                 double xMoveVector = x_Vector/distPart;
                 double yMoveVector = y_Vector/distPart;
                 //------------------------
-                if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-                {
-                    HitUpMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                {
-                    HitDownMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                {
-                    HitRightMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                {
-                    HitLeftMode();
-                }
                 if(xMoveVector>0)
                 {
                     this.FireBallRight(xMoveVector);

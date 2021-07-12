@@ -17,7 +17,7 @@ public class MiniPEKKA extends Troop{
         setAvatar("mini-pekka.png");
         super.setCount(1);
         super.setCost(4);
-        //super.setRange(melee);
+        super.setRange(1);
         setSpeed(Speed.FAST);
         super.setHitSpeed(1.8F);
         super.setTarget(Target.GROUND);
@@ -43,22 +43,6 @@ public class MiniPEKKA extends Troop{
                     super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
                 }
                 //------------------------
-                if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-                {
-                    HitUpMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                {
-                    HitDownMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                {
-                    HitRightMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                {
-                    HitLeftMode();
-                }
             }
             else
             {

@@ -18,7 +18,7 @@ public class Barbarian extends Troop{
         super.setCount(4);
         super.setCost(5);
         super.setHitSpeed(1.5F);
-        //setRange(melee);
+        setRange(1);
         super.setTarget(Target.GROUND);
         setSpeed(Speed.MEDIUM);
         super.setAreaSplash(false);
@@ -43,22 +43,6 @@ public class Barbarian extends Troop{
                     super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
                 }
                 //------------------------
-                if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-                {
-                    HitUpMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                {
-                    HitDownMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                {
-                    HitRightMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                {
-                    HitLeftMode();
-                }
             }
             else
             {
