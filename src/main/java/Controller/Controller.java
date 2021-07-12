@@ -75,18 +75,21 @@ public class Controller {
     }
     private void setDeckOnClick(){
         for (GameDeckObject g:gameDeck.getGameDeckObjects()){
-            g.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            g.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
-                public void handle(MouseEvent mouseEvent) {
-                    gameDeck.getGameDeckObjects().add(g);
-                    deckOfGameHBox.getChildren().remove(g);
+                public void handle(ActionEvent event) {
                     press(g.getCard());
-                    gameDeck.run();
+//                    gameDeck.getGameDeckObjects().add(g);
+//                    deckOfGameHBox.getChildren().remove(g);
+//                    gameDeck.run();
                 }
+
             });
         }
     }
+    @FXML
     void press(Card card) {
+        System.out.println("it runs");
         playGround.setDisable(false);
         gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
         valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
@@ -123,12 +126,14 @@ public class Controller {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
+                    System.out.println("it runsss");
                     AttackCard tmp=(AttackCard)card;
                     FixLocation(tmp, x, y);
                     gameManager.getPlayer().getAttackCardsOnGround().add(tmp);
                     playGround.getChildren().add(tmp.getPicHandler());
                 }
             });
+
         }
     }
     private void FixLocation(AttackCard temp , double mouse_x, double mouse_y)
