@@ -13,12 +13,13 @@ public abstract class Tower extends WarObject {
     private float hp;
     private float hitSpeed;
     private float range;
-    private ImageView[][] imageViews;
+    private ImageView[][] imageViews=new ImageView[3][3];
     private double x;
     private double y;
     private Circle CanonnBall = new Circle();
     private AttackCard LockedTarget=null;
     private boolean isLocked=false;
+    private Damage damage;
     public float getHitSpeed() {
         return hitSpeed;
     }
@@ -94,5 +95,35 @@ public abstract class Tower extends WarObject {
     }
     public void setLocked(boolean locked) {
         isLocked = locked;
+    }
+    public abstract void Hit();
+    public double targetDistance()
+    {
+        double tempx = this.getLockedTarget().getX_Current() - this.getX();
+        double tempy = this.getLockedTarget().getY_Current() - this.getY();
+        double sum = Math.pow(tempx,2)+Math.pow(tempy,2);
+        return Math.pow(sum,0.5);
+    }
+    public Damage getDamage() {
+        return damage;
+    }
+    public void setDamage(Damage damage) {
+        this.damage = damage;
+    }
+    public void CannonBallForward(double dist)
+    {
+        this.CanonnBall.setCenterY(this.CanonnBall.getCenterY()-dist);
+    }
+    public void CannonBallBackWard(double dist)
+    {
+        this.CanonnBall.setCenterY(this.CanonnBall.getCenterY()+dist);
+    }
+    public void CannonBallLeft(double dist)
+    {
+        this.CanonnBall.setCenterX(this.CanonnBall.getCenterX()-dist);
+    }
+    public void CannonBallRight(double dist)
+    {
+        this.CanonnBall.setCenterX(this.CanonnBall.getCenterX()+dist);
     }
 }
