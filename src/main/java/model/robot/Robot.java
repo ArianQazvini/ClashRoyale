@@ -1,5 +1,6 @@
 package model.robot;
 
+import model.Building.Building;
 import model.Card;
 import model.Player;
 import model.Troop.Troop;
@@ -8,14 +9,15 @@ import services.GameManager;
 
 import java.util.ArrayList;
 
-public abstract class Robot extends Player {
+public class Robot extends Player {
     ArrayList<Card>deckOnGame=new ArrayList<>();
+    int x,y;
     private GameManager gameManager= Main.gameManager;
     public void putDeck(){
-        while (true){
+
             while (deckOnGame.size()<4){
                 setNext();
-            }
+
         }
     }
     private void setNext(){
@@ -23,11 +25,31 @@ public abstract class Robot extends Player {
         Card tmp=getDeck().getCards().get(0);
         getDeck().getCards().remove(tmp);
     }
-    public void putCardOnGround(){
-        Card card=chooseFromDeck();
+    public void putCardOnGround(Card card){
         getDeck().getCards().add(card);
-        //add card to one one 4 arraylists
+        if (card instanceof Troop)
+            gameManager.getTroops().add((Troop) card);
+        else if (card instanceof Building)
+            gameManager.getBuildings().add((Building) card);
+        setElixir(getElixir().getValue()- card.getCost());
+        //add spell
+
     }
-    public abstract Card chooseFromDeck();
-    public abstract void chooseLocation();
+    public  Card chooseFromDeck(){return null;}
+    public void chooseLocation(){}
+
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+    public boolean isElixirEnough(){
+        for (Card c:deckOnGame){
+            if (c.getCost()<= getElixir().getValue())
+                return true;
+        }
+        return false;
+    }
 }

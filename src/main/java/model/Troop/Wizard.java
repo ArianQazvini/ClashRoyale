@@ -17,6 +17,7 @@ public class Wizard extends Troop{
     private Circle fireball = new Circle();
     private int ShootingTimeTick=0;
     public Wizard(){
+        setAvatar("wizard.png");
         super.setCount(1);
         super.setCost(5);
         super.setRange(5);

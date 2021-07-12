@@ -12,6 +12,8 @@ import model.Directions;
 import model.Player;
 import model.Tower.Tower;
 import model.Troop.Troop;
+import model.robot.Robot;
+
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -20,8 +22,8 @@ import java.util.ArrayList;
 public class GameManager {
     private final int blockSize=20;
     private Player player=new Player();
+    private Robot opponent=new Robot();
     private Parent root;
-    private String opponent;
     private Stage stage;
     private Scene scene;
     private final int rows =18;
@@ -90,8 +92,8 @@ public class GameManager {
         return null;
     }
 
-    public void setOpponent(String opponent) {
-        this.opponent = opponent;
+    public Robot getOpponent() {
+        return opponent;
     }
 
     public void CreateMap()
@@ -234,6 +236,9 @@ public class GameManager {
 
     public ArrayList<Building> getBuildings() {
         return buildings;
+    }
+    public boolean isLocationUsable(double x,double y){
+        return true;
     }
 
     public ArrayList<Shape> getBullets() {

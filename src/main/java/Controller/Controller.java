@@ -68,9 +68,10 @@ public class Controller {
         valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         gameDeck=new GameDeck(deckOfGameHBox);
         setDeckOnClick();
-        gameDeck.start();
+        gameDeck.run();
         UpdatePage();
         StartTimer();
+        startOpponent();
     }
     private void setDeckOnClick(){
         for (GameDeckObject g:gameDeck.getGameDeckObjects()){
@@ -78,7 +79,9 @@ public class Controller {
                 @Override
                 public void handle(MouseEvent mouseEvent) {
                     gameDeck.getGameDeckObjects().add(g);
+                    deckOfGameHBox.getChildren().remove(g);
                     press(g.getCard());
+                    gameDeck.run();
                 }
             });
         }
@@ -212,9 +215,9 @@ public class Controller {
                 }
             }
         }
-        for (int i=0;i<gameManager.getPlayer().getTroops().size();i++)
+        for (int i=0;i<gameManager.getTroops().size();i++)
         {
-            playGround.getChildren().add(gameManager.getPlayer().getTroops().get(i).getPicHandler());
+            playGround.getChildren().add(gameManager.getTroops().get(i).getPicHandler());
         }
     }
     private void StartTimer()
@@ -241,6 +244,34 @@ public class Controller {
             UpdatePage();
             //gameManager.Move();
         }
+    }
+    void robotTask(){
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                if (gameManager.getOpponent().isElixirEnough()) {
+                    gameManager.getOpponent().chooseLocation();
+                    Card card = gameManager.getOpponent().chooseFromDeck();
+                    if (card instanceof AttackCard) {
+                        FixLocation((AttackCard) card, gameManager.getOpponent().getX(), gameManager.getOpponent().getY());
+                        gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
+                        playGround.getChildren().add(((AttackCard) card).getPicHandler());
+                    }
+                    gameManager.getOpponent().putCardOnGround(card);
+                    gameManager.getOpponent().putDeck();
+                }
+            }
+        });
+    }
+    void startOpponent(){
+        Thread thread=new Thread(new Runnable() {
+            @Override
+            public void run() {
+                robotTask();
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
     }
 
 }

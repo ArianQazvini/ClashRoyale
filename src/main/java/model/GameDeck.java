@@ -11,7 +11,7 @@ import services.GameManager;
 
 import java.util.ArrayList;
 
-public class GameDeck extends Thread{
+public class GameDeck {
     HBox hBox;
 
     private GameManager gameManager= Main.gameManager;
@@ -23,14 +23,13 @@ public class GameDeck extends Thread{
             gameDeckObjects.add(new GameDeckObject(c));
         }
     }
-    @Override
     public void run() {
-        hBox.setStyle("-fx-background-color:#341e16");
+        //hBox.setStyle("-fx-background-color:#341e16");
 
-        while (true){
+        //while (true){
             while (hBox.getChildren().stream().count()<4){
                 setNext();
-            }
+            //}
         }
     }
 
