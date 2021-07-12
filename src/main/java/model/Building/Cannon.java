@@ -26,7 +26,7 @@ public class Cannon extends Building{
         setLevel4(new ACLevelValue(505,new Damage(79),Level.LEVEL4));
         setLevel5(new ACLevelValue(554,new Damage(87),Level.LEVEL5));
         setLevelInformation(super.getLevel1());
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/CannonBall.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         CanonnBall.setFill(imagePattern);
         CanonnBall.setRadius(10);
@@ -35,7 +35,7 @@ public class Cannon extends Building{
     }
     public void UpPic()
     {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/CanonUp.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/CanonUp.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setHeight(20);
@@ -45,7 +45,7 @@ public class Cannon extends Building{
     }
     public void DownPic()
     {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/CanonDown.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/CanonDown.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setHeight(20);
@@ -55,7 +55,7 @@ public class Cannon extends Building{
     }
     public void LeftPic()
     {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/CanonLeft.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/CanonLeft.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setHeight(20);
@@ -65,7 +65,7 @@ public class Cannon extends Building{
     }
     public void RightPic()
     {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/CanonRight.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/CanonRight.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setHeight(20);

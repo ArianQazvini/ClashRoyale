@@ -29,7 +29,7 @@ public class InfernoTower extends Building{
         setLevel4(new ACLevelValue(1064,new Damage<>(new DamageVary(26,532)),Level.LEVEL4));
         setLevel5(new ACLevelValue(1168,new Damage<>(new DamageVary(29,584)),Level.LEVEL5));
         setLevelInformation(super.getLevel1());
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/InfernoTower.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/InfernoTower.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setHeight(20);

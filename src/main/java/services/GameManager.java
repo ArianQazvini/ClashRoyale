@@ -332,26 +332,14 @@ public class GameManager {
 //    {
 //        anchorPane.getChildren().add(fighter.getPicHandler());
 //    }
-//    public void Move()
-//    {
-//        for (int i=0;i<player.getTroops().size();i++)
-//        {
-//            if(player.getTroops().get(i).getY_Current()>0)
-//            {
-////                Directions help = this.CharacterExist(player.getTroops().get(i),Directions.TOP);
-////                if(help==null)
-////                {
-//                    player.getTroops().get(i).Forward(blockSize);
-//                    //   Range(fighters.get(i));
-////                }
-////                else
-////                {
-////                    player.getTroops().get(i).Left(blockSize);
-////                    // Range(fighters.get(i));
-////                }
-//            }
-//        }
-//    }
+    public void Move()
+    {
+        for (int i=0;i<this.getTroops().size();i++)
+        {
+           this.getTroops().get(i).Forward();
+        }
+
+    }
 //    private void Range(Fighter fighter)
 //    {
 //        for (int i=0;i<32;i++)

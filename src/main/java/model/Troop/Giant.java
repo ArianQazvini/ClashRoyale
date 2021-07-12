@@ -111,7 +111,7 @@ public class Giant extends Troop{
 
     @Override
     public void WalkingTopMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/GiantWalk_Up.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/GiantWalk_Up.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -122,7 +122,7 @@ public class Giant extends Troop{
 
     @Override
     public void WalkingLeftMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/GiantWalk_Left.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/GiantWalk_Left.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -133,7 +133,7 @@ public class Giant extends Troop{
 
     @Override
     public void WalkingRightMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/GiantWalk_Right.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/GiantWalk_Right.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -144,7 +144,7 @@ public class Giant extends Troop{
 
     @Override
     public void WalkingDownMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/GiantWalk_Down.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/GiantWalk_Down.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -155,7 +155,7 @@ public class Giant extends Troop{
 
     @Override
     public void HitUpMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/GiantHit_Up.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/GiantHit_Up.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -166,7 +166,7 @@ public class Giant extends Troop{
 
     @Override
     public void HitDownMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/GiantHit_Down.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/GiantHit_Down.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -177,7 +177,7 @@ public class Giant extends Troop{
 
     @Override
     public void HitLeftMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/GiantHit_Left.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/GiantHit_Left.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -188,7 +188,7 @@ public class Giant extends Troop{
 
     @Override
     public void HitRightMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/GiantHit_Right.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/GiantHit_Right.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);

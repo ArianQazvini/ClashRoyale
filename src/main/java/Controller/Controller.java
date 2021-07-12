@@ -247,7 +247,7 @@ public class Controller {
         if(gameManager.getPlayer().getTroops().size()!=0)
         {
             UpdatePage();
-            //gameManager.Move();
+            gameManager.Move();
         }
     }
     void robotTask(){

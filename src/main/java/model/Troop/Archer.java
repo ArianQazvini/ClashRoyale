@@ -105,7 +105,7 @@ public class Archer extends Troop{
 
     @Override
     public void WalkingTopMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ArcherWalk_Up.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ArcherWalk_Up.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -116,7 +116,7 @@ public class Archer extends Troop{
 
     @Override
     public void WalkingLeftMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ArcherWalk_Left.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ArcherWalk_Left.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -127,7 +127,7 @@ public class Archer extends Troop{
 
     @Override
     public void WalkingRightMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ArcherWalk_Right.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ArcherWalk_Right.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -138,7 +138,7 @@ public class Archer extends Troop{
 
     @Override
     public void WalkingDownMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ArcherWalk_Down.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ArcherWalk_Down.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -149,8 +149,8 @@ public class Archer extends Troop{
 
     @Override
     public void HitUpMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ArcherHit_Up.png").toURI().toString());
-        Image image2 = new Image(new File("src/main/java/resources/pics/Characters/ArrowUp.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ArcherHit_Up.png").toURI().toString());
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/ArrowUp.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         ImagePattern imagePattern2 = new ImagePattern(image2);
         super.getPicHandler().setFill(imagePattern);
@@ -168,8 +168,8 @@ public class Archer extends Troop{
 
     @Override
     public void HitDownMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ArcherHit_Down.png").toURI().toString());
-        Image image2 = new Image(new File("src/main/java/resources/pics/Characters/ArrowDown.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ArcherHit_Down.png").toURI().toString());
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/ArrowDown.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         ImagePattern imagePattern2 = new ImagePattern(image2);
         super.getPicHandler().setFill(imagePattern);
@@ -187,8 +187,8 @@ public class Archer extends Troop{
 
     @Override
     public void HitLeftMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ArcherHit_Left.png").toURI().toString());
-        Image image2 = new Image(new File("src/main/java/resources/pics/Characters/ArrowLeft.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ArcherHit_Left.png").toURI().toString());
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/ArrowLeft.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         ImagePattern imagePattern2 = new ImagePattern(image2);
         super.getPicHandler().setFill(imagePattern);
@@ -206,8 +206,8 @@ public class Archer extends Troop{
 
     @Override
     public void HitRightMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ArcherHit_Right.png").toURI().toString());
-        Image image2 = new Image(new File("src/main/java/resources/pics/Characters/ArrowRight.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ArcherHit_Right.png").toURI().toString());
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/ArrowRight.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         ImagePattern imagePattern2 = new ImagePattern(image2);
         super.getPicHandler().setFill(imagePattern);

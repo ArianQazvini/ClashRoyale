@@ -30,7 +30,7 @@ public class BabyDragon extends Troop{
         super.setLevel4(new ACLevelValue(1064,new Damage<>(133),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(1168,new Damage<>(146),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/FireBall.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/FireBall.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         fireball.setFill(imagePattern);
         fireball.setRadius(10);
@@ -105,7 +105,7 @@ public class BabyDragon extends Troop{
     }
     @Override
     public void WalkingTopMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/BabyDragon_Up.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/BabyDragon_Up.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -116,7 +116,7 @@ public class BabyDragon extends Troop{
 
     @Override
     public void WalkingLeftMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/BabyDragon_Left.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/BabyDragon_Left.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -127,7 +127,7 @@ public class BabyDragon extends Troop{
 
     @Override
     public void WalkingRightMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/BabyDragon_Right.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/BabyDragon_Right.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -138,7 +138,7 @@ public class BabyDragon extends Troop{
 
     @Override
     public void WalkingDownMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/BabyDragon_Down.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/BabyDragon_Down.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);

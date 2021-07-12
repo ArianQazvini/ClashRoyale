@@ -73,7 +73,7 @@ public class Valkyrie extends Troop{
 
     @Override
     public void WalkingTopMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ValkyrieWalk_Up.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieWalk_Up.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -84,7 +84,7 @@ public class Valkyrie extends Troop{
 
     @Override
     public void WalkingLeftMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ValkyrieWalk_Left.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieWalk_Left.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -95,7 +95,7 @@ public class Valkyrie extends Troop{
 
     @Override
     public void WalkingRightMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ValkyrieWalk_Right.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieWalk_Right.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -106,7 +106,7 @@ public class Valkyrie extends Troop{
 
     @Override
     public void WalkingDownMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ValkyrieWalk_Down.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieWalk_Down.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -117,7 +117,7 @@ public class Valkyrie extends Troop{
 
     @Override
     public void HitUpMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ValkyrieHit_Up.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieHit_Up.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -128,7 +128,7 @@ public class Valkyrie extends Troop{
 
     @Override
     public void HitDownMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ValkyrieHit_Down.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieHit_Down.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -139,7 +139,7 @@ public class Valkyrie extends Troop{
 
     @Override
     public void HitLeftMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ValkyrieHit_Left.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieHit_Left.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
@@ -150,7 +150,7 @@ public class Valkyrie extends Troop{
 
     @Override
     public void HitRightMode() {
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/ValkyrieHit_Right.png").toURI().toString());
+        Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieHit_Right.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
         super.getPicHandler().setFill(imagePattern);
         super.getPicHandler().setWidth(20);
