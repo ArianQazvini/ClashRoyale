@@ -19,6 +19,7 @@ public class Robot extends Player {
     int x,y;
     private GameManager gameManager= Main.gameManager;
     public Robot(){
+        super();
         getCards().add(new Giant());
         getCards().add(new Arrows());
         getCards().add(new Archer());
@@ -31,6 +32,7 @@ public class Robot extends Player {
         getCards().add(new InfernoTower());
         getCards().add(new Rage());
         getCards().add(new Fireball());
+        super.downPics();
     }
     public void putDeck(){
 

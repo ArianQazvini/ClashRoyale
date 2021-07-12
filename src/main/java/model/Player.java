@@ -38,7 +38,7 @@ public class Player {
         cards.add(new InfernoTower());
         cards.add(new Rage());
         cards.add(new Fireball());
-
+        this.upPics();
     }
 
     public Elixir getElixir() {
@@ -98,5 +98,95 @@ public class Player {
 
     public PrinceTower getPrinceTower2() {
         return princeTower2;
+    }
+    public void upPics()
+    {
+        for (int i = 0; i < cards.size(); i++) {
+            if(cards.get(i) instanceof Archer)
+            {
+                Archer temp = (Archer) cards.get(i);
+                temp.WalkingTopMode();
+            }
+            else if(cards.get(i) instanceof BabyDragon)
+            {
+                BabyDragon temp = (BabyDragon) cards.get(i);
+                temp.WalkingTopMode();
+            }
+            else if(cards.get(i) instanceof Barbarian)
+            {
+                Barbarian temp = (Barbarian) cards.get(i);
+                temp.WalkingTopMode();
+            }
+            else if(cards.get(i) instanceof Giant)
+            {
+                Giant temp = (Giant) cards.get(i);
+                temp.WalkingTopMode();
+            }
+            else if(cards.get(i) instanceof MiniPEKKA)
+            {
+                MiniPEKKA temp = (MiniPEKKA) cards.get(i);
+                temp.WalkingTopMode();
+            }
+            else if(cards.get(i) instanceof Valkyrie)
+            {
+                Valkyrie temp = (Valkyrie) cards.get(i);
+                temp.WalkingTopMode();
+            }
+            else if(cards.get(i) instanceof Wizard)
+            {
+                Wizard temp = (Wizard) cards.get(i);
+                temp.WalkingTopMode();
+            }
+            else if(cards.get(i) instanceof Cannon)
+            {
+                Cannon temp = (Cannon) cards.get(i);
+                temp.UpPic();
+            }
+        }
+    }
+    public void downPics()
+    {
+        for (int i = 0; i < cards.size(); i++) {
+            if(cards.get(i) instanceof Archer)
+            {
+                Archer temp = (Archer) cards.get(i);
+                temp.WalkingDownMode();
+            }
+            else if(cards.get(i) instanceof BabyDragon)
+            {
+                BabyDragon temp = (BabyDragon) cards.get(i);
+                temp.WalkingDownMode();
+            }
+            else if(cards.get(i) instanceof Barbarian)
+            {
+                Barbarian temp = (Barbarian) cards.get(i);
+                temp.WalkingDownMode();
+            }
+            else if(cards.get(i) instanceof Giant)
+            {
+                Giant temp = (Giant) cards.get(i);
+                temp.WalkingDownMode();
+            }
+            else if(cards.get(i) instanceof MiniPEKKA)
+            {
+                MiniPEKKA temp = (MiniPEKKA) cards.get(i);
+                temp.WalkingDownMode();
+            }
+            else if(cards.get(i) instanceof Valkyrie)
+            {
+                Valkyrie temp = (Valkyrie) cards.get(i);
+                temp.WalkingDownMode();
+            }
+            else if(cards.get(i) instanceof Wizard)
+            {
+                Wizard temp = (Wizard) cards.get(i);
+                temp.WalkingDownMode();
+            }
+            else if(cards.get(i) instanceof Cannon)
+            {
+                Cannon temp = (Cannon) cards.get(i);
+                temp.DownPic();
+            }
+        }
     }
 }
