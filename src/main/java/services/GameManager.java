@@ -13,6 +13,7 @@ import model.Player;
 import model.Tower.Tower;
 import model.Troop.Troop;
 import model.robot.Robot;
+import model.robot.SimpleRobot;
 
 import java.io.File;
 import java.io.IOException;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 public class GameManager {
     private final int blockSize=20;
     private Player player=new Player();
-    private Robot opponent=new Robot();
+    private Robot opponent=new SimpleRobot();
     private Parent root;
     private Stage stage;
     private Scene scene;

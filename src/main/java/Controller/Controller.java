@@ -79,9 +79,9 @@ public class Controller {
                 @Override
                 public void handle(ActionEvent event) {
                     press(g.getCard());
-//                    gameDeck.getGameDeckObjects().add(g);
-//                    deckOfGameHBox.getChildren().remove(g);
-//                    gameDeck.run();
+                    gameDeck.getGameDeckObjects().add(g);
+                    deckOfGameHBox.getChildren().remove(g);
+                    gameDeck.run();
                 }
 
             });
@@ -272,6 +272,8 @@ public class Controller {
         Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
+                gameManager.getOpponent().setBattleDeck();
+                gameManager.getOpponent().putDeck();
                 robotTask();
             }
         });
