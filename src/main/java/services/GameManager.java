@@ -7,8 +7,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import model.Building.Building;
 import model.Directions;
 import model.Player;
+import model.Tower.Tower;
 import model.Troop.Troop;
 import java.io.File;
 import java.io.IOException;
@@ -27,7 +29,10 @@ public class GameManager {
     private ImageView[][] blocks = new ImageView[32][18];
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
-    private ArrayList<Shape> shapes = new ArrayList<>();
+    private ArrayList<Shape> bullets = new ArrayList<>();
+    private ArrayList<Troop> troops = new ArrayList<>();
+    private ArrayList<Tower>  towers= new ArrayList<>();
+    private ArrayList<Building> buildings = new ArrayList<>();
     public Directions CharacterExist(Troop troop, Directions directions)
     {
         if(directions==Directions.TOP)
@@ -222,30 +227,45 @@ public class GameManager {
     public ImageView[][] getRoads() {
         return roads;
     }
-//    public void add(Fighter fighter, AnchorPane anchorPane)
+
+    public ArrayList<Troop> getTroops() {
+        return troops;
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return buildings;
+    }
+
+    public ArrayList<Shape> getBullets() {
+        return bullets;
+    }
+    public ArrayList<Tower> getTowers() {
+        return towers;
+    }
+    //    public void add(Fighter fighter, AnchorPane anchorPane)
 //    {
 //        anchorPane.getChildren().add(fighter.getPicHandler());
 //    }
-    public void Move()
-    {
-        for (int i=0;i<player.getTroops().size();i++)
-        {
-            if(player.getTroops().get(i).getY_Current()>0)
-            {
-//                Directions help = this.CharacterExist(player.getTroops().get(i),Directions.TOP);
-//                if(help==null)
-//                {
-                    player.getTroops().get(i).Forward(blockSize);
-                    //   Range(fighters.get(i));
-//                }
-//                else
-//                {
-//                    player.getTroops().get(i).Left(blockSize);
-//                    // Range(fighters.get(i));
-//                }
-            }
-        }
-    }
+//    public void Move()
+//    {
+//        for (int i=0;i<player.getTroops().size();i++)
+//        {
+//            if(player.getTroops().get(i).getY_Current()>0)
+//            {
+////                Directions help = this.CharacterExist(player.getTroops().get(i),Directions.TOP);
+////                if(help==null)
+////                {
+//                    player.getTroops().get(i).Forward(blockSize);
+//                    //   Range(fighters.get(i));
+////                }
+////                else
+////                {
+////                    player.getTroops().get(i).Left(blockSize);
+////                    // Range(fighters.get(i));
+////                }
+//            }
+//        }
+//    }
 //    private void Range(Fighter fighter)
 //    {
 //        for (int i=0;i<32;i++)
