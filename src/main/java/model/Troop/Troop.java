@@ -44,22 +44,22 @@ public abstract class Troop extends AttackCard {
     public void Left()
     {
         super.setX_Current( super.getPicHandler().getX()-speed.getVelocity());
-        super.getPicHandler().setX(super.getX());
+        super.getPicHandler().setX(super.getX_Current());
     }
     public void Right()
     {
         super.setX_Current( super.getPicHandler().getX()+speed.getVelocity());
-        super.getPicHandler().setX(super.getX());
+        super.getPicHandler().setX(super.getX_Current());
     }
     public void Forward()
     {
         super.setY_Current( super.getPicHandler().getY()-speed.getVelocity());
-        super.getPicHandler().setY(super.getY());
+        super.getPicHandler().setY(super.getY_Current());
     }
     public void Backward()
     {
         super.setY_Current( super.getPicHandler().getY()+speed.getVelocity());
-        super.getPicHandler().setY(super.getY());;
+        super.getPicHandler().setY(super.getY_Current());;
     }
     public void setWalking(String walking) {
         this.WalkingPic = walking;

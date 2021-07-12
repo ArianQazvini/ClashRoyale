@@ -4,6 +4,7 @@ import enums.Level;
 import enums.Target;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Line;
 import model.Damage;
 import model.informations.ACLevelValue;
 
