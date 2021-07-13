@@ -83,6 +83,7 @@ public class Controller {
                 public void handle(ActionEvent event) {
                     if (gameDeck.isElixirEnough()) {
                         press(g.getCard());
+                        Warnings.setVisible(false);
                         gameDeck.getGameDeckObjects().add(g);
                         deckOfGameHBox.getChildren().remove(g);
                         gameDeck.run();
@@ -90,13 +91,6 @@ public class Controller {
                         Warnings.setVisible(true);
                         Warnings.setStyle("-fx-text-inner-color:red");
                         Warnings.setText("elixir not enough");
-//                        try {
-//                            Thread.sleep(2000);
-//                            //Warnings.setVisible(false);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-
                     }
                 }
 
