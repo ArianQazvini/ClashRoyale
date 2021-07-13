@@ -336,7 +336,7 @@ public class Controller {
                         playGround.getChildren().add(((AttackCard) card).getPicHandler());
                     }
                     gameManager.getOpponent().putCardOnGround(card);
-                    gameManager.getOpponent().putDeck();
+
                 }
             }
         });
@@ -346,7 +346,8 @@ public class Controller {
             @Override
             public void run() {
                 gameManager.getOpponent().setBattleDeck();
-                gameManager.getOpponent().putDeck();
+                robotTask();
+                robotTask();
                 robotTask();
             }
         });

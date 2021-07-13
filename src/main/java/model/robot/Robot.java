@@ -15,7 +15,6 @@ import services.GameManager;
 import java.util.ArrayList;
 
 public class Robot extends Player {
-    ArrayList<Card>deckOnGame=new ArrayList<>();
     int x,y;
     private GameManager gameManager= Main.gameManager;
     public Robot(){
@@ -34,22 +33,11 @@ public class Robot extends Player {
         getCards().add(new Fireball());
         super.downPics();
     }
-    public void putDeck(){
 
-            while (deckOnGame.size()<4){
-                setNext();
-
-        }
-    }
     public void setBattleDeck(){
         for (int i=0;i<8;i++){
             getDeck().getCards().add(getCards().get(i));
         }
-    }
-    private void setNext(){
-        deckOnGame.add( getDeck().getCards().get(0));
-        Card tmp=getDeck().getCards().get(0);
-        getDeck().getCards().remove(tmp);
     }
     public void putCardOnGround(Card card){
         if (card instanceof Troop)
@@ -57,8 +45,8 @@ public class Robot extends Player {
         else if (card instanceof Building)
             gameManager.getBuildings().add((Building) card);
         setElixir(getElixir().getValue()- card.getCost());
-        getDeck().getCards().add(card);
-        deckOnGame.remove(card);
+        //getDeck().getCards().add(card);
+        //deckOnGame.remove(card);
         //add spell
 
     }
@@ -73,7 +61,7 @@ public class Robot extends Player {
         return y;
     }
     public boolean isElixirEnough(){
-        for (Card c:deckOnGame){
+        for (Card c:getDeck().getCards()){
             if (c.getCost()<= getElixir().getValue())
                 return true;
         }

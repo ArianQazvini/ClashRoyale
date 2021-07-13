@@ -11,11 +11,11 @@ public class SimpleRobot extends Robot{
     @Override
     public Card chooseFromDeck() {
 
-        int index=random.nextInt(4);
-        Card card=deckOnGame.get(index);
+        int index=random.nextInt(8);
+        Card card=getDeck().getCards().get(index);
         while (card.getCost()> getElixir().getValue()){
-            index=random.nextInt(4);
-            card=deckOnGame.get(index);
+            index=random.nextInt(8);
+            card=getDeck().getCards().get(index);
         }
         return card;
 
@@ -24,11 +24,11 @@ public class SimpleRobot extends Robot{
     @Override
     public void chooseLocation() {
         x=random.nextInt(430);
-        y=random.nextInt(346);
+        y=random.nextInt(340);
         while (x<70)
             x=random.nextInt(430);
         while (y<52)
-            y=random.nextInt(346);
+            y=random.nextInt(330);
 
     }
 
