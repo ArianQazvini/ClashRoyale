@@ -49,7 +49,7 @@ public class Controller {
     @FXML
     private Text valueTextOfElixir;
     @FXML
-    private TextField Warnings;
+    private Text Warnings;
     @FXML
     private AnchorPane playGround;
     private GameDeck gameDeck;
@@ -83,10 +83,23 @@ public class Controller {
             g.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
                 public void handle(ActionEvent event) {
-                    press(g.getCard());
-                    gameDeck.getGameDeckObjects().add(g);
-                    deckOfGameHBox.getChildren().remove(g);
-                    gameDeck.run();
+                    if (gameDeck.isElixirEnough()) {
+                        press(g.getCard());
+                        gameDeck.getGameDeckObjects().add(g);
+                        deckOfGameHBox.getChildren().remove(g);
+                        gameDeck.run();
+                    }else {
+                        Warnings.setVisible(true);
+                        Warnings.setStyle("-fx-text-inner-color:red");
+                        Warnings.setText("elixir not enough");
+//                        try {
+//                            Thread.sleep(2000);
+//                            //Warnings.setVisible(false);
+//                        } catch (InterruptedException e) {
+//                            e.printStackTrace();
+//                        }
+
+                    }
                 }
 
             });
@@ -353,8 +366,6 @@ public class Controller {
             @Override
             public void run() {
                 gameManager.getOpponent().setBattleDeck();
-                robotTask();
-                robotTask();
                 robotTask();
             }
         });

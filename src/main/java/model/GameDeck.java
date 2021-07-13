@@ -2,6 +2,7 @@ package model;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Node;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -37,6 +38,13 @@ public class GameDeck {
         hBox.getChildren().add(gameDeckObjects.get(0));
         GameDeckObject tmp=gameDeckObjects.get(0);
         gameDeckObjects.remove(tmp);
+    }
+    public boolean isElixirEnough(){
+        for (Node c:hBox.getChildren()){
+            if (((GameDeckObject)c).getCard().getCost()<= gameManager.getPlayer().getElixir().getValue())
+                return true;
+        }
+        return false;
     }
 
     public ArrayList<GameDeckObject> getGameDeckObjects() {

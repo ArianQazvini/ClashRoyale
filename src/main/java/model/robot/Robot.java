@@ -15,8 +15,8 @@ import services.GameManager;
 import java.util.ArrayList;
 
 public class Robot extends Player {
-    int x,y;
-    private GameManager gameManager= Main.gameManager;
+    double x,y;
+    GameManager gameManager= Main.gameManager;
     public Robot(){
         super();
         getCards().add(new Giant());
@@ -43,11 +43,11 @@ public class Robot extends Player {
     public  Card chooseFromDeck(){return null;}
     public void chooseLocation(){}
 
-    public int getX() {
+    public double getX() {
         return x;
     }
 
-    public int getY() {
+    public double getY() {
         return y;
     }
     public boolean isElixirEnough(){
