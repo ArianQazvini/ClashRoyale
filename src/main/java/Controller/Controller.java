@@ -334,9 +334,9 @@ public class Controller {
                         gameManager.getOpponent().chooseLocation();
                         Card card = gameManager.getOpponent().chooseFromDeck();
                         if (card instanceof AttackCard) {
-                            FixLocation((AttackCard) card, gameManager.getOpponent().getX(), gameManager.getOpponent().getY());
-                            gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
-                            playGround.getChildren().add(((AttackCard) card).getPicHandler());
+                            Task( gameManager.getOpponent().getX(), gameManager.getOpponent().getY(),(AttackCard) card);
+                           // gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
+                            //playGround.getChildren().add(((AttackCard) card).getPicHandler());
                         }
                         gameManager.getOpponent().putCardOnGround(card);
                     }
