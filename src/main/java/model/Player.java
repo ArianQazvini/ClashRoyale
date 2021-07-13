@@ -60,7 +60,7 @@ public class Player {
         this.anonymous = anonymous;
     }
 
-    public Deck xgetDeck() {
+    public Deck getDeck() {
         return deck;
     }
 
