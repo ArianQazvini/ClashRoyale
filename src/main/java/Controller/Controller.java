@@ -17,10 +17,13 @@ import javafx.scene.text.Text;
 import javafx.util.Duration;
 import model.AttackCard;
 import model.Building.Building;
+import model.Building.Cannon;
+import model.Building.InfernoTower;
 import model.Card;
 import model.GameDeck;
 import model.GameDeckObject;
 import model.Spell.Spell;
+import model.Troop.*;
 import model.Troop.Troop;
 import model.Troop.Wizard;
 import sample.Main;
@@ -127,10 +130,80 @@ public class Controller {
                 @Override
                 public void run() {
                     System.out.println("it runsss");
-                    AttackCard tmp=(AttackCard)card;
-                    FixLocation(tmp, x, y);
-                    gameManager.getPlayer().getAttackCardsOnGround().add(tmp);
-                    playGround.getChildren().add(tmp.getPicHandler());
+//                    AttackCard tmp=(AttackCard)card;
+//                    FixLocation(tmp, x, y);
+                    if(card instanceof Archer)
+                    {
+                        Archer temp = new Archer();
+                        temp.WalkingTopMode();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+                    else if(card instanceof BabyDragon)
+                    {
+                        BabyDragon temp = new BabyDragon();
+                        temp.WalkingTopMode();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+                    else if(card instanceof Barbarian)
+                    {
+                        Barbarian temp = new Barbarian();
+                        temp.WalkingTopMode();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+                    else if(card instanceof Giant)
+                    {
+                        Giant temp = new Giant();
+                        temp.WalkingTopMode();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+                    else if(card instanceof MiniPEKKA)
+                    {
+                        MiniPEKKA temp = new MiniPEKKA();
+                        temp.WalkingTopMode();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+                    else if(card instanceof Valkyrie)
+                    {
+                        Valkyrie temp = new Valkyrie();
+                        temp.WalkingTopMode();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+                    else if(card instanceof Wizard)
+                    {
+                        Wizard temp = new Wizard();
+                        temp.WalkingTopMode();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+                    else if(card instanceof InfernoTower)
+                    {
+                        InfernoTower temp = new InfernoTower();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+                    else if(card instanceof Cannon)
+                    {
+                        Cannon temp = new Cannon();
+                        temp.UpPic();
+                        FixLocation(temp,x,y);
+                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                        playGround.getChildren().add(temp.getPicHandler());
+                    }
+
                 }
             });
 
