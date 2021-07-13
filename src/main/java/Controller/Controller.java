@@ -325,19 +325,25 @@ public class Controller {
     }
     void robotTask(){
         Platform.runLater(new Runnable() {
+            Timeline timeline1 =null;
+
             @Override
             public void run() {
-                if (gameManager.getOpponent().isElixirEnough()) {
-                    gameManager.getOpponent().chooseLocation();
-                    Card card = gameManager.getOpponent().chooseFromDeck();
-                    if (card instanceof AttackCard) {
-                        FixLocation((AttackCard) card, gameManager.getOpponent().getX(), gameManager.getOpponent().getY());
-                        gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
-                        playGround.getChildren().add(((AttackCard) card).getPicHandler());
+                KeyFrame keyFrame = new KeyFrame(Duration.seconds(2),actionEvent -> {
+                    if (gameManager.getOpponent().isElixirEnough()) {
+                        gameManager.getOpponent().chooseLocation();
+                        Card card = gameManager.getOpponent().chooseFromDeck();
+                        if (card instanceof AttackCard) {
+                            FixLocation((AttackCard) card, gameManager.getOpponent().getX(), gameManager.getOpponent().getY());
+                            gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
+                            playGround.getChildren().add(((AttackCard) card).getPicHandler());
+                        }
+                        gameManager.getOpponent().putCardOnGround(card);
                     }
-                    gameManager.getOpponent().putCardOnGround(card);
-
-                }
+                });
+                timeline1= new Timeline(keyFrame);
+                timeline1.setCycleCount(Timeline.INDEFINITE);
+                timeline1.play();
             }
         });
     }
