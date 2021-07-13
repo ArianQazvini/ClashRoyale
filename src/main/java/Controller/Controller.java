@@ -82,10 +82,8 @@ public class Controller {
                 @Override
                 public void handle(ActionEvent event) {
                     if (gameDeck.isElixirEnough()) {
-                        press(g.getCard());
+                        press(g.getCard(),g);
                         gameDeck.getGameDeckObjects().add(g);
-                        deckOfGameHBox.getChildren().remove(g);
-                        gameDeck.run();
                     }else {
                         Warnings.setVisible(true);
                         Warnings.setStyle("-fx-text-inner-color:red");
@@ -104,7 +102,7 @@ public class Controller {
         }
     }
     @FXML
-    void press(Card card) {
+    void press(Card card,GameDeckObject g) {
         playGround.setDisable(false);
         gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
         //valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
@@ -125,7 +123,7 @@ public class Controller {
                         @Override
                         public void run() {
 
-                                Task(mouseEvent.getX(),mouseEvent.getY(),card);
+                                Task(mouseEvent.getX(),mouseEvent.getY(),card,g);
 
                         }
                     });
@@ -136,8 +134,8 @@ public class Controller {
             }
         });
     }
-    private void Task(double x,double y,Card card) {
-        if (!(card instanceof Spell)) {
+    private void Task(double x,double y,Card card,GameDeckObject g) {
+        //if (!(card instanceof Spell)) {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
@@ -214,11 +212,13 @@ public class Controller {
                         gameManager.getPlayer().getAttackCardsOnGround().add(temp);
                         playGround.getChildren().add(temp.getPicHandler());
                     }
+                    deckOfGameHBox.getChildren().remove(g);
+                    gameDeck.run();
 
                 }
             });
 
-        }
+       // }
     }
     private void FixLocation(AttackCard temp , double mouse_x, double mouse_y)
     {
@@ -345,7 +345,7 @@ public class Controller {
                         gameManager.getOpponent().chooseLocation();
                         Card card = gameManager.getOpponent().chooseFromDeck();
                         if (card instanceof AttackCard) {
-                            Task( gameManager.getOpponent().getX(), gameManager.getOpponent().getY(),(AttackCard) card);
+                            Task( gameManager.getOpponent().getX(), gameManager.getOpponent().getY(),(AttackCard) card,null);
                             gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue()-card.getCost());
                            // gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
                             //playGround.getChildren().add(((AttackCard) card).getPicHandler());
