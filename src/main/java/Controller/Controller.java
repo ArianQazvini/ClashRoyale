@@ -352,8 +352,6 @@ public class Controller {
             public void run() {
                 gameManager.getOpponent().setBattleDeck();
                 robotTask();
-                robotTask();
-                robotTask();
             }
         });
         thread.setDaemon(true);
