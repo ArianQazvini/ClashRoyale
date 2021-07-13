@@ -1,19 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="MainGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
+<AnchorPane fx:id="MainGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
     <children>
         <AnchorPane fx:id="playGround" layoutX="70.0" layoutY="52.0" prefHeight="640.0" prefWidth="360.0" />
         <TextField fx:id="Warnings" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="159.0" />
-        <HBox fx:id="deckOfGameHBox" layoutX="240.0" layoutY="696.0" prefHeight="90.0" prefWidth="246.0" spacing="2.5" />
-      <Text fx:id="valueTextOfElixir" layoutX="211.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <HBox fx:id="elixirHBox" alignment="CENTER_LEFT" layoutX="185.0" layoutY="721.0" prefHeight="30.0" prefWidth="80.0" />
+        <HBox fx:id="deckOfGameHBox" layoutX="107.0" layoutY="703.0" prefHeight="90.0" prefWidth="246.0" spacing="2.5" />
+      <Text fx:id="valueTextOfElixir" layoutX="23.0" layoutY="776.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <HBox fx:id="elixirHBox" alignment="CENTER_LEFT" layoutX="14.0" layoutY="733.0" prefHeight="30.0" prefWidth="80.0" />
     </children>
 </AnchorPane>
