@@ -43,7 +43,7 @@ public class Elixir extends ProgressBar {
             public void run() {
                 KeyFrame keyFrame=new KeyFrame(Duration.seconds(2),actionEvent->{
                     if (value<10)
-                    value+=2;
+                    value+=1;
                     if (value>10)
                         value=10;
                     setElixir(value);

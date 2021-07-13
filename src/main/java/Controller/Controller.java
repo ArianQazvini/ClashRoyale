@@ -61,14 +61,12 @@ public class Controller {
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
     private GameManager gameManager= Main.gameManager;
-   // private ArrayList<Fighter> elements = new ArrayList<>();
     private int check =0;
-    //    private ArrayList<Fighter> fighters = new ArrayList<>();
     public void initialize()
     {
         gameManager.CreateMap();
         Warnings.setVisible(false);
-        elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
+       elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
         valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         gameDeck=new GameDeck(deckOfGameHBox);
         gameManager.getPlayer().getElixir().setValueText(valueTextOfElixir);
