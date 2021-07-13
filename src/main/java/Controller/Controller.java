@@ -338,7 +338,7 @@ public class Controller {
                            // gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
                             //playGround.getChildren().add(((AttackCard) card).getPicHandler());
                         }
-                        gameManager.getOpponent().putCardOnGround(card);
+                      //  gameManager.getOpponent().putCardOnGround(card);
                     }
                 });
                 timeline1= new Timeline(keyFrame);
