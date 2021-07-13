@@ -40,6 +40,7 @@ public class Robot extends Player {
         }
     }
     public void putCardOnGround(Card card){
+        ///nothing
         if (card instanceof Troop)
             gameManager.getTroops().add((Troop) card);
         else if (card instanceof Building)
