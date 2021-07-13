@@ -39,18 +39,7 @@ public class Robot extends Player {
             getDeck().getCards().add(getCards().get(i));
         }
     }
-    public void putCardOnGround(Card card){
-        ///nothing
-        if (card instanceof Troop)
-            gameManager.getTroops().add((Troop) card);
-        else if (card instanceof Building)
-            gameManager.getBuildings().add((Building) card);
-        setElixir(getElixir().getValue()- card.getCost());
-        //getDeck().getCards().add(card);
-        //deckOnGame.remove(card);
-        //add spell
 
-    }
     public  Card chooseFromDeck(){return null;}
     public void chooseLocation(){}
 

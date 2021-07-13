@@ -13,10 +13,7 @@
         <AnchorPane fx:id="playGround" layoutX="70.0" layoutY="52.0" prefHeight="640.0" prefWidth="360.0" />
         <TextField fx:id="Warnings" editable="false" layoutX="14.0" layoutY="14.0" prefHeight="35.0" prefWidth="159.0" />
         <HBox fx:id="deckOfGameHBox" layoutX="240.0" layoutY="696.0" prefHeight="90.0" prefWidth="246.0" spacing="2.5" />
-      <HBox fx:id="elixirHBox" layoutX="14.0" layoutY="756.0" prefHeight="30.0" prefWidth="190.0" spacing="10.0">
-         <children>
-            <Text fx:id="valueTextOfElixir" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-         </children>
-      </HBox>
+      <Text fx:id="valueTextOfElixir" layoutX="211.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <HBox fx:id="elixirHBox" alignment="CENTER_LEFT" layoutX="185.0" layoutY="721.0" prefHeight="30.0" prefWidth="80.0" />
     </children>
 </AnchorPane>

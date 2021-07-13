@@ -13,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import model.AttackCard;
@@ -70,6 +71,7 @@ public class Controller {
         elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
         valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         gameDeck=new GameDeck(deckOfGameHBox);
+        gameManager.getPlayer().getElixir().setValueText(valueTextOfElixir);
         setDeckOnClick();
         gameDeck.run();
         UpdatePage();
@@ -92,10 +94,9 @@ public class Controller {
     }
     @FXML
     void press(Card card) {
-        System.out.println("it runs");
         playGround.setDisable(false);
         gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
-        valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
+        //valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -129,7 +130,6 @@ public class Controller {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    System.out.println("it runsss");
 //                    AttackCard tmp=(AttackCard)card;
 //                    FixLocation(tmp, x, y);
                     if(card instanceof Archer)
@@ -335,6 +335,7 @@ public class Controller {
                         Card card = gameManager.getOpponent().chooseFromDeck();
                         if (card instanceof AttackCard) {
                             Task( gameManager.getOpponent().getX(), gameManager.getOpponent().getY(),(AttackCard) card);
+                            gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue()-card.getCost());
                            // gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
                             //playGround.getChildren().add(((AttackCard) card).getPicHandler());
                         }

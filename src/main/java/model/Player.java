@@ -46,7 +46,7 @@ public class Player {
     }
 
     public void setElixir(double value) {
-        elixir.setValue(value);
+        elixir.setElixir(value);
     }
 
     public ArrayList<AttackCard> getAttackCardsOnGround() {
