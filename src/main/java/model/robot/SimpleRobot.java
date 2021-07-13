@@ -23,12 +23,12 @@ public class SimpleRobot extends Robot{
 
     @Override
     public void chooseLocation() {
-        x=random.nextInt(430);
-        y=random.nextInt(340);
-        while (x<70)
-            x=random.nextInt(430);
-        while (y<52)
-            y=random.nextInt(330);
+        x=random.nextInt(360);
+        y=random.nextInt(300);
+//        while (x<70)
+//            x=random.nextInt(430);
+//        while (y<52)
+//            y=random.nextInt(330);
 
     }
 
