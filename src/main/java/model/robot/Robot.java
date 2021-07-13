@@ -63,6 +63,7 @@ public class Robot extends Player {
         //add spell
 
     }
+    ////dellt
     public  Card chooseFromDeck(){return null;}
     public void chooseLocation(){}
 
