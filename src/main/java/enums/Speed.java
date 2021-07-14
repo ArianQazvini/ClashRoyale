@@ -3,15 +3,15 @@ package enums;
 public enum Speed {
     SLOW(1)
     ,MEDIUM(2)
-    ,FAST(3);
-    public int velocity;
-    Speed(int velocity) {
+    ,FAST(2.5);
+    public double velocity;
+    Speed(double velocity) {
         this.velocity = velocity;
     }
     public void setVelocity(int velocity) {
         this.velocity = velocity;
     }
-    public int getVelocity() {
+    public double getVelocity() {
         return velocity;
     }
 }

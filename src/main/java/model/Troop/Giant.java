@@ -5,9 +5,8 @@ import enums.Speed;
 import enums.Target;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
-import model.AttackCard;
 import model.Damage;
-import model.Directions;
+import enums.Directions;
 import model.Tower.Tower;
 import model.informations.ACLevelValue;
 

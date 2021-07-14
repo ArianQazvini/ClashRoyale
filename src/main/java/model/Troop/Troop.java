@@ -1,16 +1,11 @@
 package model.Troop;
 
+import enums.Commands;
 import enums.Speed;
-import enums.Target;
-import javafx.scene.shape.Rectangle;
 import model.AttackCard;
-import model.Directions;
-import model.PicHandler;
-import model.informations.LevelInformation;
-import model.informations.LevelValue;
+import enums.Directions;
 
-import javax.print.attribute.standard.Destination;
-import java.util.TreeMap;
+import java.util.ArrayList;
 
 public abstract class Troop extends AttackCard {
     private int count;
@@ -19,6 +14,8 @@ public abstract class Troop extends AttackCard {
     private String WalkingPic;
     private double x_destination;
     private double y_destination;
+    private ArrayList<Commands> path = new ArrayList<>();
+    private Directions lastDirection;
     public int getCount() {
         return count;
     }
@@ -43,21 +40,25 @@ public abstract class Troop extends AttackCard {
     }
     public void Left()
     {
+        lastDirection = Directions.LEFT;
         super.setX_Current( super.getPicHandler().getX()-speed.getVelocity());
         super.getPicHandler().setX(super.getX_Current());
     }
     public void Right()
     {
+        lastDirection = Directions.RIGHT;
         super.setX_Current( super.getPicHandler().getX()+speed.getVelocity());
         super.getPicHandler().setX(super.getX_Current());
     }
     public void Forward()
     {
+        lastDirection = Directions.TOP;
         super.setY_Current( super.getPicHandler().getY()-speed.getVelocity());
         super.getPicHandler().setY(super.getY_Current());
     }
     public void Backward()
     {
+        lastDirection= Directions.DOWN;
         super.setY_Current( super.getPicHandler().getY()+speed.getVelocity());
         super.getPicHandler().setY(super.getY_Current());;
     }
@@ -115,4 +116,9 @@ public abstract class Troop extends AttackCard {
             }
         }
     }
+
+    public ArrayList<Commands> getPath() {
+        return path;
+    }
+
 }

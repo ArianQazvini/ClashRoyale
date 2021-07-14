@@ -7,7 +7,7 @@ import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import model.Damage;
-import model.Directions;
+import enums.Directions;
 import model.informations.ACLevelValue;
 
 import java.io.File;

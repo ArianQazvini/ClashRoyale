@@ -98,12 +98,11 @@ public class Controller {
     void press(Card card,GameDeckObject g) {
         card.setType("+");
         playGround.setDisable(false);
-        gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
         //valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getY()<=340.0)
+                if(mouseEvent.getY()<=340.0 || !checkValidity(mouseEvent.getX(), mouseEvent.getY()))
                 {
                     Warnings.setVisible(true);
                     Warnings.setStyle("-fx-text-inner-color:red");
@@ -116,8 +115,8 @@ public class Controller {
                     Thread thread = new Thread(new Runnable() {
                         @Override
                         public void run() {
-
-                                Task(mouseEvent.getX(),mouseEvent.getY(),card,g);
+                            gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
+                            Task(mouseEvent.getX(),mouseEvent.getY(),card,g);
 
                         }
                     });
@@ -128,6 +127,25 @@ public class Controller {
             }
         });
     }
+    private boolean checkValidity(double x,double y)
+    {
+        if( x<=80 && x>=20 && y<=620 && y>=560)
+        {
+            return false;
+        }
+        else  if( x<=340 && x>=280 && y<=620 && y>=560)
+        {
+            return false;
+        }
+        else  if( x<=200 && x>=140 && y<=640 && y>=580) {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
     private void Task(double x,double y,Card card,GameDeckObject g) {
         //if (!(card instanceof Spell)) {
             Platform.runLater(new Runnable() {
@@ -445,7 +463,7 @@ public class Controller {
         if(gameManager.getTroops().size()!=0)
         {
             UpdatePage();
-            gameManager.Move();
+            gameManager.Step();
         }
     }
     void robotTask(){

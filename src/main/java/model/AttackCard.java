@@ -3,6 +3,7 @@ package model;
 import enums.Speed;
 import enums.Target;
 import javafx.scene.shape.Rectangle;
+import model.informations.ACLevelValue;
 import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
@@ -110,5 +111,10 @@ public abstract class AttackCard extends Card {
     }
     public void setLocked(boolean locked) {
         isLocked = locked;
+    }
+    @Override
+    public ACLevelValue getLevelInformation()
+    {
+        return (ACLevelValue) super.getLevelInformation();
     }
 }

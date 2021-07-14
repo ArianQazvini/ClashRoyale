@@ -11,4 +11,12 @@ public class ACLevelValue extends LevelValue {
         this.hp=hp;
         this.damage=damage;
     }
+
+    public Damage getDamage() {
+        return damage;
+    }
+
+    public int getHp() {
+        return hp;
+    }
 }

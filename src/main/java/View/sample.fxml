@@ -10,6 +10,6 @@
         <HBox fx:id="deckOfGameHBox" layoutX="120.0" layoutY="673.0" prefHeight="90.0" prefWidth="260.0" spacing="2.5" />
       <Text fx:id="valueTextOfElixir" layoutX="69.0" layoutY="788.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <HBox fx:id="elixirHBox" alignment="CENTER_LEFT" layoutX="43.0" layoutY="719.0" prefHeight="30.0" prefWidth="80.0" />
-      <Text fx:id="Warnings" layoutX="26.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER" wrappingWidth="86.6708984375" />
+      <Text fx:id="Warnings" fill="#fa0000" layoutX="16.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="133.87090301513672" />
     </children>
 </AnchorPane>

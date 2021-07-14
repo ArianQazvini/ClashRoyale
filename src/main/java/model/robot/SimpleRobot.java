@@ -25,11 +25,29 @@ public class SimpleRobot extends Robot{
     public void chooseLocation() {
         x=random.nextInt(360);
         y=random.nextInt(300);
-//        while (x<70)
-//            x=random.nextInt(430);
-//        while (y<52)
-//            y=random.nextInt(330);
-
+        while (!checkValidity(x,y))
+        {
+            x=random.nextInt(360);
+            y=random.nextInt(300);
+        }
+    }
+    private boolean checkValidity(double x,double y)
+    {
+        if( x<=80 && x>=20 && y<=80 && y>=20)
+        {
+            return false;
+        }
+        else  if( x<=340 && x>=280 && y<=80 && y>=20)
+        {
+            return false;
+        }
+        else  if( x<=200 && x>=140 && y<=60 && y>=0) {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
     }
 
 

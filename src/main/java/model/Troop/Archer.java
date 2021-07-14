@@ -4,16 +4,13 @@ import enums.Level;
 import enums.Speed;
 import enums.Target;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import model.Damage;
-import model.Directions;
+import enums.Directions;
 import model.informations.ACLevelValue;
 
-import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
 
 public class Archer extends Troop{
     private Rectangle Arrow = new Rectangle();
@@ -34,6 +31,8 @@ public class Archer extends Troop{
         super.setLevel4(new ACLevelValue(166,new Damage(53),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(182,new Damage(58),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
+//        ACLevelValue temp = (ACLevelValue) super.getLevelInformation();
+//        temp.getHp();
     }
 
     @Override
