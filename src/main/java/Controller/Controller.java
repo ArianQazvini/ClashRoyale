@@ -88,13 +88,6 @@ public class Controller {
                         Warnings.setVisible(true);
                         Warnings.setStyle("-fx-text-inner-color:red");
                         Warnings.setText("elixir not enough");
-//                        try {
-//                            Thread.sleep(2000);
-//                            //Warnings.setVisible(false);
-//                        } catch (InterruptedException e) {
-//                            e.printStackTrace();
-//                        }
-
                     }
                 }
 
@@ -103,6 +96,7 @@ public class Controller {
     }
     @FXML
     void press(Card card,GameDeckObject g) {
+        card.setType("+");
         playGround.setDisable(false);
         gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
         //valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
@@ -139,78 +133,193 @@ public class Controller {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-//                    AttackCard tmp=(AttackCard)card;
-//                    FixLocation(tmp, x, y);
                     if(card instanceof Archer)
                     {
                         Archer temp = new Archer();
-                        temp.WalkingTopMode();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            temp.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            temp.WalkingDownMode();
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+
                     }
                     else if(card instanceof BabyDragon)
                     {
                         BabyDragon temp = new BabyDragon();
-                        temp.WalkingTopMode();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            temp.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            temp.WalkingDownMode();
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        };
                     }
                     else if(card instanceof Barbarian)
                     {
                         Barbarian temp = new Barbarian();
-                        temp.WalkingTopMode();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            temp.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            temp.WalkingDownMode();
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
                     }
                     else if(card instanceof Giant)
                     {
                         Giant temp = new Giant();
-                        temp.WalkingTopMode();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            temp.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            temp.WalkingDownMode();
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
                     }
                     else if(card instanceof MiniPEKKA)
                     {
                         MiniPEKKA temp = new MiniPEKKA();
-                        temp.WalkingTopMode();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            temp.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            temp.WalkingDownMode();
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
                     }
                     else if(card instanceof Valkyrie)
                     {
                         Valkyrie temp = new Valkyrie();
-                        temp.WalkingTopMode();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            temp.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            temp.WalkingDownMode();
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
                     }
                     else if(card instanceof Wizard)
                     {
                         Wizard temp = new Wizard();
-                        temp.WalkingTopMode();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            temp.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            temp.WalkingDownMode();
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getTroops().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
                     }
                     else if(card instanceof InfernoTower)
                     {
                         InfernoTower temp = new InfernoTower();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getBuildings().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getBuildings().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
                     }
                     else if(card instanceof Cannon)
                     {
                         Cannon temp = new Cannon();
-                        temp.UpPic();
                         FixLocation(temp,x,y);
-                        gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                        playGround.getChildren().add(temp.getPicHandler());
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            temp.UpPic();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getBuildings().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            temp.DownPic();
+                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getBuildings().add(temp);
+                            playGround.getChildren().add(temp.getPicHandler());
+                        }
                     }
                     deckOfGameHBox.getChildren().remove(g);
                     gameDeck.run();
@@ -244,64 +353,69 @@ public class Controller {
     private void UpdatePage()
     {
         playGround.getChildren().clear();
-        for (int i=0;i<32;i++)
-        {
-            if(i==15 || i==16)
-            {
-                int index2 ;
-                if(i==15)
-                {
-                    index2=0;
-                }
-                else
-                {
-                    index2=1;
-                }
-                int z=0;
-                for (int j=0;j<18;j++)
-                {
-                    if(j==2 || j== 15)
-                    {
-                        int index;
-                        if(j==2)
-                        {
-                            index=0;
-                        }
-                        else
-                        {
-                            index=1;
-                        }
-                        playGround.getChildren().add(gameManager.getRoads()[i][index]);
-                    }
-                    else
-                    {
-                        playGround.getChildren().add(gameManager.getRiver()[index2][z]);
-                        z++;
-                    }
-                }
-            }
-            else
-            {
-                for (int j=0;j<18;j++)
-                {
-                    if(j==2 || j== 15)
-                    {
-                        int index;
-                        if(j==2)
-                        {
-                            index=0;
-                        }
-                        else
-                        {
-                            index=1;
-                        }
-                        playGround.getChildren().add(gameManager.getRoads()[i][index]);
-                    }
-                    else
-                    {
-                        playGround.getChildren().add(gameManager.getBlocks()[i][j]);
-                    }
-                }
+//        for (int i=0;i<32;i++)
+//        {
+//            if(i==15 || i==16)
+//            {
+//                int index2 ;
+//                if(i==15)
+//                {
+//                    index2=0;
+//                }
+//                else
+//                {
+//                    index2=1;
+//                }
+//                int z=0;
+//                for (int j=0;j<18;j++)
+//                {
+//                    if(j==2 || j== 15)
+//                    {
+//                        int index;
+//                        if(j==2)
+//                        {
+//                            index=0;
+//                        }
+//                        else
+//                        {
+//                            index=1;
+//                        }
+//                        playGround.getChildren().add(gameManager.getRoads()[i][index]);
+//                    }
+//                    else
+//                    {
+//                        playGround.getChildren().add(gameManager.getRiver()[index2][z]);
+//                        z++;
+//                    }
+//                }
+//            }
+//            else
+//            {
+//                for (int j=0;j<18;j++)
+//                {
+//                    if(j==2 || j== 15)
+//                    {
+//                        int index;
+//                        if(j==2)
+//                        {
+//                            index=0;
+//                        }
+//                        else
+//                        {
+//                            index=1;
+//                        }
+//                        playGround.getChildren().add(gameManager.getRoads()[i][index]);
+//                    }
+//                    else
+//                    {
+//                        playGround.getChildren().add(gameManager.getBlocks()[i][j]);
+//                    }
+//                }
+//            }
+//        }
+        for (int i = 0; i < 32; i++) {
+            for (int j = 0; j <18 ; j++) {
+                playGround.getChildren().add(gameManager.getBlocks()[i][j]);
             }
         }
         for (int i=0;i<gameManager.getTroops().size();i++)
@@ -328,7 +442,7 @@ public class Controller {
     }
     private void update()
     {
-        if(gameManager.getPlayer().getTroops().size()!=0)
+        if(gameManager.getTroops().size()!=0)
         {
             UpdatePage();
             gameManager.Move();
@@ -336,35 +450,53 @@ public class Controller {
     }
     void robotTask(){
         Platform.runLater(new Runnable() {
-            Timeline timeline1 =null;
-
+//            Timeline timeline1 =null;
+//
+//            @Override
+//            public void run() {
+//                KeyFrame keyFrame = new KeyFrame(Duration.seconds(15),actionEvent -> {
+//                    if (gameManager.getOpponent().isElixirEnough()) {
+//                        gameManager.getOpponent().chooseLocation();
+//                        Card card = gameManager.getOpponent().chooseFromDeck();
+//                        card.setType("-");
+//                        if (card instanceof AttackCard) {
+//                            Task( gameManager.getOpponent().getX(), gameManager.getOpponent().getY(),(AttackCard) card,null);
+//                            gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue()-card.getCost());
+//                        }
+//                    }
+//                });
+//                timeline1= new Timeline(keyFrame);
+//                timeline1.setCycleCount(Timeline.INDEFINITE);
+//                timeline1.play();
             @Override
             public void run() {
-                KeyFrame keyFrame = new KeyFrame(Duration.seconds(2),actionEvent -> {
-                    if (gameManager.getOpponent().isElixirEnough()) {
-                        gameManager.getOpponent().chooseLocation();
-                        Card card = gameManager.getOpponent().chooseFromDeck();
-                        if (card instanceof AttackCard) {
-                            Task( gameManager.getOpponent().getX(), gameManager.getOpponent().getY(),(AttackCard) card,null);
-                            gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue()-card.getCost());
-                           // gameManager.getOpponent().getAttackCardsOnGround().add((AttackCard) card);
-                            //playGround.getChildren().add(((AttackCard) card).getPicHandler());
-                        }
-                      //  gameManager.getOpponent().putCardOnGround(card);
+                if (gameManager.getOpponent().isElixirEnough()) {
+                    gameManager.getOpponent().chooseLocation();
+                    Card card = gameManager.getOpponent().chooseFromDeck();
+                    card.setType("-");
+                    if (card instanceof AttackCard) {
+                        Task(gameManager.getOpponent().getX(), gameManager.getOpponent().getY(), (AttackCard) card, null);
+                        gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue() - card.getCost());
                     }
-                });
-                timeline1= new Timeline(keyFrame);
-                timeline1.setCycleCount(Timeline.INDEFINITE);
-                timeline1.play();
+                }
             }
         });
+            try {
+                Thread.sleep(15000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
     }
     void startOpponent(){
         Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
-                gameManager.getOpponent().setBattleDeck();
-                robotTask();
+                while (true)
+                {
+                    gameManager.getOpponent().setBattleDeck();
+                    robotTask();
+                }
             }
         });
         thread.setDaemon(true);

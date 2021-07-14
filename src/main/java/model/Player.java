@@ -20,9 +20,9 @@ public class Player {
     private String name;
     private Elixir elixir=new Elixir();
     private String password;
-    private KingTower kingTower;
-    private PrinceTower princeTower1;
-    private PrinceTower princeTower2;
+    private KingTower kingTower= new KingTower();
+    private PrinceTower princeTower1=new PrinceTower();
+    private PrinceTower princeTower2= new PrinceTower();
     boolean anonymous=false;
 
     public Player(){
@@ -187,6 +187,12 @@ public class Player {
                 Cannon temp = (Cannon) cards.get(i);
                 temp.DownPic();
             }
+        }
+    }
+    private void positiveType()
+    {
+        for (int i = 0; i < getDeck().getCards().size(); i++) {
+            getDeck().getCards().get(i).setType("+");
         }
     }
 

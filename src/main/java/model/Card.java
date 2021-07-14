@@ -7,6 +7,7 @@ import javafx.scene.shape.Rectangle;
 
 public class Card extends WarObject {
     private int cost;
+    private String type ;
     public int getCost() {
         return cost;
     }
@@ -17,5 +18,13 @@ public class Card extends WarObject {
     public void doAction(){
 
     }
-    public void setCurrent(double x,double y){}
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    public String getType() {
+        return type;
+    }
+
+    public void setCurrent(double x, double y){}
 }

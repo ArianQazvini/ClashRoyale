@@ -32,6 +32,7 @@ public class Robot extends Player {
         getCards().add(new Rage());
         getCards().add(new Fireball());
         super.downPics();
+        negativeType();
     }
 
     public void setBattleDeck(){
@@ -56,5 +57,11 @@ public class Robot extends Player {
                 return true;
         }
         return false;
+    }
+    private void negativeType()
+    {
+        for (int i = 0; i < getDeck().getCards().size(); i++) {
+            getDeck().getCards().get(i).setType("-");
+        }
     }
 }

@@ -11,7 +11,7 @@ import javafx.scene.control.ProgressBar;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-
+import java.lang.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -27,32 +27,47 @@ public class Elixir extends ProgressBar {
 //        setWidth(90);
         setProgress(maxValue/maxValue);
         Thread increase=new Thread(new Runnable() {
-
             @Override
             public void run() {
-                increaseTask();
+                while (true)
+                {
+                    increaseTask();
+                }
+
             }
 
         });
+        increase.setDaemon(true);
         increase.start();
     }
     void increaseTask(){
         Platform.runLater(new Runnable() {
-            Timeline timeline=null;
+           // Timeline timeline=null;
             @Override
             public void run() {
-                KeyFrame keyFrame=new KeyFrame(Duration.seconds(2),actionEvent->{
-                    if (value<10)
+//                KeyFrame keyFrame=new KeyFrame(Duration.seconds(2),actionEvent->{
+//                    if (value<10)
+//                    value+=1;
+//                    if (value>10)
+//                        value=10;
+//                    setElixir(value);
+//                });
+//                timeline=new Timeline(keyFrame);
+//                timeline.setCycleCount(Timeline.INDEFINITE);
+//                timeline.play();
+                if (value<10)
                     value+=1;
                     if (value>10)
                         value=10;
                     setElixir(value);
-                });
-                timeline=new Timeline(keyFrame);
-                timeline.setCycleCount(Timeline.INDEFINITE);
-                timeline.play();
             }
+
         });
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
     public void setElixir(double value) {
         if (value>=0) {
