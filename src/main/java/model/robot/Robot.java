@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Robot extends Player {
     double x,y;
-    GameManager gameManager= Main.gameManager;
+    public GameManager gameManager;
     public Robot(){
         super();
         getCards().add(new Giant());

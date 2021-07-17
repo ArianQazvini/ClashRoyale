@@ -1,16 +1,15 @@
 package model.robot;
-
-import enums.Target;
-import model.AttackCard;
 import model.Card;
-import model.Troop.BabyDragon;
 import model.Troop.Troop;
+import sample.Main;
+import services.GameManager;
 
-import java.util.HashMap;
 import java.util.Random;
 
 public class SmartRobot extends Robot{
     Random random=new Random();
+    //GameManager gameManager= Main.gameManager;
+
     int[][] coordinate=new int[361][1];
     @Override
     public Card chooseFromDeck() {
@@ -31,15 +30,21 @@ public class SmartRobot extends Robot{
         int moodY=random.nextInt(2);
         initCoordinate();
         if (moodX==1) {
-            if (a == 0)
-                x = gameManager.getPlayer().getPrinceTower1().getX();
-            else if (a == 1)
-                x = gameManager.getPlayer().getKingTower().getX();
-            else
-                x = gameManager.getPlayer().getPrinceTower2().getX();
+//            if (a == 0)
+//                x = gameManager.getPlayer().getPrinceTower1().getX();
+//            else if (a == 1)
+//                x = gameManager.getPlayer().getKingTower().getX();
+//            else
+//                x = gameManager.getPlayer().getPrinceTower2().getX();
 //        x=random.nextInt(360);
         }else {
-            x=findCrowdedPlace();
+            //System.out.println(gameManager);
+            if (gameManager.getTroops().size()!=0) {
+                x = findCrowdedPlace();
+                System.out.println(x);
+            }
+            else
+                x= random.nextInt(360);
         }
         if (moodY==0){
             y=random.nextInt(150);
@@ -57,7 +62,6 @@ public class SmartRobot extends Robot{
         }
     }
     private int findCrowdedPlace(){
-        int average=0;
         for (int i=0;i<361;i++){
             for (Troop t:gameManager.getTroops()){
                 if (t.getType().equals("+")){
