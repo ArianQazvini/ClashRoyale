@@ -14,7 +14,6 @@ import java.io.File;
 
 public class Giant extends Troop{
     private int ShootingTimeTick =0;
-    private Tower TowerTarget = null;
     public Giant(){
         super.setCount(1);
         super.setCost(5);
@@ -35,7 +34,7 @@ public class Giant extends Troop{
     public void Hit() {
         if(this.isLocked())
         {
-            if(this.TowerTarget!=null)
+            if(super.getTowerTarget()!=null)
             {
                 changePictoTarget();
                 if(this.towerDistance()<= this.getRange() * 20)
@@ -43,27 +42,8 @@ public class Giant extends Troop{
                     ShootingTimeTick++;
                     if(ShootingTimeTick== (super.getHitSpeed() *10))
                     {
-                        this.TowerTarget.Hurt((Integer)super.getDamage().getValue());
-                    }
-                }
-                else
-                {
-                    ShootingTimeTick=0;
-                    if(super.closestDirectionTo(this.getTowerTarget().getX(),this.TowerTarget.getY())== Directions.TOP)
-                    {
-                        super.Forward();
-                    }
-                    else if(super.closestDirectionTo(this.getTowerTarget().getX(),this.TowerTarget.getY())== Directions.DOWN)
-                    {
-                        super.Backward();
-                    }
-                    else if(super.closestDirectionTo(this.getTowerTarget().getX(),this.TowerTarget.getY())== Directions.RIGHT)
-                    {
-                        super.Right();
-                    }
-                    else if(super.closestDirectionTo(this.getTowerTarget().getX(),this.TowerTarget.getY())== Directions.LEFT)
-                    {
-                        super.Left();
+                        super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        ShootingTimeTick=0;
                     }
                 }
             }
@@ -75,29 +55,10 @@ public class Giant extends Troop{
                     ShootingTimeTick++;
                     if(ShootingTimeTick== (super.getHitSpeed() *10))
                     {
-                        super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
+                        super.getLockedTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        ShootingTimeTick=0;
                     }
                     //------------------------
-                }
-                else
-                {
-                    ShootingTimeTick=0;
-                    if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-                    {
-                        super.Forward();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                    {
-                        super.Backward();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                    {
-                        super.Right();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                    {
-                        super.Left();
-                    }
                 }
             }
             else
@@ -200,42 +161,23 @@ public class Giant extends Troop{
     public void changePictoTarget() {
         if(this.isLocked())
         {
-            if(this.TowerTarget!=null)
+            if(super.getTowerTarget()!=null)
             {
                 if(this.towerDistance()<= this.getRange() * 20)
                 {
-                    if(super.closestDirectionTo(this.getTowerTarget().getX(),this.TowerTarget.getY())== Directions.TOP)
+                    if(super.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.TOP)
                     {
                         HitUpMode();
                     }
-                    else if(super.closestDirectionTo(this.TowerTarget.getX(),this.TowerTarget.getY())== Directions.DOWN)
+                    else if(super.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.DOWN)
                     {
                         HitDownMode();
                     }
-                    else if(super.closestDirectionTo(this.TowerTarget.getX(),this.TowerTarget.getY())== Directions.RIGHT)
+                    else if(super.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.RIGHT)
                     {
                         HitRightMode();
                     }
-                    else if(super.closestDirectionTo(this.TowerTarget.getX(),this.TowerTarget.getY())== Directions.LEFT)
-                    {
-                        HitLeftMode();
-                    }
-                }
-                else
-                {
-                    if(super.closestDirectionTo(this.TowerTarget.getX(),this.TowerTarget.getY())== Directions.TOP)
-                    {
-                        WalkingTopMode();
-                    }
-                    else if(super.closestDirectionTo(this.TowerTarget.getX(),this.TowerTarget.getY())== Directions.DOWN)
-                    {
-                        HitDownMode();
-                    }
-                    else if(super.closestDirectionTo(this.TowerTarget.getX(),this.TowerTarget.getY())== Directions.RIGHT)
-                    {
-                        HitRightMode();
-                    }
-                    else if(super.closestDirectionTo(this.TowerTarget.getX(),this.TowerTarget.getY())== Directions.LEFT)
+                    else if(super.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.LEFT)
                     {
                         HitLeftMode();
                     }
@@ -262,65 +204,8 @@ public class Giant extends Troop{
                         HitLeftMode();
                     }
                 }
-                else
-                {
-                    if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-                    {
-                        WalkingTopMode();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                    {
-                        HitDownMode();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                    {
-                        HitRightMode();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                    {
-                        HitLeftMode();
-                    }
-                }
             }
         }
 
-    }
-    public double towerDistance()
-    {
-        double tempx = this.getTowerTarget().getX() - this.getX_Current();
-        double tempy = this.getTowerTarget().getY() - this.getY_Current();
-        double sum = Math.pow(tempx,2)+Math.pow(tempy,2);
-        return Math.pow(sum,0.5);
-    }
-
-    public Tower getTowerTarget() {
-        return TowerTarget;
-    }
-
-    public void setTowerTarget(Tower towerTarget) {
-        TowerTarget = towerTarget;
-    }
-    @Override
-    public boolean isLocked() {
-        if(super.getLockedTarget()!=null && this.TowerTarget==null)
-        {
-            super.setLocked(true);
-            return super.isLocked();
-        }
-        else if(this.TowerTarget!= null && super.getLockedTarget()==null)
-        {
-            super.setLocked(true);
-            return super.isLocked();
-        }
-        else if(this.TowerTarget==null && super.getLockedTarget()==null)
-        {
-            super.setLocked(false);
-            return super.isLocked();
-        }
-        else
-        {
-            super.setLocked(true);
-            return super.isLocked();
-        }
     }
 }

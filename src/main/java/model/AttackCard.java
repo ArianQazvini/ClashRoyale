@@ -3,6 +3,7 @@ package model;
 import enums.Speed;
 import enums.Target;
 import javafx.scene.shape.Rectangle;
+import model.Tower.Tower;
 import model.informations.ACLevelValue;
 import model.informations.LevelInformation;
 import model.informations.LevelValue;
@@ -16,6 +17,7 @@ public abstract class AttackCard extends Card {
     private double x_Current;
     private double y_Current;
     private AttackCard LockedTarget=null;
+    private Tower TowerTarget = null;
     private boolean isLocked=false;
     private Rectangle picHandler = new Rectangle();
     public void setLockedTarget(AttackCard lockedTarget) {
@@ -92,23 +94,12 @@ public abstract class AttackCard extends Card {
     }
     public void Hurt(double damage)
     {
-        this.hp -= damage;
+        double temp = this.getLevelInformation().getHp();
+        this.getLevelInformation().setHp(temp-damage);
     }
 
     //before using it -> call setLockedTarget
     public abstract void Hit();
-
-    public boolean isLocked() {
-        if(LockedTarget==null)
-        {
-            setLocked(false);
-        }
-        else
-        {
-            setLocked(true);
-        }
-        return isLocked;
-    }
     public void setLocked(boolean locked) {
         isLocked = locked;
     }
@@ -116,5 +107,39 @@ public abstract class AttackCard extends Card {
     public ACLevelValue getLevelInformation()
     {
         return (ACLevelValue) super.getLevelInformation();
+    }
+    public void setTowerTarget(Tower towerTarget) {
+        TowerTarget = towerTarget;
+    }
+    public boolean isLocked() {
+        if(this.getLockedTarget()!=null && this.TowerTarget==null)
+        {
+            this.setLocked(true);
+            return true;
+        }
+        else if(this.TowerTarget!= null && this.getLockedTarget()==null)
+        {
+            this.setLocked(true);
+            return true;
+        }
+        else if(this.TowerTarget==null && this.getLockedTarget()==null)
+        {
+            this.setLocked(false);
+            return false;
+        }
+        else
+        {
+            this.setLocked(true);
+            return true;
+        }
+    }
+    public Tower getTowerTarget() {
+        return TowerTarget;
+    }
+    public double towerDistance() {
+        double tempx = this.getTowerTarget().getX() - this.getX_Current();
+        double tempy = this.getTowerTarget().getY() - this.getY_Current();
+        double sum = Math.pow(tempx, 2) + Math.pow(tempy, 2);
+        return Math.pow(sum, 0.5);
     }
 }

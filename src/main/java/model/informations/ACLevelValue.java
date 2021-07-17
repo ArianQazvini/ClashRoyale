@@ -4,7 +4,7 @@ import enums.Level;
 import model.Damage;
 
 public class ACLevelValue extends LevelValue {
-    int hp;
+    double hp;
     Damage damage;
     public ACLevelValue(int hp, Damage damage, Level level) {
         super(level);
@@ -16,7 +16,14 @@ public class ACLevelValue extends LevelValue {
         return damage;
     }
 
-    public int getHp() {
+    public double getHp() {
         return hp;
+    }
+
+    public void setDamage(Damage damage) {
+        this.damage = damage;
+    }
+    public void setHp(double hp) {
+        this.hp = hp;
     }
 }

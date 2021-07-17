@@ -42,6 +42,7 @@ public class Wizard extends Troop{
     public void Hit() {
         if(super.isLocked())
         {
+
             changePictoTarget();
             if(super.targetDistance()<= this.getRange() * 20)
             {

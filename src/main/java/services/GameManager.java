@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 import model.Building.Building;
 import model.Player;
 import model.Tower.Tower;
+import model.Troop.BabyDragon;
 import model.Troop.Troop;
 import model.robot.Robot;
 import model.robot.SimpleRobot;
@@ -115,6 +116,7 @@ public class GameManager {
         river();
         createPlayerTowers();
         createBotTowers();
+
     }
     private void road()
     {
@@ -425,155 +427,74 @@ public class GameManager {
     {
         for (int i=0;i<this.getTroops().size();i++)
         {
-            if(this.getTroops().get(i).getType().equals("+"))
+            if(checkPalace(troops.get(i)) )
             {
-                if(this.getTroops().get(i).getY_Current()>=0 && this.getTroops().get(i).getX_Current()>=0 &&this.getTroops().get(i).getX_Current()<360)
-                {
-                    move(this.getTroops().get(i));
-                }
+                move(troops.get(i));
             }
-            else
-            {
-                if(this.getTroops().get(i).getY_Current()<640 && this.getTroops().get(i).getX_Current()>=0 &&this.getTroops().get(i).getX_Current()<360)
-                {
-                    move(this.getTroops().get(i));
-                }
-            }
+
         }
 
+    }
+    private boolean checkPalace(Troop troop)
+    {
+        if(troop.getX_Current() >= 0 && troop.getX_Current() <360 && troop.getY_Current()>0 && troop.getY_Current()<640) {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
     }
     private void move(Troop troop)
     {
         if(troop.getType().equals("+"))
         {
-            if(isBlockRiver(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            if(riverHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
             {
-                if(troop.getX_Current()>40 && troop.getX_Current() <=180)
-                {
-                    troop.WalkingLeftMode();
-                    troop.Left();
-                }
-                else if(troop.getX_Current() >= 180 && troop.getX_Current() < 300)
-                {
-                    troop.WalkingRightMode();
-                    troop.Right();
-                }
-                else if(troop.getX_Current() <40)
-                {
-                    troop.WalkingRightMode();
-                    troop.Right();
-                }
-                else if(troop.getX_Current() > 320)
-                {
-                    troop.WalkingLeftMode();
-                    troop.Left();
-                }
+                riverMove(troop);
             }
-            else if(isBlockRoad(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            else if(roadHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
             {
-                troop.WalkingTopMode();
-                troop.Forward();
+                roadMove(troop);
             }
-            else if(isBlockTower(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            else if(towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
             {
-                troop.WalkingTopMode();
-            }
-            else if(isBlockAttackCard(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
-            {
-                if(troop.getX_Current()>40 && troop.getX_Current() <=180)
-                {
-                    troop.WalkingLeftMode();
-                    troop.Left();
-                }
-                else if(troop.getX_Current() >= 180 && troop.getX_Current() < 300)
-                {
-                    troop.WalkingRightMode();
-                    troop.Right();
-                }
-                else if(troop.getX_Current() <40)
-                {
-                    troop.WalkingRightMode();
-                    troop.Right();
-                }
-                else if(troop.getX_Current() > 320)
-                {
-                    troop.WalkingLeftMode();
-                    troop.Left();
-                }
+                towerMove(troop);
             }
             else
             {
-                troop.WalkingTopMode();
-                troop.Forward();
+//                troop.WalkingTopMode();
+//                troop.Forward();
+                smartUp(troop,troop.getSpeed().getVelocity());
+                //collision(troop);
             }
         }
         else
         {
-            if(isBlockRiver(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            if(riverHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
             {
-                if(troop.getX_Current()>40 && troop.getX_Current() <=180)
-                {
-                    troop.WalkingLeftMode();
-                    troop.Left();
-                }
-                else if(troop.getX_Current() >= 180 && troop.getX_Current() < 300)
-                {
-                    troop.WalkingRightMode();
-                    troop.Right();
-                }
-                else if(troop.getX_Current() <40)
-                {
-                    troop.WalkingRightMode();
-                    troop.Right();
-                }
-                else if(troop.getX_Current() > 320)
-                {
-                    troop.WalkingLeftMode();
-                    troop.Left();
-                }
+                riverMove(troop);
             }
-            else if(isBlockRoad(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            else if(roadHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
             {
-                troop.WalkingDownMode();
-                troop.Backward();
+                roadMove(troop);
             }
-            else if(isBlockTower(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            else if(towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
             {
-                troop.WalkingDownMode();
-            }
-            else if(isBlockAttackCard(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
-            {
-                if(troop.getX_Current()>40 && troop.getX_Current() <=180)
-                {
-                    troop.WalkingLeftMode();
-                    troop.Left();
-                }
-                else if(troop.getX_Current() >= 180 && troop.getX_Current() < 300)
-                {
-                    troop.WalkingRightMode();
-                    troop.Right();
-                }
-                else if(troop.getX_Current() <40)
-                {
-                    troop.WalkingRightMode();
-                    troop.Right();
-                }
-                else if(troop.getX_Current() > 320)
-                {
-                    troop.WalkingLeftMode();
-                    troop.Left();
-                }
+               towerMove(troop);
             }
             else
             {
-                troop.WalkingDownMode();
-                troop.Backward();
+//                troop.WalkingDownMode();
+//                troop.Backward();
+//                collision(troop);
+                smartDown(troop,troop.getSpeed().getVelocity());
             }
         }
     }
-    private boolean isBlockRiver(double x, double y)
+    private boolean riverHit(double x, double y)
     {
-        if((y>300 && y<340 && x>=0 && x<40) || (y>300 && y<340 && x>=60&& x<300) ||(y>300 && y<340 && x>=320) )
+        if((y>300.0 && y<340.0 && x>=0.0 && x<40.0) || (y>300.0 && y<340.0 && x>=60.0&& x<300.0) ||(y>300.0 && y<340.0 && x>=320.0) )
         {
             return true;
         }
@@ -583,9 +504,9 @@ public class GameManager {
         }
 
     }
-    private boolean isBlockRoad(double x, double y)
+    private boolean roadHit(double x, double y)
     {
-        if((x>=40 && x<60 && y<=560 && y>=80) || (x>=300&& x<320&& y<=560 && y>=80))
+        if((x>=40.0 && x<60.0 && y<=560.0 && y>=80.0) || (x>=300.0&& x<320.0&& y<=560.0 && y>=80.0))
         {
             return true;
         }
@@ -594,7 +515,7 @@ public class GameManager {
             return false;
         }
     }
-    private boolean isBlockTower(double x, double y)
+    private boolean towerHit(double x, double y)
     {
         if( x<80 && x>=20 && y<=620 && y>=560)
         {
@@ -623,20 +544,393 @@ public class GameManager {
             return false;
         }
     }
-    private boolean isBlockAttackCard(double x, double y)
+    private boolean attackCardHit(Troop curr)
     {
-        for (int i = 0; i < troops.size(); i++) {
-            if(x> troops.get(i).getX_Current() && x< troops.get(i).getX_Current()+blockSize && y> troops.get(i).getY_Current() && y< troops.get(i).getY_Current()+blockSize)
+        if(curr instanceof BabyDragon)
+        {
+            return false;
+        }
+        else
+        {
+            if((curr.getX_Current()>=40.0 && curr.getX_Current()<60.0 && curr.getY_Current()>300 && curr.getY_Current()<340) ||(curr.getX_Current()>=300 && curr.getX_Current()<320 && curr.getY_Current()>300 && curr.getY_Current()<340))
             {
-                return true;
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < troops.size(); i++) {
+                    if(troops.get(i)!= curr && !(troops.get(i) instanceof BabyDragon) )
+                    {
+                        if(Math.abs(troops.get(i).getY_Current()-curr.getY_Current())< blockSize && Math.abs(troops.get(i).getX_Current()-curr.getX_Current())<blockSize)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             }
         }
-        for (int i = 0; i < buildings.size(); i++) {
-            if(x> troops.get(i).getX_Current() && x< troops.get(i).getX_Current()+blockSize && y>= troops.get(i).getY_Current() && y< troops.get(i).getY_Current()+blockSize)
+    }
+    private boolean upCollisionChance(Troop curr, double dist)
+    {
+        if(curr instanceof BabyDragon)
+        {
+            return false;
+        }
+        else
+        {
+            if((curr.getX_Current()>=40.0 && curr.getX_Current()<60.0 && curr.getY_Current()>300 && curr.getY_Current()<340) ||(curr.getX_Current()>=300 && curr.getX_Current()<320 && curr.getY_Current()>300 && curr.getY_Current()<340))
             {
-                return true;
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < troops.size(); i++) {
+                    if(troops.get(i)!= curr && !(troops.get(i) instanceof BabyDragon) )
+                    {
+                        if(Math.abs(troops.get(i).getY_Current()-(curr.getY_Current()-dist))< blockSize && Math.abs(troops.get(i).getX_Current()-curr.getX_Current())<blockSize)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
             }
         }
-        return false;
+    }
+    private boolean downCollisionChance(Troop curr, double dist)
+    {
+        if(curr instanceof BabyDragon)
+        {
+            return false;
+        }
+        else
+        {
+            if((curr.getX_Current()>=40.0 && curr.getX_Current()<60.0 && curr.getY_Current()>300 && curr.getY_Current()<340) ||(curr.getX_Current()>=300 && curr.getX_Current()<320 && curr.getY_Current()>300 && curr.getY_Current()<340))
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < troops.size(); i++) {
+                    if(troops.get(i)!= curr && !(troops.get(i) instanceof BabyDragon) )
+                    {
+                        if(Math.abs(troops.get(i).getY_Current()-(curr.getY_Current()+dist))< blockSize && Math.abs(troops.get(i).getX_Current()-curr.getX_Current())<blockSize)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    private boolean leftCollisionChance(Troop curr, double dist)
+    {
+        if(curr instanceof BabyDragon)
+        {
+            return false;
+        }
+        else
+        {
+            if((curr.getX_Current()>=40.0 && curr.getX_Current()<60.0 && curr.getY_Current()>300 && curr.getY_Current()<340) ||(curr.getX_Current()>=300 && curr.getX_Current()<320 && curr.getY_Current()>300 && curr.getY_Current()<340))
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < troops.size(); i++) {
+                    if(troops.get(i)!= curr && !(troops.get(i) instanceof BabyDragon) )
+                    {
+                        if(Math.abs(troops.get(i).getY_Current()-curr.getY_Current())< blockSize && Math.abs(troops.get(i).getX_Current()-(curr.getX_Current()-dist))<blockSize)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    private boolean rightCollisionChance(Troop curr, double dist)
+    {
+        if(curr instanceof BabyDragon)
+        {
+            return false;
+        }
+        else
+        {
+            if((curr.getX_Current()>=40.0 && curr.getX_Current()<60.0 && curr.getY_Current()>300 && curr.getY_Current()<340) ||(curr.getX_Current()>=300 && curr.getX_Current()<320 && curr.getY_Current()>300 && curr.getY_Current()<340))
+            {
+                return false;
+            }
+            else
+            {
+                for (int i = 0; i < troops.size(); i++) {
+                    if(troops.get(i)!= curr && !(troops.get(i) instanceof BabyDragon) )
+                    {
+                        if(Math.abs(troops.get(i).getY_Current()-curr.getY_Current())< blockSize && Math.abs(troops.get(i).getX_Current()-(curr.getX_Current()+dist))<blockSize)
+                        {
+                            return true;
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+    }
+    private double distance(double x1,double y1,double x2 , double y2)
+    {
+        double tempx = x1-x2;
+        double tempy = y1-y2;
+        double sum = Math.pow(tempx,2)+Math.pow(tempy,2);
+        return Math.sqrt(sum);
+    }
+//    private void collision(Troop troop)
+//    {
+//        if(attackCardHit(troop))
+//        {
+//            if (troop.getX_Current()<=180)
+//            {
+//                troop.WalkingRightMode();
+//                troop.Right(blockSize);
+//            }
+//            else
+//            {
+//                troop.WalkingLeftMode();
+//                troop.Left();
+//            }
+//        }
+//    }
+    private void riverMove(Troop troop)
+    {
+        if(!(troop instanceof BabyDragon))
+        {
+            if(troop.getType().equals("+"))
+            {
+                if(riverHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+                {
+                    if(troop.getX_Current()>=60 && troop.getX_Current() <=80)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                       // smartLeft(troop,20);
+                    }
+                    else if(troop.getX_Current()>=80 && troop.getX_Current() <=180)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(troop.getSpeed().getVelocity());
+                       // smartLeft(troop,troop.getSpeed().velocity);
+                    }
+                    else if(troop.getX_Current() >= 180 && troop.getX_Current() < 300)
+                    {
+//                        troop.WalkingRightMode();
+//                        troop.Right();
+                        smartRight(troop,troop.getSpeed().velocity);
+                    }
+                    else if(troop.getX_Current() <40)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                        //smartRight(troop,troop.getSpeed().getVelocity());
+                    }
+                    else if(troop.getX_Current() >= 320 && troop.getX_Current()<340)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                        //smartLeft(troop,20);
+                    }
+                    else if (troop.getX_Current()>=340)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left();
+                       // smartLeft(troop,troop.getSpeed().velocity);
+                    }
+                }
+            }
+            else {
+                if(riverHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+                {
+                    if(troop.getX_Current()>=60 && troop.getX_Current() <=80)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                   //     smartLeft(troop,20);
+                    }
+                    else if(troop.getX_Current()>=80 && troop.getX_Current() <=180)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(troop.getSpeed().getVelocity());
+                       // smartLeft(troop,troop.getSpeed().velocity);
+                    }
+                    else if(troop.getX_Current() >= 180 && troop.getX_Current() < 300)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                 //       smartRight(troop,troop.getSpeed().velocity);
+                    }
+                    else if(troop.getX_Current() <40)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                      //  smartRight(troop,troop.getSpeed().getVelocity());
+                    }
+                    else if(troop.getX_Current() >= 320 && troop.getX_Current()<340)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                       // smartLeft(troop,20);
+                    }
+                    else if (troop.getX_Current()>=340)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left();
+                     //   smartLeft(troop,troop.getSpeed().velocity);
+                    }
+                }
+            }
+        }
+        else
+        {
+            if(troop.getType().equals("+"))
+            {
+                troop.WalkingTopMode();
+                troop.Forward();
+            }
+            else
+            {
+                troop.WalkingDownMode();
+                troop.Backward();
+            }
+        }
+      // collision(troop);
+    }
+    private void roadMove(Troop troop)
+    {
+        if(troop.getType().equals("+"))
+        {
+            if(roadHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            {
+                troop.WalkingTopMode();
+                troop.Forward();
+               // smartUp(troop,troop.getSpeed().getVelocity());
+            }
+        }
+        else
+        {
+            if(roadHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            {
+                troop.WalkingDownMode();
+                troop.Backward();
+//                smartDown(troop,troop.getSpeed().getVelocity());
+            }
+        }
+        //collision(troop);
+    }
+    private void towerMove(Troop troop)
+    {
+        if (troop.getType().equals("+"))
+        {
+            if(towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            {
+                troop.WalkingTopMode();
+//                troop.Forward();
+               // smartUp(troop,troop.getSpeed().getVelocity());
+            }
+        }
+        else
+        {
+            if(towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            {
+                troop.WalkingDownMode();
+//                troop.Backward();
+               // smartDown(troop,troop.getSpeed().getVelocity());
+            }
+        }
+       // collision(troop);
+    }
+    private void smartLeft(Troop troop,double dist)
+    {
+        if(!leftCollisionChance(troop,dist))
+        {
+            troop.WalkingLeftMode();
+            troop.Left(dist);
+        }
+        else
+        {
+            if(!upCollisionChance(troop,dist))
+            {
+                troop.WalkingTopMode();
+                troop.Forward(blockSize);
+            }
+            else
+            {
+                troop.WalkingDownMode();
+                troop.Backward(blockSize);
+            }
+        }
+    }
+    private void smartUp(Troop troop,double dist)
+    {
+            if(!upCollisionChance(troop,dist))
+            {
+                troop.WalkingTopMode();
+                troop.Forward(dist);
+            }
+            else
+            {
+                if(!leftCollisionChance(troop,dist))
+                {
+                    troop.WalkingLeftMode();
+                    troop.Left(blockSize);
+                }
+                else
+                {
+                    troop.WalkingRightMode();
+                    troop.Right(blockSize);
+                }
+            }
+    }
+    private void smartRight(Troop troop,double dist)
+    {
+            if(!rightCollisionChance(troop,dist))
+            {
+                troop.WalkingRightMode();
+                troop.Right(dist);
+            }
+            else
+            {
+                if(!upCollisionChance(troop,dist))
+                {
+                    troop.WalkingTopMode();
+                    troop.Forward(blockSize);
+                }
+                else
+                {
+                    troop.WalkingDownMode();
+                    troop.Backward(blockSize);
+                }
+            }
+    }
+    private void smartDown(Troop troop,double dist)
+    {
+            if(!downCollisionChance(troop,dist))
+            {
+                troop.WalkingDownMode();
+                troop.Backward(dist);
+            }
+            else
+            {
+                if(!leftCollisionChance(troop,dist))
+                {
+                    troop.WalkingLeftMode();
+                    troop.Left(blockSize);
+                }
+                else
+                {
+                    troop.WalkingRightMode();
+                    troop.Right(blockSize);
+                }
+            }
     }
 }

@@ -153,23 +153,37 @@ public class Controller {
                 public void run() {
                     if(card instanceof Archer)
                     {
-                        Archer temp = new Archer();
-                        FixLocation(temp,x,y);
+                        Archer temp1 = new Archer();
+                        Archer temp2 = new Archer();
+                        FixLocation(temp1,x,y);
+                        FixLocation(temp2,x+2*blockSize,y);
                         if(card.getType().equals("+"))
                         {
-                            temp.setType("+");
-                            temp.WalkingTopMode();
-                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                            gameManager.getTroops().add(temp);
-                            playGround.getChildren().add(temp.getPicHandler());
+                            temp1.setType("+");
+                            temp1.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp1);
+                            gameManager.getTroops().add(temp1);
+                            playGround.getChildren().add(temp1.getPicHandler());
+                            //-----------------------------
+                            temp2.setType("+");
+                            temp2.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp2);
+                            gameManager.getTroops().add(temp2);
+                            playGround.getChildren().add(temp2.getPicHandler());
                         }
                         else
                         {
-                            temp.setType("-");
-                            temp.WalkingDownMode();
-                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
-                            gameManager.getTroops().add(temp);
-                            playGround.getChildren().add(temp.getPicHandler());
+                            temp1.setType("-");
+                            temp1.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp1);
+                            gameManager.getTroops().add(temp1);
+                            playGround.getChildren().add(temp1.getPicHandler());
+                            //-----------------------------
+                            temp2.setType("-");
+                            temp2.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp2);
+                            gameManager.getTroops().add(temp2);
+                            playGround.getChildren().add(temp2.getPicHandler());
                         }
 
                     }
@@ -196,23 +210,67 @@ public class Controller {
                     }
                     else if(card instanceof Barbarian)
                     {
-                        Barbarian temp = new Barbarian();
-                        FixLocation(temp,x,y);
+                        Barbarian temp1 = new Barbarian();
+                        Barbarian temp2 = new Barbarian();
+                        Barbarian temp3 = new Barbarian();
+                        Barbarian temp4 = new Barbarian();
+                        FixLocation(temp1,x,y);
+                        FixLocation(temp2,x+2*blockSize,y);
+                        FixLocation(temp3,x,y+2*blockSize);
+                        FixLocation(temp4,x+2*blockSize,y+2*blockSize);
                         if(card.getType().equals("+"))
                         {
-                            temp.setType("+");
-                            temp.WalkingTopMode();
-                            gameManager.getPlayer().getAttackCardsOnGround().add(temp);
-                            gameManager.getTroops().add(temp);
-                            playGround.getChildren().add(temp.getPicHandler());
+                            temp1.setType("+");
+                            temp1.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp1);
+                            gameManager.getTroops().add(temp1);
+                            playGround.getChildren().add(temp1.getPicHandler());
+                            //--------------
+                            temp2.setType("+");
+                            temp2.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp2);
+                            gameManager.getTroops().add(temp2);
+                            playGround.getChildren().add(temp2.getPicHandler());
+                            //----------------------------
+                            temp3.setType("+");
+                            temp3.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp3);
+                            gameManager.getTroops().add(temp3);
+                            playGround.getChildren().add(temp3.getPicHandler());
+                            //---------------------------
+                            temp4.setType("+");
+                            temp4.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp4);
+                            gameManager.getTroops().add(temp4);
+                            playGround.getChildren().add(temp4.getPicHandler());
+                            //--------------------------------
                         }
                         else
                         {
-                            temp.setType("-");
-                            temp.WalkingDownMode();
-                            gameManager.getOpponent().getAttackCardsOnGround().add(temp);
-                            gameManager.getTroops().add(temp);
-                            playGround.getChildren().add(temp.getPicHandler());
+                            temp1.setType("-");
+                            temp1.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp1);
+                            gameManager.getTroops().add(temp1);
+                            playGround.getChildren().add(temp1.getPicHandler());
+                            //--------------
+                            temp2.setType("-");
+                            temp2.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp2);
+                            gameManager.getTroops().add(temp2);
+                            playGround.getChildren().add(temp2.getPicHandler());
+                            //----------------------------
+                            temp3.setType("-");
+                            temp3.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp3);
+                            gameManager.getTroops().add(temp3);
+                            playGround.getChildren().add(temp3.getPicHandler());
+                            //---------------------------
+                            temp4.setType("-");
+                            temp4.WalkingTopMode();
+                            gameManager.getPlayer().getAttackCardsOnGround().add(temp4);
+                            gameManager.getTroops().add(temp4);
+                            playGround.getChildren().add(temp4.getPicHandler());
+                            //--------------------------------
                         }
                     }
                     else if(card instanceof Giant)
@@ -360,8 +418,6 @@ public class Controller {
                     if(j==xPass)
                     {
                         temp.setCurrent(j*blockSize,i*blockSize);
-//                          temp.setX(j*blockSize);
-//                          temp.setY(i*blockSize);
                         break;
                     }
                 }
@@ -371,66 +427,6 @@ public class Controller {
     private void UpdatePage()
     {
         playGround.getChildren().clear();
-//        for (int i=0;i<32;i++)
-//        {
-//            if(i==15 || i==16)
-//            {
-//                int index2 ;
-//                if(i==15)
-//                {
-//                    index2=0;
-//                }
-//                else
-//                {
-//                    index2=1;
-//                }
-//                int z=0;
-//                for (int j=0;j<18;j++)
-//                {
-//                    if(j==2 || j== 15)
-//                    {
-//                        int index;
-//                        if(j==2)
-//                        {
-//                            index=0;
-//                        }
-//                        else
-//                        {
-//                            index=1;
-//                        }
-//                        playGround.getChildren().add(gameManager.getRoads()[i][index]);
-//                    }
-//                    else
-//                    {
-//                        playGround.getChildren().add(gameManager.getRiver()[index2][z]);
-//                        z++;
-//                    }
-//                }
-//            }
-//            else
-//            {
-//                for (int j=0;j<18;j++)
-//                {
-//                    if(j==2 || j== 15)
-//                    {
-//                        int index;
-//                        if(j==2)
-//                        {
-//                            index=0;
-//                        }
-//                        else
-//                        {
-//                            index=1;
-//                        }
-//                        playGround.getChildren().add(gameManager.getRoads()[i][index]);
-//                    }
-//                    else
-//                    {
-//                        playGround.getChildren().add(gameManager.getBlocks()[i][j]);
-//                    }
-//                }
-//            }
-//        }
         for (int i = 0; i < 32; i++) {
             for (int j = 0; j <18 ; j++) {
                 playGround.getChildren().add(gameManager.getBlocks()[i][j]);
@@ -439,6 +435,10 @@ public class Controller {
         for (int i=0;i<gameManager.getTroops().size();i++)
         {
             playGround.getChildren().add(gameManager.getTroops().get(i).getPicHandler());
+        }
+        for (int i = 0; i < gameManager.getBuildings().size(); i++) {
+            playGround.getChildren().add(gameManager.getBuildings().get(i).getPicHandler());
+
         }
     }
     private void StartTimer()
