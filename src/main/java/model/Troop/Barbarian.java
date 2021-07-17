@@ -12,7 +12,6 @@ import model.informations.ACLevelValue;
 import java.io.File;
 
 public class Barbarian extends Troop{
-    private int ShootingTimeTick =0;
     public Barbarian(){
         setAvatar("barbarians.png");
         super.setCount(4);
@@ -39,11 +38,10 @@ public class Barbarian extends Troop{
                 if(this.towerDistance()<= this.getRange() * 20)
                 {
                     changePictoTarget();
-                    ShootingTimeTick++;
-                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    incrementTimeTick();
+                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
-                        ShootingTimeTick=0;
                     }
                 }
             }
@@ -52,11 +50,10 @@ public class Barbarian extends Troop{
                 if(super.targetDistance()<= this.getRange() * 20)
                 {
                     changePictoTarget();
-                    ShootingTimeTick++;
-                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    incrementTimeTick();
+                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getLockedTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
-                        ShootingTimeTick=0;
                     }
                     //------------------------
                 }
@@ -66,7 +63,7 @@ public class Barbarian extends Troop{
         {
             super.setLockedTarget(null);
             super.setTowerTarget(null);
-            ShootingTimeTick=0;
+            setShootingTimeTick(0);
         }
     }
 

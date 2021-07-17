@@ -16,6 +16,19 @@ public abstract class Troop extends AttackCard {
     private double y_destination;
     private ArrayList<Commands> path = new ArrayList<>();
     private Directions lastDirection;
+    private int ShootingTimeTick =0;
+
+    public void setShootingTimeTick(int shootingTimeTick) {
+        ShootingTimeTick = shootingTimeTick;
+    }
+
+    public int getShootingTimeTick() {
+        return ShootingTimeTick;
+    }
+    public void incrementTimeTick()
+    {
+        ShootingTimeTick++;
+    }
     public int getCount() {
         return count;
     }
@@ -26,7 +39,6 @@ public abstract class Troop extends AttackCard {
     public void setAreaSplash(boolean areaSplash) {
         isAreaSplash = areaSplash;
     }
-
     public void setCount(int count) {
         this.count = count;
     }

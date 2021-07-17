@@ -14,7 +14,6 @@ import java.io.File;
 
 public class BabyDragon extends Troop{
     private Circle fireball = new Circle();
-    private int ShootingTimeTick =0;
     public BabyDragon(){
         setAvatar("baby-dragon.png");
         super.setCount(1);
@@ -39,19 +38,20 @@ public class BabyDragon extends Troop{
     }
 
     @Override
-    public void Hit() {      if(super.isLocked())
+    public void Hit() {
+        if(super.isLocked())
     {
         if(super.getLockedTarget()!=null)
         {
             if(super.targetDistance()<= this.getRange() * 20)
             {
                 changePictoTarget();
-                ShootingTimeTick++;
-                if(ShootingTimeTick== (super.getHitSpeed() *10))
+                super.incrementTimeTick();
+                if(super.getShootingTimeTick()== (super.getHitSpeed() *10))
                 {
                     super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
                 }
-                double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
                 double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
                 double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
                 double xMoveVector = x_Vector/distPart;
@@ -74,10 +74,6 @@ public class BabyDragon extends Troop{
                 {
                     this.FireBallForward((-1)*yMoveVector);
                 }
-                if(ShootingTimeTick==(super.getHitSpeed() *10))
-                {
-                    ShootingTimeTick=0;
-                }
             }
         }
         else if(super.getTowerTarget()!=null)
@@ -85,13 +81,13 @@ public class BabyDragon extends Troop{
             if(this.towerDistance()<= this.getRange() * 20)
             {
                 changePictoTarget();
-                ShootingTimeTick++;
-                if(ShootingTimeTick== (super.getHitSpeed() *10))
+                super.incrementTimeTick();
+                if(super.getShootingTimeTick()== (super.getHitSpeed() *10))
                 {
                     super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
                 }
             }
-            double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+            double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
             double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
             double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
             double xMoveVector = x_Vector/distPart;
@@ -114,17 +110,13 @@ public class BabyDragon extends Troop{
             {
                 this.FireBallForward((-1)*yMoveVector);
             }
-            if(ShootingTimeTick==(super.getHitSpeed() *10))
-            {
-                ShootingTimeTick=0;
-            }
         }
     }
     else
     {
         super.setLockedTarget(null);
         super.setTowerTarget(null);
-        ShootingTimeTick=0;
+        super.setShootingTimeTick(0);
         fireball.setCenterX(super.getX_Current());
         fireball.setCenterY(super.getY_Current());
     }
@@ -208,5 +200,8 @@ public class BabyDragon extends Troop{
     public void FireBallRight(double dist)
     {
         this.fireball.setCenterX(this.fireball.getCenterX()+dist);
+    }
+    public Circle getFireball() {
+        return fireball;
     }
 }

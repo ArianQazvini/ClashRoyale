@@ -6,20 +6,25 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
+import model.AttackCard;
 import model.Building.Building;
 import model.Player;
 import model.Tower.Tower;
 import model.Troop.BabyDragon;
 import model.Troop.Troop;
+import model.Troop.Wizard;
 import model.robot.Robot;
 import model.robot.SimpleRobot;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.TreeMap;
 
 public class GameManager {
     private final int blockSize=20;
+    private final double Renedering=0.1;
     private Player player=new Player();
     private Robot opponent=new SimpleRobot();
     private Parent root;
@@ -932,5 +937,146 @@ public class GameManager {
                     troop.Right(blockSize);
                 }
             }
+    }
+    private void buildingsLifeDecrement()
+    {
+        for (int i = 0; i < buildings.size(); i++) {
+            buildings.get(i).decrementLife(Renedering);
+        }
+    }
+    private void removeBuilding(Building building)
+    {
+        Iterator<Building> it = buildings.iterator();
+        while (it.hasNext())
+        {
+            Building temp = it.next();
+            if(temp==building)
+            {
+                it.remove();
+                break;
+            }
+        }
+        for (int i = 0; i < troops.size(); i++) {
+            if(troops.get(i).getLockedTarget()==building)
+            {
+                troops.get(i).setLockedTarget(null);
+            }
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            if(buildings.get(i).getLockedTarget()==building)
+            {
+                buildings.get(i).setLockedTarget(null);
+            }
+        }
+        towerTargetRemove(building,player.getPrinceTower1());
+        towerTargetRemove(building,player.getPrinceTower2());
+        towerTargetRemove(building,opponent.getPrinceTower2());
+        towerTargetRemove(building,opponent.getPrinceTower2());
+        towerTargetRemove(building,player.getKingTower());
+        towerTargetRemove(building,opponent.getKingTower());
+    }
+    private void towerTargetRemove(AttackCard attackCard ,Tower tower)
+    {
+        if(tower.getLockedTarget()== attackCard)
+        {
+            tower.setLockedTarget(null);
+        }
+    }
+    private void checkBuildingsLife()
+    {
+        for (int i = 0; i < buildings.size(); i++) {
+            if(buildings.get(i).getLifeTime()<=0 || buildings.get(i).getLevelInformation().getHp()<=0)
+            {
+                removeBuilding(buildings.get(i));
+            }
+        }
+    }
+    private void checkTroopsLife()
+    {
+        for (int i = 0; i < troops.size(); i++) {
+            if(troops.get(i).getLevelInformation().getHp()<=0)
+            {
+                removeTroops(troops.get(i));
+            }
+        }
+    }
+    private void removeTroops(Troop troop)
+    {
+        Iterator<Troop> it = troops.iterator();
+        while (it.hasNext())
+        {
+            Troop temp = it.next();
+            if(temp==troop)
+            {
+                it.remove();
+                break;
+            }
+        }
+        for (int i = 0; i < troops.size(); i++) {
+            if(troops.get(i).getLockedTarget()==troop)
+            {
+                troops.get(i).setLockedTarget(null);
+            }
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            if(buildings.get(i).getLockedTarget()==troop)
+            {
+                buildings.get(i).setLockedTarget(null);
+            }
+        }
+        towerTargetRemove(troop,player.getPrinceTower1());
+        towerTargetRemove(troop,player.getPrinceTower2());
+        towerTargetRemove(troop,opponent.getPrinceTower2());
+        towerTargetRemove(troop,opponent.getPrinceTower2());
+        towerTargetRemove(troop,player.getKingTower());
+        towerTargetRemove(troop,opponent.getKingTower());
+    }
+    private ArrayList<AttackCard> attackCardsInArea(double x,double y, double radius)
+    {
+        ArrayList<AttackCard> temp = new ArrayList<>();
+        for (int i = 0; i < troops.size(); i++) {
+            if(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<radius)
+            {
+                temp.add(troops.get(i));
+            }
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            if(distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current())<radius)
+            {
+                temp.add(buildings.get(i));
+            }
+        }
+        return temp;
+    }
+    private void areaSplash(Troop shooter,AttackCard target)
+    {
+        if(shooter.isAreaSplash())
+        {
+            if(shooter.getShootingTimeTick()== shooter.getHitSpeed()*10)
+            {
+                if(shooter instanceof Wizard)
+                {
+                    Wizard wizard = (Wizard) shooter;
+                    ArrayList<AttackCard> temp = attackCardsInArea(wizard.getFireball().getCenterX(),wizard.getFireball().getCenterY(),shooter.getRange()*blockSize);
+                    for (int i = 0; i < temp.size(); i++) {
+                        if(temp.get(i)!= shooter)
+                        {
+                            temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                        }
+                    }
+                }
+                else if(shooter instanceof BabyDragon)
+                {
+                    BabyDragon babyDragon = (BabyDragon) shooter;
+                    ArrayList<AttackCard> temp = attackCardsInArea(babyDragon.getFireball().getCenterX(),babyDragon.getFireball().getCenterY(),shooter.getRange()*blockSize);
+                    for (int i = 0; i < temp.size(); i++) {
+                        if(temp.get(i)!= shooter)
+                        {
+                            temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                        }
+                    }
+                }
+            }
+        }
     }
 }

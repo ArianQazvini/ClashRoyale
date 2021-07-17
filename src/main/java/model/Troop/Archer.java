@@ -14,8 +14,6 @@ import java.io.File;
 
 public class Archer extends Troop{
     private Rectangle Arrow = new Rectangle();
-    private int ShootingTimeTick=0;
-
     public Archer(){
         setAvatar("archers.png");
         super.setCount(2);
@@ -45,12 +43,12 @@ public class Archer extends Troop{
                 if(super.targetDistance()<= this.getRange() * 20)
                 {
                     changePictoTarget();
-                    ShootingTimeTick++;
-                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    incrementTimeTick();
+                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
                     }
-                    double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                    double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
                     double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
                     double xMoveVector = x_Vector/distPart;
@@ -73,10 +71,6 @@ public class Archer extends Troop{
                     {
                         this.ArrowForward((-1)*yMoveVector);
                     }
-                    if(ShootingTimeTick==(super.getHitSpeed() *10))
-                    {
-                        ShootingTimeTick=0;
-                    }
                 }
             }
             else if(super.getTowerTarget()!=null)
@@ -84,13 +78,13 @@ public class Archer extends Troop{
                 if(this.towerDistance()<= this.getRange() * 20)
                 {
                     changePictoTarget();
-                    ShootingTimeTick++;
-                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    incrementTimeTick();
+                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
                     }
                 }
-                double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                 double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
                 double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
                 double xMoveVector = x_Vector/distPart;
@@ -113,17 +107,13 @@ public class Archer extends Troop{
                 {
                     this.ArrowForward((-1)*yMoveVector);
                 }
-                if(ShootingTimeTick==(super.getHitSpeed() *10))
-                {
-                    ShootingTimeTick=0;
-                }
             }
         }
         else
         {
             super.setLockedTarget(null);
             super.setTowerTarget(null);
-            ShootingTimeTick=0;
+            setShootingTimeTick(0);
             Arrow.setX(super.getX_Current());
             Arrow.setY(super.getY_Current());
         }
