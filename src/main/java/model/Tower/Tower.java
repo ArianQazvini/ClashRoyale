@@ -6,6 +6,7 @@ import javafx.scene.shape.Rectangle;
 import model.AttackCard;
 import model.Damage;
 import model.WarObject;
+import model.informations.ACLevelValue;
 import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
@@ -49,7 +50,8 @@ public abstract class Tower extends WarObject {
     }
     public void Hurt(double damage)
     {
-        this.hp -= damage;
+        double temp = this.getLevelInformation().getHp();
+        this.getLevelInformation().setHp(temp-damage);
     }
 
     public void setX(double x) {
@@ -126,4 +128,9 @@ public abstract class Tower extends WarObject {
     {
         this.CanonnBall.setCenterX(this.CanonnBall.getCenterX()+dist);
     }
+    @Override
+    public ACLevelValue getLevelInformation() {
+        return ((ACLevelValue)super.getLevelInformation());
+    }
+
 }

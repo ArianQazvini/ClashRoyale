@@ -111,8 +111,50 @@ public abstract class Troop extends AttackCard {
     public abstract void HitDownMode();
     public abstract void HitLeftMode();
     public abstract void HitRightMode();
-    public abstract void changePictoTarget();
-
+    public void changePictoTarget()
+    {
+        if(super.isLocked())
+        {
+            if(super.targetDistance()<= this.getRange() * 20)
+            {
+                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+                {
+                    HitUpMode();
+                }
+                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
+                {
+                    HitDownMode();
+                }
+                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
+                {
+                    HitRightMode();
+                }
+                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
+                {
+                    HitLeftMode();
+                }
+            }
+            else
+            {
+                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+                {
+                    WalkingTopMode();
+                }
+                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
+                {
+                    HitDownMode();
+                }
+                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
+                {
+                    HitRightMode();
+                }
+                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
+                {
+                    HitLeftMode();
+                }
+            }
+        }
+    }
     public Directions closestDirectionTo(double x_dist,double y_dist)
     {
         double x_Vector =x_dist-this.getPicHandler().getX();

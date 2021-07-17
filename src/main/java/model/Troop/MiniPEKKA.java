@@ -36,9 +36,9 @@ public class MiniPEKKA extends Troop{
         {
             if(super.getTowerTarget()!=null)
             {
-                changePictoTarget();
                 if(this.towerDistance()<= this.getRange() * 20)
                 {
+                    changePictoTarget();
                     ShootingTimeTick++;
                     if(ShootingTimeTick== (super.getHitSpeed() *10))
                     {
@@ -49,9 +49,9 @@ public class MiniPEKKA extends Troop{
             }
             else if(super.getLockedTarget()!=null)
             {
-                changePictoTarget();
                 if(super.targetDistance()<= this.getRange() * 20)
                 {
+                    changePictoTarget();
                     ShootingTimeTick++;
                     if(ShootingTimeTick== (super.getHitSpeed() *10))
                     {
@@ -61,11 +61,12 @@ public class MiniPEKKA extends Troop{
                     //------------------------
                 }
             }
-            else
-            {
-                super.setLockedTarget(null);
-                ShootingTimeTick=0;
-            }
+        }
+        else
+        {
+            super.setLockedTarget(null);
+            super.setTowerTarget(null);
+            ShootingTimeTick=0;
         }
     }
 
@@ -155,56 +156,5 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
-    }
-
-    @Override
-    public void changePictoTarget() {
-        if(this.isLocked())
-        {
-            if(super.getTowerTarget()!=null)
-            {
-                if(this.towerDistance()<= this.getRange() * 20)
-                {
-                    if(super.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.TOP)
-                    {
-                        HitUpMode();
-                    }
-                    else if(super.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.DOWN)
-                    {
-                        HitDownMode();
-                    }
-                    else if(super.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.RIGHT)
-                    {
-                        HitRightMode();
-                    }
-                    else if(super.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.LEFT)
-                    {
-                        HitLeftMode();
-                    }
-                }
-            }
-            else if(super.getLockedTarget()!=null)
-            {
-                if(super.targetDistance()<= this.getRange() * 20)
-                {
-                    if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-                    {
-                        HitUpMode();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                    {
-                        HitDownMode();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                    {
-                        HitRightMode();
-                    }
-                    else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                    {
-                        HitLeftMode();
-                    }
-                }
-            }
-        }
     }
 }

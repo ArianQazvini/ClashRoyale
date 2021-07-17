@@ -12,7 +12,6 @@ import model.informations.ACLevelValue;
 import java.io.File;
 
 public class InfernoTower extends Building{
-    //private Damage currentDamage;
     private int ShootingTimeTick=0;
     private int FireTimeTick=0;
     private Line fireLine = new Line();
@@ -44,43 +43,76 @@ public class InfernoTower extends Building{
     {
         if(super.isLocked())
         {
-            ShootingTimeTick++;
-            if(super.targetDistance()<= this.getRange() * 20)
+            if(super.getLockedTarget()!=null)
             {
-                ShootingTimeTick++;
-                if(ShootingTimeTick== (super.getHitSpeed() *10))
+                if(super.targetDistance()<= this.getRange() * 20)
                 {
-                    FireTimeTick++;
-                    Damage();
+                    ShootingTimeTick++;
+                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    {
+                        FireTimeTick++;
+                        Damage();
+                    }
+                    double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                    double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
+                    double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
+                    //*************************
+                    //------------------------
+                    double xMoveVector = x_Vector/distPart;
+                    double yMoveVector = y_Vector/distPart;
+                    //------------------------
+                    fireLine.setStartX(super.getX_Current());
+                    fireLine.setStartY(super.getY_Current());
+                    fireLine.setEndX(xMoveVector);
+                    fireLine.setEndY(yMoveVector);
                 }
-                double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
-                double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
-                double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
-                //*************************
-                //------------------------
-                double xMoveVector = x_Vector/distPart;
-                double yMoveVector = y_Vector/distPart;
-                //------------------------
-                fireLine.setStartX(super.getX_Current());
-                fireLine.setStartY(super.getY_Current());
-                fireLine.setEndX(xMoveVector);
-                fireLine.setEndY(yMoveVector);
+            }
+            else if(super.getTowerTarget()!=null)
+            {
+                if(super.towerDistance()<= this.getRange() * 20)
+                {
+                    ShootingTimeTick++;
+                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    {
+                        FireTimeTick++;
+                        Damage();
+                    }
+                    double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                    double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
+                    double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
+                    //*************************
+                    //------------------------
+                    double xMoveVector = x_Vector/distPart;
+                    double yMoveVector = y_Vector/distPart;
+                    //------------------------
+                    fireLine.setStartX(super.getX_Current());
+                    fireLine.setStartY(super.getY_Current());
+                    fireLine.setEndX(xMoveVector);
+                    fireLine.setEndY(yMoveVector);
+                }
             }
             else
             {
                 ShootingTimeTick=0;
                 FireTimeTick=0;
                 super.setLockedTarget(null);
+                super.setTowerTarget(null);
             }
-
         }
     }
     private void Damage()
     {
-        DamageVary damage = (DamageVary) super.getDamage().getValue();
+        DamageVary damage = (DamageVary) super.getLevelInformation().getDamage().getValue();
         double  range= (damage.max- damage.min);
         double harm = (this.FireTimeTick/40.0)*range + damage.min;
-        super.getLockedTarget().Hurt(harm);
+        if(super.getTowerTarget()!=null)
+        {
+            super.getTowerTarget().Hurt(harm);
+        }
+        else if(super.getLockedTarget()!=null)
+        {
+            super.getLockedTarget().Hurt(harm);
+        }
     }
     public void setShootingTimeTick(int shootingTimeTick) {
         ShootingTimeTick = shootingTimeTick;

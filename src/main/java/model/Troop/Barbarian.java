@@ -32,42 +32,40 @@ public class Barbarian extends Troop{
 
     @Override
     public void Hit() {
-        if(super.isLocked())
+        if(this.isLocked())
         {
-            changePictoTarget();
-            if(super.targetDistance()<= this.getRange() * 20)
+            if(super.getTowerTarget()!=null)
             {
-                ShootingTimeTick++;
-                if(ShootingTimeTick== (super.getHitSpeed() *10))
+                if(this.towerDistance()<= this.getRange() * 20)
                 {
-                    super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
+                    changePictoTarget();
+                    ShootingTimeTick++;
+                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    {
+                        super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        ShootingTimeTick=0;
+                    }
                 }
-                //------------------------
             }
-            else
+            else if(super.getLockedTarget()!=null)
             {
-                ShootingTimeTick=0;
-                if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+                if(super.targetDistance()<= this.getRange() * 20)
                 {
-                    super.Forward();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                {
-                    super.Backward();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                {
-                    super.Right();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                {
-                    super.Left();
+                    changePictoTarget();
+                    ShootingTimeTick++;
+                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    {
+                        super.getLockedTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        ShootingTimeTick=0;
+                    }
+                    //------------------------
                 }
             }
         }
         else
         {
             super.setLockedTarget(null);
+            super.setTowerTarget(null);
             ShootingTimeTick=0;
         }
     }
@@ -158,50 +156,6 @@ public class Barbarian extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
-    }
-    @Override
-    public void changePictoTarget() {
-        if(super.isLocked())
-        {
-            if(super.targetDistance()<= this.getRange() * 20)
-            {
-                if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-                {
-                    HitUpMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                {
-                    HitDownMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                {
-                    HitRightMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                {
-                    HitLeftMode();
-                }
-            }
-            else
-            {
-                if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-                {
-                    WalkingTopMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                {
-                    HitDownMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                {
-                    HitRightMode();
-                }
-                else if(super.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                {
-                    HitLeftMode();
-                }
-            }
-        }
     }
     @Override
     public void Left()
