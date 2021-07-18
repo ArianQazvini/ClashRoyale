@@ -28,15 +28,17 @@ public class GameDeck {
         //hBox.setStyle("-fx-background-color:#341e16");
 
         //while (true){
-            while (hBox.getChildren().stream().count()<4){
+            while ((long) hBox.getChildren().size() <4){
                 setNext();
             //}
         }
     }
 
-    private void setNext(){
-        hBox.getChildren().add(gameDeckObjects.get(0));
+    public void setNext(){
+        System.out.println(gameDeckObjects.size());
         GameDeckObject tmp=gameDeckObjects.get(0);
+        System.out.println(tmp.card.getClass());
+        hBox.getChildren().add(gameDeckObjects.get(0));
         gameDeckObjects.remove(tmp);
     }
     public boolean isElixirEnough(){
