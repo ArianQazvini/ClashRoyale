@@ -1199,7 +1199,12 @@ public class GameManager {
                     dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
                 }
             }
-
+            for (int i = 0; i < buildings.size(); i++) {
+                if(!buildings.get(i).getType().equals(attacker.getType()) && distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current())<=radius)
+                {
+                    dists.add(distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current()));
+                }
+            }
             if(dists.size()!=0)
             {
                 double min = Collections.min(dists);
@@ -1207,6 +1212,12 @@ public class GameManager {
                     if(min== distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()))
                     {
                         return troops.get(i);
+                    }
+                }
+                for (int i = 0; i < buildings.size(); i++) {
+                    if(min== distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current()))
+                    {
+                        return buildings.get(i);
                     }
                 }
             }
@@ -1219,9 +1230,21 @@ public class GameManager {
                     dists.add(distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current()));
                 }
             }
+            for (int i = 0; i < troops.size(); i++) {
+                if(!troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                {
+                    dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                }
+            }
             if(dists.size()!=0)
             {
                 double min = Collections.min(dists);
+                for (int i = 0; i < troops.size(); i++) {
+                    if(min== distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()))
+                    {
+                        return troops.get(i);
+                    }
+                }
                 for (int i = 0; i < buildings.size(); i++) {
                     if(min== distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current()))
                     {
