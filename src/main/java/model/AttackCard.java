@@ -156,4 +156,5 @@ public abstract class AttackCard extends Card {
         ShootingTimeTick++;
     }
     public abstract void resetTimeTick();
+
 }

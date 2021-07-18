@@ -5,6 +5,7 @@ import enums.Target;
 import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.ImagePattern;
+import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import model.Damage;
 import model.informations.ACLevelValue;
@@ -13,7 +14,8 @@ import java.io.File;
 
 public class InfernoTower extends Building{
     private int FireTimeTick=0;
-    private Line fireLine = new Line();
+   // private Line fireLine = new Line();
+    private Circle fireball = new Circle();
     public InfernoTower(){
         setAvatar("inferno-tower.png");
         setHitSpeed(0.4F);
@@ -34,8 +36,6 @@ public class InfernoTower extends Building{
         super.getPicHandler().setWidth(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
-        fireLine.setStroke(Color.ORANGERED);
-        fireLine.setStrokeWidth(10);
     }
     @Override
     public void Hit()
@@ -47,6 +47,7 @@ public class InfernoTower extends Building{
                 if(super.targetDistance()<= this.getRange() * 20)
                 {
                     incrementTimeTick();
+                    setFireballPic();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         FireTimeTick++;
@@ -59,11 +60,23 @@ public class InfernoTower extends Building{
                     //------------------------
                     double xMoveVector = x_Vector/distPart;
                     double yMoveVector = y_Vector/distPart;
-                    //------------------------
-                    fireLine.setStartX(super.getX_Current());
-                    fireLine.setStartY(super.getY_Current());
-                    fireLine.setEndX(xMoveVector);
-                    fireLine.setEndY(yMoveVector);
+                    if(xMoveVector>0)
+                    {
+                        this.fireBallRight(xMoveVector);
+                    }
+                    else
+                    {
+                        this.fireBallLeft((-1)*xMoveVector);
+                    }
+                    //------------------------------
+                    if(yMoveVector>0)
+                    {
+                        this.fireBallBackWard(yMoveVector);
+                    }
+                    else
+                    {
+                        this.fireBallForward((-1)*yMoveVector);
+                    }
                 }
                 else
                 {
@@ -71,6 +84,8 @@ public class InfernoTower extends Building{
                     FireTimeTick=0;
                     super.setLockedTarget(null);
                     super.setTowerTarget(null);
+                    fireball.setCenterX(super.getX_Current());
+                    fireball.setCenterY(super.getY_Current());
                 }
             }
             else if(super.getTowerTarget()!=null)
@@ -78,6 +93,7 @@ public class InfernoTower extends Building{
                 if(super.towerDistance()<= this.getRange() * 20)
                 {
                     incrementTimeTick();
+                    setFireballPic();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         FireTimeTick++;
@@ -91,10 +107,23 @@ public class InfernoTower extends Building{
                     double xMoveVector = x_Vector/distPart;
                     double yMoveVector = y_Vector/distPart;
                     //------------------------
-                    fireLine.setStartX(super.getX_Current());
-                    fireLine.setStartY(super.getY_Current());
-                    fireLine.setEndX(xMoveVector);
-                    fireLine.setEndY(yMoveVector);
+                    if(xMoveVector>0)
+                    {
+                        this.fireBallRight(xMoveVector);
+                    }
+                    else
+                    {
+                        this.fireBallLeft((-1)*xMoveVector);
+                    }
+                    //------------------------------
+                    if(yMoveVector>0)
+                    {
+                        this.fireBallBackWard(yMoveVector);
+                    }
+                    else
+                    {
+                        this.fireBallForward((-1)*yMoveVector);
+                    }
                 }
                 else
                 {
@@ -102,15 +131,19 @@ public class InfernoTower extends Building{
                     FireTimeTick=0;
                     super.setLockedTarget(null);
                     super.setTowerTarget(null);
+                    fireball.setCenterX(super.getX_Current());
+                    fireball.setCenterY(super.getY_Current());
                 }
             }
         }
         else
         {
-                setShootingTimeTick(0);
-                FireTimeTick=0;
-                super.setLockedTarget(null);
-                super.setTowerTarget(null);
+            setShootingTimeTick(0);
+            FireTimeTick=0;
+            super.setLockedTarget(null);
+            super.setTowerTarget(null);
+            fireball.setCenterX(super.getX_Current());
+            fireball.setCenterY(super.getY_Current());
         }
 
     }
@@ -142,11 +175,33 @@ public class InfernoTower extends Building{
     public int getFireTimeTick() {
         return FireTimeTick;
     }
-    public Line getFireLine() {
-        return fireLine;
+    public Circle getFireball() {
+        return fireball;
     }
-    public void setFireLine(Line fireLine) {
-        this.fireLine = fireLine;
+    private void setFireballPic()
+    {
+        Image image = new Image(new File("src/main/resources/pics/Characters/FireBall.png").toURI().toString());
+        ImagePattern imagePattern = new ImagePattern(image);
+        this.fireball.setFill(imagePattern);
+        this.fireball.setRadius(10);
+        this.fireball.setCenterX(this.getX_Current());
+        this.fireball.setCenterY(this.getY_Current());
+    }
+    public void fireBallForward(double dist)
+    {
+        this.fireball.setCenterY(this.fireball.getCenterY()-dist);
+    }
+    public void fireBallBackWard(double dist)
+    {
+        this.fireball.setCenterY(this.fireball.getCenterY()+dist);
+    }
+    public void fireBallLeft(double dist)
+    {
+        this.fireball.setCenterX(this.fireball.getCenterX()-dist);
+    }
+    public void fireBallRight(double dist)
+    {
+        this.fireball.setCenterX(this.fireball.getCenterX()+dist);
     }
 }
 class DamageVary {

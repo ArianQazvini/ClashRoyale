@@ -114,44 +114,70 @@ public abstract class Troop extends AttackCard {
     {
         if(super.isLocked())
         {
-            if(super.targetDistance()<= this.getRange() * 20)
+            if(super.getLockedTarget()!=null)
             {
-                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+                if(super.targetDistance()<= this.getRange() * 20)
                 {
-                    HitUpMode();
-                }
-                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                {
-                    HitDownMode();
-                }
-                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                {
-                    HitRightMode();
-                }
-                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                {
-                    HitLeftMode();
+                    if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+                    {
+                        HitUpMode();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
+                    {
+                        HitDownMode();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
+                    {
+                        HitRightMode();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
+                    {
+                        HitLeftMode();
+                    }
                 }
             }
-            else
+            else if(super.getTowerTarget()!=null)
             {
-                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+                if(super.towerDistance()<= this.getRange() * 20)
                 {
-                    WalkingTopMode();
-                }
-                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-                {
-                    HitDownMode();
-                }
-                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-                {
-                    HitRightMode();
-                }
-                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-                {
-                    HitLeftMode();
+                    if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.TOP)
+                    {
+                        HitUpMode();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.DOWN)
+                    {
+                        HitDownMode();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.RIGHT)
+                    {
+                        HitRightMode();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.LEFT)
+                    {
+                        HitLeftMode();
+                    }
                 }
             }
+
+//            else
+//            {
+//                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+//                {
+//                    WalkingTopMode();
+//                }
+//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
+//                {
+//                    HitDownMode();
+//                }
+//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
+//                {
+//                    HitRightMode();
+//                }
+//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
+//                {
+//                    HitLeftMode();
+//                }
+//            }
         }
     }
     public Directions closestDirectionTo(double x_dist,double y_dist)

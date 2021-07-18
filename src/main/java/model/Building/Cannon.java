@@ -1,5 +1,6 @@
 package model.Building;
 
+import enums.Directions;
 import enums.Level;
 import enums.Target;
 import javafx.scene.image.Image;
@@ -38,7 +39,7 @@ public class Cannon extends Building{
         //------------------------------------------------
         Image image2 = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
         ImagePattern imagePattern2 = new ImagePattern(image2);
-        CanonnBall.setFill(imagePattern);
+        CanonnBall.setFill(imagePattern2);
         CanonnBall.setRadius(10);
         CanonnBall.setCenterX(this.getX_Current());
         CanonnBall.setCenterY(this.getY_Current());
@@ -55,7 +56,7 @@ public class Cannon extends Building{
         //------------------------------------------------
         Image image2 = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
         ImagePattern imagePattern2 = new ImagePattern(image2);
-        CanonnBall.setFill(imagePattern);
+        CanonnBall.setFill(imagePattern2);
         CanonnBall.setRadius(10);
         CanonnBall.setCenterX(this.getX_Current());
         CanonnBall.setCenterY(this.getY_Current());
@@ -72,7 +73,7 @@ public class Cannon extends Building{
         //------------------------------------------------
         Image image2 = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
         ImagePattern imagePattern2 = new ImagePattern(image2);
-        CanonnBall.setFill(imagePattern);
+        CanonnBall.setFill(imagePattern2);
         CanonnBall.setRadius(10);
         CanonnBall.setCenterX(this.getX_Current());
         CanonnBall.setCenterY(this.getY_Current());
@@ -89,7 +90,7 @@ public class Cannon extends Building{
         //------------------------------------------------
         Image image2 = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
         ImagePattern imagePattern2 = new ImagePattern(image2);
-        CanonnBall.setFill(imagePattern);
+        CanonnBall.setFill(imagePattern2);
         CanonnBall.setRadius(10);
         CanonnBall.setCenterX(this.getX_Current());
         CanonnBall.setCenterY(this.getY_Current());
@@ -120,6 +121,7 @@ public class Cannon extends Building{
                 if(super.targetDistance()<= this.getRange() * 20)
                 {
                     incrementTimeTick();
+                    changePictoTarget();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
@@ -128,28 +130,28 @@ public class Cannon extends Building{
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
                     double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
                     //*************************
-                    if(Math.abs(x_Vector)>Math.abs(y_Vector))
-                    {
-                        if(y_Vector>0)
-                        {
-                            DownPic();
-                        }
-                        else
-                        {
-                            UpPic();
-                        }
-                    }
-                    else
-                    {
-                        if(x_Vector>0)
-                        {
-                            RightPic();
-                        }
-                        else
-                        {
-                            LeftPic();
-                        }
-                    }
+//                    if(Math.abs(x_Vector)>Math.abs(y_Vector))
+//                    {
+//                        if(y_Vector>0)
+//                        {
+//                            DownPic();
+//                        }
+//                        else
+//                        {
+//                            UpPic();
+//                        }
+//                    }
+//                    else
+//                    {
+//                        if(x_Vector>0)
+//                        {
+//                            RightPic();
+//                        }
+//                        else
+//                        {
+//                            LeftPic();
+//                        }
+//                    }
                     //------------------------
                     double xMoveVector = x_Vector/distPart;
                     double yMoveVector = y_Vector/distPart;
@@ -185,6 +187,7 @@ public class Cannon extends Building{
             {
                 if(super.towerDistance()<= this.getRange() * 20)
                 {
+                        changePictoTarget();
                         incrementTimeTick();
                         if(getShootingTimeTick()== (super.getHitSpeed() *10))
                         {
@@ -194,28 +197,28 @@ public class Cannon extends Building{
                         double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
                         double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
                         //*************************
-                        if(Math.abs(x_Vector)>Math.abs(y_Vector))
-                        {
-                            if(y_Vector>0)
-                            {
-                                DownPic();
-                            }
-                            else
-                            {
-                                UpPic();
-                            }
-                        }
-                        else
-                        {
-                            if(x_Vector>0)
-                            {
-                                RightPic();
-                            }
-                            else
-                            {
-                                LeftPic();
-                            }
-                        }
+//                        if(Math.abs(x_Vector)>Math.abs(y_Vector))
+//                        {
+//                            if(y_Vector>0)
+//                            {
+//                                DownPic();
+//                            }
+//                            else
+//                            {
+//                                UpPic();
+//                            }
+//                        }
+//                        else
+//                        {
+//                            if(x_Vector>0)
+//                            {
+//                                RightPic();
+//                            }
+//                            else
+//                            {
+//                                LeftPic();
+//                            }
+//                        }
                         //------------------------
                         double xMoveVector = x_Vector/distPart;
                         double yMoveVector = y_Vector/distPart;
@@ -266,5 +269,75 @@ public class Cannon extends Building{
         this.CanonnBall.setCenterX(super.getX_Current());
         this.CanonnBall.setCenterY(super.getY_Current());
         setShootingTimeTick(0);
+    }
+    private void changePictoTarget()
+    {
+        if(super.isLocked())
+        {
+            if(super.getLockedTarget()!=null)
+            {
+                if(super.targetDistance()<= this.getRange() * 20)
+                {
+                    if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+                    {
+                        UpPic();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
+                    {
+                        DownPic();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
+                    {
+                        RightPic();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
+                    {
+                        LeftPic();
+                    }
+                }
+            }
+            else if(super.getTowerTarget()!=null)
+            {
+                if(super.towerDistance()<= this.getRange() * 20)
+                {
+                    if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.TOP)
+                    {
+                        UpPic();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.DOWN)
+                    {
+                        DownPic();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.RIGHT)
+                    {
+                        RightPic();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.LEFT)
+                    {
+                        LeftPic();
+                    }
+                }
+            }
+
+//            else
+//            {
+//                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+//                {
+//                    WalkingTopMode();
+//                }
+//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
+//                {
+//                    HitDownMode();
+//                }
+//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
+//                {
+//                    HitRightMode();
+//                }
+//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
+//                {
+//                    HitLeftMode();
+//                }
+//            }
+        }
     }
 }

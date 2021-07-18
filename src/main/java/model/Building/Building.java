@@ -1,5 +1,6 @@
 package model.Building;
 
+import enums.Directions;
 import enums.Target;
 import javafx.scene.shape.Rectangle;
 import model.AttackCard;
@@ -35,6 +36,33 @@ public abstract class Building extends AttackCard {
     public void decrementLife(double value)
     {
         lifeTime-=value;
+    }
+    public Directions closestDirectionTo(double x_dist, double y_dist)
+    {
+        double x_Vector =x_dist-this.getPicHandler().getX();
+        double y_Vector =y_dist-this.getPicHandler().getY();
+        if(Math.abs(x_Vector)>Math.abs(y_Vector))
+        {
+            if(y_Vector>0)
+            {
+                return Directions.DOWN;
+            }
+            else
+            {
+                return Directions.TOP;
+            }
+        }
+        else
+        {
+            if(x_Vector>0)
+            {
+                return Directions.RIGHT;
+            }
+            else
+            {
+                return Directions.LEFT;
+            }
+        }
     }
 
 }

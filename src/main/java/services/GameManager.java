@@ -446,7 +446,7 @@ public class GameManager {
             {
                 troops.get(i).setShootingTimeTick(0);
             }
-            checkBulletLife(troops.get(i));
+            checkBulletsLife(troops.get(i));
             checkBuildingsLife();
             checkTroopsLife();
         }
@@ -456,9 +456,9 @@ public class GameManager {
             buildings.get(i).Hit();
             if(buildings.get(i).getShootingTimeTick()== buildings.get(i).getHitSpeed()*10)
             {
-                troops.get(i).setShootingTimeTick(0);
+                buildings.get(i).setShootingTimeTick(0);
             }
-            checkBulletLife(buildings.get(i));
+            checkBulletsLife(buildings.get(i));
             checkBuildingsLife();
             checkTroopsLife();
         }
@@ -977,6 +977,33 @@ public class GameManager {
     }
     private void removeBuilding(Building building)
     {
+        Iterator<Shape> iterator = bullets.iterator();
+        if(building instanceof Cannon)
+        {
+            Cannon temp = (Cannon) building;
+            while (iterator.hasNext())
+            {
+                Shape shape = iterator.next();
+                if(shape==temp.getCanonnBall())
+                {
+                    iterator.remove();
+                    break;
+                }
+            }
+        }
+        else if(building instanceof InfernoTower)
+        {
+            InfernoTower temp = (InfernoTower) building;
+            while (iterator.hasNext())
+            {
+                Shape shape = iterator.next();
+                if(shape==temp.getFireball())
+                {
+                    iterator.remove();
+                    break;
+                }
+            }
+        }
         Iterator<Building> it = buildings.iterator();
         while (it.hasNext())
         {
@@ -1033,13 +1060,53 @@ public class GameManager {
     }
     private void removeTroops(Troop troop)
     {
-        Iterator<Troop> it = troops.iterator();
-        while (it.hasNext())
+        Iterator<Shape> it= bullets.iterator();
+        if(troop instanceof Wizard)
         {
-            Troop temp = it.next();
+            Wizard temp = (Wizard) troop;
+            while (it.hasNext())
+            {
+                Shape shape = it.next();
+                if(shape== temp.getFireball())
+                {
+                    it.remove();
+                    break;
+                }
+            }
+        }
+        else if(troop instanceof  BabyDragon)
+        {
+            BabyDragon temp = (BabyDragon) troop;
+            while (it.hasNext())
+            {
+                Shape shape = it.next();
+                if(shape== temp.getFireball())
+                {
+                    it.remove();
+                    break;
+                }
+            }
+        }
+        else if(troop instanceof Archer)
+        {
+            Archer temp = (Archer) troop;
+            while (it.hasNext())
+            {
+                Shape shape = it.next();
+                if(shape== temp.getArrow())
+                {
+                    it.remove();
+                    break;
+                }
+            }
+        }
+        Iterator<Troop> it2 = troops.iterator();
+        while (it2.hasNext())
+        {
+            Troop temp = it2.next();
             if(temp==troop)
             {
-                it.remove();
+                it2.remove();
                 break;
             }
         }
@@ -1132,6 +1199,7 @@ public class GameManager {
                     dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
                 }
             }
+
             if(dists.size()!=0)
             {
                 double min = Collections.min(dists);
@@ -1185,7 +1253,7 @@ public class GameManager {
         else if(attacker instanceof InfernoTower)
         {
             InfernoTower temp = (InfernoTower) attacker;
-            shape = temp.getFireLine();
+            shape = temp.getFireball();
         }
         else if(attacker instanceof Archer)
         {
@@ -1222,7 +1290,7 @@ public class GameManager {
             else if(attacker instanceof InfernoTower)
             {
                 InfernoTower temp = (InfernoTower) attacker;
-                bullets.add(temp.getFireLine());
+                bullets.add(temp.getFireball());
             }
             else if(attacker instanceof Archer)
             {
@@ -1231,9 +1299,9 @@ public class GameManager {
             }
         }
     }
-    private void checkBulletLife(AttackCard attacker)
+    private void checkBulletsLife(AttackCard attacker)
     {
-        if(attacker.getShootingTimeTick()==attacker.getHitSpeed()*10 || attacker.getLevelInformation().getHp()<=0)
+        if(attacker.getShootingTimeTick()==attacker.getHitSpeed()*10 || !attacker.isLocked())
         {
             Iterator<Shape> it= bullets.iterator();
             if(attacker instanceof Wizard)
@@ -1281,7 +1349,7 @@ public class GameManager {
                 while (it.hasNext())
                 {
                     Shape shape = it.next();
-                    if(shape== temp.getFireLine())
+                    if(shape== temp.getFireball())
                     {
                         it.remove();
                         break;
@@ -1336,10 +1404,8 @@ public class GameManager {
             else if(buildings.get(i) instanceof InfernoTower)
             {
                 InfernoTower temp = (InfernoTower) buildings.get(i);
-                temp.getFireLine().setStartX(temp.getX_Current());
-                temp.getFireLine().setStartY(temp.getY_Current());
-                temp.getFireLine().setEndX(temp.getX_Current());
-                temp.getFireLine().setEndY(temp.getY_Current());
+                temp.getFireball().setCenterX(buildings.get(i).getX_Current());
+                temp.getFireball().setCenterY(buildings.get(i).getY_Current());
             }
         }
     }
