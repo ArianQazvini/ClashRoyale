@@ -1539,6 +1539,8 @@ public class GameManager {
     private void removeTower(Tower tower)
     {
 
+
+
     }
     private void prepareTargetForTowers()
     {
