@@ -19,7 +19,7 @@ public class Cannon extends Building{
         setTarget(Target.GROUND);
         setRange(5.5F);
         setLifeTime(30);
-        setCost(6);
+        setCost(3);
         setLevel1(new ACLevelValue(380.0,new Damage(60.0), Level.LEVEL1));
         setLevel2(new ACLevelValue(418.0,new Damage(66.0),Level.LEVEL2));
         setLevel3(new ACLevelValue(459.0,new Damage(72.0),Level.LEVEL3));
@@ -125,6 +125,7 @@ public class Cannon extends Building{
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
+                        explosionPic();
                     }
                     double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
@@ -176,8 +177,8 @@ public class Cannon extends Building{
                         double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
                         //*************************
                         //------------------------
-                        double xMoveVector = x_Vector/distPart;
-                        double yMoveVector = y_Vector/distPart;
+                        double xMoveVector = x_Vector*distPart;
+                        double yMoveVector = y_Vector*distPart;
                         //------------------------
                         if(xMoveVector>0)
                         {
@@ -275,5 +276,11 @@ public class Cannon extends Building{
                 }
             }
         }
+    }
+    private void explosionPic()
+    {
+        Image image = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());
+        ImagePattern imagePattern = new ImagePattern(image);
+        this.CanonnBall.setFill(imagePattern);
     }
 }

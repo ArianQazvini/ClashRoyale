@@ -43,6 +43,7 @@ public class Wizard extends Troop{
                     if(super.getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
+                        explosionPic();
                     }
                     double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
@@ -94,8 +95,8 @@ public class Wizard extends Troop{
                     double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
                     double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
-                    double xMoveVector = x_Vector/distPart;
-                    double yMoveVector = y_Vector/distPart;
+                    double xMoveVector = x_Vector*distPart;
+                    double yMoveVector = y_Vector*distPart;
                     //------------------------
                     if(xMoveVector>0)
                     {
@@ -283,5 +284,11 @@ public class Wizard extends Troop{
     {
         this.fireball.setCenterX(this.getX_Current());
         this.fireball.setCenterY(this.getY_Current());
+    }
+    private void explosionPic()
+    {
+        Image image = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());
+        ImagePattern imagePattern = new ImagePattern(image);
+        fireball.setFill(imagePattern);
     }
 }

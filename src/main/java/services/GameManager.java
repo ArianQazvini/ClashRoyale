@@ -1,4 +1,5 @@
 package services;
+import enums.Target;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -442,6 +443,7 @@ public class GameManager {
             prepareTargetFor(troops.get(i));
             addBullet(troops.get(i));
             troops.get(i).Hit();
+            areaSplash(troops.get(i),troops.get(i).getLockedTarget());
             if(troops.get(i).getShootingTimeTick()== troops.get(i).getHitSpeed()*10)
             {
                 troops.get(i).setShootingTimeTick(0);
@@ -1148,7 +1150,7 @@ public class GameManager {
     }
     private void areaSplash(Troop shooter,AttackCard target)
     {
-        if(shooter.isAreaSplash())
+        if(shooter.isAreaSplash() && target!=null)
         {
             if(shooter.getShootingTimeTick()== shooter.getHitSpeed()*10)
             {
@@ -1157,9 +1159,33 @@ public class GameManager {
                     Wizard wizard = (Wizard) shooter;
                     ArrayList<AttackCard> temp = attackCardsInArea(wizard.getFireball().getCenterX(),wizard.getFireball().getCenterY(),shooter.getRange()*blockSize);
                     for (int i = 0; i < temp.size(); i++) {
-                        if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()))
+                        if(shooter.getTarget()== Target.AIR)
                         {
-                            temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && temp.get(i) instanceof BabyDragon)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.AIR_GROUND)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.GROUND)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && !(temp.get(i) instanceof BabyDragon))
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.BUILDING)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && temp.get(i) instanceof Building)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
                         }
                     }
                 }
@@ -1168,9 +1194,33 @@ public class GameManager {
                     BabyDragon babyDragon = (BabyDragon) shooter;
                     ArrayList<AttackCard> temp = attackCardsInArea(babyDragon.getFireball().getCenterX(),babyDragon.getFireball().getCenterY(),shooter.getRange()*blockSize);
                     for (int i = 0; i < temp.size(); i++) {
-                        if(temp.get(i)!= shooter && !temp.get(i).getType().equals(shooter.getType()))
+                        if(shooter.getTarget()== Target.AIR)
                         {
-                            temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && temp.get(i) instanceof BabyDragon)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.AIR_GROUND)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.GROUND)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && !(temp.get(i) instanceof BabyDragon))
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.BUILDING)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && temp.get(i) instanceof Building)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
                         }
                     }
                 }
@@ -1194,9 +1244,32 @@ public class GameManager {
         if(attacker instanceof Troop)
         {
             for (int i = 0; i < troops.size(); i++) {
-                if(troops.get(i)!= attacker && !troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                if(attacker.getTarget()==Target.AIR)
                 {
-                    dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                    if(troops.get(i) instanceof BabyDragon)
+                    {
+                        if(troops.get(i)!= attacker && !troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                        {
+                            dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                        }
+                    }
+                }
+                else if(attacker.getTarget()==Target.GROUND)
+                {
+                    if(!(troops.get(i) instanceof BabyDragon))
+                    {
+                        if(troops.get(i)!= attacker && !troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                        {
+                            dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                        }
+                    }
+                }
+                else if(attacker.getTarget()==Target.AIR_GROUND)
+                {
+                    if(troops.get(i)!= attacker && !troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                    {
+                        dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                    }
                 }
             }
             for (int i = 0; i < buildings.size(); i++) {
@@ -1231,9 +1304,29 @@ public class GameManager {
                 }
             }
             for (int i = 0; i < troops.size(); i++) {
-                if(!troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                if(attacker.getTarget()==Target.AIR)
                 {
-                    dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                    if(troops.get(i) instanceof  BabyDragon)
+                    {
+                        if(!troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                        {
+                            dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                        }
+                    }
+                }
+                else if(attacker.getTarget()== Target.AIR_GROUND)
+                {
+                    if(!troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                    {
+                        dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                    }
+                }
+                else if(attacker.getTarget()==Target.GROUND) {
+                    if (!(troops.get(i) instanceof BabyDragon)) {
+                        if (!troops.get(i).getType().equals(attacker.getType()) && distance(x, y, troops.get(i).getX_Current(), troops.get(i).getY_Current()) <= radius) {
+                            dists.add(distance(x, y, troops.get(i).getX_Current(), troops.get(i).getY_Current()));
+                        }
+                    }
                 }
             }
             if(dists.size()!=0)
@@ -1395,41 +1488,41 @@ public class GameManager {
             attacker.resetTimeTick();
         }
     }
-    public void updateBulletsLocation()
-    {
-        for (int i = 0; i < troops.size(); i++) {
-            if(troops.get(i) instanceof Wizard)
-            {
-                Wizard temp = (Wizard) troops.get(i);
-                temp.getFireball().setCenterX(troops.get(i).getX_Current());
-                temp.getFireball().setCenterY(troops.get(i).getY_Current());
-            }
-            else if(troops.get(i) instanceof BabyDragon)
-            {
-                BabyDragon temp = (BabyDragon) troops.get(i);
-                temp.getFireball().setCenterX(troops.get(i).getX_Current());
-                temp.getFireball().setCenterY(troops.get(i).getY_Current());
-            }
-            else if(troops.get(i) instanceof Archer)
-            {
-                Archer temp = (Archer) troops.get(i);
-                temp.getArrow().setX(troops.get(i).getX_Current());
-                temp.getArrow().setY(troops.get(i).getY_Current());
-            }
-        }
-        for (int i = 0; i < buildings.size(); i++) {
-            if(buildings.get(i) instanceof Cannon)
-            {
-                Cannon temp = (Cannon) buildings.get(i);
-                temp.getCanonnBall().setCenterX(buildings.get(i).getX_Current());
-                temp.getCanonnBall().setCenterY(buildings.get(i).getY_Current());
-            }
-            else if(buildings.get(i) instanceof InfernoTower)
-            {
-                InfernoTower temp = (InfernoTower) buildings.get(i);
-                temp.getFireball().setCenterX(buildings.get(i).getX_Current());
-                temp.getFireball().setCenterY(buildings.get(i).getY_Current());
-            }
-        }
-    }
+//    public void updateBulletsLocation()
+//    {
+//        for (int i = 0; i < troops.size(); i++) {
+//            if(troops.get(i) instanceof Wizard)
+//            {
+//                Wizard temp = (Wizard) troops.get(i);
+//                temp.getFireball().setCenterX(troops.get(i).getX_Current());
+//                temp.getFireball().setCenterY(troops.get(i).getY_Current());
+//            }
+//            else if(troops.get(i) instanceof BabyDragon)
+//            {
+//                BabyDragon temp = (BabyDragon) troops.get(i);
+//                temp.getFireball().setCenterX(troops.get(i).getX_Current());
+//                temp.getFireball().setCenterY(troops.get(i).getY_Current());
+//            }
+//            else if(troops.get(i) instanceof Archer)
+//            {
+//                Archer temp = (Archer) troops.get(i);
+//                temp.getArrow().setX(troops.get(i).getX_Current());
+//                temp.getArrow().setY(troops.get(i).getY_Current());
+//            }
+//        }
+//        for (int i = 0; i < buildings.size(); i++) {
+//            if(buildings.get(i) instanceof Cannon)
+//            {
+//                Cannon temp = (Cannon) buildings.get(i);
+//                temp.getCanonnBall().setCenterX(buildings.get(i).getX_Current());
+//                temp.getCanonnBall().setCenterY(buildings.get(i).getY_Current());
+//            }
+//            else if(buildings.get(i) instanceof InfernoTower)
+//            {
+//                InfernoTower temp = (InfernoTower) buildings.get(i);
+//                temp.getFireball().setCenterX(buildings.get(i).getX_Current());
+//                temp.getFireball().setCenterY(buildings.get(i).getY_Current());
+//            }
+//        }
+//    }
 }
