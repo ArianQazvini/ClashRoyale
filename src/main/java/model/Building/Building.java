@@ -10,10 +10,10 @@ public abstract class Building extends AttackCard {
     private double lifeTime;
     private double x_Current;
     private double y_Current;
+
     public double getLifeTime() {
         return lifeTime;
     }
-
 
     public double getX_Current() {
         return x_Current;
@@ -36,4 +36,5 @@ public abstract class Building extends AttackCard {
     {
         lifeTime-=value;
     }
+
 }

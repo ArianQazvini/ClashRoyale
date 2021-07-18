@@ -12,7 +12,6 @@ import java.util.Calendar;
 
 public class Cannon extends Building{
     private Circle CanonnBall = new Circle();
-    private int ShootingTimeTick=0;
     public Cannon(){
         setAvatar("cannon.png");
         setHitSpeed(0.8F);
@@ -20,18 +19,12 @@ public class Cannon extends Building{
         setRange(5.5F);
         setLifeTime(30);
         setCost(6);
-        setLevel1(new ACLevelValue(380,new Damage(60), Level.LEVEL1));
-        setLevel2(new ACLevelValue(418,new Damage(66),Level.LEVEL2));
-        setLevel3(new ACLevelValue(459,new Damage(72),Level.LEVEL3));
-        setLevel4(new ACLevelValue(505,new Damage(79),Level.LEVEL4));
-        setLevel5(new ACLevelValue(554,new Damage(87),Level.LEVEL5));
+        setLevel1(new ACLevelValue(380.0,new Damage(60.0), Level.LEVEL1));
+        setLevel2(new ACLevelValue(418.0,new Damage(66.0),Level.LEVEL2));
+        setLevel3(new ACLevelValue(459.0,new Damage(72.0),Level.LEVEL3));
+        setLevel4(new ACLevelValue(505.0,new Damage(79.0),Level.LEVEL4));
+        setLevel5(new ACLevelValue(554.0,new Damage(87.0),Level.LEVEL5));
         setLevelInformation(super.getLevel1());
-        Image image = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
-        ImagePattern imagePattern = new ImagePattern(image);
-        CanonnBall.setFill(imagePattern);
-        CanonnBall.setRadius(10);
-        CanonnBall.setCenterX(super.getX_Current());
-        CanonnBall.setCenterY(super.getY_Current());
     }
     public void UpPic()
     {
@@ -42,6 +35,13 @@ public class Cannon extends Building{
         super.getPicHandler().setWidth(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        CanonnBall.setFill(imagePattern);
+        CanonnBall.setRadius(10);
+        CanonnBall.setCenterX(this.getX_Current());
+        CanonnBall.setCenterY(this.getY_Current());
     }
     public void DownPic()
     {
@@ -52,6 +52,13 @@ public class Cannon extends Building{
         super.getPicHandler().setWidth(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        CanonnBall.setFill(imagePattern);
+        CanonnBall.setRadius(10);
+        CanonnBall.setCenterX(this.getX_Current());
+        CanonnBall.setCenterY(this.getY_Current());
     }
     public void LeftPic()
     {
@@ -62,6 +69,13 @@ public class Cannon extends Building{
         super.getPicHandler().setWidth(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        CanonnBall.setFill(imagePattern);
+        CanonnBall.setRadius(10);
+        CanonnBall.setCenterX(this.getX_Current());
+        CanonnBall.setCenterY(this.getY_Current());
     }
     public void RightPic()
     {
@@ -72,6 +86,13 @@ public class Cannon extends Building{
         super.getPicHandler().setWidth(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        CanonnBall.setFill(imagePattern);
+        CanonnBall.setRadius(10);
+        CanonnBall.setCenterX(this.getX_Current());
+        CanonnBall.setCenterY(this.getY_Current());
     }
     public void CannonBallForward(double dist)
     {
@@ -98,12 +119,12 @@ public class Cannon extends Building{
             {
                 if(super.targetDistance()<= this.getRange() * 20)
                 {
-                    ShootingTimeTick++;
-                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    incrementTimeTick();
+                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getLockedTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
-                    double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                    double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
                     double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
                     //*************************
@@ -150,22 +171,26 @@ public class Cannon extends Building{
                     {
                         this.CannonBallForward((-1)*yMoveVector);
                     }
-                    if(ShootingTimeTick== (super.getHitSpeed() *10))
-                    {
-                        ShootingTimeTick=0;
-                    }
             }
+            else
+                {
+                    this.CanonnBall.setCenterX(super.getX_Current());
+                    this.CanonnBall.setCenterY(super.getY_Current());
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
+                }
             }
             else if(super.getTowerTarget()!=null)
             {
                 if(super.towerDistance()<= this.getRange() * 20)
                 {
-                        ShootingTimeTick++;
-                        if(ShootingTimeTick== (super.getHitSpeed() *10))
+                        incrementTimeTick();
+                        if(getShootingTimeTick()== (super.getHitSpeed() *10))
                         {
-                            super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                            super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                         }
-                        double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                        double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                         double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
                         double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
                         //*************************
@@ -212,10 +237,14 @@ public class Cannon extends Building{
                         {
                             this.CannonBallForward((-1)*yMoveVector);
                         }
-                        if(ShootingTimeTick== (super.getHitSpeed() *10))
-                        {
-                            ShootingTimeTick=0;
-                        }
+                }
+                else
+                {
+                        this.CanonnBall.setCenterX(super.getX_Current());
+                        this.CanonnBall.setCenterY(super.getY_Current());
+                        super.setLockedTarget(null);
+                        super.setTowerTarget(null);
+                        setShootingTimeTick(0);
                 }
             }
         }
@@ -224,16 +253,18 @@ public class Cannon extends Building{
             this.CanonnBall.setCenterX(super.getX_Current());
             this.CanonnBall.setCenterY(super.getY_Current());
             super.setLockedTarget(null);
-            ShootingTimeTick=0;
+            super.setTowerTarget(null);
+            setShootingTimeTick(0);
         }
     }
     public Circle getCanonnBall() {
         return CanonnBall;
     }
-    public void setShootingTimeTick(int shootingTimeTick) {
-        ShootingTimeTick = shootingTimeTick;
-    }
-    public int getShootingTimeTick() {
-        return ShootingTimeTick;
+    @Override
+    public void resetTimeTick()
+    {
+        this.CanonnBall.setCenterX(super.getX_Current());
+        this.CanonnBall.setCenterY(super.getY_Current());
+        setShootingTimeTick(0);
     }
 }

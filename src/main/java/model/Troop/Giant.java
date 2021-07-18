@@ -21,11 +21,11 @@ public class Giant extends Troop{
         super.setHitSpeed(1.5F);
         super.setTarget(Target.BUILDING);
         super.setAreaSplash(false);
-        super.setLevel1(new ACLevelValue(2000,new Damage<>(126), Level.LEVEL1));
-        super.setLevel2(new ACLevelValue(2200,new Damage<>(138),Level.LEVEL2));
-        super.setLevel3(new ACLevelValue(2420,new Damage<>(152),Level.LEVEL3));
-        super.setLevel4(new ACLevelValue(2660,new Damage<>(167),Level.LEVEL4));
-        super.setLevel5(new ACLevelValue(2920,new Damage<>(183),Level.LEVEL5));
+        super.setLevel1(new ACLevelValue(2000.0,new Damage<>(126.0), Level.LEVEL1));
+        super.setLevel2(new ACLevelValue(2200.0,new Damage<>(138.0),Level.LEVEL2));
+        super.setLevel3(new ACLevelValue(2420.0,new Damage<>(152.0),Level.LEVEL3));
+        super.setLevel4(new ACLevelValue(2660.0,new Damage<>(167.0),Level.LEVEL4));
+        super.setLevel5(new ACLevelValue(2920.0,new Damage<>(183.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
         setAvatar("giant.png");
     }
@@ -41,8 +41,14 @@ public class Giant extends Troop{
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
+                }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
                 }
             }
             else if(super.getLockedTarget()!=null)
@@ -53,9 +59,15 @@ public class Giant extends Troop{
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getLockedTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
                     //------------------------
+                }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
                 }
             }
         }
@@ -153,5 +165,12 @@ public class Giant extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+    }
+    @Override
+    public void resetTimeTick() {
+        if(getShootingTimeTick()==getHitSpeed()*10)
+        {
+            setShootingTimeTick(0);
+        }
     }
 }

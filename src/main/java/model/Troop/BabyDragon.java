@@ -23,18 +23,12 @@ public class BabyDragon extends Troop{
         super.setHitSpeed(1.8F);
         super.setTarget(Target.AIR_GROUND);
         super.setAreaSplash(true);
-        super.setLevel1(new ACLevelValue(800,new Damage<>(100), Level.LEVEL1));
-        super.setLevel2(new ACLevelValue(880,new Damage<>(110),Level.LEVEL2));
-        super.setLevel3(new ACLevelValue(968,new Damage<>(121),Level.LEVEL3));
-        super.setLevel4(new ACLevelValue(1064,new Damage<>(133),Level.LEVEL4));
-        super.setLevel5(new ACLevelValue(1168,new Damage<>(146),Level.LEVEL5));
+        super.setLevel1(new ACLevelValue(800.0,new Damage<>(100.0), Level.LEVEL1));
+        super.setLevel2(new ACLevelValue(880.0,new Damage<>(110.0),Level.LEVEL2));
+        super.setLevel3(new ACLevelValue(968.0,new Damage<>(121.0),Level.LEVEL3));
+        super.setLevel4(new ACLevelValue(1064.0,new Damage<>(133.0),Level.LEVEL4));
+        super.setLevel5(new ACLevelValue(1168.0,new Damage<>(146.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
-        Image image = new Image(new File("src/main/resources/pics/Characters/FireBall.png").toURI().toString());
-        ImagePattern imagePattern = new ImagePattern(image);
-        fireball.setFill(imagePattern);
-        fireball.setRadius(10);
-        fireball.setCenterX(super.getX_Current());
-        fireball.setCenterY(super.getY_Current());
     }
 
     @Override
@@ -49,7 +43,7 @@ public class BabyDragon extends Troop{
                 super.incrementTimeTick();
                 if(super.getShootingTimeTick()== (super.getHitSpeed() *10))
                 {
-                    super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
+                    super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                 }
                 double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
                 double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
@@ -75,6 +69,14 @@ public class BabyDragon extends Troop{
                     this.FireBallForward((-1)*yMoveVector);
                 }
             }
+            else
+            {
+                super.setLockedTarget(null);
+                super.setTowerTarget(null);
+                super.setShootingTimeTick(0);
+                fireball.setCenterX(super.getX_Current());
+                fireball.setCenterY(super.getY_Current());
+            }
         }
         else if(super.getTowerTarget()!=null)
         {
@@ -84,31 +86,39 @@ public class BabyDragon extends Troop{
                 super.incrementTimeTick();
                 if(super.getShootingTimeTick()== (super.getHitSpeed() *10))
                 {
-                    super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                    super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
+                }
+                double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
+                double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
+                double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
+                double xMoveVector = x_Vector/distPart;
+                double yMoveVector = y_Vector/distPart;
+                //------------------------
+                if(xMoveVector>0)
+                {
+                    this.FireBallRight(xMoveVector);
+                }
+                else
+                {
+                    this.FireBallLeft((-1)*xMoveVector);
+                }
+                //------------------------------
+                if(yMoveVector>0)
+                {
+                    this.FireBallBackWard(yMoveVector);
+                }
+                else
+                {
+                    this.FireBallForward((-1)*yMoveVector);
                 }
             }
-            double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
-            double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
-            double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
-            double xMoveVector = x_Vector/distPart;
-            double yMoveVector = y_Vector/distPart;
-            //------------------------
-            if(xMoveVector>0)
-            {
-                this.FireBallRight(xMoveVector);
-            }
             else
             {
-                this.FireBallLeft((-1)*xMoveVector);
-            }
-            //------------------------------
-            if(yMoveVector>0)
-            {
-                this.FireBallBackWard(yMoveVector);
-            }
-            else
-            {
-                this.FireBallForward((-1)*yMoveVector);
+                super.setLockedTarget(null);
+                super.setTowerTarget(null);
+                super.setShootingTimeTick(0);
+                fireball.setCenterX(super.getX_Current());
+                fireball.setCenterY(super.getY_Current());
             }
         }
     }
@@ -120,7 +130,6 @@ public class BabyDragon extends Troop{
         fireball.setCenterX(super.getX_Current());
         fireball.setCenterY(super.getY_Current());
     }
-
     }
     @Override
     public void WalkingTopMode() {
@@ -131,6 +140,13 @@ public class BabyDragon extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/FireBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        fireball.setFill(imagePattern2);
+        fireball.setRadius(10);
+        fireball.setCenterX(this.getX_Current());
+        fireball.setCenterY(this.getY_Current());
     }
 
     @Override
@@ -142,6 +158,13 @@ public class BabyDragon extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/FireBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        fireball.setFill(imagePattern2);
+        fireball.setRadius(10);
+        fireball.setCenterX(this.getX_Current());
+        fireball.setCenterY(this.getY_Current());
     }
 
     @Override
@@ -153,6 +176,13 @@ public class BabyDragon extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/FireBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        fireball.setFill(imagePattern2);
+        fireball.setRadius(10);
+        fireball.setCenterX(this.getX_Current());
+        fireball.setCenterY(this.getY_Current());
     }
 
     @Override
@@ -164,6 +194,13 @@ public class BabyDragon extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/FireBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        fireball.setFill(imagePattern2);
+        fireball.setRadius(10);
+        fireball.setCenterX(this.getX_Current());
+        fireball.setCenterY(this.getY_Current());
     }
 
     @Override
@@ -185,6 +222,17 @@ public class BabyDragon extends Troop{
     public void HitRightMode() {
         WalkingRightMode();
     }
+
+    @Override
+    public void resetTimeTick() {
+        if(getShootingTimeTick()==getHitSpeed()*10)
+        {
+            setShootingTimeTick(0);
+            this.getFireball().setCenterX(this.getX_Current());
+            this.getFireball().setCenterY(this.getY_Current());
+        }
+    }
+
     public void FireBallForward(double dist)
     {
         this.fireball.setCenterY(this.fireball.getCenterY()-dist);

@@ -23,20 +23,13 @@ public class Wizard extends Troop{
         super.setHitSpeed(1.7F);
         super.setTarget(Target.AIR_GROUND);
         super.setAreaSplash(true);
-        super.setLevel1(new ACLevelValue(340,new Damage(130), Level.LEVEL1));
-        super.setLevel2(new ACLevelValue(374,new Damage(143),Level.LEVEL2));
-        super.setLevel3(new ACLevelValue(411,new Damage(157),Level.LEVEL3));
-        super.setLevel4(new ACLevelValue(452,new Damage(172),Level.LEVEL4));
-        super.setLevel5(new ACLevelValue(496,new Damage(189),Level.LEVEL5));
+        super.setLevel1(new ACLevelValue(340.0,new Damage(130.0), Level.LEVEL1));
+        super.setLevel2(new ACLevelValue(374.0,new Damage(143.0),Level.LEVEL2));
+        super.setLevel3(new ACLevelValue(411.0,new Damage(157.0),Level.LEVEL3));
+        super.setLevel4(new ACLevelValue(452.0,new Damage(172.0),Level.LEVEL4));
+        super.setLevel5(new ACLevelValue(496.0,new Damage(189.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
-        Image image = new Image(new File("src/main/java/resources/pics/Characters/WizardFireBall.png").toURI().toString());
-        ImagePattern imagePattern = new ImagePattern(image);
-        fireball.setFill(imagePattern);
-        fireball.setRadius(10);
-        fireball.setCenterX(super.getX_Current());
-        fireball.setCenterY(super.getY_Current());
     }
-
     @Override
     public void Hit() {
         if(super.isLocked())
@@ -46,12 +39,12 @@ public class Wizard extends Troop{
                 if(super.targetDistance()<= this.getRange() * 20)
                 {
                     changePictoTarget();
-                    incrementTimeTick();
-                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
+                    super.incrementTimeTick();
+                    if(super.getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getLockedTarget().Hurt((Integer)super.getDamage().getValue());
+                        super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
-                    double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
+                    double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
                     double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
                     double xMoveVector = x_Vector/distPart;
@@ -75,40 +68,56 @@ public class Wizard extends Troop{
                         this.FireBallForward((-1)*yMoveVector);
                     }
                 }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    super.setShootingTimeTick(0);
+                    fireball.setCenterX(super.getX_Current());
+                    fireball.setCenterY(super.getY_Current());
+                }
             }
             else if(super.getTowerTarget()!=null)
             {
                 if(this.towerDistance()<= this.getRange() * 20)
                 {
                     changePictoTarget();
-                    incrementTimeTick();
-                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
+                    super.incrementTimeTick();
+                    if(super.getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
+                    }
+                    double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
+                    double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
+                    double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
+                    double xMoveVector = x_Vector/distPart;
+                    double yMoveVector = y_Vector/distPart;
+                    //------------------------
+                    if(xMoveVector>0)
+                    {
+                        this.FireBallRight(xMoveVector);
+                    }
+                    else
+                    {
+                        this.FireBallLeft((-1)*xMoveVector);
+                    }
+                    //------------------------------
+                    if(yMoveVector>0)
+                    {
+                        this.FireBallBackWard(yMoveVector);
+                    }
+                    else
+                    {
+                        this.FireBallForward((-1)*yMoveVector);
                     }
                 }
-                double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
-                double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
-                double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
-                double xMoveVector = x_Vector/distPart;
-                double yMoveVector = y_Vector/distPart;
-                //------------------------
-                if(xMoveVector>0)
-                {
-                    this.FireBallRight(xMoveVector);
-                }
                 else
                 {
-                    this.FireBallLeft((-1)*xMoveVector);
-                }
-                //------------------------------
-                if(yMoveVector>0)
-                {
-                    this.FireBallBackWard(yMoveVector);
-                }
-                else
-                {
-                    this.FireBallForward((-1)*yMoveVector);
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    super.setShootingTimeTick(0);
+                    fireball.setCenterX(super.getX_Current());
+                    fireball.setCenterY(super.getY_Current());
                 }
             }
         }
@@ -116,13 +125,11 @@ public class Wizard extends Troop{
         {
             super.setLockedTarget(null);
             super.setTowerTarget(null);
-            setShootingTimeTick(0);
+            super.setShootingTimeTick(0);
             fireball.setCenterX(super.getX_Current());
             fireball.setCenterY(super.getY_Current());
         }
-
     }
-
     @Override
     public void WalkingTopMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardWalk_Up.png").toURI().toString());
@@ -165,6 +172,7 @@ public class Wizard extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+
     }
 
     @Override
@@ -176,6 +184,13 @@ public class Wizard extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //-------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/WizardFireBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        fireball.setFill(imagePattern2);
+        fireball.setRadius(10);
+        fireball.setCenterX(this.getX_Current());
+        fireball.setCenterY(this.getY_Current());
     }
 
     @Override
@@ -187,6 +202,13 @@ public class Wizard extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //-------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/WizardFireBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        fireball.setFill(imagePattern2);
+        fireball.setRadius(10);
+        fireball.setCenterX(this.getX_Current());
+        fireball.setCenterY(this.getY_Current());
     }
 
     @Override
@@ -198,6 +220,13 @@ public class Wizard extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //-------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/WizardFireBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        fireball.setFill(imagePattern2);
+        fireball.setRadius(10);
+        fireball.setCenterX(this.getX_Current());
+        fireball.setCenterY(this.getY_Current());
     }
 
     @Override
@@ -209,6 +238,13 @@ public class Wizard extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        //-------------------------------------------------
+        Image image2 = new Image(new File("src/main/resources/pics/Characters/WizardFireBall.png").toURI().toString());
+        ImagePattern imagePattern2 = new ImagePattern(image2);
+        fireball.setFill(imagePattern2);
+        fireball.setRadius(10);
+        fireball.setCenterX(this.getX_Current());
+        fireball.setCenterY(this.getY_Current());
     }
     public void FireBallForward(double dist)
     {
@@ -229,5 +265,14 @@ public class Wizard extends Troop{
 
     public Circle getFireball() {
         return fireball;
+    }
+    @Override
+    public void resetTimeTick() {
+        if(getShootingTimeTick()==getHitSpeed()*10)
+        {
+            setShootingTimeTick(0);
+            this.getFireball().setCenterX(this.getX_Current());
+            this.getFireball().setCenterY(this.getY_Current());
+        }
     }
 }

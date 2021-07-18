@@ -8,8 +8,11 @@ import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import model.AttackCard;
 import model.Building.Building;
+import model.Building.Cannon;
+import model.Building.InfernoTower;
 import model.Player;
 import model.Tower.Tower;
+import model.Troop.Archer;
 import model.Troop.BabyDragon;
 import model.Troop.Troop;
 import model.Troop.Wizard;
@@ -19,8 +22,10 @@ import model.robot.SimpleRobot;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 
 public class GameManager {
     private final int blockSize=20;
@@ -430,15 +435,41 @@ public class GameManager {
     }
     public void Step()
     {
+        checkBuildingsLife();
+        checkTroopsLife();
+        buildingsLifeDecrement();
+        for (int i = 0; i < troops.size(); i++) {
+            prepareTargetFor(troops.get(i));
+            addBullet(troops.get(i));
+            troops.get(i).Hit();
+            if(troops.get(i).getShootingTimeTick()== troops.get(i).getHitSpeed()*10)
+            {
+                troops.get(i).setShootingTimeTick(0);
+            }
+            checkBulletLife(troops.get(i));
+            checkBuildingsLife();
+            checkTroopsLife();
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            prepareTargetFor(buildings.get(i));
+            addBullet(buildings.get(i));
+            buildings.get(i).Hit();
+            if(buildings.get(i).getShootingTimeTick()== buildings.get(i).getHitSpeed()*10)
+            {
+                troops.get(i).setShootingTimeTick(0);
+            }
+            checkBulletLife(buildings.get(i));
+            checkBuildingsLife();
+            checkTroopsLife();
+        }
         for (int i=0;i<this.getTroops().size();i++)
         {
-            if(checkPalace(troops.get(i)) )
+            if(checkPalace(troops.get(i)) && !troops.get(i).isLocked() )
             {
                 move(troops.get(i));
             }
 
         }
-
     }
     private boolean checkPalace(Troop troop)
     {
@@ -1059,7 +1090,7 @@ public class GameManager {
                     Wizard wizard = (Wizard) shooter;
                     ArrayList<AttackCard> temp = attackCardsInArea(wizard.getFireball().getCenterX(),wizard.getFireball().getCenterY(),shooter.getRange()*blockSize);
                     for (int i = 0; i < temp.size(); i++) {
-                        if(temp.get(i)!= shooter)
+                        if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()))
                         {
                             temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
                         }
@@ -1070,12 +1101,245 @@ public class GameManager {
                     BabyDragon babyDragon = (BabyDragon) shooter;
                     ArrayList<AttackCard> temp = attackCardsInArea(babyDragon.getFireball().getCenterX(),babyDragon.getFireball().getCenterY(),shooter.getRange()*blockSize);
                     for (int i = 0; i < temp.size(); i++) {
-                        if(temp.get(i)!= shooter)
+                        if(temp.get(i)!= shooter && !temp.get(i).getType().equals(shooter.getType()))
                         {
                             temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
                         }
                     }
                 }
+            }
+        }
+    }
+    private void prepareTargetFor(AttackCard attacker)
+    {
+        if(!attacker.isLocked())
+        {
+            AttackCard target = closestAttackCardinArea(attacker,attacker.getX_Current(),attacker.getY_Current(),attacker.getRange()*blockSize);
+            if(target!=null)
+            {
+                attacker.setLockedTarget(target);
+            }
+        }
+    }
+    private AttackCard closestAttackCardinArea(AttackCard attacker,double x,double y , double radius)
+    {
+        ArrayList<Double> dists= new ArrayList<>();
+        if(attacker instanceof Troop)
+        {
+            for (int i = 0; i < troops.size(); i++) {
+                if(troops.get(i)!= attacker && !troops.get(i).getType().equals(attacker.getType()) && distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current())<=radius)
+                {
+                    dists.add(distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+                }
+            }
+            if(dists.size()!=0)
+            {
+                double min = Collections.min(dists);
+                for (int i = 0; i < troops.size(); i++) {
+                    if(min== distance(x,y,troops.get(i).getX_Current(),troops.get(i).getY_Current()))
+                    {
+                        return troops.get(i);
+                    }
+                }
+            }
+        }
+        else if(attacker instanceof Building)
+        {
+            for (int i = 0; i < buildings.size(); i++) {
+                if(buildings.get(i)!= attacker && !buildings.get(i).getType().equals(attacker.getType()) && distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current())<=radius)
+                {
+                    dists.add(distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current()));
+                }
+            }
+            if(dists.size()!=0)
+            {
+                double min = Collections.min(dists);
+                for (int i = 0; i < buildings.size(); i++) {
+                    if(min== distance(x,y,buildings.get(i).getX_Current(),buildings.get(i).getY_Current()))
+                    {
+                        return buildings.get(i);
+                    }
+                }
+            }
+        }
+        return null;
+    }
+    private boolean checkBulletExistence(AttackCard attacker)
+    {
+        Shape shape = null;
+        if(attacker instanceof Wizard)
+        {
+            Wizard temp = (Wizard) attacker;
+            shape = temp.getFireball();
+        }
+        else if(attacker instanceof  BabyDragon)
+        {
+            BabyDragon temp = (BabyDragon) attacker;
+            shape = temp.getFireball();
+        }
+        else if(attacker instanceof Cannon)
+        {
+            Cannon temp = (Cannon) attacker;
+            shape = temp.getCanonnBall();
+        }
+        else if(attacker instanceof InfernoTower)
+        {
+            InfernoTower temp = (InfernoTower) attacker;
+            shape = temp.getFireLine();
+        }
+        else if(attacker instanceof Archer)
+        {
+            Archer temp = (Archer) attacker;
+            shape = temp.getArrow();
+        }
+        for (int i = 0; i < bullets.size(); i++) {
+            if(bullets.get(i)== shape)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    private void addBullet(AttackCard attacker)
+    {
+        if(attacker.isLocked() && !checkBulletExistence(attacker))
+        {
+            if(attacker instanceof Wizard)
+            {
+                Wizard temp = (Wizard) attacker;
+                bullets.add(temp.getFireball());
+            }
+            else if(attacker instanceof  BabyDragon)
+            {
+                BabyDragon temp = (BabyDragon) attacker;
+                bullets.add(temp.getFireball());
+            }
+            else if(attacker instanceof Cannon)
+            {
+                Cannon temp = (Cannon) attacker;
+                bullets.add(temp.getCanonnBall());
+            }
+            else if(attacker instanceof InfernoTower)
+            {
+                InfernoTower temp = (InfernoTower) attacker;
+                bullets.add(temp.getFireLine());
+            }
+            else if(attacker instanceof Archer)
+            {
+                Archer temp = (Archer) attacker;
+                bullets.add(temp.getArrow());
+            }
+        }
+    }
+    private void checkBulletLife(AttackCard attacker)
+    {
+        if(attacker.getShootingTimeTick()==attacker.getHitSpeed()*10 || attacker.getLevelInformation().getHp()<=0)
+        {
+            Iterator<Shape> it= bullets.iterator();
+            if(attacker instanceof Wizard)
+            {
+                Wizard temp = (Wizard) attacker;
+                while (it.hasNext())
+                {
+                    Shape shape = it.next();
+                    if(shape== temp.getFireball())
+                    {
+                        it.remove();
+                        break;
+                    }
+                }
+            }
+            else if(attacker instanceof  BabyDragon)
+            {
+                BabyDragon temp = (BabyDragon) attacker;
+                while (it.hasNext())
+                {
+                    Shape shape = it.next();
+                    if(shape== temp.getFireball())
+                    {
+                        it.remove();
+                        break;
+                    }
+                }
+            }
+            else if(attacker instanceof Cannon)
+            {
+                Cannon temp = (Cannon) attacker;
+                while (it.hasNext())
+                {
+                    Shape shape = it.next();
+                    if(shape== temp.getCanonnBall())
+                    {
+                        it.remove();
+                        break;
+                    }
+                }
+            }
+            else if(attacker instanceof InfernoTower)
+            {
+                InfernoTower temp = (InfernoTower) attacker;
+                while (it.hasNext())
+                {
+                    Shape shape = it.next();
+                    if(shape== temp.getFireLine())
+                    {
+                        it.remove();
+                        break;
+                    }
+                }
+            }
+            else if(attacker instanceof Archer)
+            {
+                Archer temp = (Archer) attacker;
+                while (it.hasNext())
+                {
+                    Shape shape = it.next();
+                    if(shape== temp.getArrow())
+                    {
+                        it.remove();
+                        break;
+                    }
+                }
+            }
+            attacker.resetTimeTick();
+        }
+    }
+    public void updateBulletsLocation()
+    {
+        for (int i = 0; i < troops.size(); i++) {
+            if(troops.get(i) instanceof Wizard)
+            {
+                Wizard temp = (Wizard) troops.get(i);
+                temp.getFireball().setCenterX(troops.get(i).getX_Current());
+                temp.getFireball().setCenterY(troops.get(i).getY_Current());
+            }
+            else if(troops.get(i) instanceof BabyDragon)
+            {
+                BabyDragon temp = (BabyDragon) troops.get(i);
+                temp.getFireball().setCenterX(troops.get(i).getX_Current());
+                temp.getFireball().setCenterY(troops.get(i).getY_Current());
+            }
+            else if(troops.get(i) instanceof Archer)
+            {
+                Archer temp = (Archer) troops.get(i);
+                temp.getArrow().setX(troops.get(i).getX_Current());
+                temp.getArrow().setY(troops.get(i).getY_Current());
+            }
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            if(buildings.get(i) instanceof Cannon)
+            {
+                Cannon temp = (Cannon) buildings.get(i);
+                temp.getCanonnBall().setCenterX(buildings.get(i).getX_Current());
+                temp.getCanonnBall().setCenterY(buildings.get(i).getY_Current());
+            }
+            else if(buildings.get(i) instanceof InfernoTower)
+            {
+                InfernoTower temp = (InfernoTower) buildings.get(i);
+                temp.getFireLine().setStartX(temp.getX_Current());
+                temp.getFireLine().setStartY(temp.getY_Current());
+                temp.getFireLine().setEndX(temp.getX_Current());
+                temp.getFireLine().setEndY(temp.getY_Current());
             }
         }
     }

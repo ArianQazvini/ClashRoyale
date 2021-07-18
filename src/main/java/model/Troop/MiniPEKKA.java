@@ -21,11 +21,11 @@ public class MiniPEKKA extends Troop{
         super.setHitSpeed(1.8F);
         super.setTarget(Target.GROUND);
         super.setAreaSplash(false);
-        super.setLevel1(new ACLevelValue(600,new Damage<>(325), Level.LEVEL1));
-        super.setLevel2(new ACLevelValue(660,new Damage<>(357),Level.LEVEL2));
-        super.setLevel3(new ACLevelValue(726,new Damage<>(393),Level.LEVEL3));
-        super.setLevel4(new ACLevelValue(798,new Damage<>(432),Level.LEVEL4));
-        super.setLevel5(new ACLevelValue(876,new Damage<>(474),Level.LEVEL5));
+        super.setLevel1(new ACLevelValue(600.0,new Damage<>(325.0), Level.LEVEL1));
+        super.setLevel2(new ACLevelValue(660.0,new Damage<>(357.0),Level.LEVEL2));
+        super.setLevel3(new ACLevelValue(726.0,new Damage<>(393.0),Level.LEVEL3));
+        super.setLevel4(new ACLevelValue(798.0,new Damage<>(432.0),Level.LEVEL4));
+        super.setLevel5(new ACLevelValue(876.0,new Damage<>(474.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
     }
 
@@ -41,8 +41,14 @@ public class MiniPEKKA extends Troop{
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
+                }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
                 }
             }
             else if(super.getLockedTarget()!=null)
@@ -53,9 +59,15 @@ public class MiniPEKKA extends Troop{
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getLockedTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
                     //------------------------
+                }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
                 }
             }
         }
@@ -153,5 +165,12 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+    }
+    @Override
+    public void resetTimeTick() {
+        if(getShootingTimeTick()==getHitSpeed()*10)
+        {
+            setShootingTimeTick(0);
+        }
     }
 }

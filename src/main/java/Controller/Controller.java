@@ -440,6 +440,9 @@ public class Controller {
             playGround.getChildren().add(gameManager.getBuildings().get(i).getPicHandler());
 
         }
+        for (int i = 0; i < gameManager.getBullets().size(); i++) {
+            playGround.getChildren().add(gameManager.getBullets().get(i));
+        }
     }
     private void StartTimer()
     {

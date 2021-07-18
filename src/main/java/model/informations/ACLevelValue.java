@@ -6,7 +6,7 @@ import model.Damage;
 public class ACLevelValue extends LevelValue {
     double hp;
     Damage damage;
-    public ACLevelValue(int hp, Damage damage, Level level) {
+    public ACLevelValue(double hp, Damage damage, Level level) {
         super(level);
         this.hp=hp;
         this.damage=damage;

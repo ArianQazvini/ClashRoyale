@@ -21,11 +21,11 @@ public class Barbarian extends Troop{
         super.setTarget(Target.GROUND);
         setSpeed(Speed.MEDIUM);
         super.setAreaSplash(false);
-        super.setLevel1(new ACLevelValue(300,new Damage<>(75),Level.LEVEL1));
-        super.setLevel2(new ACLevelValue(330,new Damage<>(82),Level.LEVEL2));
-        super.setLevel3(new ACLevelValue(363,new Damage<>(90),Level.LEVEL3));
-        super.setLevel4(new ACLevelValue(438,new Damage<>(99),Level.LEVEL4));
-        super.setLevel5(new ACLevelValue(480,new Damage<>(109),Level.LEVEL5));
+        super.setLevel1(new ACLevelValue(300.0,new Damage<>(75.0),Level.LEVEL1));
+        super.setLevel2(new ACLevelValue(330.0,new Damage<>(82.0),Level.LEVEL2));
+        super.setLevel3(new ACLevelValue(363.0,new Damage<>(90.0),Level.LEVEL3));
+        super.setLevel4(new ACLevelValue(438.0,new Damage<>(99.0),Level.LEVEL4));
+        super.setLevel5(new ACLevelValue(480.0,new Damage<>(109.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
     }
 
@@ -41,8 +41,14 @@ public class Barbarian extends Troop{
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
+                }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
                 }
             }
             else if(super.getLockedTarget()!=null)
@@ -53,9 +59,15 @@ public class Barbarian extends Troop{
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getLockedTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
                     //------------------------
+                }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
                 }
             }
         }
@@ -154,6 +166,15 @@ public class Barbarian extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
+
+    @Override
+    public void resetTimeTick() {
+        if(getShootingTimeTick()==getHitSpeed()*10)
+        {
+            setShootingTimeTick(0);
+        }
+    }
+
     @Override
     public void Left()
     {

@@ -20,6 +20,7 @@ public abstract class AttackCard extends Card {
     private Tower TowerTarget = null;
     private boolean isLocked=false;
     private Rectangle picHandler = new Rectangle();
+    private int ShootingTimeTick =0;
     public void setLockedTarget(AttackCard lockedTarget) {
             LockedTarget = lockedTarget;
     }
@@ -142,4 +143,17 @@ public abstract class AttackCard extends Card {
         double sum = Math.pow(tempx, 2) + Math.pow(tempy, 2);
         return Math.pow(sum, 0.5);
     }
+
+    public void setShootingTimeTick(int shootingTimeTick) {
+        ShootingTimeTick = shootingTimeTick;
+    }
+
+    public int getShootingTimeTick() {
+        return ShootingTimeTick;
+    }
+    public void incrementTimeTick()
+    {
+        ShootingTimeTick++;
+    }
+    public abstract void resetTimeTick();
 }

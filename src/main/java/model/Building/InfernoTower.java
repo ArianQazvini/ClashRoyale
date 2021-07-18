@@ -12,7 +12,6 @@ import model.informations.ACLevelValue;
 import java.io.File;
 
 public class InfernoTower extends Building{
-    private int ShootingTimeTick=0;
     private int FireTimeTick=0;
     private Line fireLine = new Line();
     public InfernoTower(){
@@ -22,11 +21,11 @@ public class InfernoTower extends Building{
         setRange(6);
         setLifeTime(40);
         setCost(5);
-        setLevel1(new ACLevelValue(800, new Damage<>(new DamageVary(20, 400)), Level.LEVEL1));
-        setLevel2(new ACLevelValue(880,new Damage<>(new DamageVary(22,440)),Level.LEVEL2));
-        setLevel3(new ACLevelValue(968,new Damage<>(new DamageVary(24,484)),Level.LEVEL3));
-        setLevel4(new ACLevelValue(1064,new Damage<>(new DamageVary(26,532)),Level.LEVEL4));
-        setLevel5(new ACLevelValue(1168,new Damage<>(new DamageVary(29,584)),Level.LEVEL5));
+        setLevel1(new ACLevelValue(800.0, new Damage<>(new DamageVary(20.0, 400.0)), Level.LEVEL1));
+        setLevel2(new ACLevelValue(880.0,new Damage<>(new DamageVary(22.0,440.0)),Level.LEVEL2));
+        setLevel3(new ACLevelValue(968.0,new Damage<>(new DamageVary(24.0,484.0)),Level.LEVEL3));
+        setLevel4(new ACLevelValue(1064.0,new Damage<>(new DamageVary(26.0,532.0)),Level.LEVEL4));
+        setLevel5(new ACLevelValue(1168.0,new Damage<>(new DamageVary(29.0,584.0)),Level.LEVEL5));
         setLevelInformation(super.getLevel1());
         Image image = new Image(new File("src/main/resources/pics/Characters/InfernoTower.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
@@ -36,7 +35,7 @@ public class InfernoTower extends Building{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
         fireLine.setStroke(Color.ORANGERED);
-        fireLine.setStrokeWidth(5);
+        fireLine.setStrokeWidth(10);
     }
     @Override
     public void Hit()
@@ -47,13 +46,13 @@ public class InfernoTower extends Building{
             {
                 if(super.targetDistance()<= this.getRange() * 20)
                 {
-                    ShootingTimeTick++;
-                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    incrementTimeTick();
+                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         FireTimeTick++;
                         Damage();
                     }
-                    double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                    double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
                     double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
                     //*************************
@@ -66,18 +65,25 @@ public class InfernoTower extends Building{
                     fireLine.setEndX(xMoveVector);
                     fireLine.setEndY(yMoveVector);
                 }
+                else
+                {
+                    setShootingTimeTick(0);
+                    FireTimeTick=0;
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                }
             }
             else if(super.getTowerTarget()!=null)
             {
                 if(super.towerDistance()<= this.getRange() * 20)
                 {
-                    ShootingTimeTick++;
-                    if(ShootingTimeTick== (super.getHitSpeed() *10))
+                    incrementTimeTick();
+                    if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         FireTimeTick++;
                         Damage();
                     }
-                    double distPart= ShootingTimeTick/(super.getHitSpeed()*10);
+                    double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
                     double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
                     //*************************
@@ -90,16 +96,31 @@ public class InfernoTower extends Building{
                     fireLine.setEndX(xMoveVector);
                     fireLine.setEndY(yMoveVector);
                 }
+                else
+                {
+                    setShootingTimeTick(0);
+                    FireTimeTick=0;
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                }
             }
-            else
-            {
-                ShootingTimeTick=0;
+        }
+        else
+        {
+                setShootingTimeTick(0);
                 FireTimeTick=0;
                 super.setLockedTarget(null);
                 super.setTowerTarget(null);
-            }
         }
+
     }
+
+    @Override
+    public void resetTimeTick() {
+        setShootingTimeTick(0);
+        FireTimeTick=0;
+    }
+
     private void Damage()
     {
         DamageVary damage = (DamageVary) super.getLevelInformation().getDamage().getValue();
@@ -114,13 +135,6 @@ public class InfernoTower extends Building{
             super.getLockedTarget().Hurt(harm);
         }
     }
-    public void setShootingTimeTick(int shootingTimeTick) {
-        ShootingTimeTick = shootingTimeTick;
-    }
-    public int getShootingTimeTick() {
-        return ShootingTimeTick;
-    }
-
     public void setFireTimeTick(int fireTimeTick) {
         FireTimeTick = fireTimeTick;
     }
@@ -136,16 +150,16 @@ public class InfernoTower extends Building{
     }
 }
 class DamageVary {
-    int min;
-    int max;
-    public DamageVary(int min,int max){
+    double min;
+    double max;
+    public DamageVary(double min,double max){
         this.min=min;
         this.max=max;
     }
-    public int getMax() {
+    public double getMax() {
         return max;
     }
-    public int getMin() {
+    public double getMin() {
         return min;
     }
 }

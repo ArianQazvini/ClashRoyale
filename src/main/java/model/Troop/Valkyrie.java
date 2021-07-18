@@ -21,11 +21,11 @@ public class Valkyrie extends Troop{
         super.setHitSpeed(1.5F);
         super.setTarget(Target.GROUND);
         super.setAreaSplash(true);
-        super.setLevel1(new ACLevelValue(800,new Damage(120), Level.LEVEL1));
-        super.setLevel2(new ACLevelValue(968,new Damage(132),Level.LEVEL2));
-        super.setLevel3(new ACLevelValue(1064,new Damage(145),Level.LEVEL3));
-        super.setLevel4(new ACLevelValue(1170,new Damage(159),Level.LEVEL4));
-        super.setLevel5(new ACLevelValue(1284,new Damage(175),Level.LEVEL5));
+        super.setLevel1(new ACLevelValue(800.0,new Damage(120.0), Level.LEVEL1));
+        super.setLevel2(new ACLevelValue(968.0,new Damage(132.0),Level.LEVEL2));
+        super.setLevel3(new ACLevelValue(1064.0,new Damage(145.0),Level.LEVEL3));
+        super.setLevel4(new ACLevelValue(1170.0,new Damage(159.0),Level.LEVEL4));
+        super.setLevel5(new ACLevelValue(1284.0,new Damage(175.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
     }
     @Override
@@ -40,8 +40,14 @@ public class Valkyrie extends Troop{
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getTowerTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
+                }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
                 }
             }
             else if(super.getLockedTarget()!=null)
@@ -52,9 +58,15 @@ public class Valkyrie extends Troop{
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
-                        super.getLockedTarget().Hurt((double)super.getLevelInformation().getDamage().getValue());
+                        super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
                     //------------------------
+                }
+                else
+                {
+                    super.setLockedTarget(null);
+                    super.setTowerTarget(null);
+                    setShootingTimeTick(0);
                 }
             }
         }
@@ -152,5 +164,12 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setHeight(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+    }
+    @Override
+    public void resetTimeTick() {
+        if(getShootingTimeTick()==getHitSpeed()*10)
+        {
+            setShootingTimeTick(0);
+        }
     }
 }
