@@ -6,6 +6,7 @@ import model.informations.LevelValue;
 
 
 public class WarObject {
+    private static int id;
     private String avatar;
     private String animation;
     private LevelInformation levelInformation;
@@ -32,6 +33,15 @@ public class WarObject {
                 return;
         }
     }
+
+    public static void setId(int id) {
+        WarObject.id = id;
+    }
+
+    public static int getId() {
+        return id;
+    }
+
     public LevelValue getLevel1() {
         return level1;
     }
