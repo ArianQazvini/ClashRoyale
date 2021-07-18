@@ -20,6 +20,7 @@ import model.Troop.Troop;
 import model.Troop.Wizard;
 import model.robot.Robot;
 import model.robot.SimpleRobot;
+import model.robot.SmartRobot;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,7 +34,7 @@ public class GameManager {
     private final int blockSize=20;
     private final double Renedering=0.1;
     private Player player=new Player();
-    private Robot opponent=new SimpleRobot();
+    private Robot opponent=new SmartRobot();
     private Parent root;
     private Stage stage;
     private Scene scene;

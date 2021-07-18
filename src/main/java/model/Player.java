@@ -13,7 +13,6 @@ import java.util.ArrayList;
 
 public class Player {
     private ArrayList<Troop> troops = new ArrayList<>();
-    private ArrayList<Card>cardsCollection=new ArrayList<>();
     private ArrayList<Card>cards=new ArrayList<>();
     private ArrayList<AttackCard>attackCardsOnGround=new ArrayList<>();
     private Deck deck=new Deck();

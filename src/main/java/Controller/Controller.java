@@ -64,6 +64,7 @@ public class Controller {
     private int check =0;
     public void initialize()
     {
+        gameManager.getOpponent().gameManager=gameManager;
         gameManager.CreateMap();
         Warnings.setVisible(false);
        elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
