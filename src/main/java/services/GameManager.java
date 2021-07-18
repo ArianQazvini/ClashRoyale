@@ -12,6 +12,7 @@ import model.Building.Building;
 import model.Building.Cannon;
 import model.Building.InfernoTower;
 import model.Player;
+import model.Timer;
 import model.Tower.Tower;
 import model.Troop.Archer;
 import model.Troop.BabyDragon;
@@ -295,6 +296,15 @@ public class GameManager {
                 fixblocks(player.getPrinceTower2().getImageViews()[i][j].getX(),player.getPrinceTower2().getImageViews()[i][j].getY(),player.getPrinceTower2().getImageViews()[i][j].getImage());
             }
         }
+        player.getPrinceTower1().setX(player.getPrinceTower1().getImageViews()[1][1].getX());
+        player.getPrinceTower1().setY(player.getPrinceTower1().getImageViews()[1][1].getY());
+        player.getPrinceTower2().setX(player.getPrinceTower2().getImageViews()[1][1].getX());
+        player.getPrinceTower2().setY(player.getPrinceTower2().getImageViews()[1][1].getY());
+        player.getKingTower().setX(player.getKingTower().getImageViews()[1][1].getX());
+        player.getKingTower().setY(player.getKingTower().getImageViews()[1][1].getY());
+        player.getPrinceTower1().setType("+");
+        player.getPrinceTower2().setType("+");
+        player.getKingTower().setType("+");
     }
     public void createBotTowers()
     {
@@ -365,6 +375,15 @@ public class GameManager {
                 fixblocks(opponent.getPrinceTower2().getImageViews()[i][j].getX(),opponent.getPrinceTower2().getImageViews()[i][j].getY(),opponent.getPrinceTower2().getImageViews()[i][j].getImage());
             }
         }
+        opponent.getPrinceTower1().setX(opponent.getPrinceTower1().getImageViews()[1][1].getX());
+        opponent.getPrinceTower1().setY(opponent.getPrinceTower1().getImageViews()[1][1].getY());
+        opponent.getPrinceTower2().setX(opponent.getPrinceTower2().getImageViews()[1][1].getX());
+        opponent.getPrinceTower2().setY(opponent.getPrinceTower2().getImageViews()[1][1].getY());
+        opponent.getKingTower().setX(opponent.getKingTower().getImageViews()[1][1].getX());
+        opponent.getKingTower().setY(opponent.getKingTower().getImageViews()[1][1].getY());
+        opponent.getPrinceTower1().setType("-");
+        opponent.getPrinceTower2().setType("-");
+        opponent.getKingTower().setType("-");
     }
     public void fixblocks(double x,double y,Image image)
     {
@@ -973,8 +992,12 @@ public class GameManager {
     }
     private void buildingsLifeDecrement()
     {
+//        for (int i = 0; i < buildings.size(); i++) {
+//            buildings.get(i).decrementLife(Renedering);
+//        }
         for (int i = 0; i < buildings.size(); i++) {
-            buildings.get(i).decrementLife(Renedering);
+            Timer timer = new Timer();
+            timer.buildingThread(buildings.get(i));
         }
     }
     private void removeBuilding(Building building)
@@ -1488,41 +1511,100 @@ public class GameManager {
             attacker.resetTimeTick();
         }
     }
-//    public void updateBulletsLocation()
-//    {
-//        for (int i = 0; i < troops.size(); i++) {
-//            if(troops.get(i) instanceof Wizard)
-//            {
-//                Wizard temp = (Wizard) troops.get(i);
-//                temp.getFireball().setCenterX(troops.get(i).getX_Current());
-//                temp.getFireball().setCenterY(troops.get(i).getY_Current());
-//            }
-//            else if(troops.get(i) instanceof BabyDragon)
-//            {
-//                BabyDragon temp = (BabyDragon) troops.get(i);
-//                temp.getFireball().setCenterX(troops.get(i).getX_Current());
-//                temp.getFireball().setCenterY(troops.get(i).getY_Current());
-//            }
-//            else if(troops.get(i) instanceof Archer)
-//            {
-//                Archer temp = (Archer) troops.get(i);
-//                temp.getArrow().setX(troops.get(i).getX_Current());
-//                temp.getArrow().setY(troops.get(i).getY_Current());
-//            }
-//        }
-//        for (int i = 0; i < buildings.size(); i++) {
-//            if(buildings.get(i) instanceof Cannon)
-//            {
-//                Cannon temp = (Cannon) buildings.get(i);
-//                temp.getCanonnBall().setCenterX(buildings.get(i).getX_Current());
-//                temp.getCanonnBall().setCenterY(buildings.get(i).getY_Current());
-//            }
-//            else if(buildings.get(i) instanceof InfernoTower)
-//            {
-//                InfernoTower temp = (InfernoTower) buildings.get(i);
-//                temp.getFireball().setCenterX(buildings.get(i).getX_Current());
-//                temp.getFireball().setCenterY(buildings.get(i).getY_Current());
-//            }
-//        }
-//    }
+    private void checkTowersLife()
+    {
+        if(player.getPrinceTower1().getLevelInformation().getHp()<=0)
+        {
+
+        }
+        if(player.getPrinceTower2().getLevelInformation().getHp()<=0)
+        {
+        }
+        if(opponent.getPrinceTower1().getLevelInformation().getHp()<=0)
+        {
+        }
+        if(opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
+        {
+        }
+        if(player.getKingTower().getLevelInformation().getHp()<=0)
+        {
+
+        }
+        if(opponent.getKingTower().getLevelInformation().getHp()<=0)
+        {
+
+        }
+    }
+    private void removeTower(Tower tower)
+    {
+
+    }
+    private void prepareTargetForTowers()
+    {
+        if(player.getPrinceTower1().getLevelInformation().getHp()>0 && !player.getPrinceTower1().isLocked())
+        {
+            player.getPrinceTower1().setLockedTarget(setclosestTargetForTower(player.getPrinceTower1()));
+        }
+        if(player.getPrinceTower2().getLevelInformation().getHp()>0 && !player.getPrinceTower2().isLocked())
+        {
+            player.getPrinceTower2().setLockedTarget(setclosestTargetForTower(player.getPrinceTower2()));
+        }
+        if(opponent.getPrinceTower1().getLevelInformation().getHp()>0 && !opponent.getPrinceTower1().isLocked())
+        {
+            player.getPrinceTower1().setLockedTarget(setclosestTargetForTower(opponent.getPrinceTower1()));
+        }
+        if(opponent.getPrinceTower2().getLevelInformation().getHp()>0 && !opponent.getPrinceTower2().isLocked())
+        {
+            player.getPrinceTower2().setLockedTarget(setclosestTargetForTower(opponent.getPrinceTower2()));
+        }
+        if(player.getKingTower().isGotHurt() || player.getPrinceTower1().getLevelInformation().getHp()<=0 || player.getPrinceTower2().getLevelInformation().getHp()<=0)
+        {
+            player.getKingTower().setCanShoot(true);
+            if(!player.getKingTower().isLocked())
+            {
+                player.getKingTower().setLockedTarget(setclosestTargetForTower(player.getKingTower()));
+            }
+        }
+        if(opponent.getKingTower().isGotHurt() || opponent.getPrinceTower1().getLevelInformation().getHp()<=0 || opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
+        {
+            opponent.getKingTower().setCanShoot(true);
+            if(!opponent.getKingTower().isLocked())
+            {
+                opponent.getKingTower().setLockedTarget(setclosestTargetForTower(opponent.getKingTower()));
+            }
+        }
+    }
+    private AttackCard setclosestTargetForTower(Tower tower)
+    {
+        ArrayList<Double> dists= new ArrayList<>();
+        for (int i = 0; i < troops.size(); i++) {
+            if(!troops.get(i).getType().equals(tower.getType()) &&distance(tower.getX(),tower.getY(),troops.get(i).getX_Current(),troops.get(i).getY_Current())<= tower.getRange()*blockSize)
+            {
+                dists.add(distance(tower.getX(),tower.getY(),troops.get(i).getX_Current(),troops.get(i).getY_Current()));
+            }
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            if(!buildings.get(i).getType().equals(tower.getType()) && distance(tower.getX(),tower.getY(),buildings.get(i).getX_Current(),buildings.get(i).getY_Current())<= tower.getRange()*blockSize)
+            {
+                dists.add(distance(tower.getX(),tower.getY(),buildings.get(i).getX_Current(),buildings.get(i).getY_Current()));
+            }
+        }
+        if(dists.size()!=0)
+            {
+                double min = Collections.min(dists);
+                for (int i = 0; i < troops.size(); i++) {
+                    if(min== distance(tower.getX(),tower.getY(),troops.get(i).getX_Current(),troops.get(i).getY_Current()))
+                    {
+                        return troops.get(i);
+                    }
+                }
+                for (int i = 0; i < buildings.size(); i++) {
+                    if(min== distance(tower.getX(),tower.getY(),buildings.get(i).getX_Current(),buildings.get(i).getY_Current()))
+                    {
+                        return buildings.get(i);
+                    }
+                }
+            }
+        return null;
+    }
 }

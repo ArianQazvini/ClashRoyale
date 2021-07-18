@@ -1,6 +1,8 @@
 package model.Tower;
 
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import model.AttackCard;
@@ -9,6 +11,8 @@ import model.WarObject;
 import model.informations.ACLevelValue;
 import model.informations.LevelInformation;
 import model.informations.LevelValue;
+
+import java.io.File;
 
 public abstract class Tower extends WarObject {
     private float hp;
@@ -21,10 +25,20 @@ public abstract class Tower extends WarObject {
     private AttackCard LockedTarget=null;
     private boolean isLocked=false;
     private Damage damage;
+    private int ShootingTimeTick=0;
+    private String type ;
+    private boolean gotHurt = false;
     public float getHitSpeed() {
         return hitSpeed;
     }
 
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getType() {
+        return type;
+    }
     public AttackCard getLockedTarget() {
         return LockedTarget;
     }
@@ -50,8 +64,15 @@ public abstract class Tower extends WarObject {
     }
     public void Hurt(double damage)
     {
+        gotHurt=true;
         double temp = this.getLevelInformation().getHp();
         this.getLevelInformation().setHp(temp-damage);
+    }
+    public void setGotHurt(boolean gotHurt) {
+        this.gotHurt = gotHurt;
+    }
+    public boolean isGotHurt() {
+        return gotHurt;
     }
 
     public void setX(double x) {
@@ -132,5 +153,32 @@ public abstract class Tower extends WarObject {
     public ACLevelValue getLevelInformation() {
         return ((ACLevelValue)super.getLevelInformation());
     }
+    public void setCannonBallPic()
+    {
+            Image image = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
+            ImagePattern imagePattern = new ImagePattern(image);
+            this.CanonnBall.setFill(imagePattern);
+            this.CanonnBall.setRadius(10);
+            this.CanonnBall.setCenterX(this.getX());
+            this.CanonnBall.setCenterY(this.getY());
+    }
+    public void setShootingTimeTick(int shootingTimeTick) {
+        ShootingTimeTick = shootingTimeTick;
+    }
+
+    public int getShootingTimeTick() {
+        return ShootingTimeTick;
+    }
+    public void incrementTimeTick()
+    {
+        ShootingTimeTick++;
+    }
+    public void resetTimeTick()
+    {
+        this.CanonnBall.setCenterX(this.getX());
+        this.CanonnBall.setCenterY(this.getY());
+        setShootingTimeTick(0);
+    }
+
 
 }
