@@ -47,6 +47,8 @@ public class GameManager {
     private ArrayList<Troop> troops = new ArrayList<>();
     private ArrayList<Tower>  towers= new ArrayList<>();
     private ArrayList<Building> buildings = new ArrayList<>();
+    private boolean gameFinished = false;
+    private Player winner = null;
 //    public Directions CharacterExist(Troop troop, Directions directions)
 //    {
 //        if(directions==Directions.TOP)
@@ -108,6 +110,18 @@ public class GameManager {
         return opponent;
     }
 
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+    public void setWinner(Player winner) {
+        this.winner = winner;
+    }
+    public Player getWinner() {
+        return winner;
+    }
     public void CreateMap()
     {
         double help_row=0.0;
@@ -306,6 +320,9 @@ public class GameManager {
         player.getPrinceTower1().setType("+");
         player.getPrinceTower2().setType("+");
         player.getKingTower().setType("+");
+        towers.add(player.getPrinceTower1());
+        towers.add(player.getPrinceTower2());
+        towers.add(player.getKingTower());
     }
     public void createBotTowers()
     {
@@ -385,6 +402,9 @@ public class GameManager {
         opponent.getPrinceTower1().setType("-");
         opponent.getPrinceTower2().setType("-");
         opponent.getKingTower().setType("-");
+        towers.add(opponent.getPrinceTower1());
+        towers.add(opponent.getPrinceTower2());
+        towers.add(opponent.getKingTower());
     }
     public void fixblocks(double x,double y,Image image)
     {
@@ -456,11 +476,14 @@ public class GameManager {
     }
     public void Step()
     {
+        checkTowersLife();
         checkBuildingsLife();
         checkTroopsLife();
         buildingsLifeDecrement();
+        towersHit();
         for (int i = 0; i < troops.size(); i++) {
             prepareTargetFor(troops.get(i));
+            prepareTowerTarget(troops.get(i));
             addBullet(troops.get(i));
             troops.get(i).Hit();
             areaSplash(troops.get(i),troops.get(i).getLockedTarget());
@@ -468,6 +491,7 @@ public class GameManager {
             {
                 troops.get(i).setShootingTimeTick(0);
             }
+            checkTowersLife();
             checkBulletsLife(troops.get(i));
             checkBuildingsLife();
             checkTroopsLife();
@@ -480,6 +504,7 @@ public class GameManager {
             {
                 buildings.get(i).setShootingTimeTick(0);
             }
+            checkTowersLife();
             checkBulletsLife(buildings.get(i));
             checkBuildingsLife();
             checkTroopsLife();
@@ -493,9 +518,25 @@ public class GameManager {
 
         }
     }
+    private void towersHit()
+    {
+        prepareTargetForTowers();
+        for (int i = 0; i < towers.size(); i++) {
+            addBullet(towers.get(i));
+            towers.get(i).Hit();
+            if(towers.get(i).getShootingTimeTick()== towers.get(i).getHitSpeed()*10)
+            {
+                towers.get(i).setShootingTimeTick(0);
+            }
+            checkTowersLife();
+            checkBulletsLife(towers.get(i));
+            checkBuildingsLife();
+            checkTroopsLife();
+        }
+    }
     private boolean checkPalace(Troop troop)
     {
-        if(troop.getX_Current() >= 0 && troop.getX_Current() <360 && troop.getY_Current()>0 && troop.getY_Current()<640) {
+        if(troop.getX_Current() >= 0 && troop.getX_Current() <360 && troop.getY_Current()>0 && troop.getY_Current()<620) {
             return true;
         }
         else
@@ -1408,6 +1449,17 @@ public class GameManager {
         }
         return false;
     }
+    private boolean checkBulletExistence(Tower tower)
+    {
+        Shape shape = tower.getCanonnBall();
+        for (int i = 0; i < bullets.size(); i++) {
+            if(bullets.get(i)== shape)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
     private void addBullet(AttackCard attacker)
     {
         if(attacker.isLocked() && !checkBulletExistence(attacker))
@@ -1437,6 +1489,13 @@ public class GameManager {
                 Archer temp = (Archer) attacker;
                 bullets.add(temp.getArrow());
             }
+        }
+    }
+    private void addBullet(Tower tower)
+    {
+        if(tower.isLocked() && !checkBulletExistence(tower))
+        {
+            bullets.add(tower.getCanonnBall());
         }
     }
     private void checkBulletsLife(AttackCard attacker)
@@ -1512,20 +1571,44 @@ public class GameManager {
             attacker.resetTimeTick();
         }
     }
+    private void checkBulletsLife(Tower tower)
+    {
+        if(tower.getShootingTimeTick()==tower.getHitSpeed()*10 || !tower.isLocked())
+        {
+            Iterator<Shape> it= bullets.iterator();
+            while (it.hasNext())
+            {
+                Shape temp = it.next();
+                if(temp==tower.getCanonnBall())
+                {
+                    it.remove();
+                    break;
+                }
+            }
+            tower.resetTimeTick();
+        }
+    }
     private void checkTowersLife()
     {
         if(player.getPrinceTower1().getLevelInformation().getHp()<=0)
         {
-
+            player.getKingTower().setCanShoot(true);
+            removeTower(player.getPrinceTower1());
         }
         if(player.getPrinceTower2().getLevelInformation().getHp()<=0)
         {
+            player.getKingTower().setCanShoot(true);
+            removeTower(player.getPrinceTower2());
         }
         if(opponent.getPrinceTower1().getLevelInformation().getHp()<=0)
         {
+            opponent.getKingTower().setCanShoot(true);
+            removeTower(opponent.getPrinceTower1());
         }
         if(opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
         {
+            opponent.getKingTower().setCanShoot(true);
+            removeTower(opponent.getPrinceTower2());
         }
         if(player.getKingTower().getLevelInformation().getHp()<=0)
         {
@@ -1538,9 +1621,38 @@ public class GameManager {
     }
     private void removeTower(Tower tower)
     {
-
-
-
+        Iterator<Shape> shapeIterator = bullets.iterator();
+        while (shapeIterator.hasNext())
+        {
+            Shape temp = shapeIterator.next();
+            if(temp== tower.getCanonnBall())
+            {
+                shapeIterator.remove();
+                break;
+            }
+        }
+        for (int i = 0; i < troops.size(); i++) {
+            if(tower==troops.get(i).getTowerTarget())
+            {
+                troops.get(i).setTowerTarget(null);
+            }
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            if(tower==buildings.get(i).getTowerTarget())
+            {
+                buildings.get(i).setTowerTarget(null);
+            }
+        }
+        Iterator<Tower> towerIterator = towers.iterator();
+        while (towerIterator.hasNext())
+        {
+            Tower temp = towerIterator.next();
+            if(temp == tower)
+            {
+                towerIterator.remove();
+                break;
+            }
+        }
     }
     private void prepareTargetForTowers()
     {
@@ -1560,7 +1672,7 @@ public class GameManager {
         {
             player.getPrinceTower2().setLockedTarget(setclosestTargetForTower(opponent.getPrinceTower2()));
         }
-        if(player.getKingTower().isGotHurt() || player.getPrinceTower1().getLevelInformation().getHp()<=0 || player.getPrinceTower2().getLevelInformation().getHp()<=0)
+        if ((player.getKingTower().getLevelInformation().getHp()>0)&& (player.getKingTower().isGotHurt() || player.getPrinceTower1().getLevelInformation().getHp()<=0 || player.getPrinceTower2().getLevelInformation().getHp()<=0))
         {
             player.getKingTower().setCanShoot(true);
             if(!player.getKingTower().isLocked())
@@ -1568,7 +1680,7 @@ public class GameManager {
                 player.getKingTower().setLockedTarget(setclosestTargetForTower(player.getKingTower()));
             }
         }
-        if(opponent.getKingTower().isGotHurt() || opponent.getPrinceTower1().getLevelInformation().getHp()<=0 || opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
+        if ((opponent.getKingTower().getLevelInformation().getHp()>0)&&(opponent.getKingTower().isGotHurt() || opponent.getPrinceTower1().getLevelInformation().getHp()<=0 || opponent.getPrinceTower2().getLevelInformation().getHp()<=0))
         {
             opponent.getKingTower().setCanShoot(true);
             if(!opponent.getKingTower().isLocked())
@@ -1609,5 +1721,33 @@ public class GameManager {
                 }
             }
         return null;
+    }
+    private void prepareTowerTarget(AttackCard attacker)
+    {
+        if(!attacker.isLocked())
+        {
+            if(attacker.getType().equals("+"))
+            {
+                if(distance(attacker.getX_Current(),attacker.getY_Current(),opponent.getPrinceTower1().getX(),opponent.getPrinceTower1().getY())<=attacker.getRange()*blockSize)
+                {
+                    attacker.setTowerTarget(opponent.getPrinceTower1());
+                }
+                else if(distance(attacker.getX_Current(),attacker.getY_Current(),opponent.getPrinceTower2().getX(),opponent.getPrinceTower2().getY())<=attacker.getRange()*blockSize)
+                {
+                    attacker.setTowerTarget(opponent.getPrinceTower2());
+                }
+            }
+            else
+            {
+                if(distance(attacker.getX_Current(),attacker.getY_Current(),player.getPrinceTower1().getX(),player.getPrinceTower1().getY())<=attacker.getRange()*blockSize)
+                {
+                    attacker.setTowerTarget(player.getPrinceTower1());
+                }
+                else if(distance(attacker.getX_Current(),attacker.getY_Current(),player.getPrinceTower2().getX(),player.getPrinceTower2().getY())<=attacker.getRange()*blockSize)
+                {
+                    attacker.setTowerTarget(player.getPrinceTower2());
+                }
+            }
+        }
     }
 }

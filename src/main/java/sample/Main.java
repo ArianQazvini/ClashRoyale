@@ -23,11 +23,11 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-        }catch (ClassNotFoundException c){
-            System.out.println(c);
-        }
+//        try {
+//            Class.forName("com.mysql.cj.jdbc.Driver");
+//        }catch (ClassNotFoundException c){
+//            System.out.println(c);
+//        }
         launch(args);
     }
 }
