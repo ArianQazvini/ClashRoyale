@@ -130,31 +130,9 @@ public class Cannon extends Building{
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
                     double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
                     //*************************
-//                    if(Math.abs(x_Vector)>Math.abs(y_Vector))
-//                    {
-//                        if(y_Vector>0)
-//                        {
-//                            DownPic();
-//                        }
-//                        else
-//                        {
-//                            UpPic();
-//                        }
-//                    }
-//                    else
-//                    {
-//                        if(x_Vector>0)
-//                        {
-//                            RightPic();
-//                        }
-//                        else
-//                        {
-//                            LeftPic();
-//                        }
-//                    }
                     //------------------------
-                    double xMoveVector = x_Vector/distPart;
-                    double yMoveVector = y_Vector/distPart;
+                    double xMoveVector = x_Vector*distPart;
+                    double yMoveVector = y_Vector*distPart;
                     //------------------------
                     if(xMoveVector>0)
                     {
@@ -197,28 +175,6 @@ public class Cannon extends Building{
                         double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
                         double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
                         //*************************
-//                        if(Math.abs(x_Vector)>Math.abs(y_Vector))
-//                        {
-//                            if(y_Vector>0)
-//                            {
-//                                DownPic();
-//                            }
-//                            else
-//                            {
-//                                UpPic();
-//                            }
-//                        }
-//                        else
-//                        {
-//                            if(x_Vector>0)
-//                            {
-//                                RightPic();
-//                            }
-//                            else
-//                            {
-//                                LeftPic();
-//                            }
-//                        }
                         //------------------------
                         double xMoveVector = x_Vector/distPart;
                         double yMoveVector = y_Vector/distPart;
@@ -318,26 +274,6 @@ public class Cannon extends Building{
                     }
                 }
             }
-
-//            else
-//            {
-//                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-//                {
-//                    WalkingTopMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-//                {
-//                    HitDownMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-//                {
-//                    HitRightMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-//                {
-//                    HitLeftMode();
-//                }
-//            }
         }
     }
 }

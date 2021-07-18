@@ -40,9 +40,6 @@ public class Wizard extends Troop{
                 {
                     changePictoTarget();
                     super.incrementTimeTick();
-                    //fireballLocationUpdate();
-//                    System.out.println("wizard - x : "+ this.getX_Current()+ "wizard-y:"+this.getY_Current());
-//                    System.out.println("fireball-x"+this.fireball.getCenterX()+"fireball-y" +this.fireball.getCenterY());
                     if(super.getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
@@ -50,25 +47,29 @@ public class Wizard extends Troop{
                     double distPart= super.getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getLockedTarget().getX_Current()-this.getPicHandler().getX();
                     double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
-                    double xMoveVector = x_Vector/distPart;
-                    double yMoveVector = y_Vector/distPart;
+                    double xMoveVector = x_Vector*distPart;
+                    double yMoveVector = y_Vector*distPart;
                     //------------------------
                     if(xMoveVector>0)
                     {
                         this.FireBallRight(xMoveVector);
+
                     }
                     else
                     {
                         this.FireBallLeft((-1)*xMoveVector);
+
                     }
                     //------------------------------
                     if(yMoveVector>0)
                     {
                         this.FireBallBackWard(yMoveVector);
+
                     }
                     else
                     {
                         this.FireBallForward((-1)*yMoveVector);
+
                     }
                 }
                 else

@@ -92,8 +92,8 @@ public class Archer extends Troop{
                     double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                     double x_Vector =super.getTowerTarget().getX()-this.getPicHandler().getX();
                     double y_Vector =super.getTowerTarget().getY()-this.getPicHandler().getY();
-                    double xMoveVector = x_Vector/distPart;
-                    double yMoveVector = y_Vector/distPart;
+                    double xMoveVector = x_Vector*distPart;
+                    double yMoveVector = y_Vector*distPart;
                     //------------------------
                     if(xMoveVector>0)
                     {

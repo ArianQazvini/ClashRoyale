@@ -58,8 +58,8 @@ public class InfernoTower extends Building{
                     double y_Vector =super.getLockedTarget().getY_Current()-this.getPicHandler().getY();
                     //*************************
                     //------------------------
-                    double xMoveVector = x_Vector/distPart;
-                    double yMoveVector = y_Vector/distPart;
+                    double xMoveVector = x_Vector*distPart;
+                    double yMoveVector = y_Vector*distPart;
                     if(xMoveVector>0)
                     {
                         this.fireBallRight(xMoveVector);
