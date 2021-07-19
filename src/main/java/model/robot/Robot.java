@@ -17,9 +17,11 @@ import java.util.Random;
 
 public class Robot extends Player {
     double x,y;
+    double maxY,maxX;
     public GameManager gameManager;
     public Robot(){
         super();
+        maxY=300;
         gameManager=Main.gameManager;
         getCards().add(new Giant());
         getCards().add(new Arrows());

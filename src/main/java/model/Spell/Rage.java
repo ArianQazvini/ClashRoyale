@@ -1,5 +1,6 @@
 package model.Spell;
 
+import enums.CardId;
 import enums.Level;
 import model.informations.SpellLevelValue;
 
@@ -20,6 +21,6 @@ public class Rage extends Spell{
         setLevel4(new SpellLevelValue(Level.LEVEL4,7.5F));
         setLevel5(new SpellLevelValue(Level.LEVEL5,8F));
         setLevelInformation(getLevel1());
-        setId(5);
+        setId(CardId.rage);
     }
 }

@@ -47,6 +47,7 @@ public class CollectionObject extends ImageView {
             DeckObject deckObject=new DeckObject((HBox)getParent(),hBox1,hBox2,card);
             hBox.getChildren().add(deckObject);
             gameManager.getPlayer().getDeck().getCards().add(card);
+            gameManager.getPlayer().getCards().remove(card);
             ((HBox) getParent()).getChildren().remove(this);
         }
     }

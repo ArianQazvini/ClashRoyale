@@ -29,6 +29,7 @@ import model.Troop.Troop;
 import model.Troop.Wizard;
 import sample.Main;
 import services.GameManager;
+import services.ViewService;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -65,6 +66,7 @@ public class Controller {
     private int check =0;
     public void initialize()
     {
+        //ViewService.setBackground(MainGround, "jungle.jpg");
         //gameManager.getOpponent().gameManager=gameManager;
         gameManager.CreateMap();
         Warnings.setVisible(false);
@@ -754,9 +756,9 @@ public class Controller {
         Thread thread=new Thread(new Runnable() {
             @Override
             public void run() {
+                gameManager.getOpponent().setBattleDeck();
                 while (true)
                 {
-                    gameManager.getOpponent().setBattleDeck();
                     robotTask();
                 }
             }

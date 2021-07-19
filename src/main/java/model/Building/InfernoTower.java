@@ -1,5 +1,6 @@
 package model.Building;
 
+import enums.CardId;
 import enums.Level;
 import enums.Target;
 import javafx.scene.image.Image;
@@ -36,7 +37,7 @@ public class InfernoTower extends Building{
         super.getPicHandler().setWidth(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
-        setId(2);
+        setId(CardId.inferno);
     }
     @Override
     public void Hit()

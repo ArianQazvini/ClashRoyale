@@ -1,12 +1,9 @@
 package model.Troop;
 
-import enums.Level;
-import enums.Speed;
-import enums.Target;
+import enums.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import model.Damage;
-import enums.Directions;
 import model.Tower.Tower;
 import model.informations.ACLevelValue;
 
@@ -28,7 +25,7 @@ public class Giant extends Troop{
         super.setLevel5(new ACLevelValue(2920.0,new Damage<>(183.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
         setAvatar("giant.png");
-        setId(9);
+        setId(CardId.giant);
     }
     @Override
     public void Hit() {

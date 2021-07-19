@@ -1,12 +1,9 @@
 package model.Troop;
 
-import enums.Level;
-import enums.Speed;
-import enums.Target;
+import enums.*;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import model.Damage;
-import enums.Directions;
 import model.informations.ACLevelValue;
 
 import java.io.File;
@@ -27,7 +24,7 @@ public class Valkyrie extends Troop{
         super.setLevel4(new ACLevelValue(1170.0,new Damage(159.0),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(1284.0,new Damage(175.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
-        setId(11);
+        setId(CardId.valkyrie);
     }
     @Override
     public void Hit() {
