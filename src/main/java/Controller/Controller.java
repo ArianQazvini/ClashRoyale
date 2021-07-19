@@ -52,6 +52,12 @@ public class Controller {
     private Text Warnings;
     @FXML
     private AnchorPane playGround;
+    @FXML
+    private Text gameResult;
+    @FXML
+    private TextField minText;
+    @FXML
+    private TextField secondsText;
     private GameDeck gameDeck;
     private Timer timer;
     private final int blockSize = 20;

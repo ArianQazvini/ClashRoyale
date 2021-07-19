@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
@@ -11,5 +12,8 @@
       <Text fx:id="valueTextOfElixir" layoutX="69.0" layoutY="788.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
       <HBox fx:id="elixirHBox" alignment="CENTER_LEFT" layoutX="43.0" layoutY="719.0" prefHeight="30.0" prefWidth="80.0" />
       <Text fx:id="Warnings" fill="#fa0000" layoutX="16.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="133.87090301513672" />
+      <Text fx:id="gameResult" fill="#e7e710" layoutX="178.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="143.47093963623047" />
+      <TextField fx:id="minText" layoutX="406.0" layoutY="1.0" prefHeight="4.0" prefWidth="31.0" />
+      <TextField fx:id="secondsText" layoutX="445.0" layoutY="1.0" prefHeight="4.0" prefWidth="31.0" />
     </children>
 </AnchorPane>
