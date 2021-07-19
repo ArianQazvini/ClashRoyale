@@ -13,6 +13,7 @@ import model.Building.Cannon;
 import model.Building.InfernoTower;
 import model.Player;
 import model.Timer;
+import model.Tower.KingTower;
 import model.Tower.PrinceTower;
 import model.Tower.Tower;
 import model.Troop.*;
@@ -1783,6 +1784,11 @@ public class GameManager {
                     {
                         attacker.setTowerTarget(opponent.getPrinceTower2());
                     }
+                    else if(opponent.getKingTower().getLevelInformation().getHp()>0 &&  attackCardisinTowerArea(attacker,opponent.getKingTower()))
+                    {
+                        attacker.setTowerTarget(opponent.getKingTower());
+                    }
+
             }
             else
             {
@@ -1794,17 +1800,53 @@ public class GameManager {
                     {
                         attacker.setTowerTarget(player.getPrinceTower2());
                     }
+                    else if(player.getKingTower().getLevelInformation().getHp()>0 && attackCardisinTowerArea(attacker,player.getKingTower()))
+                    {
+                        attacker.setTowerTarget(player.getKingTower());
+                    }
             }
         }
     }
-    private void princeTowerdeath(PrinceTower princeTower)
+    private void princeTowerDeath(PrinceTower princeTower)
     {
         if(princeTower.getType().equals("+"))
         {
             player.getKingTower().setCanShoot(true);
             for (int i = 0; i < 3; i++) {
                 for (int j = 0; j < 3; j++) {
-
+                    resetTowersBlocks(princeTower.getImageViews()[i][j].getX(),princeTower.getImageViews()[i][j].getY());
+                }
+            }
+        }
+        else
+        {
+            opponent.getKingTower().setCanShoot(true);
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    resetTowersBlocks(princeTower.getImageViews()[i][j].getX(),princeTower.getImageViews()[i][j].getY());
+                }
+            }
+        }
+    }
+    private void kingTowerDeath(KingTower kingTower)
+    {
+        if(kingTower.getType().equals("+"))
+        {
+            this.gameFinished= true;
+            this.winner = opponent;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    resetTowersBlocks(kingTower.getImageViews()[i][j].getX(),kingTower.getImageViews()[i][j].getY());
+                }
+            }
+        }
+        else
+        {
+            this.gameFinished= true;
+            this.winner = player;
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    resetTowersBlocks(kingTower.getImageViews()[i][j].getX(),kingTower.getImageViews()[i][j].getY());
                 }
             }
         }
