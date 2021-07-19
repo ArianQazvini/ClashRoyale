@@ -14,5 +14,6 @@ public class Arrows extends Spell{
         setLevel4(new SpellLevelValue(Level.LEVEL4,189));
         setLevel5(new SpellLevelValue(Level.LEVEL5,210));
         setLevelInformation(getLevel1());
+        setId(3);
     }
 }

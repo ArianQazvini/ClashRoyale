@@ -1,12 +1,13 @@
 package model;
 
+import enums.CardId;
 import javafx.scene.shape.Rectangle;
 import model.informations.LevelInformation;
 import model.informations.LevelValue;
 
 
 public class WarObject {
-    private static int id;
+    private CardId id;
     private String avatar;
     private String animation;
     private LevelInformation levelInformation;
@@ -34,12 +35,12 @@ public class WarObject {
         }
     }
 
-    public static void setId(int id) {
-        WarObject.id = id;
+    public CardId getId() {
+        return id;
     }
 
-    public static int getId() {
-        return id;
+    public void setId(CardId id) {
+        this.id = id;
     }
 
     public LevelValue getLevel1() {

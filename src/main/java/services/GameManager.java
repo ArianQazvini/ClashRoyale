@@ -34,7 +34,7 @@ public class GameManager {
     private final int blockSize=20;
     private final double Renedering=0.1;
     private Player player=new Player();
-    private Robot opponent=new SmartRobot();
+    private Robot opponent;
     private Parent root;
     private Stage stage;
     private Scene scene;
@@ -103,6 +103,11 @@ public class GameManager {
 //        }
 //        return null;
 //    }
+
+
+    public void setOpponent(Robot opponent) {
+        this.opponent = opponent;
+    }
 
     public Robot getOpponent() {
         return opponent;

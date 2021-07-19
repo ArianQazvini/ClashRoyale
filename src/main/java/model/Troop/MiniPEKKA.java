@@ -27,6 +27,7 @@ public class MiniPEKKA extends Troop{
         super.setLevel4(new ACLevelValue(798.0,new Damage<>(432.0),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(876.0,new Damage<>(474.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
+        setId(10);
     }
 
     @Override

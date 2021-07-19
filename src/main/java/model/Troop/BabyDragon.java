@@ -29,6 +29,7 @@ public class BabyDragon extends Troop{
         super.setLevel4(new ACLevelValue(1064.0,new Damage<>(133.0),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(1168.0,new Damage<>(146.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
+        setId(7);
     }
 
     @Override

@@ -26,6 +26,7 @@ public class Cannon extends Building{
         setLevel4(new ACLevelValue(505.0,new Damage(79.0),Level.LEVEL4));
         setLevel5(new ACLevelValue(554.0,new Damage(87.0),Level.LEVEL5));
         setLevelInformation(super.getLevel1());
+        setId(1);
     }
     public void UpPic()
     {

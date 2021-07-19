@@ -13,12 +13,14 @@ import sample.Main;
 import services.GameManager;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Robot extends Player {
     double x,y;
     public GameManager gameManager;
     public Robot(){
         super();
+        gameManager=Main.gameManager;
         getCards().add(new Giant());
         getCards().add(new Arrows());
         getCards().add(new Archer());
@@ -36,8 +38,11 @@ public class Robot extends Player {
     }
 
     public void setBattleDeck(){
+        Random random=new Random(0);
         for (int i=0;i<8;i++){
-            getDeck().getCards().add(getCards().get(i));
+            Card tmp=getCards().get(random.nextInt(getCards().size()));
+            getDeck().getCards().add(tmp);
+            getCards().remove(tmp);
         }
     }
 

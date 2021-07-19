@@ -14,5 +14,6 @@ public class Fireball extends Spell{
         setLevel4(new SpellLevelValue(Level.LEVEL4,432));
         setLevel5(new SpellLevelValue(Level.LEVEL5,474));
         setLevelInformation(getLevel1());
+        setId(4);
     }
 }

@@ -36,6 +36,7 @@ public class InfernoTower extends Building{
         super.getPicHandler().setWidth(20);
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
+        setId(2);
     }
     @Override
     public void Hit()

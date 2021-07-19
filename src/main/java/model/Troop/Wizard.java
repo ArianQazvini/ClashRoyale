@@ -29,6 +29,7 @@ public class Wizard extends Troop{
         super.setLevel4(new ACLevelValue(452.0,new Damage(172.0),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(496.0,new Damage(189.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
+        setId(12);
     }
     @Override
     public void Hit() {

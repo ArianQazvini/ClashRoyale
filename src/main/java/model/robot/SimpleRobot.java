@@ -17,6 +17,7 @@ public class SimpleRobot extends Robot{
             index=random.nextInt(8);
             card=getDeck().getCards().get(index);
         }
+        chooseLocation();
         return card;
 
     }

@@ -38,7 +38,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class Controller {
-
+    @FXML
+    private ImageView nextCardImageView;
     @FXML
     private AnchorPane MainGround;
     private ImageView temp;
@@ -64,12 +65,12 @@ public class Controller {
     private int check =0;
     public void initialize()
     {
-        gameManager.getOpponent().gameManager=gameManager;
+        //gameManager.getOpponent().gameManager=gameManager;
         gameManager.CreateMap();
         Warnings.setVisible(false);
-       elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
+        elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
         valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
-        gameDeck=new GameDeck(deckOfGameHBox);
+        gameDeck=new GameDeck(deckOfGameHBox,nextCardImageView);
         gameManager.getPlayer().getElixir().setValueText(valueTextOfElixir);
         setDeckOnClick();
         gameDeck.run();
@@ -77,7 +78,7 @@ public class Controller {
         StartTimer();
         startOpponent();
     }
-    private void setDeckOnClick(){
+       private void setDeckOnClick(){
         for (GameDeckObject g:gameDeck.getGameDeckObjects()){
             g.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -146,7 +147,7 @@ public class Controller {
         }
     }
 
-    private void Task(double x,double y,Card card,GameDeckObject g) {
+    private void Task(double x,double y,Card card,GameDeckObject g)  {
         //if (!(card instanceof Spell)) {
 //            Platform.runLater(new Runnable() {
 //                @Override
@@ -405,7 +406,7 @@ public class Controller {
 
        // }
     }
-    private void TaskR(double x,double y,Card card,GameDeckObject g) {
+    private void TaskR(double x,double y,Card card) {
         //if (!(card instanceof Spell)) {
 //            Platform.runLater(new Runnable() {
 //                @Override
@@ -729,32 +730,14 @@ public class Controller {
     }
     void robotTask(){
         Platform.runLater(new Runnable() {
-//            Timeline timeline1 =null;
-//
-//            @Override
-//            public void run() {
-//                KeyFrame keyFrame = new KeyFrame(Duration.seconds(15),actionEvent -> {
-//                    if (gameManager.getOpponent().isElixirEnough()) {
-//                        gameManager.getOpponent().chooseLocation();
-//                        Card card = gameManager.getOpponent().chooseFromDeck();
-//                        card.setType("-");
-//                        if (card instanceof AttackCard) {
-//                            Task( gameManager.getOpponent().getX(), gameManager.getOpponent().getY(),(AttackCard) card,null);
-//                            gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue()-card.getCost());
-//                        }
-//                    }
-//                });
-//                timeline1= new Timeline(keyFrame);
-//                timeline1.setCycleCount(Timeline.INDEFINITE);
-//                timeline1.play();
             @Override
             public void run() {
                 if (gameManager.getOpponent().isElixirEnough()) {
-                    gameManager.getOpponent().chooseLocation();
+                    //gameManager.getOpponent().chooseLocation();
                     Card card = gameManager.getOpponent().chooseFromDeck();
                     card.setType("-");
                     if (card instanceof AttackCard) {
-                        TaskR(gameManager.getOpponent().getX(), gameManager.getOpponent().getY(), (AttackCard) card, null);
+                        TaskR(gameManager.getOpponent().getX(), gameManager.getOpponent().getY(), (AttackCard) card);
                         gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue() - card.getCost());
                     }
                 }

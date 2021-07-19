@@ -25,7 +25,7 @@ public class Elixir extends ProgressBar {
         setRotate(270);
 //        setHeight(30);
 //        setWidth(90);
-        setProgress(maxValue/maxValue);
+        setProgress(4/maxValue);
         Thread increase=new Thread(new Runnable() {
             @Override
             public void run() {

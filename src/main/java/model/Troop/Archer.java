@@ -29,6 +29,7 @@ public class Archer extends Troop{
         super.setLevel4(new ACLevelValue(166.0,new Damage(53.0),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(182.0,new Damage(58.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
+        setId(6);
     }
 
     @Override

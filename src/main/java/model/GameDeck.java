@@ -4,22 +4,25 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import sample.Main;
 import services.GameManager;
 
+import java.io.File;
 import java.util.ArrayList;
 
 public class GameDeck {
     HBox hBox;
-
+    private ImageView nextCardImageView;
     private GameManager gameManager= Main.gameManager;
     private ArrayList<GameDeckObject>gameDeckObjects=new ArrayList<>();
-    public GameDeck(HBox hBox){
+    public GameDeck(HBox hBox,ImageView nextCardImageView){
         this.hBox=hBox;
-
+        this.nextCardImageView=nextCardImageView;
         for (Card c:gameManager.getPlayer().getDeck().getCards()){
             gameDeckObjects.add(new GameDeckObject(c));
         }
@@ -35,11 +38,10 @@ public class GameDeck {
     }
 
     public void setNext(){
-        System.out.println(gameDeckObjects.size());
         GameDeckObject tmp=gameDeckObjects.get(0);
-        System.out.println(tmp.card.getClass());
         hBox.getChildren().add(gameDeckObjects.get(0));
         gameDeckObjects.remove(tmp);
+        nextCardImageView.setImage(new Image(new File("src/main/resources/pics/cards/"+ gameDeckObjects.get(0).getCard().getAvatar()).toURI().toString()));
     }
     public boolean isElixirEnough(){
         for (Node c:hBox.getChildren()){

@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import model.Player;
+import model.robot.SmartRobot;
 import services.GameManager;
 
 import java.io.File;
@@ -19,6 +20,7 @@ public class Main extends Application {
         gameManager.setStage(primaryStage);
         gameManager.setRoot("log_in");
         gameManager.getStage().show();
+        gameManager.setOpponent(new SmartRobot());
     }
 
 

@@ -27,6 +27,7 @@ public class Barbarian extends Troop{
         super.setLevel4(new ACLevelValue(438.0,new Damage<>(99.0),Level.LEVEL4));
         super.setLevel5(new ACLevelValue(480.0,new Damage<>(109.0),Level.LEVEL5));
         super.setLevelInformation(super.getLevel1());
+        setId(8);
     }
 
     @Override
