@@ -13,17 +13,16 @@ import model.Building.Cannon;
 import model.Building.InfernoTower;
 import model.Player;
 import model.Timer;
+import model.Tower.PrinceTower;
 import model.Tower.Tower;
-import model.Troop.Archer;
-import model.Troop.BabyDragon;
-import model.Troop.Troop;
-import model.Troop.Wizard;
+import model.Troop.*;
 import model.robot.Robot;
 import model.robot.SimpleRobot;
 import model.robot.SmartRobot;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.Guard;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -1746,32 +1745,82 @@ public class GameManager {
             }
         return null;
     }
+    private boolean attackCardisinTowerArea(AttackCard attackCard,Tower tower)
+    {
+        if(!tower.getType().equals(attackCard.getType()))
+        {
+                double min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize);
+                double max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize);
+                //------------------------
+                double min_x = tower.getImageViews()[0][0].getX() - (attackCard.getRange()*blockSize);
+                double max_x = tower.getImageViews()[2][2].getX() + blockSize + (attackCard.getRange()+ blockSize);
+                //*********************
+                if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()>= min_y && attackCard.getY_Current()<= max_y)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+        }
+        else
+        {
+            return false;
+        }
+    }
     private void prepareTowerTarget(AttackCard attacker)
     {
         if(!attacker.isLocked())
         {
             if(attacker.getType().equals("+"))
             {
-                if(distance(attacker.getX_Current(),attacker.getY_Current(),opponent.getPrinceTower1().getX(),opponent.getPrinceTower1().getY())<=attacker.getRange()*blockSize)
-                {
-                    attacker.setTowerTarget(opponent.getPrinceTower1());
-                }
-                else if(distance(attacker.getX_Current(),attacker.getY_Current(),opponent.getPrinceTower2().getX(),opponent.getPrinceTower2().getY())<=attacker.getRange()*blockSize)
-                {
-                    attacker.setTowerTarget(opponent.getPrinceTower2());
-                }
+                    if(opponent.getPrinceTower1().getLevelInformation().getHp()>0 && attackCardisinTowerArea(attacker,opponent.getPrinceTower1()))
+                    {
+                        attacker.setTowerTarget(opponent.getPrinceTower1());
+                    }
+                    else if(opponent.getPrinceTower2().getLevelInformation().getHp()>0 &&  attackCardisinTowerArea(attacker,opponent.getPrinceTower2()))
+                    {
+                        attacker.setTowerTarget(opponent.getPrinceTower2());
+                    }
             }
             else
             {
-                if(distance(attacker.getX_Current(),attacker.getY_Current(),player.getPrinceTower1().getX(),player.getPrinceTower1().getY())<=attacker.getRange()*blockSize)
-                {
-                    attacker.setTowerTarget(player.getPrinceTower1());
-                }
-                else if(distance(attacker.getX_Current(),attacker.getY_Current(),player.getPrinceTower2().getX(),player.getPrinceTower2().getY())<=attacker.getRange()*blockSize)
-                {
-                    attacker.setTowerTarget(player.getPrinceTower2());
+                    if(player.getPrinceTower1().getLevelInformation().getHp()>0 && attackCardisinTowerArea(attacker,player.getPrinceTower1()))
+                    {
+                        attacker.setTowerTarget(player.getPrinceTower1());
+                    }
+                    else if(player.getPrinceTower2().getLevelInformation().getHp()>0 && attackCardisinTowerArea(attacker,player.getPrinceTower2()))
+                    {
+                        attacker.setTowerTarget(player.getPrinceTower2());
+                    }
+            }
+        }
+    }
+    private void princeTowerdeath(PrinceTower princeTower)
+    {
+        if(princeTower.getType().equals("+"))
+        {
+            player.getKingTower().setCanShoot(true);
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+
                 }
             }
         }
     }
+    private void resetTowersBlocks(double x , double y)
+    {
+        Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+        for (int i = 0; i < 32; i++) {
+            for (int j = 0; j < 18; j++) {
+                if(blocks[i][j].getX()==x && blocks[i][j].getY()==y)
+                {
+                    blocks[i][j].setImage(grass);
+                    break;
+                }
+            }
+        }
+    }
+
 }
