@@ -403,10 +403,6 @@ public class GameManager {
             }
         }
     }
-
-
-
-
     public Stage getStage() {
         return stage;
     }
@@ -1614,5 +1610,42 @@ public class GameManager {
                 }
             }
         return null;
+    }
+    public boolean isValidLocation(String type,double x,double y) {
+        if (y > 300 && y <= 340) {
+            return x > 40 && x < 60 || x > 300 && x < 320;
+        } else {
+            if (type.equals("player")) {
+                if (y > 300 && y < 450) {
+                    if (opponent.getPrinceTower1().getLevelInformation().getHp() == 0) {
+                        return !(x < 180);
+                    } else if (opponent.getPrinceTower2().getLevelInformation().getHp() == 0) {
+                        return !(x > 180);
+                    }
+                } else if (x > player.getPrinceTower1().getX() - 30 && x < player.getPrinceTower1().getX() + 30) {
+                    return !(y > player.getPrinceTower1().getY() - 30) || !(y < player.getPrinceTower1().getY() + 30);
+                } else if (x > player.getPrinceTower2().getX() - 30 && x < player.getPrinceTower2().getX() + 30) {
+                    return !(y > player.getPrinceTower2().getY() - 30) || !(y < player.getPrinceTower2().getY() + 30);
+                } else if (x > player.getKingTower().getX() - 30 && x < player.getKingTower().getX() + 30) {
+                    return !(y > player.getKingTower().getY() - 30) || !(y < player.getKingTower().getY() + 30);
+                }
+            } else {
+                if (y > 300 && y < 450) {
+                    if (player.getPrinceTower1().getLevelInformation().getHp() == 0) {
+                        return !(x < 180);
+                    } else if (player.getPrinceTower2().getLevelInformation().getHp() == 0) {
+                        return !(x > 180);
+                    }
+                } else if (x > opponent.getPrinceTower1().getX() - 30 && x < opponent.getPrinceTower1().getX() + 30) {
+                    return !(y > opponent.getPrinceTower1().getY() - 30) || !(y < opponent.getPrinceTower1().getY() + 30);
+                } else if (x > opponent.getPrinceTower2().getX() - 30 && x < opponent.getPrinceTower2().getX() + 30) {
+                    return !(y > opponent.getPrinceTower2().getY() - 30) || !(y < opponent.getPrinceTower2().getY() + 30);
+                } else if (x > opponent.getKingTower().getX() - 30 && x < opponent.getKingTower().getX() + 30) {
+                    return !(y > opponent.getKingTower().getY() - 30) || !(y < opponent.getKingTower().getY() + 30);
+                }
+            }
+
+        }
+        return true;
     }
 }

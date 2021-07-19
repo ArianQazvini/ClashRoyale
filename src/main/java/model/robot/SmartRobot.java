@@ -16,6 +16,8 @@ public class SmartRobot extends Robot{
             card=getDeck().getCards().get(index);
         }
         chooseLocation();
+        while (!gameManager.isValidLocation("robot",x,y))
+            chooseLocation();
         return card;
 
     }

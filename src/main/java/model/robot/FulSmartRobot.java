@@ -15,18 +15,25 @@ public class FulSmartRobot extends Robot{
     @Override
     public Card chooseFromDeck() {
         if (findCardOnDeck(CardId.giant)!=null){
-            if (checkBuilding())
+            if (checkBuilding()) {
                 buildingChooseLocation();
+                while (!gameManager.isValidLocation("robot",x,y))
+                    buildingChooseLocation();
+            }
                 return findCardOnDeck(CardId.giant);
         }else if (findCardOnDeck(CardId.archer)!=null){
             if (checkCardOnGround(CardId.dragon)){
                 mainChooseLocation(CardId.dragon);
+                while (!gameManager.isValidLocation("robot",x,y))
+                    mainChooseLocation(CardId.dragon);
                 return findCardOnDeck(CardId.archer);
             }
         }else if (findCardOnDeck(CardId.wizard)!=null){
             if (checkCardOnGround(CardId.dragon)){
                 mainChooseLocation(CardId.dragon);
-                return findCardOnDeck(CardId.wizard);
+                while (!gameManager.isValidLocation("robot",x,y))
+                    mainChooseLocation(CardId.dragon);
+                    return findCardOnDeck(CardId.wizard);
             }
         }else {
             int index=random.nextInt(8);
@@ -36,6 +43,8 @@ public class FulSmartRobot extends Robot{
                 card=getDeck().getCards().get(index);
             }
             mainChooseLocation(CardId.wizard);
+            while (!gameManager.isValidLocation("robot",x,y))
+                mainChooseLocation(CardId.wizard);
             return card;
         }
         return null;

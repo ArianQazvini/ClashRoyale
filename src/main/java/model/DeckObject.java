@@ -46,5 +46,6 @@ public class DeckObject extends ImageView {
         ((HBox)getParent()).getChildren().remove(this);
         hBox.getChildren().add(new CollectionObject(hBox1,hBox2,card));
         gameManager.getPlayer().getDeck().getCards().remove(card);
+        gameManager.getPlayer().getCards().add(card);
     }
 }
