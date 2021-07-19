@@ -54,10 +54,10 @@ public class Controller {
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
     private GameManager gameManager= Main.gameManager;
-//    private int check =0;
     private TimeWorks gameTimer  = new TimeWorks();
     public void initialize()
     {
+        gameResult.setVisible(false);
         gameManager.getOpponent().gameManager=gameManager;
         gameManager.CreateMap();
         Warnings.setVisible(false);
@@ -724,8 +724,36 @@ public class Controller {
     {
         if(gameManager.getTroops().size()!=0)
         {
-            UpdatePage();
-            gameManager.Step();
+            if(!gameManager.isGameFinished() && !gameTimer.isGameTimesUp())
+            {
+                if(gameTimer.isDoubleElxirTime())
+                {
+                    gameManager.getPlayer().getElixir().setIncrease(2);
+                    gameManager.getOpponent().getElixir().setIncrease(2);
+                }
+                UpdatePage();
+                gameManager.Step();
+            }
+            else
+            {
+                gameManager.getPlayer().getElixir().setGameFinished(true);
+                gameManager.getOpponent().getElixir().setGameFinished(true);
+                timer.cancel();
+                if(gameManager.getWinner()== gameManager.getPlayer())
+                {
+                    gameResult.setVisible(true);
+                    gameResult.setText("You won");
+                    gameManager.getPlayer().win();
+                    gameManager.getOpponent().lose();
+                }
+                else
+                {
+                    gameResult.setVisible(true);
+                    gameResult.setText("Robot won");
+                    gameManager.getOpponent().win();
+                    gameManager.getPlayer().lose();
+                }
+            }
         }
     }
     void robotTask(){

@@ -19,6 +19,8 @@ public class Elixir extends ProgressBar {
    double value;
    double maxValue;
    Text valueText;
+   private int increase = 1;
+   private boolean gameFinished=false;
     public Elixir(){
         maxValue=10;
         value=maxValue;
@@ -29,7 +31,7 @@ public class Elixir extends ProgressBar {
         Thread increase=new Thread(new Runnable() {
             @Override
             public void run() {
-                while (true)
+                while (!gameFinished)
                 {
                     increaseTask();
                 }
@@ -45,23 +47,12 @@ public class Elixir extends ProgressBar {
            // Timeline timeline=null;
             @Override
             public void run() {
-//                KeyFrame keyFrame=new KeyFrame(Duration.seconds(2),actionEvent->{
-//                    if (value<10)
-//                    value+=1;
-//                    if (value>10)
-//                        value=10;
-//                    setElixir(value);
-//                });
-//                timeline=new Timeline(keyFrame);
-//                timeline.setCycleCount(Timeline.INDEFINITE);
-//                timeline.play();
                 if (value<10)
-                    value+=1;
+                    value+=increase;
                     if (value>10)
                         value=10;
                     setElixir(value);
             }
-
         });
         try {
             Thread.sleep(2000);
@@ -78,6 +69,14 @@ public class Elixir extends ProgressBar {
         }
     }
 
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+
     public void setValue(double value) {
         this.value = value;
     }
@@ -88,5 +87,12 @@ public class Elixir extends ProgressBar {
 
     public double getValue() {
         return value;
+    }
+
+    public void setIncrease(int increase) {
+        this.increase = increase;
+    }
+    public int getIncrease() {
+        return increase;
     }
 }

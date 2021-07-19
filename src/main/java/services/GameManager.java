@@ -491,6 +491,7 @@ public class GameManager {
             checkBulletsLife(troops.get(i));
             checkBuildingsLife();
             checkTroopsLife();
+            updateWinner();
         }
         for (int i = 0; i < buildings.size(); i++) {
             prepareTargetFor(buildings.get(i));
@@ -504,6 +505,7 @@ public class GameManager {
             checkBulletsLife(buildings.get(i));
             checkBuildingsLife();
             checkTroopsLife();
+            updateWinner();
         }
         for (int i=0;i<this.getTroops().size();i++)
         {
@@ -612,26 +614,26 @@ public class GameManager {
     }
     private boolean towerHit(double x, double y)
     {
-        if( x<80 && x>=20 && y<=620 && y>=560)
+        if(x<80 && x>=20 && y<=620 && y>=560 && player.getPrinceTower1().getLevelInformation().getHp()>0)
         {
             return true;
         }
-        else  if( x<340 && x>=280 && y<=620 && y>=560)
+        else  if( x<340 && x>=280 && y<=620 && y>=560 && player.getPrinceTower2().getLevelInformation().getHp()>0)
         {
             return true;
         }
-        else  if( x<200 && x>=140 && y<=640 && y>=580) {
+        else  if( x<200 && x>=140 && y<=640 && y>=580 && player.getKingTower().getLevelInformation().getHp()>0) {
             return true;
         }
-        else if( x<80 && x>=20 && y<=80 && y>=20)
+        else if( x<80 && x>=20 && y<=80 && y>=20 && opponent.getPrinceTower1().getLevelInformation().getHp()>0)
         {
             return true;
         }
-        else  if( x<340 && x>=280 && y<=80 && y>=20)
+        else  if( x<340 && x>=280 && y<=80 && y>=20 && opponent.getPrinceTower2().getLevelInformation().getHp()>0)
         {
             return true;
         }
-        else if( x<200 && x>=140 && y<=60 && y>=0) {
+        else if( x<200 && x>=140 && y<=60 && y>=0 && opponent.getKingTower().getLevelInformation().getHp()>0) {
             return true;
         }
         else
@@ -1590,29 +1592,43 @@ public class GameManager {
         {
             player.getKingTower().setCanShoot(true);
             removeTower(player.getPrinceTower1());
+            princeTowerDeath(player.getPrinceTower1());
+            opponent.incrementCrownsWon();
         }
         if(player.getPrinceTower2().getLevelInformation().getHp()<=0)
         {
             player.getKingTower().setCanShoot(true);
             removeTower(player.getPrinceTower2());
+            princeTowerDeath(player.getPrinceTower2());
+            opponent.incrementCrownsWon();
         }
         if(opponent.getPrinceTower1().getLevelInformation().getHp()<=0)
         {
             opponent.getKingTower().setCanShoot(true);
             removeTower(opponent.getPrinceTower1());
+            princeTowerDeath(opponent.getPrinceTower1());
+            player.incrementCrownsWon();
         }
         if(opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
         {
             opponent.getKingTower().setCanShoot(true);
             removeTower(opponent.getPrinceTower2());
+            princeTowerDeath(player.getPrinceTower2());
+            player.incrementCrownsWon();
         }
         if(player.getKingTower().getLevelInformation().getHp()<=0)
         {
-
+            removeTower(player.getKingTower());
+            kingTowerDeath(player.getKingTower());
+            opponent.setCrownsWon(3);
+            gameFinished=true;
         }
         if(opponent.getKingTower().getLevelInformation().getHp()<=0)
         {
-
+            removeTower(opponent.getKingTower());
+            kingTowerDeath(opponent.getKingTower());
+            player.setCrownsWon(3);
+            gameFinished=true;
         }
     }
     private void removeTower(Tower tower)
@@ -1860,5 +1876,45 @@ public class GameManager {
             }
         }
     }
+    private void updateWinner()
+    {
+        if(player.getCrownsWon()>opponent.getCrownsWon())
+        {
+            winner= player;
+        }
+        else if(opponent.getCrownsWon()== player.getCrownsWon())
+        {
+            if(towersHealthSum(player) > towersHealthSum(opponent))
+            {
+                winner=player;
+            }
+            else
+            {
+                winner=opponent;
+            }
+        }
+        else
+        {
+            winner=opponent;
+        }
+    }
+    private double towersHealthSum(Player player)
+    {
+        double temp = 0.0;
+        if(player.getPrinceTower1().getLevelInformation().getHp()>0)
+        {
+            temp+=player.getPrinceTower1().getLevelInformation().getHp();
+        }
+        if(player.getPrinceTower2().getLevelInformation().getHp()>0)
+        {
+            temp+=player.getPrinceTower2().getLevelInformation().getHp();
+        }
+        if(player.getKingTower().getLevelInformation().getHp()>0)
+        {
+            temp+=player.getKingTower().getLevelInformation().getHp();
+        }
+        return temp;
+    }
+
 
 }

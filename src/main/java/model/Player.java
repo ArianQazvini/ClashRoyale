@@ -220,4 +220,7 @@ public class Player {
     {
         crownsWon++;
     }
+    public void setCrownsWon(int crownsWon) {
+        this.crownsWon = crownsWon;
+    }
 }
