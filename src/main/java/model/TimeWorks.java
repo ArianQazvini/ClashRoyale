@@ -1,11 +1,13 @@
 package model;
 
 import javafx.application.Platform;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import model.Building.Building;
 
-public class Timer {
-    private int min=0;
-    private int secs = 0;
+public class TimeWorks {
+    private IntegerProperty min= new SimpleIntegerProperty(0);
+    private IntegerProperty secs = new SimpleIntegerProperty(0);
     private boolean gameTimesUp  = false;
     private boolean doubleElxirTime  = false;
    public void buildingThread(Building building)
@@ -51,30 +53,40 @@ public class Timer {
    {
        try {
            Thread.sleep(1000);
-           if(secs ==60) {
-               min++;
-               if(min==3)
-               {
-                   gameTimesUp=true;
-               }
-               else if(min==2)
-               {
-                   doubleElxirTime=true;
-               }
-               secs=0;
-           }
-           else
-           {
-               secs++;
-           }
        } catch (InterruptedException e) {
            e.printStackTrace();
        }
+       Platform.runLater(new Runnable() {
+           @Override
+           public void run() {
+               if(secs.get() ==60) {
+                   int temp = min.get();
+                   temp++;
+                   min.setValue(temp);
+                   if(min.get()==3)
+                   {
+                       gameTimesUp=true;
+                   }
+                   else if(min.get()==2)
+                   {
+                       doubleElxirTime=true;
+                   }
+                   secs.set(0);
+               }
+               else
+               {
+                   int temp = secs.get();
+                   temp++;
+                   secs.set(temp);
+               }
+           }
+       });
    }
-    public int getMin() {
+
+    public IntegerProperty minProperty() {
         return min;
     }
-    public int getSecs() {
+    public IntegerProperty secsProperty() {
         return secs;
     }
     public boolean isGameTimesUp() {

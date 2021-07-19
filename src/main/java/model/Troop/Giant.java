@@ -42,7 +42,6 @@ public class Giant extends Troop{
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
-//                        System.out.println("Giant-Tower hit");
                     }
                 }
                 else

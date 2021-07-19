@@ -12,23 +12,19 @@ import model.Building.Building;
 import model.Building.Cannon;
 import model.Building.InfernoTower;
 import model.Player;
-import model.Timer;
+import model.TimeWorks;
 import model.Tower.KingTower;
 import model.Tower.PrinceTower;
 import model.Tower.Tower;
 import model.Troop.*;
 import model.robot.Robot;
-import model.robot.SimpleRobot;
 import model.robot.SmartRobot;
 
 import java.io.File;
 import java.io.IOException;
-import java.security.Guard;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 public class GameManager {
     private final int blockSize=20;
@@ -1038,7 +1034,7 @@ public class GameManager {
 //            buildings.get(i).decrementLife(Renedering);
 //        }
         for (int i = 0; i < buildings.size(); i++) {
-            Timer timer = new Timer();
+            TimeWorks timer = new TimeWorks();
             timer.buildingThread(buildings.get(i));
         }
     }

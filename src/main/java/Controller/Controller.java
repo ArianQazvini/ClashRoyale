@@ -1,39 +1,26 @@
 package Controller;
-import enums.Speed;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.Duration;
 import model.AttackCard;
-import model.Building.Building;
 import model.Building.Cannon;
 import model.Building.InfernoTower;
 import model.Card;
 import model.GameDeck;
 import model.GameDeckObject;
-import model.Spell.Spell;
 import model.Troop.*;
-import model.Troop.Troop;
 import model.Troop.Wizard;
+import model.TimeWorks;
 import sample.Main;
 import services.GameManager;
 
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -67,13 +54,14 @@ public class Controller {
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
     private GameManager gameManager= Main.gameManager;
-    private int check =0;
+//    private int check =0;
+    private TimeWorks gameTimer  = new TimeWorks();
     public void initialize()
     {
         gameManager.getOpponent().gameManager=gameManager;
         gameManager.CreateMap();
         Warnings.setVisible(false);
-       elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
+        elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
         valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         gameDeck=new GameDeck(deckOfGameHBox);
         gameManager.getPlayer().getElixir().setValueText(valueTextOfElixir);
@@ -82,6 +70,8 @@ public class Controller {
         UpdatePage();
         StartTimer();
         startOpponent();
+        gameTimer.gameTimer();
+        setTimerBinders();
     }
     private void setDeckOnClick(){
         for (GameDeckObject g:gameDeck.getGameDeckObjects()){
@@ -99,6 +89,11 @@ public class Controller {
 
             });
         }
+    }
+    private void setTimerBinders()
+    {
+        minText.textProperty().bind(gameTimer.minProperty().asString());
+        secondsText.textProperty().bind(gameTimer.secsProperty().asString());
     }
     @FXML
     void press(Card card,GameDeckObject g) {
