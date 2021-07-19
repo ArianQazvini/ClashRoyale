@@ -19,8 +19,8 @@ public class Elixir extends ProgressBar {
    double value;
    double maxValue;
    Text valueText;
-   private int increase = 1;
    private boolean gameFinished=false;
+   private int sleep = 1000;
     public Elixir(){
         maxValue=10;
         value=maxValue;
@@ -48,14 +48,14 @@ public class Elixir extends ProgressBar {
             @Override
             public void run() {
                 if (value<10)
-                    value+=increase;
+                    value+=2;
                     if (value>10)
                         value=10;
                     setElixir(value);
             }
         });
         try {
-            Thread.sleep(2000);
+            Thread.sleep(sleep);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -89,10 +89,11 @@ public class Elixir extends ProgressBar {
         return value;
     }
 
-    public void setIncrease(int increase) {
-        this.increase = increase;
+    public void setSleep(int sleep) {
+        this.sleep = sleep;
     }
-    public int getIncrease() {
-        return increase;
+
+    public int getSleep() {
+        return sleep;
     }
 }
