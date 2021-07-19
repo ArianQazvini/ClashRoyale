@@ -41,7 +41,7 @@ public class SmartRobot extends Robot{
             //System.out.println(gameManager);
             if (gameManager.getTroops().size()!=0) {
                 x = findCrowdedPlace();
-                System.out.println(x);
+                //System.out.println(x);
             }
             else
                 x= random.nextInt(360);

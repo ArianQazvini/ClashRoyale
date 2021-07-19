@@ -158,26 +158,6 @@ public abstract class Troop extends AttackCard {
                     }
                 }
             }
-
-//            else
-//            {
-//                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-//                {
-//                    WalkingTopMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-//                {
-//                    HitDownMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-//                {
-//                    HitRightMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-//                {
-//                    HitLeftMode();
-//                }
-//            }
         }
     }
     public Directions closestDirectionTo(double x_dist,double y_dist)

@@ -35,10 +35,11 @@ public class KingTower extends Tower{
             if(super.targetDistance()<= this.getRange()*20)
             {
                 incrementTimeTick();
-                super.setCannonBallPic();
+                setCannonBallPic();
                 if(getShootingTimeTick()== (super.getHitSpeed()*10))
                 {
                     super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
+                    explosionPic();
                 }
                 double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                 double x_Vector =super.getLockedTarget().getX_Current()-super.getX();

@@ -109,12 +109,13 @@ public abstract class Tower extends WarObject {
         if(LockedTarget==null)
         {
             setLocked(false);
+            return false;
         }
         else
         {
             setLocked(true);
+            return true;
         }
-        return isLocked;
     }
     public void setLocked(boolean locked) {
         isLocked = locked;
@@ -158,7 +159,7 @@ public abstract class Tower extends WarObject {
             Image image = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
             ImagePattern imagePattern = new ImagePattern(image);
             this.CanonnBall.setFill(imagePattern);
-            this.CanonnBall.setRadius(10);
+            this.CanonnBall.setRadius(5);
             this.CanonnBall.setCenterX(this.getX());
             this.CanonnBall.setCenterY(this.getY());
     }
@@ -179,6 +180,10 @@ public abstract class Tower extends WarObject {
         this.CanonnBall.setCenterY(this.getY());
         setShootingTimeTick(0);
     }
-
-
+    public void explosionPic()
+    {
+        Image image = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());
+        ImagePattern imagePattern = new ImagePattern(image);
+        this.CanonnBall.setFill(imagePattern);
+    }
 }

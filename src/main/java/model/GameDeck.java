@@ -35,9 +35,8 @@ public class GameDeck {
     }
 
     public void setNext(){
-        //System.out.println(gameDeckObjects.size());
+
         GameDeckObject tmp=gameDeckObjects.get(0);
-       // System.out.println(tmp.card.getClass());
         hBox.getChildren().add(gameDeckObjects.get(0));
         gameDeckObjects.remove(tmp);
     }

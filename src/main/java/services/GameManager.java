@@ -1093,20 +1093,20 @@ public class GameManager {
                 buildings.get(i).setLockedTarget(null);
             }
         }
-        towerTargetRemove(building,player.getPrinceTower1());
-        towerTargetRemove(building,player.getPrinceTower2());
-        towerTargetRemove(building,opponent.getPrinceTower2());
-        towerTargetRemove(building,opponent.getPrinceTower2());
-        towerTargetRemove(building,player.getKingTower());
-        towerTargetRemove(building,opponent.getKingTower());
-    }
-    private void towerTargetRemove(AttackCard attackCard ,Tower tower)
-    {
-        if(tower.getLockedTarget()== attackCard)
-        {
-            tower.setLockedTarget(null);
+        for (int i = 0; i < towers.size(); i++) {
+            if(towers.get(i).getLockedTarget()==building)
+            {
+                towers.get(i).setLockedTarget(null);
+            }
         }
     }
+//    private void towerTargetRemove(AttackCard attackCard ,Tower tower)
+//    {
+//        if(tower.getLevelInformation().getHp()>0 && tower.getLockedTarget()== attackCard )
+//        {
+//            tower.setLockedTarget(null);
+//        }
+//    }
     private void checkBuildingsLife()
     {
         for (int i = 0; i < buildings.size(); i++) {
@@ -1189,12 +1189,12 @@ public class GameManager {
                 buildings.get(i).setLockedTarget(null);
             }
         }
-        towerTargetRemove(troop,player.getPrinceTower1());
-        towerTargetRemove(troop,player.getPrinceTower2());
-        towerTargetRemove(troop,opponent.getPrinceTower2());
-        towerTargetRemove(troop,opponent.getPrinceTower2());
-        towerTargetRemove(troop,player.getKingTower());
-        towerTargetRemove(troop,opponent.getKingTower());
+        for (int i = 0; i < towers.size(); i++) {
+            if(towers.get(i).getLockedTarget()==troop)
+            {
+                towers.get(i).setLockedTarget(null);
+            }
+        }
     }
     private ArrayList<AttackCard> attackCardsInArea(double x,double y, double radius)
     {
@@ -1658,26 +1658,46 @@ public class GameManager {
     {
         if(player.getPrinceTower1().getLevelInformation().getHp()>0 && !player.getPrinceTower1().isLocked())
         {
-            player.getPrinceTower1().setLockedTarget(setclosestTargetForTower(player.getPrinceTower1()));
+            AttackCard target =closestTargetForTower(player.getPrinceTower1());
+            if(target!= null)
+            {
+                player.getPrinceTower1().setLockedTarget(target);
+            }
         }
         if(player.getPrinceTower2().getLevelInformation().getHp()>0 && !player.getPrinceTower2().isLocked())
         {
-            player.getPrinceTower2().setLockedTarget(setclosestTargetForTower(player.getPrinceTower2()));
+            AttackCard target =closestTargetForTower(player.getPrinceTower2());
+            if(target!= null)
+            {
+                player.getPrinceTower2().setLockedTarget(target);
+            }
         }
         if(opponent.getPrinceTower1().getLevelInformation().getHp()>0 && !opponent.getPrinceTower1().isLocked())
         {
-            player.getPrinceTower1().setLockedTarget(setclosestTargetForTower(opponent.getPrinceTower1()));
+            AttackCard target =closestTargetForTower(opponent.getPrinceTower1());
+            if(target!= null)
+            {
+                opponent.getPrinceTower1().setLockedTarget(target);
+            }
         }
         if(opponent.getPrinceTower2().getLevelInformation().getHp()>0 && !opponent.getPrinceTower2().isLocked())
         {
-            player.getPrinceTower2().setLockedTarget(setclosestTargetForTower(opponent.getPrinceTower2()));
+            AttackCard target =closestTargetForTower(opponent.getPrinceTower2());
+            if(target!= null)
+            {
+                opponent.getPrinceTower2().setLockedTarget(target);
+            }
         }
         if ((player.getKingTower().getLevelInformation().getHp()>0)&& (player.getKingTower().isGotHurt() || player.getPrinceTower1().getLevelInformation().getHp()<=0 || player.getPrinceTower2().getLevelInformation().getHp()<=0))
         {
             player.getKingTower().setCanShoot(true);
             if(!player.getKingTower().isLocked())
             {
-                player.getKingTower().setLockedTarget(setclosestTargetForTower(player.getKingTower()));
+                AttackCard target =closestTargetForTower(player.getKingTower());
+                if(target!=null)
+                {
+                    player.getKingTower().setLockedTarget(target);
+                }
             }
         }
         if ((opponent.getKingTower().getLevelInformation().getHp()>0)&&(opponent.getKingTower().isGotHurt() || opponent.getPrinceTower1().getLevelInformation().getHp()<=0 || opponent.getPrinceTower2().getLevelInformation().getHp()<=0))
@@ -1685,11 +1705,15 @@ public class GameManager {
             opponent.getKingTower().setCanShoot(true);
             if(!opponent.getKingTower().isLocked())
             {
-                opponent.getKingTower().setLockedTarget(setclosestTargetForTower(opponent.getKingTower()));
+                AttackCard target =closestTargetForTower(opponent.getKingTower());
+                if(target!=null)
+                {
+                    opponent.getKingTower().setLockedTarget(target);
+                }
             }
         }
     }
-    private AttackCard setclosestTargetForTower(Tower tower)
+    private AttackCard closestTargetForTower(Tower tower)
     {
         ArrayList<Double> dists= new ArrayList<>();
         for (int i = 0; i < troops.size(); i++) {
