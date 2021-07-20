@@ -232,6 +232,32 @@ public class BabyDragon extends Troop{
         }
     }
 
+    @Override
+    public void undoRage() {
+        this.setHitSpeed(1.8F);
+        this.getSpeed().setVelocity(2.5F);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)100.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)110.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)121.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)133.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)146.0);
+        }
+    }
+
     public void FireBallForward(double dist)
     {
         this.fireball.setCenterY(this.fireball.getCenterY()-dist);

@@ -22,6 +22,8 @@ public class Player {
     private KingTower kingTower= new KingTower();
     private PrinceTower princeTower1=new PrinceTower();
     private PrinceTower princeTower2= new PrinceTower();
+    private int scores = 300;
+    private int crownsWon = 0 ;
     boolean anonymous=false;
 
     public Player(){
@@ -195,4 +197,30 @@ public class Player {
         }
     }
 
+    public int getScores() {
+        return scores;
+    }
+
+    public void setScores(int scores) {
+        this.scores = scores;
+    }
+    public void win()
+    {
+        this.scores+=200;
+    }
+    public void lose()
+    {
+        this.scores +=70;
+    }
+
+    public int getCrownsWon() {
+        return crownsWon;
+    }
+    public void incrementCrownsWon()
+    {
+        crownsWon++;
+    }
+    public void setCrownsWon(int crownsWon) {
+        this.crownsWon = crownsWon;
+    }
 }
