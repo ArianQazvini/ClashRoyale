@@ -478,6 +478,7 @@ public class GameManager {
     public void Step()
     {
         spellsImpact();
+        addTargetforRage();
         removeSpells();
         checkTowersLife();
         checkBuildingsLife();
@@ -522,6 +523,36 @@ public class GameManager {
             }
         }
     }
+
+    private void addTargetforRage() {
+        Rage temp = null;
+        for (int i = 0; i < spells.size(); i++) {
+            if(spells.get(i) instanceof Rage)
+            {
+                temp = (Rage) spells.get(i);
+                if(!temp.isDone())
+                {
+                    for (int j = 0; j < troops.size(); j++) {
+                        if(troops.get(i).getType().equals(temp.getType()) && distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
+                        {
+                            temp.getAttackCards().add(troops.get(i));
+                            troops.get(i).setRaged(true);
+                            troops.get(i).rageImpact();
+                        }
+                    }
+                    for (int j = 0; j < buildings.size(); j++) {
+                        if(buildings.get(i).getType().equals(temp.getType()) && distance(buildings.get(i).getX_Current(),buildings.get(i).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
+                        {
+                            temp.getAttackCards().add(buildings.get(i));
+                            buildings.get(i).setRaged(true);
+                            buildings.get(i).rageImpact();
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     private void towersHit()
     {
         prepareTargetForTowers();
