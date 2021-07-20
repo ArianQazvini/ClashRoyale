@@ -29,7 +29,7 @@ public class Spell extends Card {
         this.attackCards = attackCards;
     }
 
-    public synchronized ArrayList<AttackCard> getAttackCards() {
+    public ArrayList<AttackCard> getAttackCards() {
         return attackCards;
     }
     public ArrayList<Tower> getTowers() {

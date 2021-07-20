@@ -18,6 +18,7 @@ import model.GameDeckObject;
 import model.Spell.Arrows;
 import model.Spell.Fireball;
 import model.Spell.Rage;
+import model.Spell.Spell;
 import model.Troop.*;
 import model.Troop.Wizard;
 import model.TimeWorks;
@@ -106,7 +107,7 @@ public class Controller {
         playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getY()<=340.0 || !checkValidity(mouseEvent.getX(), mouseEvent.getY()))
+                if (!(card instanceof Spell) && (mouseEvent.getY()<=340.0 || !checkValidity(mouseEvent.getX(), mouseEvent.getY())))
                 {
                     Warnings.setVisible(true);
                     Warnings.setStyle("-fx-text-inner-color:red");
@@ -115,17 +116,8 @@ public class Controller {
                 else
                 {
                     Warnings.setVisible(false);
-
-//                    Thread thread = new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-                            gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
-                            Task(mouseEvent.getX(),mouseEvent.getY(),card,g);
-//
-//                        }
-//                    });
-//                    thread.setDaemon(true);
-//                    thread.start();
+                    gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
+                    Task(mouseEvent.getX(),mouseEvent.getY(),card,g);
                 }
                 playGround.setDisable(true);
             }

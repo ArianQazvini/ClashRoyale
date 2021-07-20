@@ -1,9 +1,9 @@
 package enums;
 
 public enum Speed {
-    SLOW(1)
-    ,MEDIUM(2)
-    ,FAST(2.5);
+    SLOW(0.5)
+    ,MEDIUM(0.75)
+    ,FAST(1.5);
     public double velocity;
     Speed(double velocity) {
         this.velocity = velocity;

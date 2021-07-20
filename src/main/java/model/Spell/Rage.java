@@ -18,6 +18,7 @@ public class Rage extends Spell{
     float hitSpeedBoost;
     private double time ;
     private boolean isDone = false;
+    private boolean isUsed =false;
     public Rage(){
         setAvatar("rage.png");
         damageBoost=1.4F;
@@ -46,6 +47,7 @@ public class Rage extends Spell{
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
+                isUsed=true;
                 rageTask();
             }
         });
@@ -60,11 +62,11 @@ public class Rage extends Spell{
             public void run() {
                 for (int i = 0; i < getTowers().size(); i++) {
                     getTowers().get(i).setRaged(true);
-                    getTowers().get(i).rageImpact();
+                   // getTowers().get(i).rageImpact();
                 }
                 for (int i = 0; i < getAttackCards().size(); i++) {
                     getAttackCards().get(i).setRaged(true);
-                    getAttackCards().get(i).rageImpact();
+                  //  getAttackCards().get(i).rageImpact();
                 }
             }
         });
@@ -79,22 +81,15 @@ public class Rage extends Spell{
             for (int i = 0; i < getAttackCards().size(); i++) {
                 if(distance(getAttackCards().get(i).getX_Current(),getAttackCards().get(i).getY_Current(),this.getX(),this.getY())> getRadius()*20)
                 {
-                    getAttackCards().get(i).undoRage();
-                    removeAttckCard(getAttackCards().get(i));
+//                    getAttackCards().get(i).undoRage();
+                    getAttackCards().get(i).setRaged(false);
+//                    removeAttckCard(getAttackCards().get(i));
                 }
             }
         }
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                for (int i = 0; i < getTowers().size(); i++) {
-                    getTowers().get(i).setRaged(false);
-                    getTowers().get(i).undoRage();
-                }
-                for (int i = 0; i < getAttackCards().size(); i++) {
-                    getAttackCards().get(i).setRaged(false);
-                    getAttackCards().get(i).undoRage();
-                }
                 isDone=true;
             }
         });
@@ -121,5 +116,11 @@ public class Rage extends Spell{
                 break;
             }
         }
+    }
+    public void setUsed(boolean used) {
+        isUsed = used;
+    }
+    public boolean isUsed() {
+        return isUsed;
     }
 }

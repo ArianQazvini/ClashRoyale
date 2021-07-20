@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
+import java.util.Random;
 
 public class GameManager {
     private final int blockSize=20;
@@ -477,9 +478,6 @@ public class GameManager {
     }
     public void Step()
     {
-        spellsImpact();
-        addTargetforRage();
-        removeSpells();
         checkTowersLife();
         checkBuildingsLife();
         checkTroopsLife();
@@ -522,6 +520,10 @@ public class GameManager {
                 move(troops.get(i));
             }
         }
+        spellsImpact();
+        addTargetforRage();
+        Rage();
+        removeSpells();
     }
 
     private void addTargetforRage() {
@@ -537,7 +539,6 @@ public class GameManager {
                         {
                             temp.getAttackCards().add(troops.get(i));
                             troops.get(i).setRaged(true);
-                            troops.get(i).rageImpact();
                         }
                     }
                     for (int j = 0; j < buildings.size(); j++) {
@@ -545,7 +546,6 @@ public class GameManager {
                         {
                             temp.getAttackCards().add(buildings.get(i));
                             buildings.get(i).setRaged(true);
-                            buildings.get(i).rageImpact();
                         }
                     }
                 }
@@ -579,6 +579,10 @@ public class GameManager {
             return false;
         }
     }
+//    private boolean locationIsInside(double x, double y)
+//    {
+//
+//    }
     private void move(Troop troop)
     {
         if(troop.getType().equals("+"))
@@ -1958,9 +1962,12 @@ public class GameManager {
             if(spells.get(i) instanceof Rage )
             {
                 Rage temp = (Rage) spells.get(i);
-                rageSpellPurpleBlocks(temp);
-                prepareTargetsforSpell(temp);
-                temp.rageThread();
+                if(!temp.isUsed())
+                {
+                    rageSpellPurpleBlocks(temp);
+                    prepareTargetsforSpell(temp);
+                    temp.rageThread();
+                }
             }
             else
             {
@@ -1998,6 +2005,24 @@ public class GameManager {
 ////            }
 ////        }
 //    }
+    private void Rage()
+    {
+        for (int i = 0; i < spells.size(); i++) {
+            if(spells.get(i) instanceof Rage)
+            {
+                Rage rage = (Rage) spells.get(i);
+                if(rage.isUsed())
+                {
+                    for (int j = 0; j < rage.getAttackCards().size(); j++) {
+                        rage.getAttackCards().get(i).rageImpact();
+                    }
+                    for (int j = 0; j < rage.getTowers().size(); j++) {
+                        rage.getTowers().get(i).rageImpact();
+                    }
+                }
+            }
+        }
+    }
     private void removeSpells()
     {
         Iterator<Spell> spellIterator = spells.iterator();
@@ -2032,10 +2057,30 @@ public class GameManager {
                 if(temp.isDone())
                 {
                     resetBlocksImage(temp);
+                    for (int i = 0; i < temp.getTowers().size(); i++) {
+                        temp.getTowers().get(i).setRaged(false);
+                        temp.getTowers().get(i).undoRage();
+                    }
+                    for (int i = 0; i < temp.getAttackCards().size(); i++) {
+                        temp.getAttackCards().get(i).setRaged(false);
+                        temp.getAttackCards().get(i).undoRage();
+                    }
                     road();
                     river();
                     spellIterator.remove();
                 }
+            }
+        }
+        for (int i = 0; i < troops.size(); i++) {
+            if(!troops.get(i).isRaged())
+            {
+                troops.get(i).undoRage();
+            }
+        }
+        for (int i = 0; i <buildings.size(); i++) {
+            if(buildings.get(i).isRaged())
+            {
+                buildings.get(i).undoRage();
             }
         }
     }
