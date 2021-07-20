@@ -28,10 +28,7 @@ import model.robot.SmartRobot;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 public class GameManager {
     private final int blockSize=20;
@@ -1800,40 +1797,69 @@ public class GameManager {
     {
         if(!tower.getType().equals(attackCard.getType()))
         {
-            if(attackCard instanceof Valkyrie || attackCard instanceof  MiniPEKKA || attackCard instanceof Giant || attackCard instanceof Barbarian)
+            double min_y = 0.0;
+            double min_x = 0.0;
+            double max_x = 0.0;
+            double max_y = 0.0;
+            if(attackCard instanceof  Troop)
             {
-                double min_y = tower.getImageViews()[0][0].getY() - ((attackCard.getRange()+1)*blockSize);
-                double max_y = tower.getImageViews()[2][2].getY() + blockSize  + ((attackCard.getRange()+1)*blockSize);
-                //------------------------
-                double min_x = tower.getImageViews()[0][0].getX() - ((attackCard.getRange()+1)*blockSize);
-                double max_x = tower.getImageViews()[2][2].getX() + blockSize + ((attackCard.getRange()+1)*blockSize);
-                if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()>= min_y && attackCard.getY_Current()<= max_y)
+                Troop help = (Troop) attackCard;
+                if(attackCard.getType().equals("+"))
                 {
-                    return true;
+                    max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize)+ help.getSpeed().getVelocity();
                 }
                 else
                 {
-                    return false;
+                    min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize)- help.getSpeed().getVelocity();
                 }
             }
-            else
-            {
-                double min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize);
-                double max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize);
+            else {
+                min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange() * blockSize);
+                max_y = tower.getImageViews()[2][2].getY() + blockSize + (attackCard.getRange() * blockSize);
+            }
+               // double min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize);
+               // double max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize);
                 //------------------------
-                double min_x = tower.getImageViews()[0][0].getX() - (attackCard.getRange()*blockSize);
-                double max_x = tower.getImageViews()[2][2].getX() + blockSize + (attackCard.getRange()+ blockSize);
-                if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()>= min_y && attackCard.getY_Current()<= max_y)
+                 min_x = tower.getImageViews()[0][0].getX() - (attackCard.getRange()*blockSize);
+                 max_x = tower.getImageViews()[2][2].getX() + blockSize + (attackCard.getRange()* blockSize);
+                if(attackCard.getType().equals("+"))
                 {
-                    return true;
+                    if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()> min_y && attackCard.getY_Current()< max_y)
+                    {
+                        if(attackCard instanceof Valkyrie || attackCard instanceof Barbarian || attackCard instanceof Giant || attackCard instanceof  MiniPEKKA)
+                        {
+                            ((Troop) attackCard).Forward(20);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return false;
+                    System.out.println(attackCard.getX_Current());
+                    System.out.println(attackCard.getY_Current());
+                    System.out.println(max_x + " max x ");
+                    System.out.println(min_x + " min x ");
+                    System.out.println(max_y + " max y ");
+                    System.out.println(min_y + " min y ");
+                    System.out.println("--------------------------");
+                    if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()>= min_y && attackCard.getY_Current()< max_y)
+                    {
+                        if(attackCard instanceof Valkyrie || attackCard instanceof Barbarian || attackCard instanceof Giant || attackCard instanceof  MiniPEKKA)
+                        {
+                            ((Troop) attackCard).Backward(5);
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
-            }
-                //*********************
-
+       //     }
         }
         else
         {
