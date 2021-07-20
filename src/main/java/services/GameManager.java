@@ -2044,7 +2044,21 @@ public class GameManager {
                     {
                         if(attackCard instanceof Valkyrie || attackCard instanceof Barbarian || attackCard instanceof Giant || attackCard instanceof  MiniPEKKA)
                         {
-                            ((Troop) attackCard).Forward(20);
+                            if(tower==opponent.getKingTower())
+                            {
+                                if(attackCard.getY_Current() <180)
+                                {
+                                    ((Troop) attackCard).Right(20);
+                                }
+                                else
+                                {
+                                    ((Troop) attackCard).Left(20);
+                                }
+                            }
+                            else
+                            {
+                                ((Troop) attackCard).Forward(20);
+                            }
                         }
                         return true;
                     }
@@ -2066,7 +2080,21 @@ public class GameManager {
                     {
                         if(attackCard instanceof Valkyrie || attackCard instanceof Barbarian || attackCard instanceof Giant || attackCard instanceof  MiniPEKKA)
                         {
-                            ((Troop) attackCard).Backward(5);
+                            if(tower==player.getKingTower())
+                            {
+                                if(attackCard.getY_Current() <180)
+                                {
+                                    ((Troop) attackCard).Right(20);
+                                }
+                                else
+                                {
+                                    ((Troop) attackCard).Left(20);
+                                }
+                            }
+                            else
+                            {
+                                ((Troop) attackCard).Backward(20);
+                            }
                         }
                         return true;
                     }
