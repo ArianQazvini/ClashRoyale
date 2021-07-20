@@ -1616,7 +1616,7 @@ public class GameManager {
             return x > 40 && x < 60 || x > 300 && x < 320;
         } else {
             if (type.equals("player")) {
-                if (y > 300 && y < 450) {
+                if (y < 300 && y > 150) {
                     if (opponent.getPrinceTower1().getLevelInformation().getHp() == 0) {
                         return !(x < 180);
                     } else if (opponent.getPrinceTower2().getLevelInformation().getHp() == 0) {
