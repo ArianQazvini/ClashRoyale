@@ -33,7 +33,7 @@ public class Barbarian extends Troop{
         {
             if(super.getTowerTarget()!=null)
             {
-                if(this.towerDistance()<= this.getRange() * 20)
+                if(this.towerDistance()<= ((this.getRange()+1) * 20))
                 {
                     changePictoTarget();
                     incrementTimeTick();
@@ -174,9 +174,86 @@ public class Barbarian extends Troop{
     }
 
     @Override
+    public void undoRage() {
+        this.setHitSpeed(1.5F);
+        this.getSpeed().setVelocity(2);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)75.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)82.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)90.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)99.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)109.0);
+        }
+    }
+
+    @Override
     public void Left()
     {
         super.Left();
         WalkingLeftMode();
+    }
+    @Override
+    public void changePictoTarget()
+    {
+        if(super.isLocked())
+        {
+            if(super.getLockedTarget()!=null)
+            {
+                if(super.targetDistance()<= this.getRange() * 20)
+                {
+                    if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
+                    {
+                        HitUpMode();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
+                    {
+                        HitDownMode();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
+                    {
+                        HitRightMode();
+                    }
+                    else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
+                    {
+                        HitLeftMode();
+                    }
+                }
+            }
+            else if(super.getTowerTarget()!=null)
+            {
+                if(super.towerDistance()<= ((this.getRange()+1) * 20))
+                {
+                    if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.TOP)
+                    {
+                        HitUpMode();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.DOWN)
+                    {
+                        HitDownMode();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.RIGHT)
+                    {
+                        HitRightMode();
+                    }
+                    else if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.LEFT)
+                    {
+                        HitLeftMode();
+                    }
+                }
+            }
+        }
     }
 }

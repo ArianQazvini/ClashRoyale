@@ -279,6 +279,37 @@ public class Cannon extends Building{
             }
         }
     }
+    @Override
+    public void rageImpact()
+    {
+        this.setHitSpeed(this.getHitSpeed()*1.4F);
+        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.4);
+    }
+    @Override
+    public void undoRage()
+    {
+        this.setHitSpeed(0.8F);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)60.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)66.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)72.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)79.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)87.0);
+        }
+    }
     private void explosionPic()
     {
         Image image = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());

@@ -28,8 +28,17 @@ public abstract class Tower extends WarObject {
     private int ShootingTimeTick=0;
     private String type ;
     private boolean gotHurt = false;
+    private boolean isRaged =false;
     public float getHitSpeed() {
         return hitSpeed;
+    }
+
+    public void setRaged(boolean raged) {
+        isRaged = raged;
+    }
+
+    public boolean isRaged() {
+        return isRaged;
     }
 
     public void setType(String type) {
@@ -109,12 +118,13 @@ public abstract class Tower extends WarObject {
         if(LockedTarget==null)
         {
             setLocked(false);
+            return false;
         }
         else
         {
             setLocked(true);
+            return true;
         }
-        return isLocked;
     }
     public void setLocked(boolean locked) {
         isLocked = locked;
@@ -158,7 +168,7 @@ public abstract class Tower extends WarObject {
             Image image = new Image(new File("src/main/resources/pics/Characters/CannonBall.png").toURI().toString());
             ImagePattern imagePattern = new ImagePattern(image);
             this.CanonnBall.setFill(imagePattern);
-            this.CanonnBall.setRadius(10);
+            this.CanonnBall.setRadius(5);
             this.CanonnBall.setCenterX(this.getX());
             this.CanonnBall.setCenterY(this.getY());
     }
@@ -179,6 +189,16 @@ public abstract class Tower extends WarObject {
         this.CanonnBall.setCenterY(this.getY());
         setShootingTimeTick(0);
     }
-
-
+    public void explosionPic()
+    {
+        Image image = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());
+        ImagePattern imagePattern = new ImagePattern(image);
+        this.CanonnBall.setFill(imagePattern);
+    }
+    public void rageImpact()
+    {
+        this.setHitSpeed(this.getHitSpeed() * 1.4F);
+        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.4);
+    }
+    public abstract void undoRage();
 }

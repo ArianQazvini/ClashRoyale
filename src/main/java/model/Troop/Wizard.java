@@ -278,6 +278,33 @@ public class Wizard extends Troop{
             this.getFireball().setCenterY(this.getY_Current());
         }
     }
+
+    @Override
+    public void undoRage() {
+        this.setHitSpeed(1.7F);
+        this.getSpeed().setVelocity(2);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)130.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)143.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)157.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)172.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)189.0);
+        }
+    }
+
     public void fireballLocationUpdate()
     {
         this.fireball.setCenterX(this.getX_Current());

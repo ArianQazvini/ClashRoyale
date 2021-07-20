@@ -23,10 +23,14 @@ import model.Building.InfernoTower;
 import model.Card;
 import model.GameDeck;
 import model.GameDeckObject;
+import model.Spell.Arrows;
+import model.Spell.Fireball;
+import model.Spell.Rage;
 import model.Spell.Spell;
 import model.Troop.*;
 import model.Troop.Troop;
 import model.Troop.Wizard;
+import model.TimeWorks;
 import sample.Main;
 import services.GameManager;
 import services.ViewService;
@@ -54,6 +58,12 @@ public class Controller {
     private Text Warnings;
     @FXML
     private AnchorPane playGround;
+    @FXML
+    private Text gameResult;
+    @FXML
+    private TextField minText;
+    @FXML
+    private TextField secondsText;
     private GameDeck gameDeck;
     private Timer timer;
     private final int blockSize = 20;
@@ -63,9 +73,11 @@ public class Controller {
     private ImageView[][] roads = new ImageView[32][2];
     private ImageView[][] river = new ImageView[2][16];
     private GameManager gameManager= Main.gameManager;
-    private int check =0;
+    private TimeWorks gameTimer  = new TimeWorks();
     public void initialize()
     {
+        gameResult.setVisible(false);
+       // gameManager.getOpponent().gameManager=gameManager;
         //ViewService.setBackground(MainGround, "jungle.jpg");
         //gameManager.getOpponent().gameManager=gameManager;
         gameManager.CreateMap();
@@ -79,8 +91,10 @@ public class Controller {
         UpdatePage();
         StartTimer();
         startOpponent();
+        gameTimer.gameTimer();
+        setTimerBinders();
     }
-       private void setDeckOnClick(){
+    private void setDeckOnClick(){
         for (GameDeckObject g:gameDeck.getGameDeckObjects()){
             g.setOnAction(new EventHandler<ActionEvent>() {
                 @Override
@@ -97,6 +111,11 @@ public class Controller {
             });
         }
     }
+    private void setTimerBinders()
+    {
+        minText.textProperty().bind(gameTimer.minProperty().asString());
+        secondsText.textProperty().bind(gameTimer.secsProperty().asString());
+    }
     @FXML
     void press(Card card,GameDeckObject g) {
         card.setType("+");
@@ -105,7 +124,7 @@ public class Controller {
         playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if(mouseEvent.getY()<=340.0 || !checkValidity(mouseEvent.getX(), mouseEvent.getY()))
+                if (!(card instanceof Spell) && (mouseEvent.getY()<=340.0 || !checkValidity(mouseEvent.getX(), mouseEvent.getY())))
                 {
                     Warnings.setVisible(true);
                     Warnings.setStyle("-fx-text-inner-color:red");
@@ -114,17 +133,8 @@ public class Controller {
                 else
                 {
                     Warnings.setVisible(false);
-
-//                    Thread thread = new Thread(new Runnable() {
-//                        @Override
-//                        public void run() {
-                            gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
-                            Task(mouseEvent.getX(),mouseEvent.getY(),card,g);
-//
-//                        }
-//                    });
-//                    thread.setDaemon(true);
-//                    thread.start();
+                    gameManager.getPlayer().setElixir(gameManager.getPlayer().getElixir().getValue()- card.getCost());
+                    Task(mouseEvent.getX(),mouseEvent.getY(),card,g);
                 }
                 playGround.setDisable(true);
             }
@@ -149,7 +159,7 @@ public class Controller {
         }
     }
 
-    private void Task(double x,double y,Card card,GameDeckObject g)  {
+    private void Task(double x,double y,Card card,GameDeckObject g) {
         //if (!(card instanceof Spell)) {
 //            Platform.runLater(new Runnable() {
 //                @Override
@@ -400,6 +410,66 @@ public class Controller {
                             playGround.getChildren().add(temp.getPicHandler());
                         }
                     }
+                    else if(card instanceof Rage)
+                    {
+                        Rage temp = new Rage();
+                        temp.setX(x);
+                        temp.setY(y);
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                            //playGround.getChildren().add(temp.getPicHandler());
+                        }
+
+                    }
+                    else if(card instanceof Fireball)
+                    {
+                        Fireball temp = new Fireball();
+                        temp.setX(x);
+                        temp.setY(y);
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                            //playGround.getChildren().add(temp.getPicHandler());
+                        }
+
+                    }
+                    else if(card instanceof Arrows)
+                    {
+                        Arrows temp = new Arrows();
+                        temp.setX(x);
+                        temp.setY(y);
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                            //playGround.getChildren().add(temp.getPicHandler());
+                        }
+
+                    }
                     gameDeck.getGameDeckObjects().add(g);
                     deckOfGameHBox.getChildren().remove(g);
                     gameDeck.setNext();
@@ -408,7 +478,7 @@ public class Controller {
 
        // }
     }
-    private void TaskR(double x,double y,Card card) {
+    private void TaskR(double x,double y,Card card,GameDeckObject g) {
         //if (!(card instanceof Spell)) {
 //            Platform.runLater(new Runnable() {
 //                @Override
@@ -659,6 +729,66 @@ public class Controller {
                 playGround.getChildren().add(temp.getPicHandler());
             }
         }
+        else if(card instanceof Rage)
+        {
+            Rage temp = new Rage();
+            temp.setX(x);
+            temp.setY(x);
+            if(card.getType().equals("+"))
+            {
+                temp.setType("+");
+                //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+            }
+            else
+            {
+                temp.setType("-");
+                //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+                //playGround.getChildren().add(temp.getPicHandler());
+            }
+
+        }
+        else if(card instanceof Fireball)
+        {
+            Fireball temp = new Fireball();
+            temp.setX(x);
+            temp.setY(x);
+            if(card.getType().equals("+"))
+            {
+                temp.setType("+");
+                //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+            }
+            else
+            {
+                temp.setType("-");
+                //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+                //playGround.getChildren().add(temp.getPicHandler());
+            }
+
+        }
+        else if(card instanceof Arrows)
+        {
+            Arrows temp = new Arrows();
+            temp.setX(x);
+            temp.setY(x);
+            if(card.getType().equals("+"))
+            {
+                temp.setType("+");
+                //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+            }
+            else
+            {
+                temp.setType("-");
+                //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+                //playGround.getChildren().add(temp.getPicHandler());
+            }
+
+        }
 
 //                }
 //            });
@@ -726,8 +856,36 @@ public class Controller {
     {
         if(gameManager.getTroops().size()!=0)
         {
-            UpdatePage();
-            gameManager.Step();
+            if(!gameManager.isGameFinished() && !gameTimer.isGameTimesUp())
+            {
+                if(gameTimer.isDoubleElxirTime())
+                {
+                    gameManager.getPlayer().getElixir().setSleep(500);
+                    gameManager.getOpponent().getElixir().setSleep(500);
+                }
+                UpdatePage();
+                gameManager.Step();
+            }
+            else
+            {
+                gameManager.getPlayer().getElixir().setGameFinished(true);
+                gameManager.getOpponent().getElixir().setGameFinished(true);
+                timer.cancel();
+                if(gameManager.getWinner()== gameManager.getPlayer())
+                {
+                    gameResult.setVisible(true);
+                    gameResult.setText("You won");
+                    gameManager.getPlayer().win();
+                    gameManager.getOpponent().lose();
+                }
+                else
+                {
+                    gameResult.setVisible(true);
+                    gameResult.setText("Robot won");
+                    gameManager.getOpponent().win();
+                    gameManager.getPlayer().lose();
+                }
+            }
         }
     }
     void robotTask(){
@@ -735,11 +893,11 @@ public class Controller {
             @Override
             public void run() {
                 if (gameManager.getOpponent().isElixirEnough()) {
-                    //gameManager.getOpponent().chooseLocation();
+                    gameManager.getOpponent().chooseLocation();
                     Card card = gameManager.getOpponent().chooseFromDeck();
                     card.setType("-");
                     if (card instanceof AttackCard) {
-                        TaskR(gameManager.getOpponent().getX(), gameManager.getOpponent().getY(), (AttackCard) card);
+                        TaskR(gameManager.getOpponent().getX(), gameManager.getOpponent().getY(), (AttackCard) card, null);
                         gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue() - card.getCost());
                     }
                 }

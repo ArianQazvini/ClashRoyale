@@ -158,26 +158,6 @@ public abstract class Troop extends AttackCard {
                     }
                 }
             }
-
-//            else
-//            {
-//                if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.TOP)
-//                {
-//                    WalkingTopMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.DOWN)
-//                {
-//                    HitDownMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.RIGHT)
-//                {
-//                    HitRightMode();
-//                }
-//                else if(this.closestDirectionTo(super.getLockedTarget().getX_Current(),super.getLockedTarget().getY_Current())== Directions.LEFT)
-//                {
-//                    HitLeftMode();
-//                }
-//            }
         }
     }
     public Directions closestDirectionTo(double x_dist,double y_dist)
@@ -210,6 +190,13 @@ public abstract class Troop extends AttackCard {
 
     public ArrayList<Commands> getPath() {
         return path;
+    }
+    @Override
+    public void rageImpact()
+    {
+        this.setHitSpeed(this.getHitSpeed() * 1.4F);
+        this.getSpeed().setVelocity(this.getSpeed().getVelocity() * 1.4F);
+        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.4);
     }
 
 }

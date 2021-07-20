@@ -27,10 +27,11 @@ public class PrinceTower extends Tower{
             if(super.targetDistance()<= this.getRange()*20)
             {
                 incrementTimeTick();
-                super.setCannonBallPic();
+                setCannonBallPic();
                 if(getShootingTimeTick()== (super.getHitSpeed()*10))
                 {
                     super.getLockedTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
+                    explosionPic();
                 }
                 double distPart= getShootingTimeTick()/(super.getHitSpeed()*10);
                 double x_Vector =super.getLockedTarget().getX_Current()-super.getX();
@@ -62,12 +63,38 @@ public class PrinceTower extends Tower{
             else
             {
                 resetTimeTick();
+                setLockedTarget(null);
             }
         }
         else
         {
             resetTimeTick();
             super.setLockedTarget(null);
+        }
+    }
+
+    @Override
+    public void undoRage() {
+        this.setHitSpeed(0.8F);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)50.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)54.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)58.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)62.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)69.0);
         }
     }
 }
