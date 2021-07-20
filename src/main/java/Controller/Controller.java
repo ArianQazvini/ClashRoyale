@@ -76,6 +76,8 @@ public class Controller {
     private TimeWorks gameTimer  = new TimeWorks();
     public void initialize()
     {
+        minText.setEditable(false);
+        secondsText.setEditable(false);
         gameResult.setVisible(false);
        // gameManager.getOpponent().gameManager=gameManager;
         //ViewService.setBackground(MainGround, "jungle.jpg");

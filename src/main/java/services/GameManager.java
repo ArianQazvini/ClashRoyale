@@ -593,6 +593,17 @@ public class GameManager {
             {
                 towerMove(troop);
             }
+            else if(moveToKingTower(troop))
+            {
+                if(troop.getX_Current()>180)
+                {
+                    smartLeft(troop,troop.getSpeed().getVelocity());
+                }
+                else if(troop.getX_Current() <180)
+                {
+                    smartRight(troop,troop.getSpeed().getVelocity());
+                }
+            }
             else
             {
 //                troop.WalkingTopMode();
@@ -615,12 +626,84 @@ public class GameManager {
             {
                towerMove(troop);
             }
+            else if(moveToKingTower(troop))
+            {
+                if(troop.getX_Current()>180)
+                {
+                    smartLeft(troop,troop.getSpeed().getVelocity());
+                }
+                else if(troop.getX_Current() <180)
+                {
+                    smartRight(troop,troop.getSpeed().getVelocity());
+                }
+            }
             else
             {
 //                troop.WalkingDownMode();
 //                troop.Backward();
 //                collision(troop);
                 smartDown(troop,troop.getSpeed().getVelocity());
+            }
+        }
+    }
+    private boolean moveToKingTower(Troop troop)
+    {
+        if(troop.getType().equals("+"))
+        {
+            if(troop.getX_Current() > 180 && opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
+            {
+                if(troop.getY_Current()- troop.getSpeed().getVelocity() < 20)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if(troop.getX_Current() <180 && opponent.getPrinceTower1().getLevelInformation().getHp()<=0)
+            {
+                if(troop.getY_Current()- troop.getSpeed().getVelocity() < 20)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if(troop.getX_Current() > 180 && player.getPrinceTower2().getLevelInformation().getHp()<=0)
+            {
+                if(troop.getY_Current()+ troop.getSpeed().getVelocity() > 620)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if(troop.getX_Current() <180 && player.getPrinceTower1().getLevelInformation().getHp()<=0)
+            {
+                if(troop.getY_Current()+ troop.getSpeed().getVelocity() > 620)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
     }
@@ -1322,6 +1405,41 @@ public class GameManager {
                         }
                     }
                 }
+                else if(shooter instanceof Valkyrie)
+                {
+                    Valkyrie valkyrie = (Valkyrie) shooter;
+                    ArrayList<AttackCard> temp = attackCardsInArea(valkyrie.getX_Current(),valkyrie.getY_Current(),shooter.getRange()*blockSize);
+                    for (int i = 0; i < temp.size(); i++) {
+                        if(shooter.getTarget()== Target.AIR)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && temp.get(i) instanceof BabyDragon)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.AIR_GROUND)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.GROUND)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && !(temp.get(i) instanceof BabyDragon))
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.BUILDING)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && temp.get(i) instanceof Building)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -1804,14 +1922,16 @@ public class GameManager {
             if(attackCard instanceof  Troop)
             {
                 Troop help = (Troop) attackCard;
-                if(attackCard.getType().equals("+"))
-                {
+             //   if(attackCard.getType().equals("+"))
+            //    {
                     max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize)+ help.getSpeed().getVelocity();
-                }
-                else
-                {
                     min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize)- help.getSpeed().getVelocity();
-                }
+//                }
+//                else
+//                {
+//                    max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize)+ help.getSpeed().getVelocity();
+//                    min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize)- help.getSpeed().getVelocity();
+//                }
             }
             else {
                 min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange() * blockSize);
@@ -1839,14 +1959,14 @@ public class GameManager {
                 }
                 else
                 {
-                    System.out.println(attackCard.getX_Current());
-                    System.out.println(attackCard.getY_Current());
+                    System.out.println(attackCard.getClass()+" "+attackCard.getX_Current());
+                    System.out.println(attackCard.getClass()+" "+attackCard.getY_Current());
                     System.out.println(max_x + " max x ");
                     System.out.println(min_x + " min x ");
                     System.out.println(max_y + " max y ");
                     System.out.println(min_y + " min y ");
                     System.out.println("--------------------------");
-                    if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()>= min_y && attackCard.getY_Current()< max_y)
+                    if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()> min_y && attackCard.getY_Current()< max_y)
                     {
                         if(attackCard instanceof Valkyrie || attackCard instanceof Barbarian || attackCard instanceof Giant || attackCard instanceof  MiniPEKKA)
                         {
