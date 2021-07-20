@@ -55,14 +55,9 @@ public class Rage extends Spell{
     private void rageTask()
     {
         Platform.runLater(new Runnable() {
-            Image purpleBlock = new Image(new File("src/main/resources/pics/purpleTile.png").toURI().toString());
+          //  Image purpleBlock = new Image(new File("src/main/resources/pics/purpleTile.png").toURI().toString());
             @Override
             public void run() {
-                for (int i = 0; i < groundImages.size(); i++) {
-                    groundImages.get(i).setImage(purpleBlock);
-                    groundImages.get(i).setFitWidth(20);
-                    groundImages.get(i).setFitHeight(20);
-                }
                 for (int i = 0; i < getTowers().size(); i++) {
                     getTowers().get(i).setRaged(true);
                     getTowers().get(i).rageImpact();
@@ -73,7 +68,7 @@ public class Rage extends Spell{
                 }
             }
         });
-        while (time >0)
+        while (time >=0)
         {
             try {
                 Thread.sleep(500);
@@ -100,9 +95,9 @@ public class Rage extends Spell{
                     getAttackCards().get(i).setRaged(false);
                     getAttackCards().get(i).undoRage();
                 }
+                isDone=true;
             }
         });
-        isDone=true;
     }
     public boolean isDone() {
         return isDone;

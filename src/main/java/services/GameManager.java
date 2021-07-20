@@ -478,6 +478,7 @@ public class GameManager {
     public void Step()
     {
         spellsImpact();
+        removeSpells();
         checkTowersLife();
         checkBuildingsLife();
         checkTroopsLife();
@@ -520,7 +521,6 @@ public class GameManager {
                 move(troops.get(i));
             }
         }
-        removeSpells();
     }
     private void towersHit()
     {
@@ -2010,11 +2010,16 @@ public class GameManager {
     }
     private void rageSpellPurpleBlocks(Rage rage)
     {
+        Image purpleBlock = new Image(new File("src/main/resources/pics/purpleTile.png").toURI().toString());
         for (int i = 0; i < 32; i++) {
             for (int j = 0; j < 18; j++) {
                 if(distance(blocks[i][j].getX(),blocks[i][j].getY(),rage.getX(),rage.getY())<= rage.getRadius()*blockSize && blockisNotTower(blocks[i][j].getX(),blocks[i][j].getY()))
                 {
-                    rage.getGroundImages().add(blocks[i][j]);
+                    blocks[i][j].setImage(purpleBlock);
+                    ImageView temp = new ImageView(purpleBlock);
+                    temp.setX(blocks[i][j].getX());
+                    temp.setY(blocks[i][j].getY());
+                    rage.getGroundImages().add(temp);
                 }
             }
         }
@@ -2168,6 +2173,8 @@ public class GameManager {
                         if(blocks[j][k].getX()==rage.getGroundImages().get(i).getX() && blocks[j][k].getY()==rage.getGroundImages().get(i).getY())
                         {
                             blocks[j][k].setImage(grass);
+//                            blocks[j][k].setFitWidth(20);
+//                            blocks[j][k].setFitHeight(20);
                         }
                     }
                 }
