@@ -565,7 +565,7 @@ public class GameManager {
     }
     private boolean checkPalace(Troop troop)
     {
-        if(troop.getX_Current() >= 0 && troop.getX_Current() <360 && troop.getY_Current()>0 && troop.getY_Current()<620) {
+        if(troop.getX_Current() >= 0 && troop.getX_Current() <360 && troop.getY_Current()>0 && troop.getY_Current()<640) {
             return true;
         }
         else
@@ -589,7 +589,7 @@ public class GameManager {
             {
                 roadMove(troop);
             }
-            else if(towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            else if(towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity())!=null)
             {
                 towerMove(troop);
             }
@@ -622,7 +622,7 @@ public class GameManager {
             {
                 roadMove(troop);
             }
-            else if(towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            else if(towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize)!=null)
             {
                towerMove(troop);
             }
@@ -730,33 +730,33 @@ public class GameManager {
             return false;
         }
     }
-    private boolean towerHit(double x, double y)
+    private Tower towerHit(double x, double y)
     {
         if(x<80 && x>=20 && y<=620 && y>=560 && player.getPrinceTower1().getLevelInformation().getHp()>0)
         {
-            return true;
+            return player.getPrinceTower1();
         }
         else  if( x<340 && x>=280 && y<=620 && y>=560 && player.getPrinceTower2().getLevelInformation().getHp()>0)
         {
-            return true;
+            return player.getPrinceTower2();
         }
         else  if( x<200 && x>=140 && y<=640 && y>=580 && player.getKingTower().getLevelInformation().getHp()>0) {
-            return true;
+            return player.getKingTower();
         }
         else if( x<80 && x>=20 && y<=80 && y>=20 && opponent.getPrinceTower1().getLevelInformation().getHp()>0)
         {
-            return true;
+            return opponent.getPrinceTower1();
         }
         else  if( x<340 && x>=280 && y<=80 && y>=20 && opponent.getPrinceTower2().getLevelInformation().getHp()>0)
         {
-            return true;
+            return opponent.getPrinceTower2();
         }
         else if( x<200 && x>=140 && y<=60 && y>=0 && opponent.getKingTower().getLevelInformation().getHp()>0) {
-            return true;
+            return opponent.getKingTower();
         }
         else
         {
-            return false;
+            return null;
         }
     }
     private boolean attackCardHit(Troop curr)
@@ -1044,22 +1044,118 @@ public class GameManager {
     }
     private void towerMove(Troop troop)
     {
-        if (troop.getType().equals("+"))
+        if(!(troop instanceof BabyDragon))
         {
-            if(towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            if (troop.getType().equals("+"))
             {
-                troop.WalkingTopMode();
+                Tower temp = towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity());
+                if(temp == player.getPrinceTower1())
+                {
+                    if(troop.getX_Current()<=20)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>20)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                    //troop.WalkingTopMode();
 //                troop.Forward();
-               // smartUp(troop,troop.getSpeed().getVelocity());
+                    // smartUp(troop,troop.getSpeed().getVelocity());
+                }
+                else if(temp == player.getPrinceTower2())
+                {
+                    if(troop.getX_Current()<=300)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>300)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                }
+                else if(temp==player.getKingTower())
+                {
+                    if(troop.getX_Current()<=160)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>160)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                }
+                else
+                {
+                    troop.WalkingTopMode();
+                }
+            }
+            else
+            {
+                Tower temp = towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity());
+                if(temp == opponent.getPrinceTower1())
+                {
+                    if(troop.getX_Current()<=20)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>20)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                    //troop.WalkingTopMode();
+//                troop.Forward();
+                    // smartUp(troop,troop.getSpeed().getVelocity());
+                }
+                else if(temp == opponent.getPrinceTower2())
+                {
+                    if(troop.getX_Current()<=300)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>300)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                }
+                else if(temp==opponent.getKingTower())
+                {
+                    if(troop.getX_Current()<=160)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>160)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                }
+                else
+                {
+                    troop.WalkingDownMode();
+                }
             }
         }
         else
         {
-            if(towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            if(troop.getType().equals("+"))
             {
-                troop.WalkingDownMode();
-//                troop.Backward();
-               // smartDown(troop,troop.getSpeed().getVelocity());
+                troop.Forward();
+            }
+            else
+            {
+                troop.Backward();
             }
         }
        // collision(troop);
@@ -1959,13 +2055,13 @@ public class GameManager {
                 }
                 else
                 {
-                    System.out.println(attackCard.getClass()+" "+attackCard.getX_Current());
-                    System.out.println(attackCard.getClass()+" "+attackCard.getY_Current());
-                    System.out.println(max_x + " max x ");
-                    System.out.println(min_x + " min x ");
-                    System.out.println(max_y + " max y ");
-                    System.out.println(min_y + " min y ");
-                    System.out.println("--------------------------");
+//                    System.out.println(attackCard.getClass()+" "+attackCard.getX_Current());
+//                    System.out.println(attackCard.getClass()+" "+attackCard.getY_Current());
+//                    System.out.println(max_x + " max x ");
+//                    System.out.println(min_x + " min x ");
+//                    System.out.println(max_y + " max y ");
+//                    System.out.println(min_y + " min y ");
+//                    System.out.println("--------------------------");
                     if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()> min_y && attackCard.getY_Current()< max_y)
                     {
                         if(attackCard instanceof Valkyrie || attackCard instanceof Barbarian || attackCard instanceof Giant || attackCard instanceof  MiniPEKKA)
