@@ -21,6 +21,7 @@ public abstract class AttackCard extends Card {
     private boolean isLocked=false;
     private Rectangle picHandler = new Rectangle();
     private int ShootingTimeTick =0;
+    private boolean isRaged=false;
     public void setLockedTarget(AttackCard lockedTarget) {
             LockedTarget = lockedTarget;
     }
@@ -35,7 +36,12 @@ public abstract class AttackCard extends Card {
     public void setPicHandler(Rectangle picHandler) {
         this.picHandler = picHandler;
     }
-
+    public void setRaged(boolean raged) {
+        isRaged = raged;
+    }
+    public boolean isRaged() {
+        return isRaged;
+    }
     public float getHitSpeed() {
         return hitSpeed;
     }
@@ -156,5 +162,6 @@ public abstract class AttackCard extends Card {
         ShootingTimeTick++;
     }
     public abstract void resetTimeTick();
-
+    public abstract void rageImpact();
+    public abstract void undoRage();
 }

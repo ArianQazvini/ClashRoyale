@@ -191,5 +191,12 @@ public abstract class Troop extends AttackCard {
     public ArrayList<Commands> getPath() {
         return path;
     }
+    @Override
+    public void rageImpact()
+    {
+        this.setHitSpeed(this.getHitSpeed() * 1.4F);
+        this.getSpeed().setVelocity(this.getSpeed().getVelocity() * 1.4F);
+        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.4);
+    }
 
 }

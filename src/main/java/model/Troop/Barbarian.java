@@ -176,6 +176,32 @@ public class Barbarian extends Troop{
     }
 
     @Override
+    public void undoRage() {
+        this.setHitSpeed(1.5F);
+        this.getSpeed().setVelocity(2);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)75.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)82.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)90.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)99.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)109.0);
+        }
+    }
+
+    @Override
     public void Left()
     {
         super.Left();

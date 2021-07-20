@@ -8,4 +8,7 @@ public class SpellLevelValue extends LevelValue{
         super(level);
         this.value=value;
     }
+    public float getValue() {
+        return value;
+    }
 }

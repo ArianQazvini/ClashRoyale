@@ -12,6 +12,10 @@ import model.Building.Building;
 import model.Building.Cannon;
 import model.Building.InfernoTower;
 import model.Player;
+import model.Spell.Arrows;
+import model.Spell.Fireball;
+import model.Spell.Rage;
+import model.Spell.Spell;
 import model.TimeWorks;
 import model.Tower.KingTower;
 import model.Tower.PrinceTower;
@@ -43,6 +47,7 @@ public class GameManager {
     private ArrayList<Troop> troops = new ArrayList<>();
     private ArrayList<Tower>  towers= new ArrayList<>();
     private ArrayList<Building> buildings = new ArrayList<>();
+    private ArrayList<Spell> spells = new ArrayList<>();
     private boolean gameFinished = false;
     private Player winner = null;
 //    public Directions CharacterExist(Troop troop, Directions directions)
@@ -472,6 +477,7 @@ public class GameManager {
     }
     public void Step()
     {
+        spellsImpact();
         checkTowersLife();
         checkBuildingsLife();
         checkTroopsLife();
@@ -513,8 +519,8 @@ public class GameManager {
             {
                 move(troops.get(i));
             }
-
         }
+        removeSpells();
     }
     private void towersHit()
     {
@@ -1613,7 +1619,7 @@ public class GameManager {
         {
             opponent.getKingTower().setCanShoot(true);
             removeTower(opponent.getPrinceTower2());
-            princeTowerDeath(player.getPrinceTower2());
+            princeTowerDeath(opponent.getPrinceTower2());
             player.incrementCrownsWon();
         }
         if(player.getKingTower().getLevelInformation().getHp()<=0)
@@ -1915,6 +1921,260 @@ public class GameManager {
         }
         return temp;
     }
-
-
+    private void spellsImpact()
+    {
+        for (int i = 0; i < spells.size(); i++) {
+            if(spells.get(i) instanceof Rage )
+            {
+                Rage temp = (Rage) spells.get(i);
+                rageSpellPurpleBlocks(temp);
+                prepareTargetsforSpell(temp);
+                temp.rageThread();
+            }
+            else
+            {
+                prepareTargetsforSpell(spells.get(i));
+                if(spells.get(i) instanceof Arrows)
+                {
+                    Arrows temp = (Arrows) spells.get(i);
+                    bullets.add(temp.getArrows());
+                    temp.Hit();
+                }
+                else
+                {
+                    Fireball temp = (Fireball) spells.get(i);
+                    bullets.add(temp.getFireball());
+                    temp.Hit();
+                }
+            }
+        }
+    }
+//    private void checkSpellsLife()
+//    {
+////        for (int i = 0; i < spells.size(); i++) {
+////            if(spells.get(i) instanceof Rage)
+////            {
+////                Rage temp = (Rage) spells.get(i);
+////                if(temp.isDone())
+////                {
+////                    resetBlocksImage(temp);
+////                    removeSpell(spells.get(i));
+////                }
+////            }
+////            else
+////            {
+////
+////            }
+////        }
+//    }
+    private void removeSpells()
+    {
+        Iterator<Spell> spellIterator = spells.iterator();
+        while (spellIterator.hasNext()) {
+            Spell spell = spellIterator.next();
+            if (spell instanceof Arrows) {
+                Arrows temp = (Arrows) spell;
+                Iterator<Shape> bulletsIterator = bullets.iterator();
+                while (bulletsIterator.hasNext()) {
+                    Shape help = bulletsIterator.next();
+                    if (help == temp.getArrows()) {
+                        bulletsIterator.remove();
+                        break;
+                    }
+                }
+                spellIterator.remove();
+            } else if (spell instanceof Fireball) {
+                Fireball temp = (Fireball) spell;
+                Iterator<Shape> bulletsIterator = bullets.iterator();
+                while (bulletsIterator.hasNext()) {
+                    Shape help = bulletsIterator.next();
+                    if (help == temp.getFireball()) {
+                        bulletsIterator.remove();
+                        break;
+                    }
+                }
+                spellIterator.remove();
+            }
+            else
+            {
+                Rage temp = (Rage) spell;
+                if(temp.isDone())
+                {
+                    resetBlocksImage(temp);
+                    road();
+                    river();
+                    spellIterator.remove();
+                }
+            }
+        }
+    }
+    private void rageSpellPurpleBlocks(Rage rage)
+    {
+        for (int i = 0; i < 32; i++) {
+            for (int j = 0; j < 18; j++) {
+                if(distance(blocks[i][j].getX(),blocks[i][j].getY(),rage.getX(),rage.getY())<= rage.getRadius()*blockSize && blockisNotTower(blocks[i][j].getX(),blocks[i][j].getY()))
+                {
+                    rage.getGroundImages().add(blocks[i][j]);
+                }
+            }
+        }
+    }
+    private void prepareTargetsforSpell(Spell spell)
+    {
+        if(spell instanceof Rage)
+        {
+            for (int i = 0; i < troops.size(); i++) {
+                if(troops.get(i).getType().equals(spell.getType()) && distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
+                {
+                    spell.getAttackCards().add(troops.get(i));
+                }
+            }
+            for (int i = 0; i < buildings.size(); i++) {
+                if(buildings.get(i).getType().equals(spell.getType()) && distance(buildings.get(i).getX_Current(),buildings.get(i).getY_Current(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
+                {
+                    spell.getAttackCards().add(buildings.get(i));
+                }
+            }
+            for (int i = 0; i <towers.size() ; i++) {
+                if(towers.get(i).getType().equals(spell.getType()) && distance(towers.get(i).getX(),towers.get(i).getY(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
+                {
+                    spell.getTowers().add(towers.get(i));
+                }
+            }
+        }
+        else
+        {
+            for (int i = 0; i < troops.size(); i++) {
+                if(!troops.get(i).getType().equals(spell.getType()) && distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
+                {
+                    spell.getAttackCards().add(troops.get(i));
+                }
+            }
+            for (int i = 0; i < buildings.size(); i++) {
+                if(!buildings.get(i).getType().equals(spell.getType()) && distance(buildings.get(i).getX_Current(),buildings.get(i).getY_Current(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
+                {
+                    spell.getAttackCards().add(buildings.get(i));
+                }
+            }
+            for (int i = 0; i <towers.size() ; i++) {
+                if(!towers.get(i).getType().equals(spell.getType()) && distance(towers.get(i).getX(),towers.get(i).getY(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
+                {
+                    spell.getTowers().add(towers.get(i));
+                }
+            }
+        }
+    }
+    private boolean blockisNotTower(double x , double y)
+    {
+        if(player.getPrinceTower1().getLevelInformation().getHp()>0)
+        {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if(player.getPrinceTower1().getImageViews()[i][j].getX()==x && player.getPrinceTower1().getImageViews()[i][j].getY()==y)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        if(player.getPrinceTower2().getLevelInformation().getHp()>0)
+        {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if(player.getPrinceTower2().getImageViews()[i][j].getX()==x && player.getPrinceTower2().getImageViews()[i][j].getY()==y)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        if(opponent.getPrinceTower1().getLevelInformation().getHp()>0)
+        {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if(opponent.getPrinceTower1().getImageViews()[i][j].getX()==x && opponent.getPrinceTower1().getImageViews()[i][j].getY()==y)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        if(opponent.getPrinceTower2().getLevelInformation().getHp()>0)
+        {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if(opponent.getPrinceTower2().getImageViews()[i][j].getX()==x && opponent.getPrinceTower2().getImageViews()[i][j].getY()==y)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        if(player.getKingTower().getLevelInformation().getHp()>0)
+        {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if(player.getKingTower().getImageViews()[i][j].getX()==x && player.getKingTower().getImageViews()[i][j].getY()==y)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        if(opponent.getKingTower().getLevelInformation().getHp()>0)
+        {
+            for (int i = 0; i < 3; i++) {
+                for (int j = 0; j < 3; j++) {
+                    if(opponent.getKingTower().getImageViews()[i][j].getX()==x && opponent.getKingTower().getImageViews()[i][j].getY()==y)
+                    {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+    private boolean blockIsRiver(double x, double y)
+    {
+        for (int i = 0; i < 2; i++) {
+            for (int j = 0; j < 16; j++) {
+                if(river[i][j].getX()==x && river[i][j].getY()==y)
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private boolean blockIsRoad(double x , double y)
+    {
+        for (int i = 0; i < 24; i++) {
+            for (int j = 0; j < 2; j++) {
+                if(roads[i][j].getX()== x && roads[i][j].getY()== y )
+                {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+    private void resetBlocksImage(Rage rage){
+        for (int i = 0; i < rage.getGroundImages().size(); i++) {
+            if(!blockIsRiver(rage.getGroundImages().get(i).getX(),rage.getGroundImages().get(i).getY()) && !blockIsRoad(rage.getGroundImages().get(i).getX(),rage.getGroundImages().get(i).getY()))
+            {
+                Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+                for (int j = 0; j < 32; j++) {
+                    for (int k = 0; k < 18; k++) {
+                        if(blocks[j][k].getX()==rage.getGroundImages().get(i).getX() && blocks[j][k].getY()==rage.getGroundImages().get(i).getY())
+                        {
+                            blocks[j][k].setImage(grass);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public ArrayList<Spell> getSpells() {
+        return spells;
+    }
 }

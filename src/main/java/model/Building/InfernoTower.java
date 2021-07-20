@@ -210,6 +210,40 @@ public class InfernoTower extends Building{
         ImagePattern imagePattern = new ImagePattern(image);
         fireball.setFill(imagePattern);
     }
+    @Override
+    public void rageImpact()
+    {
+        this.setHitSpeed(this.getHitSpeed() * 1.4F);
+        DamageVary damage = (DamageVary) super.getLevelInformation().getDamage().getValue();
+        damage.setMax(damage.max*1.4);
+    }
+    @Override
+    public void undoRage()
+    {
+        this.setHitSpeed(0.4F);
+        DamageVary damage = (DamageVary) super.getLevelInformation().getDamage().getValue();
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            damage.setMax(400);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            damage.setMax(440);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            damage.setMax(484);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            damage.setMax(532);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            damage.setMax(584);
+        }
+
+    }
 }
 class DamageVary {
     double min;
@@ -223,5 +257,11 @@ class DamageVary {
     }
     public double getMin() {
         return min;
+    }
+    public void setMax(double max) {
+        this.max = max;
+    }
+    public void setMin(double min) {
+        this.min = min;
     }
 }

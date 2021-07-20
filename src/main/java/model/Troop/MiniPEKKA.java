@@ -173,6 +173,33 @@ public class MiniPEKKA extends Troop{
             setShootingTimeTick(0);
         }
     }
+
+    @Override
+    public void undoRage() {
+        this.setHitSpeed(1.8F);
+        this.getSpeed().setVelocity(2.5);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)325.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)357.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)393.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)432.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)474.0);
+        }
+    }
+
     @Override
     public void changePictoTarget()
     {

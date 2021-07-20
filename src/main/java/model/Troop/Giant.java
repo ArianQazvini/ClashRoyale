@@ -173,6 +173,33 @@ public class Giant extends Troop{
             setShootingTimeTick(0);
         }
     }
+
+    @Override
+    public void undoRage() {
+        this.setHitSpeed(1.5F);
+        this.getSpeed().setVelocity(1);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)126.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)138.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)152.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)167.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)183.0);
+        }
+    }
+
     @Override
     public void changePictoTarget()
     {

@@ -28,8 +28,17 @@ public abstract class Tower extends WarObject {
     private int ShootingTimeTick=0;
     private String type ;
     private boolean gotHurt = false;
+    private boolean isRaged =false;
     public float getHitSpeed() {
         return hitSpeed;
+    }
+
+    public void setRaged(boolean raged) {
+        isRaged = raged;
+    }
+
+    public boolean isRaged() {
+        return isRaged;
     }
 
     public void setType(String type) {
@@ -186,4 +195,10 @@ public abstract class Tower extends WarObject {
         ImagePattern imagePattern = new ImagePattern(image);
         this.CanonnBall.setFill(imagePattern);
     }
+    public void rageImpact()
+    {
+        this.setHitSpeed(this.getHitSpeed() * 1.4F);
+        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.4);
+    }
+    public abstract void undoRage();
 }

@@ -15,6 +15,9 @@ import model.Building.InfernoTower;
 import model.Card;
 import model.GameDeck;
 import model.GameDeckObject;
+import model.Spell.Arrows;
+import model.Spell.Fireball;
+import model.Spell.Rage;
 import model.Troop.*;
 import model.Troop.Wizard;
 import model.TimeWorks;
@@ -398,6 +401,66 @@ public class Controller {
                             playGround.getChildren().add(temp.getPicHandler());
                         }
                     }
+                    else if(card instanceof Rage)
+                    {
+                        Rage temp = new Rage();
+                        temp.setX(x);
+                        temp.setY(y);
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                            //playGround.getChildren().add(temp.getPicHandler());
+                        }
+
+                    }
+                    else if(card instanceof Fireball)
+                    {
+                        Fireball temp = new Fireball();
+                        temp.setX(x);
+                        temp.setY(y);
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                            //playGround.getChildren().add(temp.getPicHandler());
+                        }
+
+                    }
+                    else if(card instanceof Arrows)
+                    {
+                        Arrows temp = new Arrows();
+                        temp.setX(x);
+                        temp.setY(y);
+                        if(card.getType().equals("+"))
+                        {
+                            temp.setType("+");
+                            //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                        }
+                        else
+                        {
+                            temp.setType("-");
+                            //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                            gameManager.getSpells().add(temp);
+                            //playGround.getChildren().add(temp.getPicHandler());
+                        }
+
+                    }
                     gameDeck.getGameDeckObjects().add(g);
                     deckOfGameHBox.getChildren().remove(g);
                     gameDeck.setNext();
@@ -656,6 +719,66 @@ public class Controller {
                 gameManager.getBuildings().add(temp);
                 playGround.getChildren().add(temp.getPicHandler());
             }
+        }
+        else if(card instanceof Rage)
+        {
+            Rage temp = new Rage();
+            temp.setX(x);
+            temp.setY(x);
+            if(card.getType().equals("+"))
+            {
+                temp.setType("+");
+                //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+            }
+            else
+            {
+                temp.setType("-");
+                //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+                //playGround.getChildren().add(temp.getPicHandler());
+            }
+
+        }
+        else if(card instanceof Fireball)
+        {
+            Fireball temp = new Fireball();
+            temp.setX(x);
+            temp.setY(x);
+            if(card.getType().equals("+"))
+            {
+                temp.setType("+");
+                //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+            }
+            else
+            {
+                temp.setType("-");
+                //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+                //playGround.getChildren().add(temp.getPicHandler());
+            }
+
+        }
+        else if(card instanceof Arrows)
+        {
+            Arrows temp = new Arrows();
+            temp.setX(x);
+            temp.setY(x);
+            if(card.getType().equals("+"))
+            {
+                temp.setType("+");
+                //gameManager.getPlayer().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+            }
+            else
+            {
+                temp.setType("-");
+                //gameManager.getOpponent().getAttackCardsOnGround().add(temp);
+                gameManager.getSpells().add(temp);
+                //playGround.getChildren().add(temp.getPicHandler());
+            }
+
         }
 
 //                }

@@ -263,6 +263,33 @@ public class Archer extends Troop{
         }
     }
 
+    @Override
+    public void undoRage() {
+        this.getSpeed().setVelocity(2);
+        this.setHitSpeed(1.2F);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)33.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)44.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)48.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)53.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)58.0);
+        }
+
+    }
+
     public void ArrowForward(double dist)
     {
         this.Arrow.setY(this.Arrow.getY()-dist);

@@ -8,7 +8,7 @@ public enum Speed {
     Speed(double velocity) {
         this.velocity = velocity;
     }
-    public void setVelocity(int velocity) {
+    public void setVelocity(double velocity) {
         this.velocity = velocity;
     }
     public double getVelocity() {

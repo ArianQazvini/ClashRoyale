@@ -72,4 +72,29 @@ public class PrinceTower extends Tower{
             super.setLockedTarget(null);
         }
     }
+
+    @Override
+    public void undoRage() {
+        this.setHitSpeed(0.8F);
+        if(this.getLevelInformation().level==Level.LEVEL1)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)50.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL2)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)54.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL3)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)58.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL4)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)62.0);
+        }
+        else if(this.getLevelInformation().level==Level.LEVEL5)
+        {
+            this.getLevelInformation().getDamage().setValue((Double)69.0);
+        }
+    }
 }
