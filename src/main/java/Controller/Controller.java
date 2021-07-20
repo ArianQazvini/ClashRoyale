@@ -74,6 +74,7 @@ public class Controller {
     private ImageView[][] river = new ImageView[2][16];
     private GameManager gameManager= Main.gameManager;
     private TimeWorks gameTimer  = new TimeWorks();
+    private boolean gameisFinished=false;
     public void initialize()
     {
         minText.setEditable(false);
@@ -872,6 +873,8 @@ public class Controller {
             {
                 gameManager.getPlayer().getElixir().setGameFinished(true);
                 gameManager.getOpponent().getElixir().setGameFinished(true);
+                gameTimer.setGameTimesUp(true);
+                gameisFinished=true;
                 timer.cancel();
                 if(gameManager.getWinner()== gameManager.getPlayer())
                 {
@@ -917,7 +920,7 @@ public class Controller {
             @Override
             public void run() {
                 gameManager.getOpponent().setBattleDeck();
-                while (true)
+                while (!gameisFinished)
                 {
                     robotTask();
                 }
