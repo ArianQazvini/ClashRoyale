@@ -20,10 +20,10 @@ public class Elixir extends ProgressBar {
    double maxValue;
    Text valueText;
    private boolean gameFinished=false;
-   private int sleep = 1000;
+   private int sleep = 2000;
     public Elixir(){
         maxValue=10;
-        value=maxValue;
+        value=4;
         setRotate(270);
 //        setHeight(30);
 //        setWidth(90);
@@ -48,7 +48,7 @@ public class Elixir extends ProgressBar {
             @Override
             public void run() {
                 if (value<10)
-                    value+=2;
+                    value+=1;
                     if (value>10)
                         value=10;
                     setElixir(value);

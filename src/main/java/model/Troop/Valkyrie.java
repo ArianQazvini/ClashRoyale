@@ -174,7 +174,7 @@ public class Valkyrie extends Troop{
     @Override
     public void undoRage() {
         this.setHitSpeed(1.5F);
-        this.getSpeed().setVelocity(2);
+        this.getSpeed().setVelocity(1.5);
         if(this.getLevelInformation().level==Level.LEVEL1)
         {
             this.getLevelInformation().getDamage().setValue((Double)120.0);

@@ -282,8 +282,8 @@ public class Cannon extends Building{
     @Override
     public void rageImpact()
     {
-        this.setHitSpeed(this.getHitSpeed()*1.4F);
-        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.4);
+        this.setHitSpeed(this.getHitSpeed()-0.5F);
+        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.5F);
     }
     @Override
     public void undoRage()

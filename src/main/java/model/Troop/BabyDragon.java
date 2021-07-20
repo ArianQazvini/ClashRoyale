@@ -235,7 +235,7 @@ public class BabyDragon extends Troop{
     @Override
     public void undoRage() {
         this.setHitSpeed(1.8F);
-        this.getSpeed().setVelocity(2.5F);
+        this.getSpeed().setVelocity(2);
         if(this.getLevelInformation().level==Level.LEVEL1)
         {
             this.getLevelInformation().getDamage().setValue((Double)100.0);

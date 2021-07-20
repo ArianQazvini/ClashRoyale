@@ -1,4 +1,5 @@
 package services;
+import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import enums.Target;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -52,64 +53,6 @@ public class GameManager {
     private ArrayList<Spell> spells = new ArrayList<>();
     private boolean gameFinished = false;
     private Player winner = null;
-//    public Directions CharacterExist(Troop troop, Directions directions)
-//    {
-//        if(directions==Directions.TOP)
-//        {
-//            for (int i=0;i<player.getTroops().size();i++)
-//            {
-//                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
-//                {
-//                    if(player.getTroops().get(i).getY_Current()- troop.getY_Current()== -20 && player.getTroops().get(i).getX_Current()==troop.getX_Current())
-//                    {
-//                        return Directions.TOP;
-//                    }
-//                }
-//            }
-//        }
-//        else if(directions==Directions.LEFT)
-//        {
-//            for (int i=0;i<player.getTroops().size();i++)
-//            {
-//                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
-//                {
-//                    if(player.getTroops().get(i).getX_Current()- troop.getX_Current()== -20 && player.getTroops().get(i).getY_Current()==troop.getY_Current())
-//                    {
-//                        return Directions.LEFT;
-//                    }
-//                }
-//            }
-//        }
-//        else if(directions==Directions.RIGHT)
-//        {
-//            for (int i=0;i<player.getTroops().size();i++)
-//            {
-//                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
-//                {
-//                    if(player.getTroops().get(i).getX_Current()- troop.getX_Current()== 20 && troop.getY_Current()==player.getTroops().get(i).getY_Current())
-//                    {
-//                        return Directions.RIGHT;
-//                    }
-//                }
-//            }
-//        }
-//        else if(directions==Directions.DOWN)
-//        {
-//            for (int i=0;i<player.getTroops().size();i++)
-//            {
-//                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
-//                {
-//                    if(player.getTroops().get(i).getY_Current()- troop.getY_Current()== 20 && player.getTroops().get(i).getX_Current()==troop.getX_Current())
-//                    {
-//                        return Directions.DOWN;
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
-
-
     public void setOpponent(Robot opponent) {
         this.opponent = opponent;
     }
@@ -484,6 +427,10 @@ public class GameManager {
     }
     public void Step()
     {
+        spellsImpact();
+        removeSpells();
+        addTargetforRage();
+        rageImpactControll();
         checkTowersLife();
         checkBuildingsLife();
         checkTroopsLife();
@@ -526,10 +473,47 @@ public class GameManager {
                 move(troops.get(i));
             }
         }
-        spellsImpact();
-        addTargetforRage();
-        Rage();
-        removeSpells();
+    }
+    private void rageImpactControll()
+    {
+        for (int i = 0; i < troops.size(); i++) {
+            if(troops.get(i).isRaged())
+            {
+                if(troops.get(i).getRage().isDone() || distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),troops.get(i).getRage().getX(),troops.get(i).getRage().getY())> troops.get(i).getRage().getRadius()*blockSize)
+                {
+                    troops.get(i).undoRage();
+                    troops.get(i).setShootingTimeTick(0);
+                    troops.get(i).setRaged(false);
+                    troops.get(i).setRage(null);
+                    System.out.println(troops.get(i).getClass()+ " is un raged");
+                }
+            }
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            if(buildings.get(i).isRaged())
+            {
+                if(buildings.get(i).getRage().isDone())
+                {
+                    buildings.get(i).undoRage();
+                    buildings.get(i).setShootingTimeTick(0);
+                    buildings.get(i).setRaged(false);
+                    buildings.get(i).setRage(null);
+                }
+            }
+        }
+        for (int i = 0; i < towers.size(); i++) {
+            if(towers.get(i).isRaged())
+            {
+                if(towers.get(i).getRage().isDone())
+                {
+                    towers.get(i).undoRage();
+                    towers.get(i).setShootingTimeTick(0);
+                    towers.get(i).setRaged(false);
+                    towers.get(i).setRage(null);
+                }
+            }
+        }
+
     }
 
     private void addTargetforRage() {
@@ -538,23 +522,30 @@ public class GameManager {
             if(spells.get(i) instanceof Rage)
             {
                 temp = (Rage) spells.get(i);
-                if(!temp.isDone())
-                {
+            //    if(!temp.isDone())
+             //   {
                     for (int j = 0; j < troops.size(); j++) {
-                        if(troops.get(i).getType().equals(temp.getType()) && distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
+                        if(troops.get(j).getType().equals(temp.getType()) && !troops.get(j).isRaged() && distance(troops.get(j).getX_Current(),troops.get(j).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
                         {
-                            temp.getAttackCards().add(troops.get(i));
-                            troops.get(i).setRaged(true);
+                            temp.getAttackCards().add(troops.get(j));
+                            troops.get(j).setRaged(true);
+                            troops.get(j).rageImpact();
+                            troops.get(j).setRage(temp);
+                            troops.get(j).setShootingTimeTick(0);
+                            System.out.println(troops.get(j).getClass()+" is raged");
                         }
                     }
                     for (int j = 0; j < buildings.size(); j++) {
-                        if(buildings.get(i).getType().equals(temp.getType()) && distance(buildings.get(i).getX_Current(),buildings.get(i).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
+                        if(buildings.get(j).getType().equals(temp.getType()) && !buildings.get(j).isRaged() && distance(buildings.get(j).getX_Current(),buildings.get(j).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
                         {
-                            temp.getAttackCards().add(buildings.get(i));
-                            buildings.get(i).setRaged(true);
+                            temp.getAttackCards().add(buildings.get(j));
+                            buildings.get(j).setRaged(true);
+                            buildings.get(j).rageImpact();
+                            buildings.get(j).setRage(temp);
+                            buildings.get(j).setShootingTimeTick(0);
                         }
                     }
-                }
+               // }
             }
         }
     }
@@ -1809,12 +1800,13 @@ public class GameManager {
     {
         if(!tower.getType().equals(attackCard.getType()))
         {
-                double min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize);
-                double max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize);
+            if(attackCard instanceof Valkyrie || attackCard instanceof  MiniPEKKA || attackCard instanceof Giant || attackCard instanceof Barbarian)
+            {
+                double min_y = tower.getImageViews()[0][0].getY() - ((attackCard.getRange()+1)*blockSize);
+                double max_y = tower.getImageViews()[2][2].getY() + blockSize  + ((attackCard.getRange()+1)*blockSize);
                 //------------------------
-                double min_x = tower.getImageViews()[0][0].getX() - (attackCard.getRange()*blockSize);
-                double max_x = tower.getImageViews()[2][2].getX() + blockSize + (attackCard.getRange()+ blockSize);
-                //*********************
+                double min_x = tower.getImageViews()[0][0].getX() - ((attackCard.getRange()+1)*blockSize);
+                double max_x = tower.getImageViews()[2][2].getX() + blockSize + ((attackCard.getRange()+1)*blockSize);
                 if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()>= min_y && attackCard.getY_Current()<= max_y)
                 {
                     return true;
@@ -1823,6 +1815,25 @@ public class GameManager {
                 {
                     return false;
                 }
+            }
+            else
+            {
+                double min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize);
+                double max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize);
+                //------------------------
+                double min_x = tower.getImageViews()[0][0].getX() - (attackCard.getRange()*blockSize);
+                double max_x = tower.getImageViews()[2][2].getX() + blockSize + (attackCard.getRange()+ blockSize);
+                if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()>= min_y && attackCard.getY_Current()<= max_y)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+                //*********************
+
         }
         else
         {
@@ -2020,7 +2031,10 @@ public class GameManager {
                 if(rage.isUsed())
                 {
                     for (int j = 0; j < rage.getAttackCards().size(); j++) {
-                        rage.getAttackCards().get(i).rageImpact();
+                        if(rage.getAttackCards().get(i).isRaged())
+                        {
+                            rage.getAttackCards().get(i).rageImpact();
+                        }
                     }
                     for (int j = 0; j < rage.getTowers().size(); j++) {
                         rage.getTowers().get(i).rageImpact();
@@ -2063,32 +2077,32 @@ public class GameManager {
                 if(temp.isDone())
                 {
                     resetBlocksImage(temp);
-                    for (int i = 0; i < temp.getTowers().size(); i++) {
-                        temp.getTowers().get(i).setRaged(false);
-                        temp.getTowers().get(i).undoRage();
-                    }
-                    for (int i = 0; i < temp.getAttackCards().size(); i++) {
-                        temp.getAttackCards().get(i).setRaged(false);
-                        temp.getAttackCards().get(i).undoRage();
-                    }
+//                    for (int i = 0; i < temp.getTowers().size(); i++) {
+//                        temp.getTowers().get(i).setRaged(false);
+//                        temp.getTowers().get(i).undoRage();
+//                    }
+//                    for (int i = 0; i < temp.getAttackCards().size(); i++) {
+//                        temp.getAttackCards().get(i).setRaged(false);
+//                        temp.getAttackCards().get(i).undoRage();
+//                    }
                     road();
                     river();
                     spellIterator.remove();
                 }
             }
         }
-        for (int i = 0; i < troops.size(); i++) {
-            if(!troops.get(i).isRaged())
-            {
-                troops.get(i).undoRage();
-            }
-        }
-        for (int i = 0; i <buildings.size(); i++) {
-            if(buildings.get(i).isRaged())
-            {
-                buildings.get(i).undoRage();
-            }
-        }
+//        for (int i = 0; i < troops.size(); i++) {
+//            if(!troops.get(i).isRaged())
+//            {
+//                troops.get(i).undoRage();
+//            }
+//        }
+//        for (int i = 0; i <buildings.size(); i++) {
+//            if(buildings.get(i).isRaged())
+//            {
+//                buildings.get(i).undoRage();
+//            }
+//        }
     }
     private void rageSpellPurpleBlocks(Rage rage)
     {
@@ -2110,22 +2124,38 @@ public class GameManager {
     {
         if(spell instanceof Rage)
         {
+            Rage rage = (Rage) spell;
             for (int i = 0; i < troops.size(); i++) {
                 if(troops.get(i).getType().equals(spell.getType()) && distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
                 {
                     spell.getAttackCards().add(troops.get(i));
+                    troops.get(i).setRage(rage);
+                    troops.get(i).setRaged(true);
+                    System.out.println(troops.get(i).getSpeed().getVelocity());
+                    troops.get(i).rageImpact();
+                    troops.get(i).setShootingTimeTick(0);
+                    System.out.println(troops.get(i).getClass()+" is raged");
+                    System.out.println(troops.get(i).getSpeed().getVelocity());
                 }
             }
             for (int i = 0; i < buildings.size(); i++) {
                 if(buildings.get(i).getType().equals(spell.getType()) && distance(buildings.get(i).getX_Current(),buildings.get(i).getY_Current(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
                 {
                     spell.getAttackCards().add(buildings.get(i));
+                    buildings.get(i).setRage(rage);
+                    buildings.get(i).setRaged(true);
+                    buildings.get(i).rageImpact();
+                    buildings.get(i).setShootingTimeTick(0);
                 }
             }
             for (int i = 0; i <towers.size() ; i++) {
                 if(towers.get(i).getType().equals(spell.getType()) && distance(towers.get(i).getX(),towers.get(i).getY(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
                 {
                     spell.getTowers().add(towers.get(i));
+                    towers.get(i).setRage(rage);
+                    towers.get(i).setRaged(true);
+                    towers.get(i).rageImpact();
+                    towers.get(i).setShootingTimeTick(0);
                 }
             }
         }

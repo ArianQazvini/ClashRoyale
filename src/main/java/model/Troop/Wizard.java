@@ -282,7 +282,7 @@ public class Wizard extends Troop{
     @Override
     public void undoRage() {
         this.setHitSpeed(1.7F);
-        this.getSpeed().setVelocity(2);
+        this.getSpeed().setVelocity(1.5);
         if(this.getLevelInformation().level==Level.LEVEL1)
         {
             this.getLevelInformation().getDamage().setValue((Double)130.0);

@@ -860,8 +860,8 @@ public class Controller {
             {
                 if(gameTimer.isDoubleElxirTime())
                 {
-                    gameManager.getPlayer().getElixir().setSleep(500);
-                    gameManager.getOpponent().getElixir().setSleep(500);
+                    gameManager.getPlayer().getElixir().setSleep(1000);
+                    gameManager.getOpponent().getElixir().setSleep(1000);
                 }
                 UpdatePage();
                 gameManager.Step();

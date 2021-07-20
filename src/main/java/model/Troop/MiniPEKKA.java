@@ -175,7 +175,7 @@ public class MiniPEKKA extends Troop{
     @Override
     public void undoRage() {
         this.setHitSpeed(1.8F);
-        this.getSpeed().setVelocity(2.5);
+        this.getSpeed().setVelocity(2.0);
         if(this.getLevelInformation().level==Level.LEVEL1)
         {
             this.getLevelInformation().getDamage().setValue((Double)325.0);

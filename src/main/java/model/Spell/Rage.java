@@ -12,14 +12,16 @@ import model.informations.SpellLevelValue;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.concurrent.TimeUnit;
 
 public class Rage extends Spell{
     float damageBoost;
     float speedBoost;
     float hitSpeedBoost;
-    private double time ;
+    private float time ;
     private boolean isDone = false;
     private boolean isUsed =false;
+    private ArrayList<AttackCard> supplementary = new ArrayList<>();
     public Rage(){
         setAvatar("rage.png");
         damageBoost=1.4F;
@@ -56,38 +58,29 @@ public class Rage extends Spell{
         thread.setDaemon(true);
         thread.start();
     }
+
     private void rageTask()
     {
-        Platform.runLater(new Runnable() {
-          //  Image purpleBlock = new Image(new File("src/main/resources/pics/purpleTile.png").toURI().toString());
-            @Override
-            public void run() {
-                for (int i = 0; i < getTowers().size(); i++) {
-                    getTowers().get(i).setRaged(true);
-                   // getTowers().get(i).rageImpact();
-                }
-                for (int i = 0; i < getAttackCards().size(); i++) {
-                    getAttackCards().get(i).setRaged(true);
-                  //  getAttackCards().get(i).rageImpact();
-                }
-            }
-        });
-        while (time >=0)
-        {
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            time-= 0.5;
-            for (int i = 0; i < getAttackCards().size(); i++) {
-                if(distance(getAttackCards().get(i).getX_Current(),getAttackCards().get(i).getY_Current(),this.getX(),this.getY())> getRadius()*20)
-                {
-//                    getAttackCards().get(i).undoRage();
-                    getAttackCards().get(i).setRaged(false);
-//                    removeAttckCard(getAttackCards().get(i));
-                }
-            }
+//        Platform.runLater(new Runnable() {
+//          //  Image purpleBlock = new Image(new File("src/main/resources/pics/purpleTile.png").toURI().toString());
+//            @Override
+//            public void run() {
+//                for (int i = 0; i < getTowers().size(); i++) {
+//                    getTowers().get(i).setRaged(true);
+//                    getTowers().get(i).rageImpact();
+//                }
+//                for (int i = 0; i < getAttackCards().size(); i++) {
+//                    getAttackCards().get(i).setRaged(true);
+//                    getAttackCards().get(i).rageImpact();
+//                }
+//            }
+//        });
+        try {
+            long delay = (long) (time + 1) *1000;
+            System.out.println(delay);
+            Thread.sleep(delay);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
         Platform.runLater(new Runnable() {
             @Override
@@ -124,5 +117,8 @@ public class Rage extends Spell{
     }
     public boolean isUsed() {
         return isUsed;
+    }
+    public ArrayList<AttackCard> getSupplementary() {
+        return supplementary;
     }
 }

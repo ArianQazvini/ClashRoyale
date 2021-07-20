@@ -263,7 +263,7 @@ public class Archer extends Troop{
 
     @Override
     public void undoRage() {
-        this.getSpeed().setVelocity(2);
+        this.getSpeed().setVelocity(1.5);
         this.setHitSpeed(1.2F);
         if(this.getLevelInformation().level==Level.LEVEL1)
         {

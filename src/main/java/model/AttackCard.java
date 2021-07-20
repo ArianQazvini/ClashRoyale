@@ -3,6 +3,7 @@ package model;
 import enums.Speed;
 import enums.Target;
 import javafx.scene.shape.Rectangle;
+import model.Spell.Rage;
 import model.Tower.Tower;
 import model.informations.ACLevelValue;
 import model.informations.LevelInformation;
@@ -22,6 +23,7 @@ public abstract class AttackCard extends Card {
     private Rectangle picHandler = new Rectangle();
     private int ShootingTimeTick =0;
     private boolean isRaged=false;
+    private Rage rage = null;
     public void setLockedTarget(AttackCard lockedTarget) {
             LockedTarget = lockedTarget;
     }
@@ -164,4 +166,12 @@ public abstract class AttackCard extends Card {
     public abstract void resetTimeTick();
     public abstract void rageImpact();
     public abstract void undoRage();
+
+    public void setRage(Rage rage) {
+        this.rage = rage;
+    }
+
+    public Rage getRage() {
+        return rage;
+    }
 }
