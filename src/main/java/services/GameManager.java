@@ -75,17 +75,58 @@ public class GameManager {
         double help_row=0.0;
         double help_col=0.0;
         Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+        Image grass2 = new Image(new File("src/main/resources/pics/lightGreenBlock.png").toURI().toString());
         for (int i = 0; i < 32; i++) {
-            for (int j = 0; j < 18; j++) {
-                blocks[i][j]=new ImageView(grass);
-                blocks[i][j].setFitWidth(20);
-                blocks[i][j].setFitHeight(20);
-                blocks[i][j].setY(help_row);
-                blocks[i][j].setX(help_col);
-                help_col+=blockSize;
+            if(i%2==1)
+            {
+                for (int j = 0; j < 18; j++) {
+                    if(j%2 ==1)
+                    {
+                        blocks[i][j]=new ImageView(grass2);
+                        blocks[i][j].setFitWidth(20);
+                        blocks[i][j].setFitHeight(20);
+                        blocks[i][j].setY(help_row);
+                        blocks[i][j].setX(help_col);
+                        help_col+=blockSize;
+                    }
+                    else
+                    {
+                        blocks[i][j]=new ImageView(grass);
+                        blocks[i][j].setFitWidth(20);
+                        blocks[i][j].setFitHeight(20);
+                        blocks[i][j].setY(help_row);
+                        blocks[i][j].setX(help_col);
+                        help_col+=blockSize;
+                    }
+                }
+                help_row+=blockSize;
+                help_col=0.0;
             }
-            help_row+=blockSize;
-            help_col=0.0;
+            else
+            {
+                for (int j = 0; j < 18; j++) {
+                    if(j%2 ==1)
+                    {
+                        blocks[i][j]=new ImageView(grass);
+                        blocks[i][j].setFitWidth(20);
+                        blocks[i][j].setFitHeight(20);
+                        blocks[i][j].setY(help_row);
+                        blocks[i][j].setX(help_col);
+                        help_col+=blockSize;
+                    }
+                    else
+                    {
+                        blocks[i][j]=new ImageView(grass2);
+                        blocks[i][j].setFitWidth(20);
+                        blocks[i][j].setFitHeight(20);
+                        blocks[i][j].setY(help_row);
+                        blocks[i][j].setX(help_col);
+                        help_col+=blockSize;
+                    }
+                }
+                help_row+=blockSize;
+                help_col=0.0;
+            }
         }
         road();
         river();
@@ -193,8 +234,8 @@ public class GameManager {
     public void createPlayerTowers()
     {
         Image ground = new Image(new File("src/main/resources/pics/terrainTile4.png").toURI().toString());
-        Image pCrown = new Image(new File("src/main/resources/pics/PrinceCrown.png").toURI().toString());
-        Image kCrown = new Image(new File("src/main/resources/pics/KingCrown.png").toURI().toString());
+        Image pCrown = new Image(new File("src/main/resources/pics/PrinceUp.png").toURI().toString());
+        Image kCrown = new Image(new File("src/main/resources/pics/BlueKing.png").toURI().toString());
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(i==1 && j==1)
@@ -275,8 +316,8 @@ public class GameManager {
     public void createBotTowers()
     {
         Image ground = new Image(new File("src/main/resources/pics/terrainTile4.png").toURI().toString());
-        Image pCrown = new Image(new File("src/main/resources/pics/PrinceCrown.png").toURI().toString());
-        Image kCrown = new Image(new File("src/main/resources/pics/KingCrown.png").toURI().toString());
+        Image pCrown = new Image(new File("src/main/resources/pics/PrinceDown.png").toURI().toString());
+        Image kCrown = new Image(new File("src/main/resources/pics/RedKing.png").toURI().toString());
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(i==1 && j==1)
@@ -1843,6 +1884,7 @@ public class GameManager {
             removeTower(player.getPrinceTower1());
             princeTowerDeath(player.getPrinceTower1());
             opponent.incrementCrownsWon();
+            opponent.crownProperty().set(opponent.getCrownsWon());
         }
         if(player.getPrinceTower2().getLevelInformation().getHp()<=0)
         {
@@ -1850,6 +1892,7 @@ public class GameManager {
             removeTower(player.getPrinceTower2());
             princeTowerDeath(player.getPrinceTower2());
             opponent.incrementCrownsWon();
+            opponent.crownProperty().set(opponent.getCrownsWon());
         }
         if(opponent.getPrinceTower1().getLevelInformation().getHp()<=0)
         {
@@ -1857,6 +1900,7 @@ public class GameManager {
             removeTower(opponent.getPrinceTower1());
             princeTowerDeath(opponent.getPrinceTower1());
             player.incrementCrownsWon();
+            player.crownProperty().set(player.getCrownsWon());
         }
         if(opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
         {
@@ -1864,12 +1908,14 @@ public class GameManager {
             removeTower(opponent.getPrinceTower2());
             princeTowerDeath(opponent.getPrinceTower2());
             player.incrementCrownsWon();
+            player.crownProperty().set(player.getCrownsWon());
         }
         if(player.getKingTower().getLevelInformation().getHp()<=0)
         {
             removeTower(player.getKingTower());
             kingTowerDeath(player.getKingTower());
             opponent.setCrownsWon(3);
+            opponent.crownProperty().set(3);
             gameFinished=true;
         }
         if(opponent.getKingTower().getLevelInformation().getHp()<=0)
@@ -1877,6 +1923,7 @@ public class GameManager {
             removeTower(opponent.getKingTower());
             kingTowerDeath(opponent.getKingTower());
             player.setCrownsWon(3);
+            player.crownProperty().set(3);
             gameFinished=true;
         }
     }

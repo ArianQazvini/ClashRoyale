@@ -64,6 +64,13 @@ public class Controller {
     private TextField minText;
     @FXML
     private TextField secondsText;
+    @FXML
+    private ImageView doubleElixirImage;
+    @FXML
+    private TextField RobotCrownsText;
+
+    @FXML
+    private TextField PlayerCrownsText;
     private GameDeck gameDeck;
     private Timer timer;
     private final int blockSize = 20;
@@ -77,6 +84,9 @@ public class Controller {
     private boolean gameisFinished=false;
     public void initialize()
     {
+        ViewService.setBackground(MainGround,"menubg1.jpg");
+        doubleElixirImage.setVisible(false);
+        gameManager.getPlayer().getElixir().setStyle("-fx-accent: purple");
         minText.setEditable(false);
         secondsText.setEditable(false);
         gameResult.setVisible(false);
@@ -95,7 +105,7 @@ public class Controller {
         StartTimer();
         startOpponent();
         gameTimer.gameTimer();
-        setTimerBinders();
+        setBinders();
     }
     private void setDeckOnClick(){
         for (GameDeckObject g:gameDeck.getGameDeckObjects()){
@@ -114,10 +124,12 @@ public class Controller {
             });
         }
     }
-    private void setTimerBinders()
+    private void setBinders()
     {
         minText.textProperty().bind(gameTimer.minProperty().asString());
         secondsText.textProperty().bind(gameTimer.secsProperty().asString());
+        PlayerCrownsText.textProperty().bind(gameManager.getPlayer().crownProperty().asString());
+        RobotCrownsText.textProperty().bind(gameManager.getOpponent().crownProperty().asString());
     }
     @FXML
     void press(Card card,GameDeckObject g) {
@@ -865,6 +877,7 @@ public class Controller {
                 {
                     gameManager.getPlayer().getElixir().setSleep(1000);
                     gameManager.getOpponent().getElixir().setSleep(1000);
+                    doubleElixirImage.setVisible(true);
                 }
                 UpdatePage();
                 gameManager.Step();

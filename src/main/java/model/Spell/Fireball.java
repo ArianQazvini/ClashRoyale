@@ -28,7 +28,7 @@ public class Fireball extends Spell{
     }
     private void setPic()
     {
-        Image arrows = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());
+        Image arrows = new Image(new File("src/main/resources/pics/Characters/explosion2.png").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(arrows);
         this.fireball.setFill(imagePattern);
         this.fireball.setRadius(4*10);
