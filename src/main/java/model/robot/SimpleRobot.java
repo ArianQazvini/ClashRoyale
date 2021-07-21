@@ -8,6 +8,9 @@ import java.util.Random;
 
 public class SimpleRobot extends Robot{
     Random random=new Random();
+    public SimpleRobot(){
+        setName("simple robot");
+    }
     @Override
     public Card chooseFromDeck() {
 

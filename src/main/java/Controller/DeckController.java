@@ -9,10 +9,12 @@ import model.Card;
 import model.CollectionObject;
 import model.DeckObject;
 import sample.Main;
+import services.DatabaseSaving;
 import services.GameManager;
 import services.ViewService;
 
 public class DeckController {
+    DatabaseSaving databaseSaving=Main.databaseSaving;
     GameManager gameManager= Main.gameManager;
     @FXML
     AnchorPane pageArea;
@@ -22,7 +24,6 @@ public class DeckController {
     HBox deckHBox1;
     @FXML
     HBox deckHBox2;
-
     @FXML
     ScrollPane  cardCollectionScrollPane;
     public void initialize() {
@@ -34,7 +35,6 @@ public class DeckController {
         setBattleDeck();
         setCollection();
     }
-
     void setBattleDeck(){
         for (Card c:gameManager.getPlayer().getDeck().getCards()){
             DeckObject deckObject=new DeckObject(cardCollectionHBox,deckHBox1,deckHBox2,c);
@@ -56,6 +56,7 @@ public class DeckController {
     @FXML
     public void back() throws Exception {
         if (deckHBox1.getChildren().stream().count()==4&&deckHBox2.getChildren().stream().count()==4){
+            databaseSaving.save();
             gameManager.setRoot("menu");
         }else
             System.out.println("complete your deck ");

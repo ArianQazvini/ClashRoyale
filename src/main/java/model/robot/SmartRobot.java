@@ -7,6 +7,9 @@ import java.util.Random;
 public class SmartRobot extends Robot{
     Random random=new Random();
     int[][] coordinate=new int[361][1];
+    public SmartRobot(){
+        setName("smart robot");
+    }
     @Override
     public Card chooseFromDeck() {
         int index=random.nextInt(8);

@@ -11,14 +11,17 @@ import javafx.scene.layout.*;
 import model.Player;
 
 import sample.Main;
+import services.DatabaseSaving;
 import services.GameManager;
 import services.ViewService;
 
 import java.io.File;
+import java.sql.SQLException;
 
 public class LogInController {
-    GameManager gameManager=Main.gameManager;
-    Player player= gameManager.getPlayer();
+    DatabaseSaving databaseSaving = Main.databaseSaving;
+    GameManager gameManager = Main.gameManager;
+    Player player = gameManager.getPlayer();
     @FXML
     TextField nameText;
     @FXML
@@ -26,9 +29,12 @@ public class LogInController {
     @FXML
     Button signUpButton;
     @FXML
-    AnchorPane pageArea;
+    Button signInButton;
     @FXML
-    public void signUp() {
+    AnchorPane pageArea;
+
+    @FXML
+    public void signIn() {
         if (nameText != null) {
             if (!nameText.getText().isBlank()) {
                 player.setName(nameText.getText());
@@ -41,39 +47,39 @@ public class LogInController {
         }
         setBorderName();
         setBorderPass();
-        if (player.getName()!=null&&player.getPassword()!=null) {
+        if (player.getName() != null && player.getPassword() != null) {
             try {
-                gameManager.setRoot("menu");
-            }catch (Exception e) {
+                databaseSaving.logIn(player.getName(), player.getPassword());
+                if (databaseSaving.importValues())
+                    gameManager.setRoot("menu");
+                else
+                    System.out.println("wrong information");
+
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
-    public void initialize(){
-        ViewService.setBackground(pageArea,"start_page.jpg");
-        signUpButton.setStyle("-fx-background-color:#ffaa00");
-//        ImageView buttBg=new ImageView(new Image(new File("src/main/resources/pics/20.png").toURI().toString()));
-//        buttBg.setFitWidth(190);
-//        buttBg.setFitHeight(30);
-//        signUpButton.setGraphic(buttBg);
-        //        BackgroundImage bgButt = new BackgroundImage(new Image(new File("src/main/resources/pics/20.png").toURI().toString()),
-//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-//                BackgroundPosition.DEFAULT,
-//                new BackgroundSize(190, 30, false, false, true, false));
-//        signUpButton.setBackground(new Background(bgButt));
+
+    public void initialize() {
+        databaseSaving.startConnection();
+        ViewService.setBackground(pageArea, "start_page.jpg");
+        signUpButton.setStyle("-fx-background-color:#48cf01");
+        signInButton.setStyle("-fx-background-color:#ffb700");
 
 
     }
+
     void setBorderName() {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                    if (nameText.getText().isBlank()) {
-                        nameText.setStyle("-fx-text-box-border:Red");
-                    } else {
-                        nameText.setStyle("-fx-text-box-border:Green");
-                    }
+                if (nameText.getText().isBlank()) {
+                    nameText.setStyle("-fx-text-box-border:Red");
+                } else {
+                    nameText.setStyle("-fx-text-box-border:Green");
                 }
+            }
 
         });
     }
@@ -92,7 +98,26 @@ public class LogInController {
         });
     }
 
+    @FXML
+    public void signUp() {
+        try {
+
+            if (!passwordText.getText().isBlank() && !nameText.getText().isBlank()) {
+                try {
+                    databaseSaving.signUp(nameText.getText(), passwordText.getText());
+                    gameManager.setRoot("menu");
+                } catch (SQLException q) {
+                    System.out.println(q);
+                }
+            }
+            setBorderName();
+            setBorderPass();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
+
 
 
 

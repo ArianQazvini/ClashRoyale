@@ -11,7 +11,9 @@ import java.util.Random;
 public class FulSmartRobot extends Robot{
     Random random=new Random();
     int[][] coordinate=new int[361][1];
-
+    public FulSmartRobot(){
+        setName("ful smart robot");
+    }
     @Override
     public Card chooseFromDeck() {
         if (findCardOnDeck(CardId.giant)!=null){

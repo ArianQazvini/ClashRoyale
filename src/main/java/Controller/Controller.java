@@ -16,13 +16,10 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-import model.AttackCard;
+import model.*;
 import model.Building.Building;
 import model.Building.Cannon;
 import model.Building.InfernoTower;
-import model.Card;
-import model.GameDeck;
-import model.GameDeckObject;
 import model.Spell.Arrows;
 import model.Spell.Fireball;
 import model.Spell.Rage;
@@ -30,19 +27,19 @@ import model.Spell.Spell;
 import model.Troop.*;
 import model.Troop.Troop;
 import model.Troop.Wizard;
-import model.TimeWorks;
 import sample.Main;
+import services.DatabaseSaving;
 import services.GameManager;
 import services.ViewService;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.*;
 
 public class Controller {
+    DatabaseSaving databaseSaving=Main.databaseSaving;
     @FXML
     private ImageView nextCardImageView;
     @FXML
@@ -82,6 +79,8 @@ public class Controller {
         //gameManager.getOpponent().gameManager=gameManager;
         gameManager.CreateMap();
         Warnings.setVisible(false);
+        gameManager.getPlayer().creatElixir();
+        gameManager.getOpponent().creatElixir();
         elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
         valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         gameDeck=new GameDeck(deckOfGameHBox,nextCardImageView);
@@ -124,7 +123,7 @@ public class Controller {
         playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
-                if (!(card instanceof Spell) && (mouseEvent.getY()<=340.0 || !checkValidity(mouseEvent.getX(), mouseEvent.getY())))
+                if (!(card instanceof Spell) &&!gameManager.isValidLocation("player",mouseEvent.getX(), mouseEvent.getY()))
                 {
                     Warnings.setVisible(true);
                     Warnings.setStyle("-fx-text-inner-color:red");
@@ -140,24 +139,24 @@ public class Controller {
             }
         });
     }
-    private boolean checkValidity(double x,double y)
-    {
-        if( x<=80 && x>=20 && y<=620 && y>=560)
-        {
-            return false;
-        }
-        else  if( x<=340 && x>=280 && y<=620 && y>=560)
-        {
-            return false;
-        }
-        else  if( x<=200 && x>=140 && y<=640 && y>=580) {
-            return false;
-        }
-        else
-        {
-            return true;
-        }
-    }
+//    private boolean checkValidity(double x,double y)
+//    {
+//        if( x<=80 && x>=20 && y<=620 && y>=560)
+//        {
+//            return false;
+//        }
+//        else  if( x<=340 && x>=280 && y<=620 && y>=560)
+//        {
+//            return false;
+//        }
+//        else  if( x<=200 && x>=140 && y<=640 && y>=580) {
+//            return false;
+//        }
+//        else
+//        {
+//            return true;
+//        }
+//    }
 
     private void Task(double x,double y,Card card,GameDeckObject g) {
         //if (!(card instanceof Spell)) {
@@ -860,8 +859,8 @@ public class Controller {
             {
                 if(gameTimer.isDoubleElxirTime())
                 {
-                    gameManager.getPlayer().getElixir().setSleep(500);
-                    gameManager.getOpponent().getElixir().setSleep(500);
+                    gameManager.getPlayer().getElixir().setSleep(1000);
+                    gameManager.getOpponent().getElixir().setSleep(1000);
                 }
                 UpdatePage();
                 gameManager.Step();
@@ -877,6 +876,11 @@ public class Controller {
                     gameResult.setText("You won");
                     gameManager.getPlayer().win();
                     gameManager.getOpponent().lose();
+                    try {
+                        databaseSaving.addBattleHistory(new BattleHistory(gameManager.getPlayer().getName(),LocalDate.now().toString()));
+                    }catch (SQLException q){
+                        System.out.println(q);
+                    }
                 }
                 else
                 {
@@ -884,6 +888,11 @@ public class Controller {
                     gameResult.setText("Robot won");
                     gameManager.getOpponent().win();
                     gameManager.getPlayer().lose();
+                    try {
+                        databaseSaving.addBattleHistory(new BattleHistory(gameManager.getOpponent().getName(),LocalDate.now().toString()));
+                    }catch (SQLException q){
+                        System.out.println(q);
+                    }
                 }
             }
         }

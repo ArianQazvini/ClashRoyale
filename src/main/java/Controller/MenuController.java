@@ -30,4 +30,9 @@ public class MenuController {
     public void deck() throws Exception {
         gameManager.setRoot("deck");
     }
+    @FXML
+    public void history() throws Exception {
+        gameManager.setRoot("battle_history");
+    }
+
 }

@@ -12,12 +12,13 @@ import model.Troop.*;
 import java.util.ArrayList;
 
 public class Player {
+    private ArrayList<BattleHistory>battleHistories=new ArrayList<>();
     private ArrayList<Troop> troops = new ArrayList<>();
     private ArrayList<Card>cards=new ArrayList<>();
     private ArrayList<AttackCard>attackCardsOnGround=new ArrayList<>();
     private Deck deck=new Deck();
     private String name;
-    private Elixir elixir=new Elixir();
+    private Elixir elixir;
     private String password;
     private KingTower kingTower= new KingTower();
     private PrinceTower princeTower1=new PrinceTower();
@@ -42,12 +43,19 @@ public class Player {
         this.upPics();
     }
 
+    public ArrayList<BattleHistory> getBattleHistories() {
+        return battleHistories;
+    }
+
     public Elixir getElixir() {
         return elixir;
     }
 
     public void setElixir(double value) {
         elixir.setElixir(value);
+    }
+    public void creatElixir(){
+        this.elixir=new Elixir();
     }
 
     public ArrayList<AttackCard> getAttackCardsOnGround() {

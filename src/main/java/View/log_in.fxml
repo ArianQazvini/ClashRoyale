@@ -10,11 +10,16 @@
 
 <AnchorPane fx:id="pageArea" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.LogInController">
    <children>
-      <TextField fx:id="nameText" layoutX="55.0" layoutY="138.0" prefHeight="30.0" prefWidth="190.0" promptText="username" />
-      <Button fx:id="signUpButton" contentDisplay="CENTER" layoutX="54.0" layoutY="255.0" mnemonicParsing="false" onAction="#signUp" prefHeight="30.0" prefWidth="190.0" text="sign up" textAlignment="JUSTIFY">
+      <TextField fx:id="nameText" layoutX="55.0" layoutY="91.0" prefHeight="30.0" prefWidth="190.0" promptText="username" />
+      <Button fx:id="signUpButton" contentDisplay="CENTER" layoutX="56.0" layoutY="245.0" mnemonicParsing="false" onAction="#signUp" prefHeight="30.0" prefWidth="190.0" text="sign up" textAlignment="JUSTIFY" textFill="WHITE">
          <font>
             <Font name="System Bold" size="15.0" />
          </font></Button>
-      <PasswordField fx:id="passwordText" layoutX="56.0" layoutY="192.0" prefHeight="30.0" prefWidth="190.0" promptText="password" />
+      <PasswordField fx:id="passwordText" layoutX="56.0" layoutY="145.0" prefHeight="30.0" prefWidth="190.0" promptText="password" />
+      <Button fx:id="signInButton" layoutX="56.0" layoutY="206.0" mnemonicParsing="false" onAction="#signIn" prefHeight="30.0" prefWidth="190.0" text="sign in">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Button>
    </children>
 </AnchorPane>
