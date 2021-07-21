@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import model.AttackCard;
@@ -884,11 +885,11 @@ public class Controller {
             }
             else
             {
-                gameManager.getPlayer().getElixir().setGameFinished(true);
-                gameManager.getOpponent().getElixir().setGameFinished(true);
                 gameTimer.setGameTimesUp(true);
                 gameisFinished=true;
                 timer.cancel();
+                gameManager.getPlayer().getElixir().setGameFinished(true);
+                gameManager.getOpponent().getElixir().setGameFinished(true);
                 if(gameManager.getWinner()== gameManager.getPlayer())
                 {
                     gameResult.setVisible(true);

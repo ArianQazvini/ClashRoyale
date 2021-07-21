@@ -966,13 +966,13 @@ public class GameManager {
             {
                 if(riverHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
                 {
-                    if(troop.getX_Current()>=60 && troop.getX_Current() <=80)
+                    if(troop.getX_Current()>=60 && troop.getX_Current() <=70)
                     {
                         troop.WalkingLeftMode();
-                        troop.Left(20);
+                        troop.Left(troop.getX_Current()-40);
                        // smartLeft(troop,20);
                     }
-                    else if(troop.getX_Current()>=80 && troop.getX_Current() <=180)
+                    else if(troop.getX_Current()>70 && troop.getX_Current() <=180)
                     {
                         troop.WalkingLeftMode();
                         troop.Left(troop.getSpeed().getVelocity());
@@ -993,7 +993,7 @@ public class GameManager {
                     else if(troop.getX_Current() >= 320 && troop.getX_Current()<340)
                     {
                         troop.WalkingLeftMode();
-                        troop.Left(20);
+                        troop.Left(troop.getX_Current()-300);
                         //smartLeft(troop,20);
                     }
                     else if (troop.getX_Current()>=340)
@@ -1007,13 +1007,13 @@ public class GameManager {
             else {
                 if(riverHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
                 {
-                    if(troop.getX_Current()>=60 && troop.getX_Current() <=80)
+                    if(troop.getX_Current()>=60 && troop.getX_Current() <=70)
                     {
                         troop.WalkingLeftMode();
-                        troop.Left(20);
-                   //     smartLeft(troop,20);
+                        troop.Left(troop.getX_Current()-40);
+                        //     smartLeft(troop,20);
                     }
-                    else if(troop.getX_Current()>=80 && troop.getX_Current() <=180)
+                    else if(troop.getX_Current()>70 && troop.getX_Current() <=180)
                     {
                         troop.WalkingLeftMode();
                         troop.Left(troop.getSpeed().getVelocity());
@@ -1034,7 +1034,7 @@ public class GameManager {
                     else if(troop.getX_Current() >= 320 && troop.getX_Current()<340)
                     {
                         troop.WalkingLeftMode();
-                        troop.Left(20);
+                        troop.Left(troop.getX_Current()-300);
                        // smartLeft(troop,20);
                     }
                     else if (troop.getX_Current()>=340)
@@ -1139,7 +1139,7 @@ public class GameManager {
             }
             else
             {
-                Tower temp = towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity());
+                Tower temp = towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize);
                 if(temp == opponent.getPrinceTower1())
                 {
                     if(troop.getX_Current()<=20)
@@ -1878,53 +1878,58 @@ public class GameManager {
     }
     private void checkTowersLife()
     {
-        if(player.getPrinceTower1().getLevelInformation().getHp()<=0)
+        Iterator<Tower> iterator = towers.iterator();
+        while (iterator.hasNext())
         {
-            player.getKingTower().setCanShoot(true);
-            removeTower(player.getPrinceTower1());
-            princeTowerDeath(player.getPrinceTower1());
-            opponent.incrementCrownsWon();
-            opponent.crownProperty().set(opponent.getCrownsWon());
-        }
-        if(player.getPrinceTower2().getLevelInformation().getHp()<=0)
-        {
-            player.getKingTower().setCanShoot(true);
-            removeTower(player.getPrinceTower2());
-            princeTowerDeath(player.getPrinceTower2());
-            opponent.incrementCrownsWon();
-            opponent.crownProperty().set(opponent.getCrownsWon());
-        }
-        if(opponent.getPrinceTower1().getLevelInformation().getHp()<=0)
-        {
-            opponent.getKingTower().setCanShoot(true);
-            removeTower(opponent.getPrinceTower1());
-            princeTowerDeath(opponent.getPrinceTower1());
-            player.incrementCrownsWon();
-            player.crownProperty().set(player.getCrownsWon());
-        }
-        if(opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
-        {
-            opponent.getKingTower().setCanShoot(true);
-            removeTower(opponent.getPrinceTower2());
-            princeTowerDeath(opponent.getPrinceTower2());
-            player.incrementCrownsWon();
-            player.crownProperty().set(player.getCrownsWon());
-        }
-        if(player.getKingTower().getLevelInformation().getHp()<=0)
-        {
-            removeTower(player.getKingTower());
-            kingTowerDeath(player.getKingTower());
-            opponent.setCrownsWon(3);
-            opponent.crownProperty().set(3);
-            gameFinished=true;
-        }
-        if(opponent.getKingTower().getLevelInformation().getHp()<=0)
-        {
-            removeTower(opponent.getKingTower());
-            kingTowerDeath(opponent.getKingTower());
-            player.setCrownsWon(3);
-            player.crownProperty().set(3);
-            gameFinished=true;
+            Tower temp = iterator.next();
+            if(temp==player.getPrinceTower1() && temp.getLevelInformation().getHp()<=0)
+            {
+                player.getKingTower().setCanShoot(true);
+                removeTower(player.getPrinceTower1());
+                princeTowerDeath(player.getPrinceTower1());
+                opponent.incrementCrownsWon();
+                opponent.crownProperty().set(opponent.getCrownsWon());
+            }
+            if(temp==player.getPrinceTower2() && temp.getLevelInformation().getHp()<=0)
+            {
+                player.getKingTower().setCanShoot(true);
+                removeTower(player.getPrinceTower2());
+                princeTowerDeath(player.getPrinceTower2());
+                opponent.incrementCrownsWon();
+                opponent.crownProperty().set(opponent.getCrownsWon());
+            }
+            if(temp ==opponent.getPrinceTower1() && temp.getLevelInformation().getHp() <=0)
+            {
+                opponent.getKingTower().setCanShoot(true);
+                removeTower(opponent.getPrinceTower1());
+                princeTowerDeath(opponent.getPrinceTower1());
+                player.incrementCrownsWon();
+                player.crownProperty().set(player.getCrownsWon());
+            }
+            if(temp==opponent.getPrinceTower2() && temp.getLevelInformation().getHp()<=0)
+            {
+                opponent.getKingTower().setCanShoot(true);
+                removeTower(opponent.getPrinceTower2());
+                princeTowerDeath(opponent.getPrinceTower2());
+                player.incrementCrownsWon();
+                player.crownProperty().set(player.getCrownsWon());
+            }
+            if(temp==player.getKingTower() && temp.getLevelInformation().getHp() <=0)
+            {
+                removeTower(player.getKingTower());
+                kingTowerDeath(player.getKingTower());
+                opponent.setCrownsWon(3);
+                opponent.crownProperty().set(3);
+                gameFinished=true;
+            }
+            if(temp==opponent.getKingTower() && temp.getLevelInformation().getHp()<=0)
+            {
+                removeTower(opponent.getKingTower());
+                kingTowerDeath(opponent.getKingTower());
+                player.setCrownsWon(3);
+                player.crownProperty().set(3);
+                gameFinished=true;
+            }
         }
     }
     private void removeTower(Tower tower)

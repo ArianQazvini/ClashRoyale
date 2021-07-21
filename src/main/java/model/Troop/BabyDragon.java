@@ -2,6 +2,8 @@ package model.Troop;
 
 import enums.*;
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
 import model.Damage;

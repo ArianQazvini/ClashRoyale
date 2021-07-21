@@ -10,51 +10,46 @@
 
 <AnchorPane fx:id="MainGround" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="550.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.Controller">
     <children>
-        <AnchorPane fx:id="playGround" layoutX="70.0" layoutY="30.0" prefHeight="640.0" prefWidth="360.0" />
-        <HBox fx:id="deckOfGameHBox" layoutX="120.0" layoutY="673.0" prefHeight="90.0" prefWidth="260.0" spacing="2.5" />
-      <Text fx:id="valueTextOfElixir" layoutX="69.0" layoutY="788.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <HBox fx:id="elixirHBox" alignment="CENTER_LEFT" layoutX="43.0" layoutY="719.0" prefHeight="30.0" prefWidth="80.0" />
-      <Text fx:id="Warnings" fill="#fa0000" layoutX="16.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="133.87090301513672" />
-      <Text fx:id="gameResult" fill="#e7e710" layoutX="178.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="143.47093963623047">
-         <font>
-            <Font size="18.0" />
-         </font></Text>
-      <TextField fx:id="minText" editable="false" focusTraversable="false" layoutX="406.0" layoutY="1.0" prefHeight="4.0" prefWidth="31.0" />
-      <TextField fx:id="secondsText" editable="false" focusTraversable="false" layoutX="445.0" layoutY="1.0" prefHeight="4.0" prefWidth="31.0" />
+        <Text fx:id="Warnings" fill="#fa0000" layoutX="16.0" layoutY="18.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="133.87090301513672" />
+        <Text fx:id="gameResult" fill="#e7e710" layoutX="178.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="143.47093963623047">
+            <font>
+                <Font size="18.0" />
+            </font></Text>
+        <TextField fx:id="minText" editable="false" focusTraversable="false" layoutX="406.0" layoutY="1.0" prefHeight="4.0" prefWidth="31.0" />
+        <TextField fx:id="secondsText" editable="false" focusTraversable="false" layoutX="445.0" layoutY="1.0" prefHeight="4.0" prefWidth="31.0" />
         <AnchorPane fx:id="playGround" layoutX="101.0" layoutY="30.0" prefHeight="640.0" prefWidth="360.0" />
         <HBox fx:id="deckOfGameHBox" layoutX="122.0" layoutY="672.0" prefHeight="90.0" prefWidth="333.0" spacing="2.5" />
-      <Text fx:id="valueTextOfElixir" layoutX="36.0" layoutY="792.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <HBox fx:id="elixirHBox" alignment="CENTER_LEFT" layoutX="13.0" layoutY="717.0" prefHeight="30.0" prefWidth="80.0">
-         <children>
-            <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../resources/pics/Elxir.png" />
-               </image>
-            </ImageView>
-         </children></HBox>
-      <Text fx:id="Warnings" fill="#fa0000" layoutX="-14.0" layoutY="16.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="133.87090301513672" />
-      <ImageView fx:id="nextCardImageView" fitHeight="51.0" fitWidth="40.0" layoutX="455.0" layoutY="692.0" opacity="0.38" pickOnBounds="true" preserveRatio="true" />
-      <ImageView fx:id="doubleElixirImage" fitHeight="69.0" fitWidth="52.0" layoutX="487.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/pics/DoubleElixir.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="26.0" fitWidth="31.0" layoutX="497.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/pics/RedCrown.png" />
-         </image>
-      </ImageView>
-      <TextField fx:id="RobotCrownsText" editable="false" focusTraversable="false" layoutX="502.0" layoutY="207.0" prefHeight="6.0" prefWidth="22.0" />
-      <ImageView fitHeight="26.0" fitWidth="31.0" layoutX="498.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/pics/BlueCrown.png" />
-         </image>
-      </ImageView>
-      <TextField fx:id="PlayerCrownsText" editable="false" focusTraversable="false" layoutX="502.0" layoutY="256.0" prefHeight="6.0" prefWidth="22.0" />
-      <ImageView fitHeight="16.0" fitWidth="22.0" layoutX="479.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../resources/pics/Duracao%20de%20Vida.png" />
-         </image>
-      </ImageView>
+        <Text fx:id="valueTextOfElixir" layoutX="47.0" layoutY="529.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+        <HBox fx:id="elixirHBox" alignment="CENTER_LEFT" layoutX="7.0" layoutY="428.0" prefHeight="77.0" prefWidth="80.0">
+            <children>
+                <ImageView fitHeight="30.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+                    <image>
+                        <Image url="@../../resources/pics/Elxir.png" />
+                    </image>
+                </ImageView>
+            </children></HBox>
+        <ImageView fx:id="nextCardImageView" fitHeight="51.0" fitWidth="40.0" layoutX="455.0" layoutY="692.0" opacity="0.38" pickOnBounds="true" preserveRatio="true" />
+        <ImageView fx:id="doubleElixirImage" fitHeight="69.0" fitWidth="52.0" layoutX="487.0" layoutY="64.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../resources/pics/DoubleElixir.png" />
+            </image>
+        </ImageView>
+        <ImageView fitHeight="26.0" fitWidth="31.0" layoutX="497.0" layoutY="184.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../resources/pics/RedCrown.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="RobotCrownsText" editable="false" focusTraversable="false" layoutX="502.0" layoutY="207.0" prefHeight="6.0" prefWidth="22.0" />
+        <ImageView fitHeight="26.0" fitWidth="31.0" layoutX="498.0" layoutY="233.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../resources/pics/BlueCrown.png" />
+            </image>
+        </ImageView>
+        <TextField fx:id="PlayerCrownsText" editable="false" focusTraversable="false" layoutX="502.0" layoutY="256.0" prefHeight="6.0" prefWidth="22.0" />
+        <ImageView fitHeight="16.0" fitWidth="22.0" layoutX="479.0" layoutY="6.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+                <Image url="@../../resources/pics/Clock.png" />
+            </image>
+        </ImageView>
     </children>
 </AnchorPane>
