@@ -2309,14 +2309,20 @@ public class GameManager {
                 if(spells.get(i) instanceof Arrows)
                 {
                     Arrows temp = (Arrows) spells.get(i);
-                    bullets.add(temp.getArrows());
-                    temp.Hit();
+                    if(!temp.isUsed())
+                    {
+                        bullets.add(temp.getArrows());
+                        temp.arrowThread();
+                    }
                 }
                 else
                 {
                     Fireball temp = (Fireball) spells.get(i);
-                    bullets.add(temp.getFireball());
-                    temp.Hit();
+                    if(!temp.isUsed())
+                    {
+                        bullets.add(temp.getFireball());
+                        temp.fireThread();
+                    }
                 }
             }
         }
@@ -2367,26 +2373,32 @@ public class GameManager {
             Spell spell = spellIterator.next();
             if (spell instanceof Arrows) {
                 Arrows temp = (Arrows) spell;
-                Iterator<Shape> bulletsIterator = bullets.iterator();
-                while (bulletsIterator.hasNext()) {
-                    Shape help = bulletsIterator.next();
-                    if (help == temp.getArrows()) {
-                        bulletsIterator.remove();
-                        break;
+                if(temp.isDone())
+                {
+                    Iterator<Shape> bulletsIterator = bullets.iterator();
+                    while (bulletsIterator.hasNext()) {
+                        Shape help = bulletsIterator.next();
+                        if (help == temp.getArrows()) {
+                            bulletsIterator.remove();
+                            break;
+                        }
                     }
+                    spellIterator.remove();
                 }
-                spellIterator.remove();
             } else if (spell instanceof Fireball) {
                 Fireball temp = (Fireball) spell;
-                Iterator<Shape> bulletsIterator = bullets.iterator();
-                while (bulletsIterator.hasNext()) {
-                    Shape help = bulletsIterator.next();
-                    if (help == temp.getFireball()) {
-                        bulletsIterator.remove();
-                        break;
+                if(temp.isDone())
+                {
+                    Iterator<Shape> bulletsIterator = bullets.iterator();
+                    while (bulletsIterator.hasNext()) {
+                        Shape help = bulletsIterator.next();
+                        if (help == temp.getFireball()) {
+                            bulletsIterator.remove();
+                            break;
+                        }
                     }
+                    spellIterator.remove();
                 }
-                spellIterator.remove();
             }
             else
             {
@@ -2597,13 +2609,26 @@ public class GameManager {
             if(!blockIsRiver(rage.getGroundImages().get(i).getX(),rage.getGroundImages().get(i).getY()) && !blockIsRoad(rage.getGroundImages().get(i).getX(),rage.getGroundImages().get(i).getY()))
             {
                 Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+                Image grass2 = new Image(new File("src/main/resources/pics/lightGreenBlock.png").toURI().toString());
                 for (int j = 0; j < 32; j++) {
                     for (int k = 0; k < 18; k++) {
-                        if(blocks[j][k].getX()==rage.getGroundImages().get(i).getX() && blocks[j][k].getY()==rage.getGroundImages().get(i).getY())
+                        if((j%2==1 && k%2==1) || (j%2==0 && k%2==0))
                         {
-                            blocks[j][k].setImage(grass);
+                            if(blocks[j][k].getX()==rage.getGroundImages().get(i).getX() && blocks[j][k].getY()==rage.getGroundImages().get(i).getY())
+                            {
+                                blocks[j][k].setImage(grass2);
 //                            blocks[j][k].setFitWidth(20);
 //                            blocks[j][k].setFitHeight(20);
+                            }
+                        }
+                        else
+                        {
+                            if(blocks[j][k].getX()==rage.getGroundImages().get(i).getX() && blocks[j][k].getY()==rage.getGroundImages().get(i).getY())
+                            {
+                                blocks[j][k].setImage(grass);
+//                            blocks[j][k].setFitWidth(20);
+//                            blocks[j][k].setFitHeight(20);
+                            }
                         }
                     }
                 }
