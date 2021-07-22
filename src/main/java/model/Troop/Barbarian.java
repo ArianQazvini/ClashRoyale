@@ -8,7 +8,13 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type Barbarian.
+ */
 public class Barbarian extends Troop{
+    /**
+     * Instantiates a new Barbarian.
+     */
     public Barbarian(){
         setAvatar("barbarians.png");
         super.setCount(4);

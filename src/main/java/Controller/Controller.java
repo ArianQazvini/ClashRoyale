@@ -192,11 +192,11 @@ public class Controller {
     }
 
     /**
-     * create an instance of selected card an add it to playground
-     * @param x
-     * @param y
-     * @param card
-     * @param g
+     * create an instance of selected card an add it to playground also fix it's type
+     * @param x mouse x
+     * @param y mouse y
+     * @param card selected card
+     * @param g g
      */
     private void Task(double x,double y,Card card,GameDeckObject g) {
                     if(card instanceof Archer)
@@ -540,6 +540,13 @@ public class Controller {
 
        // }
     }
+    /**
+     * (for robot)create an instance of selected card an add it to playground also fix it's type
+     * @param x mouse x
+     * @param y mouse y
+     * @param card selected card
+     * @param g g
+     */
     private void TaskR(double x,double y,Card card,GameDeckObject g) {
         if(card instanceof Archer)
         {
@@ -875,13 +882,15 @@ public class Controller {
             }
 
         }
-
-//                }
-//            });
-
-        // }
     }
 
+    /**
+     * this method fix attack card on a ground blocks
+     * at it's first use
+     * @param temp selected attack card
+     * @param mouse_x mouse x
+     * @param mouse_y mouse y
+     */
     private void FixLocation(AttackCard temp , double mouse_x, double mouse_y)
     {
         int xPass = (int)mouse_x/blockSize;
@@ -901,6 +910,11 @@ public class Controller {
             }
         }
     }
+
+    /**
+     * this method clears every thing on playground
+     * and refill with gameManager arraylists
+     */
     private void UpdatePage()
     {
         playGround.getChildren().clear();
@@ -921,6 +935,10 @@ public class Controller {
             playGround.getChildren().add(gameManager.getBullets().get(i));
         }
     }
+
+    /**
+     * game loop - update page every 0.1 secs
+     */
     private void StartTimer()
     {
         this.timer = new Timer();
@@ -942,6 +960,12 @@ public class Controller {
         this.timer.schedule(timerTask,0,100);
 
     }
+
+    /**
+     *  update page
+     *  and also check if game is finished or not
+     * @throws Exception
+     */
     private void update() throws Exception {
         if(gameManager.getTroops().size()!=0)
         {
@@ -976,7 +1000,7 @@ public class Controller {
     }
 
     /**
-     * Robot task.
+     * Robot task. - choosing a card and location for it
      */
     void robotTask(){
         Platform.runLater(new Runnable() {
@@ -1002,7 +1026,7 @@ public class Controller {
     }
 
     /**
-     * Start opponent.
+     * Start opponent thread.
      */
     void startOpponent(){
         Thread thread=new Thread(new Runnable() {
@@ -1018,6 +1042,12 @@ public class Controller {
         thread.setDaemon(true);
         thread.start();
     }
+
+    /**
+     * Show results
+     * @param winner winner
+     * @param looser looser
+     */
     private void showResult(Player winner,Player looser){
         gameResult.setVisible(true);
         winningPage.setVisible(true);

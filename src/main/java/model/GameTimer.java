@@ -5,13 +5,44 @@ import javafx.scene.control.TextField;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The type Game timer.
+ */
 public class GameTimer implements Runnable{
+    /**
+     * The Second timer text.
+     */
     TextField secondTimerText;
+    /**
+     * The Minute timer text.
+     */
     TextField minuteTimerText;
+    /**
+     * The My timer.
+     */
     Timer myTimer = new Timer();
+    /**
+     * The Max time.
+     */
     int maxTime;
+    /**
+     * The Time.
+     */
     int time;
-    int sec,min;
+    /**
+     * The Sec.
+     */
+    int sec, /**
+     * The Min.
+     */
+    min;
+
+    /**
+     * Instantiates a new Game timer.
+     *
+     * @param secondTimerText the second timer text
+     * @param minuteTimerText the minute timer text
+     */
     public GameTimer(TextField secondTimerText,
             TextField minuteTimerText){
         maxTime=120;

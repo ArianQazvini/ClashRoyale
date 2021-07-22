@@ -12,8 +12,15 @@ import model.informations.ACLevelValue;
 import java.io.File;
 import java.nio.file.Paths;
 
+/**
+ * The type Baby dragon.
+ */
 public class BabyDragon extends Troop{
     private Circle fireball = new Circle();
+
+    /**
+     * Instantiates a new Baby dragon.
+     */
     public BabyDragon(){
         setAvatar("baby-dragon.png");
         super.setCount(1);
@@ -261,22 +268,51 @@ public class BabyDragon extends Troop{
         }
     }
 
+    /**
+     * Fire ball forward.
+     *
+     * @param dist the dist
+     */
     public void FireBallForward(double dist)
     {
         this.fireball.setCenterY(this.fireball.getCenterY()-dist);
     }
+
+    /**
+     * Fire ball back ward.
+     *
+     * @param dist the dist
+     */
     public void FireBallBackWard(double dist)
     {
         this.fireball.setCenterY(this.fireball.getCenterY()+dist);
     }
+
+    /**
+     * Fire ball left.
+     *
+     * @param dist the dist
+     */
     public void FireBallLeft(double dist)
     {
         this.fireball.setCenterX(this.fireball.getCenterX()-dist);
     }
+
+    /**
+     * Fire ball right.
+     *
+     * @param dist the dist
+     */
     public void FireBallRight(double dist)
     {
         this.fireball.setCenterX(this.fireball.getCenterX()+dist);
     }
+
+    /**
+     * Gets fireball.
+     *
+     * @return the fireball
+     */
     public Circle getFireball() {
         return fireball;
     }

@@ -9,8 +9,15 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type Wizard.
+ */
 public class Wizard extends Troop{
     private Circle fireball = new Circle();
+
+    /**
+     * Instantiates a new Wizard.
+     */
     public Wizard(){
         setAvatar("wizard.png");
         super.setCount(1);
@@ -249,23 +256,52 @@ public class Wizard extends Troop{
         fireball.setCenterX(this.getX_Current());
         fireball.setCenterY(this.getY_Current());
     }
+
+    /**
+     * Fire ball forward.
+     *
+     * @param dist the dist
+     */
     public void FireBallForward(double dist)
     {
         this.fireball.setCenterY(this.fireball.getCenterY()-dist);
     }
+
+    /**
+     * Fire ball back ward.
+     *
+     * @param dist the dist
+     */
     public void FireBallBackWard(double dist)
     {
         this.fireball.setCenterY(this.fireball.getCenterY()+dist);
     }
+
+    /**
+     * Fire ball left.
+     *
+     * @param dist the dist
+     */
     public void FireBallLeft(double dist)
     {
         this.fireball.setCenterX(this.fireball.getCenterX()-dist);
     }
+
+    /**
+     * Fire ball right.
+     *
+     * @param dist the dist
+     */
     public void FireBallRight(double dist)
     {
         this.fireball.setCenterX(this.fireball.getCenterX()+dist);
     }
 
+    /**
+     * Gets fireball.
+     *
+     * @return the fireball
+     */
     public Circle getFireball() {
         return fireball;
     }
@@ -305,6 +341,9 @@ public class Wizard extends Troop{
         }
     }
 
+    /**
+     * Fireball location update.
+     */
     public void fireballLocationUpdate()
     {
         this.fireball.setCenterX(this.getX_Current());

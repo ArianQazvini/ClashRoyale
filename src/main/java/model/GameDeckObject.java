@@ -7,8 +7,20 @@ import javafx.scene.image.ImageView;
 import java.awt.*;
 import java.io.File;
 
+/**
+ * The type Game deck object.
+ */
 public class GameDeckObject extends Button {
+    /**
+     * The Card.
+     */
     Card card;
+
+    /**
+     * Instantiates a new Game deck object.
+     *
+     * @param card the card
+     */
     public GameDeckObject(Card card){
         this.card=card;
         ImageView imageView=new ImageView(new Image(new File("src/main/resources/pics/cards/"+ card.getAvatar()).toURI().toString()));
@@ -19,6 +31,11 @@ public class GameDeckObject extends Button {
         setWidth(60);
     }
 
+    /**
+     * Gets card.
+     *
+     * @return the card
+     */
     public Card getCard() {
         return card;
     }

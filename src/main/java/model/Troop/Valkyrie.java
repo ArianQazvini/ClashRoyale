@@ -8,7 +8,13 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type Valkyrie.
+ */
 public class Valkyrie extends Troop{
+    /**
+     * Instantiates a new Valkyrie.
+     */
     public Valkyrie(){
         setAvatar("valkyrie.png");
         super.setCount(1);

@@ -9,8 +9,15 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type Archer.
+ */
 public class Archer extends Troop{
     private Rectangle Arrow = new Rectangle();
+
+    /**
+     * Instantiates a new Archer.
+     */
     public Archer(){
         setAvatar("archers.png");
         super.setCount(2);
@@ -288,23 +295,51 @@ public class Archer extends Troop{
 
     }
 
+    /**
+     * Arrow forward.
+     *
+     * @param dist the dist
+     */
     public void ArrowForward(double dist)
     {
         this.Arrow.setY(this.Arrow.getY()-dist);
     }
+
+    /**
+     * Arrow back ward.
+     *
+     * @param dist the dist
+     */
     public void ArrowBackWard(double dist)
     {
         this.Arrow.setY(this.Arrow.getY()+dist);
     }
+
+    /**
+     * Arrow left.
+     *
+     * @param dist the dist
+     */
     public void ArrowLeft(double dist)
     {
         this.Arrow.setX(this.Arrow.getX()-dist);
     }
+
+    /**
+     * Arrow right.
+     *
+     * @param dist the dist
+     */
     public void ArrowRight(double dist)
     {
         this.Arrow.setX(this.Arrow.getX()+dist);
     }
 
+    /**
+     * Gets arrow.
+     *
+     * @return the arrow
+     */
     public Rectangle getArrow() {
         return Arrow;
     }

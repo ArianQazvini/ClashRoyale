@@ -5,11 +5,21 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
 import java.io.File;
 
+/**
+ * The type Pic handler.
+ */
 public class PicHandler extends Rectangle {
     private Card owner;
     private String walkingPic;
     private static int index=0;
     private String id ;
+
+    /**
+     * Instantiates a new Pic handler.
+     *
+     * @param owner      the owner
+     * @param walkingPic the walking pic
+     */
     public PicHandler(Card owner, String walkingPic) {
         this.owner = owner;
         this.walkingPic = walkingPic;
@@ -17,6 +27,9 @@ public class PicHandler extends Rectangle {
         id = "Pic"+index;
     }
 
+    /**
+     * Sets walking mode.
+     */
     public void setWalkingMode() {
         Image image = new Image(new File(walkingPic).toURI().toString());
         ImagePattern imagePattern = new ImagePattern(image);
@@ -25,9 +38,20 @@ public class PicHandler extends Rectangle {
         super.setHeight(20);
     }
 
+    /**
+     * Gets .
+     *
+     * @return the
+     */
     public String getid() {
         return id;
     }
+
+    /**
+     * Sets .
+     *
+     * @param id the id
+     */
     public void setid(String id) {
         this.id = id;
     }
@@ -54,9 +78,20 @@ public class PicHandler extends Rectangle {
         }
     }
 
+    /**
+     * Sets owner.
+     *
+     * @param owner the owner
+     */
     public void setOwner(Card owner) {
         this.owner = owner;
     }
+
+    /**
+     * Gets owner.
+     *
+     * @return the owner
+     */
     public Card getOwner() {
         return owner;
     }
