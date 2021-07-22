@@ -11,6 +11,8 @@ import java.io.File;
 
 /**
  * The type Archer.
+ * @author ArianQazvini - NegarAnabestani
+ * @version 1.0
  */
 public class Archer extends Troop{
     private Rectangle Arrow = new Rectangle();
@@ -36,6 +38,9 @@ public class Archer extends Troop{
         setId(CardId.archer);
     }
 
+    /**
+     * Hit method
+     */
     @Override
     public void Hit()
     {
@@ -138,6 +143,9 @@ public class Archer extends Troop{
         }
     }
 
+    /**
+     *  set Walking top mode pic
+     */
     @Override
     public void WalkingTopMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ArcherWalk_Up.png").toURI().toString());
@@ -148,7 +156,9 @@ public class Archer extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     *  set Walking left mode pic
+     */
     @Override
     public void WalkingLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ArcherWalk_Left.png").toURI().toString());
@@ -159,7 +169,9 @@ public class Archer extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     *  set Walking right mode pic
+     */
     @Override
     public void WalkingRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ArcherWalk_Right.png").toURI().toString());
@@ -170,7 +182,9 @@ public class Archer extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     *  set Walking down mode pic
+     */
     @Override
     public void WalkingDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ArcherWalk_Down.png").toURI().toString());
@@ -181,7 +195,9 @@ public class Archer extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     *  set Hit top mode pic
+     */
     @Override
     public void HitUpMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ArcherHit_Up.png").toURI().toString());
@@ -200,7 +216,9 @@ public class Archer extends Troop{
         this.Arrow.setX(super.getX_Current());
         this.Arrow.setY(super.getY_Current());
     }
-
+    /**
+     *  set Hit down mode pic
+     */
     @Override
     public void HitDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ArcherHit_Down.png").toURI().toString());
@@ -219,7 +237,9 @@ public class Archer extends Troop{
         this.Arrow.setX(super.getX_Current());
         this.Arrow.setY(super.getY_Current());
     }
-
+    /**
+     *  set Hit left mode pic
+     */
     @Override
     public void HitLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ArcherHit_Left.png").toURI().toString());
@@ -238,7 +258,9 @@ public class Archer extends Troop{
         this.Arrow.setX(super.getX_Current());
         this.Arrow.setY(super.getY_Current());
     }
-
+    /**
+     *  set Hit right mode pic
+     */
     @Override
     public void HitRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ArcherHit_Right.png").toURI().toString());
@@ -257,7 +279,9 @@ public class Archer extends Troop{
         this.Arrow.setX(super.getX_Current());
         this.Arrow.setY(super.getY_Current());
     }
-
+    /**
+     *  set timetick to 0
+     */
     @Override
     public void resetTimeTick() {
         if(getShootingTimeTick()==getHitSpeed()*10)
@@ -267,7 +291,9 @@ public class Archer extends Troop{
             this.Arrow.setY(this.getY_Current());
         }
     }
-
+    /**
+     *  reset rage effect
+     */
     @Override
     public void undoRage() {
         this.getSpeed().setVelocity(1.5);

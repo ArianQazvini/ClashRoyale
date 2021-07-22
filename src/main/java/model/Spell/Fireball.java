@@ -13,10 +13,14 @@ import model.informations.SpellLevelValue;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * The type Fireball.
+ */
 public class Fireball extends Spell{
     private Circle fireball = new Circle();
-    private boolean isDone = false;
-    private boolean isUsed = false;
+    /**
+     * Instantiates a new Fireball.
+     */
     public Fireball(){
         setAvatar("fireball.png");
         setRadius(2.5F);
@@ -39,18 +43,26 @@ public class Fireball extends Spell{
         this.fireball.setCenterY(this.getY());
 
     }
+
+    /**
+     * Fire thread.
+     */
     public void fireThread()
     {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                isUsed=true;
+                setUsed(true);
                 graphicStaff();
             }
         });
         thread.setDaemon(true);
         thread.start();
     }
+
+    /**
+     * Graphic staff.
+     */
     public void graphicStaff()
     {
         Platform.runLater(new Runnable() {
@@ -65,8 +77,12 @@ public class Fireball extends Spell{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        isDone= true;
+       setDone(true);
     }
+
+    /**
+     * Hit.
+     */
     public void Hit()
     {
 
@@ -78,13 +94,12 @@ public class Fireball extends Spell{
         }
     }
 
+    /**
+     * Gets fireball.
+     *
+     * @return the fireball
+     */
     public Circle getFireball() {
         return fireball;
-    }
-    public boolean isDone() {
-        return isDone;
-    }
-    public boolean isUsed() {
-        return isUsed;
     }
 }

@@ -12,8 +12,17 @@ import model.informations.ACLevelValue;
 import java.io.File;
 import java.util.Calendar;
 
+/**
+ * The type Cannon.
+ * @author ArianQazvini - NegarAnabestani
+ * @version 1.0
+ */
 public class Cannon extends Building{
     private Circle CanonnBall = new Circle();
+
+    /**
+     * Instantiates a new Cannon.
+     */
     public Cannon(){
         setAvatar("cannon.png");
         setHitSpeed(0.8F);
@@ -29,6 +38,10 @@ public class Cannon extends Building{
         setLevelInformation(super.getLevel1());
         setId(CardId.cannon);
     }
+
+    /**
+     * Up pic.
+     */
     public void UpPic()
     {
         Image image = new Image(new File("src/main/resources/pics/Characters/CanonUp.png").toURI().toString());
@@ -46,6 +59,10 @@ public class Cannon extends Building{
         CanonnBall.setCenterX(this.getX_Current());
         CanonnBall.setCenterY(this.getY_Current());
     }
+
+    /**
+     * Down pic.
+     */
     public void DownPic()
     {
         Image image = new Image(new File("src/main/resources/pics/Characters/CanonDown.png").toURI().toString());
@@ -63,6 +80,10 @@ public class Cannon extends Building{
         CanonnBall.setCenterX(this.getX_Current());
         CanonnBall.setCenterY(this.getY_Current());
     }
+
+    /**
+     * Left pic.
+     */
     public void LeftPic()
     {
         Image image = new Image(new File("src/main/resources/pics/Characters/CanonLeft.png").toURI().toString());
@@ -80,6 +101,10 @@ public class Cannon extends Building{
         CanonnBall.setCenterX(this.getX_Current());
         CanonnBall.setCenterY(this.getY_Current());
     }
+
+    /**
+     * Right pic.
+     */
     public void RightPic()
     {
         Image image = new Image(new File("src/main/resources/pics/Characters/CanonRight.png").toURI().toString());
@@ -97,22 +122,50 @@ public class Cannon extends Building{
         CanonnBall.setCenterX(this.getX_Current());
         CanonnBall.setCenterY(this.getY_Current());
     }
+
+    /**
+     * Cannon ball forward.
+     *
+     * @param dist the dist
+     */
     public void CannonBallForward(double dist)
     {
       this.CanonnBall.setCenterY(this.CanonnBall.getCenterY()-dist);
     }
+
+    /**
+     * Cannon ball back ward.
+     *
+     * @param dist the dist
+     */
     public void CannonBallBackWard(double dist)
     {
         this.CanonnBall.setCenterY(this.CanonnBall.getCenterY()+dist);
     }
+
+    /**
+     * Cannon ball left.
+     *
+     * @param dist the dist
+     */
     public void CannonBallLeft(double dist)
     {
         this.CanonnBall.setCenterX(this.CanonnBall.getCenterX()-dist);
     }
+
+    /**
+     * Cannon ball right.
+     *
+     * @param dist the dist
+     */
     public void CannonBallRight(double dist)
     {
         this.CanonnBall.setCenterX(this.CanonnBall.getCenterX()+dist);
     }
+
+    /**
+     * Hit method
+     */
     @Override
     public void Hit()
     {
@@ -219,9 +272,19 @@ public class Cannon extends Building{
             setShootingTimeTick(0);
         }
     }
+
+    /**
+     * Gets canonn ball.
+     *
+     * @return the canonn ball
+     */
     public Circle getCanonnBall() {
         return CanonnBall;
     }
+
+    /**
+     * set timetick to 0
+     */
     @Override
     public void resetTimeTick()
     {
@@ -229,6 +292,10 @@ public class Cannon extends Building{
         this.CanonnBall.setCenterY(super.getY_Current());
         setShootingTimeTick(0);
     }
+
+    /**
+     * change cannon's direction to it's target
+     */
     private void changePictoTarget()
     {
         if(super.isLocked())
@@ -279,12 +346,20 @@ public class Cannon extends Building{
             }
         }
     }
+
+    /**
+     * rage effect
+     */
     @Override
     public void rageImpact()
     {
         this.setHitSpeed(this.getHitSpeed()-0.5F);
         this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.5F);
     }
+
+    /**
+     * reset rage effect
+     */
     @Override
     public void undoRage()
     {
@@ -310,6 +385,10 @@ public class Cannon extends Building{
             this.getLevelInformation().getDamage().setValue((Double)87.0);
         }
     }
+
+    /**
+     * set explosion pic
+     */
     private void explosionPic()
     {
         Image image = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());

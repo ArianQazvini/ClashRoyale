@@ -1,5 +1,23 @@
 package enums;
 
+/**
+ * The enum Directions.
+ */
 public enum Directions {
-    TOP,DOWN,LEFT,RIGHT
+    /**
+     * Top directions.
+     */
+    TOP,
+    /**
+     * Down directions.
+     */
+    DOWN,
+    /**
+     * Left directions.
+     */
+    LEFT,
+    /**
+     * Right directions.
+     */
+    RIGHT
 }

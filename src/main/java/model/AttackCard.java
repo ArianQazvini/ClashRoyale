@@ -48,7 +48,7 @@ public abstract class AttackCard extends Card {
 
     /**
      * Gets pic handler.
-     *
+     * for movements we use this rectangle
      * @return the pic handler
      */
     public Rectangle getPicHandler() {
@@ -180,6 +180,12 @@ public abstract class AttackCard extends Card {
     public double getX_Current() {
         return x_Current;
     }
+
+    /**
+     * set current location
+     * @param x the x
+     * @param y the y
+     */
     public void setCurrent(double x,double y)
     {
         this.setX_Current(x);
@@ -189,9 +195,9 @@ public abstract class AttackCard extends Card {
     }
 
     /**
-     * Target distance double.
+     * Target distance
      *
-     * @return the double
+     * @return the distance
      */
     public double targetDistance()
     {
@@ -213,7 +219,7 @@ public abstract class AttackCard extends Card {
     /**
      * Hurt.
      *
-     * @param damage the damage
+     * @param damage the damage value
      */
     public void Hurt(double damage)
     {

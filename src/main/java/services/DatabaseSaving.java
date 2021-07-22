@@ -6,13 +6,35 @@ import sample.Main;
 
 import java.sql.*;
 
+/**
+ * The type Database saving.
+ */
 public class DatabaseSaving {
+    /**
+     * The Game manager.
+     */
     GameManager gameManager= Main.gameManager;
+    /**
+     * The Url.
+     */
     String url="jdbc:mysql://localhost:3306";
+    /**
+     * The Username.
+     */
     String username="root";
-   // String password="1321an801123I";
+    /**
+     * The Password.
+     */
+// String password="1321an801123I";
     String password = "@rian09122155747";
+    /**
+     * The Statement.
+     */
     Statement statement;
+
+    /**
+     * Start connection.
+     */
     public void startConnection(){
         try{
             Connection connection= DriverManager.getConnection(url,username,password);
@@ -21,6 +43,12 @@ public class DatabaseSaving {
             System.out.println(q);
         }
     }
+
+    /**
+     * Save.
+     *
+     * @throws SQLException the sql exception
+     */
     public void save() throws SQLException {
         String sets="";
         for (int i=0;i<8;i++){
@@ -35,6 +63,13 @@ public class DatabaseSaving {
                 " and password="+"'"+gameManager.getPlayer().getPassword()+"'";
         statement.execute(query);
     }
+
+    /**
+     * Add battle history.
+     *
+     * @param battleHistory the battle history
+     * @throws SQLException the sql exception
+     */
     public void addBattleHistory(BattleHistory battleHistory) throws SQLException {
         String query="insert into clash_royal.battle_history values("+"'"+battleHistory.getWinner()+"'"+","+"'"
                 +battleHistory.getDate()+"'"+","+"'"+gameManager.getPlayer().getName()
@@ -45,6 +80,12 @@ public class DatabaseSaving {
         statement.executeUpdate(query2);
 
     }
+
+    /**
+     * Gets battle histories.
+     *
+     * @throws SQLException the sql exception
+     */
     public void getBattleHistories() throws SQLException {
         String query="select * from clash_royal.battle_history where name ="
                 +"'"+gameManager.getPlayer().getName()+"'"+" and password="
@@ -55,15 +96,38 @@ public class DatabaseSaving {
             gameManager.getPlayer().getBattleHistories().add(new BattleHistory(resultSet.getString("winner"),resultSet.getString("date")));
         }
     }
+
+    /**
+     * Log in.
+     *
+     * @param name the name
+     * @param pass the pass
+     * @throws SQLException the sql exception
+     */
     public void logIn(String name,String pass) throws SQLException {
         String query="select * from clash_royal.player_profile where name ="+"'"+name+"'"+" and password="+"'"+pass+"'";
         statement.execute(query);
     }
+
+    /**
+     * Sign up.
+     *
+     * @param name the name
+     * @param pass the pass
+     * @throws SQLException the sql exception
+     */
     public void signUp(String name,String pass) throws SQLException {
         String query="insert into clash_royal.player_profile values("+"'"+name+"'"+","+"'"+pass+"'"+",0,0,0,0,0,0,0,0,300)";
         statement.execute(query);
 
     }
+
+    /**
+     * Import values boolean.
+     *
+     * @return the boolean
+     * @throws SQLException the sql exception
+     */
     public boolean importValues() throws SQLException {
         ResultSet resultSet= statement.getResultSet();
         if (!resultSet.isBeforeFirst()){

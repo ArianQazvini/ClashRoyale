@@ -8,9 +8,22 @@ import model.Troop.BabyDragon;
 import model.Troop.Troop;
 import java.util.Random;
 
+/**
+ * The type Ful smart robot.
+ */
 public class FulSmartRobot extends Robot{
+    /**
+     * The Random.
+     */
     Random random=new Random();
+    /**
+     * The Coordinate.
+     */
     int[][] coordinate=new int[361][1];
+
+    /**
+     * Instantiates a new Ful smart robot.
+     */
     public FulSmartRobot(){
         setName("ful smart robot");
         putSpeed=5000;

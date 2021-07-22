@@ -11,6 +11,8 @@ import java.io.File;
 
 /**
  * The type Giant.
+ * @author ArianQazvini - NegarAnabestani
+ * @version 1.0
  */
 public class Giant extends Troop{
     /**
@@ -33,6 +35,10 @@ public class Giant extends Troop{
         setAvatar("giant.png");
         setId(CardId.giant);
     }
+
+    /**
+     * Hit method
+     */
     @Override
     public void Hit() {
         if(this.isLocked())
@@ -83,6 +89,9 @@ public class Giant extends Troop{
         }
     }
 
+    /**
+     * set Walking top mode pic
+     */
     @Override
     public void WalkingTopMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/GiantWalk_Up.png").toURI().toString());
@@ -93,7 +102,9 @@ public class Giant extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Walking left mode pic
+     */
     @Override
     public void WalkingLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/GiantWalk_Left.png").toURI().toString());
@@ -104,7 +115,9 @@ public class Giant extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Walking right mode pic
+     */
     @Override
     public void WalkingRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/GiantWalk_Right.png").toURI().toString());
@@ -115,7 +128,9 @@ public class Giant extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Walking down mode pic
+     */
     @Override
     public void WalkingDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/GiantWalk_Down.png").toURI().toString());
@@ -126,7 +141,9 @@ public class Giant extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Hit top mode pic
+     */
     @Override
     public void HitUpMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/GiantHit_Up.png").toURI().toString());
@@ -137,7 +154,9 @@ public class Giant extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Hit Down mode pic
+     */
     @Override
     public void HitDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/GiantHit_Down.png").toURI().toString());
@@ -148,7 +167,9 @@ public class Giant extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Hit Left mode pic
+     */
     @Override
     public void HitLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/GiantHit_Left.png").toURI().toString());
@@ -159,7 +180,9 @@ public class Giant extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Hit Right mode pic
+     */
     @Override
     public void HitRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/GiantHit_Right.png").toURI().toString());
@@ -170,6 +193,9 @@ public class Giant extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
+    /**
+     * set timetick to 0
+     */
     @Override
     public void resetTimeTick() {
         if(getShootingTimeTick()==getHitSpeed()*10)
@@ -178,6 +204,9 @@ public class Giant extends Troop{
         }
     }
 
+    /**
+     * reset rage effect
+     */
     @Override
     public void undoRage() {
         this.setHitSpeed(1.5F);
@@ -203,7 +232,9 @@ public class Giant extends Troop{
             this.getLevelInformation().getDamage().setValue((Double)183.0);
         }
     }
-
+    /**
+     * change characters pic direction based on it's target closest direction
+     */
     @Override
     public void changePictoTarget()
     {

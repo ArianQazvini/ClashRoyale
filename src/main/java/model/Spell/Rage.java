@@ -14,14 +14,29 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * The type Rage.
+ */
 public class Rage extends Spell{
+    /**
+     * The Damage boost.
+     */
     float damageBoost;
+    /**
+     * The Speed boost.
+     */
     float speedBoost;
+    /**
+     * The Hit speed boost.
+     */
     float hitSpeedBoost;
     private float time ;
-    private boolean isDone = false;
-    private boolean isUsed =false;
+
     private ArrayList<AttackCard> supplementary = new ArrayList<>();
+
+    /**
+     * Instantiates a new Rage.
+     */
     public Rage(){
         setAvatar("rage.png");
         damageBoost=1.4F;
@@ -39,19 +54,34 @@ public class Rage extends Spell{
     }
     private ArrayList<ImageView> groundImages = new ArrayList<>();
 
+    /**
+     * Sets ground images.
+     *
+     * @param groundImages the ground images
+     */
     public void setGroundImages(ArrayList<ImageView> groundImages) {
         this.groundImages = groundImages;
     }
+
+    /**
+     * Gets ground images.
+     *
+     * @return the ground images
+     */
     public ArrayList<ImageView> getGroundImages() {
         return groundImages;
     }
+
+    /**
+     * Rage thread.
+     */
     public void rageThread()
     {
         time = getLevelInformation().getValue();
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                isUsed=true;
+                setUsed(true);
                 rageTask();
             }
         });
@@ -59,6 +89,9 @@ public class Rage extends Spell{
         thread.start();
     }
 
+    /**
+     * set rage thread to sleep
+     */
     private void rageTask()
     {
 //        Platform.runLater(new Runnable() {
@@ -85,13 +118,19 @@ public class Rage extends Spell{
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                isDone=true;
+                setDone(true);
             }
         });
     }
-    public boolean isDone() {
-        return isDone;
-    }
+
+    /**
+     * counting distance between (x1,y1) , (x2,y2)
+     * @param x1 x1
+     * @param y1 y1
+     * @param x2 x2
+     * @param y2 y2
+     * @return the distance
+     */
     private double distance(double x1,double y1,double x2 , double y2)
     {
         double tempx = x1-x2;
@@ -112,12 +151,12 @@ public class Rage extends Spell{
             }
         }
     }
-    public void setUsed(boolean used) {
-        isUsed = used;
-    }
-    public boolean isUsed() {
-        return isUsed;
-    }
+
+    /**
+     * Gets supplementary.
+     *
+     * @return the supplementary
+     */
     public ArrayList<AttackCard> getSupplementary() {
         return supplementary;
     }

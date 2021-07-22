@@ -18,21 +18,51 @@ import services.ViewService;
 import java.io.File;
 import java.sql.SQLException;
 
+/**
+ * The type Log in controller.
+ */
 public class LogInController {
+    /**
+     * The Database saving.
+     */
     DatabaseSaving databaseSaving = Main.databaseSaving;
+    /**
+     * The Game manager.
+     */
     GameManager gameManager = Main.gameManager;
+    /**
+     * The Player.
+     */
     Player player = gameManager.getPlayer();
+    /**
+     * The Name text.
+     */
     @FXML
     TextField nameText;
+    /**
+     * The Password text.
+     */
     @FXML
     PasswordField passwordText;
+    /**
+     * The Sign up button.
+     */
     @FXML
     Button signUpButton;
+    /**
+     * The Sign in button.
+     */
     @FXML
     Button signInButton;
+    /**
+     * The Page area.
+     */
     @FXML
     AnchorPane pageArea;
 
+    /**
+     * Sign in.
+     */
     @FXML
     public void signIn() {
         if (nameText != null) {
@@ -61,6 +91,9 @@ public class LogInController {
         }
     }
 
+    /**
+     * Initialize.
+     */
     public void initialize() {
         gameManager.setPlayer(new Player());
         gameManager.getPlayer().getDeck().getCards().removeAll(gameManager.getPlayer().getDeck().getCards());
@@ -72,6 +105,9 @@ public class LogInController {
 
     }
 
+    /**
+     * Sets border name.
+     */
     void setBorderName() {
         Platform.runLater(new Runnable() {
             @Override
@@ -86,6 +122,9 @@ public class LogInController {
         });
     }
 
+    /**
+     * Sets border pass.
+     */
     void setBorderPass() {
         Platform.runLater(new Runnable() {
             @Override
@@ -100,6 +139,9 @@ public class LogInController {
         });
     }
 
+    /**
+     * Sign up.
+     */
     @FXML
     public void signUp() {
         try {

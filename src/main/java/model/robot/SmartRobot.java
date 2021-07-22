@@ -4,9 +4,22 @@ import model.Troop.Troop;
 
 import java.util.Random;
 
+/**
+ * The type Smart robot.
+ */
 public class SmartRobot extends Robot{
+    /**
+     * The Random.
+     */
     Random random=new Random();
+    /**
+     * The Coordinate.
+     */
     int[][] coordinate=new int[361][1];
+
+    /**
+     * Instantiates a new Smart robot.
+     */
     public SmartRobot(){
         setName("smart robot");
         putSpeed=7000;

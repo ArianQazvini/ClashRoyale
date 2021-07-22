@@ -8,7 +8,13 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type Prince tower.
+ */
 public class PrinceTower extends Tower{
+    /**
+     * Instantiates a new Prince tower.
+     */
     public PrinceTower() {
         setHitSpeed(0.8F);
         setRange(7.5F);

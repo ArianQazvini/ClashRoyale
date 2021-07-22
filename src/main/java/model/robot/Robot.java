@@ -15,11 +15,36 @@ import services.GameManager;
 import java.util.ArrayList;
 import java.util.Random;
 
+/**
+ * The type Robot.
+ */
 public class Robot extends Player {
-    double x,y;
-    double maxY,maxX;
+    /**
+     * The X.
+     */
+    double x, /**
+     * The Y.
+     */
+    y;
+    /**
+     * The Max y.
+     */
+    double maxY, /**
+     * The Max x.
+     */
+    maxX;
+    /**
+     * The Put speed.
+     */
     public int putSpeed;
+    /**
+     * The Game manager.
+     */
     public GameManager gameManager;
+
+    /**
+     * Instantiates a new Robot.
+     */
     public Robot(){
         super();
         maxY=300;
@@ -41,6 +66,9 @@ public class Robot extends Player {
         setCardLevel();
     }
 
+    /**
+     * Set battle deck.
+     */
     public void setBattleDeck(){
         Random random=new Random(0);
         for (int i=0;i<8;i++){
@@ -50,16 +78,41 @@ public class Robot extends Player {
         }
     }
 
+    /**
+     * Choose from deck card.
+     *
+     * @return the card
+     */
     public  Card chooseFromDeck(){return null;}
+
+    /**
+     * Choose location.
+     */
     public void chooseLocation(){}
 
+    /**
+     * Gets x.
+     *
+     * @return the x
+     */
     public double getX() {
         return x;
     }
 
+    /**
+     * Gets y.
+     *
+     * @return the y
+     */
     public double getY() {
         return y;
     }
+
+    /**
+     * Is elixir enough boolean.
+     *
+     * @return the boolean
+     */
     public boolean isElixirEnough(){
         for (Card c:getDeck().getCards()){
             if (c.getCost()<= getElixir().getValue())

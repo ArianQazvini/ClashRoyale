@@ -51,6 +51,10 @@ public class GameTimer implements Runnable{
         sec=min=0;
         time=0;
     }
+
+    /**
+     * clock things ...
+     */
     @Override
     public void run() {
         myTimer.scheduleAtFixedRate(new TimerTask(){

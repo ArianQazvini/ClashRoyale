@@ -43,7 +43,8 @@ import java.util.*;
 
 /**
  * Game page controller
- * @author ArianQazvini- NegarAnabestani
+ *
+ * @author ArianQazvini - NegarAnabestani
  * @version 1.0
  */
 public class Controller {
@@ -51,8 +52,14 @@ public class Controller {
      * The Database saving.
      */
     DatabaseSaving databaseSaving=Main.databaseSaving;
+    /**
+     * The Menu.
+     */
     @FXML
     Button menu;
+    /**
+     * The Winning page.
+     */
     @FXML
     AnchorPane winningPage;
     @FXML
@@ -164,6 +171,7 @@ public class Controller {
     /**
      * Press a card.
      * check it's location validity then adds it to gameManger's arraylists
+     *
      * @param card the card
      * @param g    the g
      */
@@ -1061,6 +1069,12 @@ public class Controller {
             System.out.println(q);
         }
     }
+
+    /**
+     * Menu button.
+     *
+     * @throws Exception the exception
+     */
     @FXML
     public void menuButton() throws Exception {
         gameManager.setRoot("menu");

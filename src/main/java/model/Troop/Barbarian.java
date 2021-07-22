@@ -10,6 +10,8 @@ import java.io.File;
 
 /**
  * The type Barbarian.
+ * @author ArianQazvini - NegarAnabestani
+ * @version 1.0
  */
 public class Barbarian extends Troop{
     /**
@@ -33,6 +35,9 @@ public class Barbarian extends Troop{
         setId(CardId.barbarian);
     }
 
+    /**
+     *  Hit method
+     */
     @Override
     public void Hit() {
         if(this.isLocked())
@@ -83,6 +88,10 @@ public class Barbarian extends Troop{
         }
     }
 
+    /**
+     * set Walking top mode pic
+     */
+
     @Override
     public void WalkingTopMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BarbarianWalk_Up.png").toURI().toString());
@@ -93,7 +102,9 @@ public class Barbarian extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Walking  mode pic
+     */
     @Override
     public void WalkingLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BarbarianWalk_Left.png").toURI().toString());
@@ -104,7 +115,9 @@ public class Barbarian extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Walking Right mode pic
+     */
     @Override
     public void WalkingRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BarbarianWalk_Right.png").toURI().toString());
@@ -115,7 +128,9 @@ public class Barbarian extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Walking down mode pic
+     */
     @Override
     public void WalkingDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BarbarianWalk_Down.png").toURI().toString());
@@ -126,7 +141,9 @@ public class Barbarian extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
-
+    /**
+     * set Hit top mode pic
+     */
     @Override
     public void HitUpMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BarbarianHit_Up.png").toURI().toString());
@@ -138,6 +155,9 @@ public class Barbarian extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     *  set Hit down mode pic
+     */
     @Override
     public void HitDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BarbarianHit_Down.png").toURI().toString());
@@ -149,6 +169,9 @@ public class Barbarian extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set Hit left mode pic
+     */
     @Override
     public void HitLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BarbarianHit_Left.png").toURI().toString());
@@ -160,6 +183,9 @@ public class Barbarian extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set Hit right mode pic
+     */
     @Override
     public void HitRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BarbarianHit_Right.png").toURI().toString());
@@ -171,6 +197,9 @@ public class Barbarian extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set timetick to 0
+     */
     @Override
     public void resetTimeTick() {
         if(getShootingTimeTick()==getHitSpeed()*10)
@@ -179,6 +208,9 @@ public class Barbarian extends Troop{
         }
     }
 
+    /**
+     * reset rage effect
+     */
     @Override
     public void undoRage() {
         this.setHitSpeed(1.5F);
@@ -205,12 +237,9 @@ public class Barbarian extends Troop{
         }
     }
 
-    @Override
-    public void Left()
-    {
-        super.Left();
-        WalkingLeftMode();
-    }
+    /**
+     * change characters pic direction based on it's target closest direction
+     */
     @Override
     public void changePictoTarget()
     {

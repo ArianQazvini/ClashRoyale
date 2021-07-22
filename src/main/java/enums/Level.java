@@ -1,5 +1,27 @@
 package enums;
 
+/**
+ * The enum Level.
+ */
 public enum Level {
-    LEVEL1,LEVEL2,LEVEL3,LEVEL4,LEVEL5
+    /**
+     * Level 1 level.
+     */
+    LEVEL1,
+    /**
+     * Level 2 level.
+     */
+    LEVEL2,
+    /**
+     * Level 3 level.
+     */
+    LEVEL3,
+    /**
+     * Level 4 level.
+     */
+    LEVEL4,
+    /**
+     * Level 5 level.
+     */
+    LEVEL5
 }

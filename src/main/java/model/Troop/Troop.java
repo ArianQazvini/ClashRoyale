@@ -9,6 +9,8 @@ import java.util.ArrayList;
 
 /**
  * The type Troop.
+ * @author ArianQazvini-NegarAnabestani
+ * @version 1.0
  */
 public abstract class Troop extends AttackCard {
     private int count;
@@ -251,7 +253,7 @@ public abstract class Troop extends AttackCard {
     public abstract void HitRightMode();
 
     /**
-     * Change picto target.
+     * change characters pic direction based on it's target closest direction
      */
     public void changePictoTarget()
     {
@@ -347,6 +349,10 @@ public abstract class Troop extends AttackCard {
     public ArrayList<Commands> getPath() {
         return path;
     }
+
+    /**
+     * rage effect
+     */
     @Override
     public void rageImpact()
     {

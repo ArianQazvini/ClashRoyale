@@ -4,7 +4,16 @@ import javafx.scene.layout.*;
 
 import java.io.File;
 
+/**
+ * The type View service.
+ */
 public class ViewService {
+    /**
+     * Set background.
+     *
+     * @param pane the pane
+     * @param name the name
+     */
     public static void setBackground(Pane pane,String name){
         Image img=new Image(new File("src/main/resources/pics/"+name).toURI().toString());
         BackgroundImage bgImg = new BackgroundImage(img,
