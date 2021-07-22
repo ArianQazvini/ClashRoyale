@@ -9,7 +9,13 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type Giant.
+ */
 public class Giant extends Troop{
+    /**
+     * Instantiates a new Giant.
+     */
     public Giant(){
         super.setCount(1);
         super.setCost(5);

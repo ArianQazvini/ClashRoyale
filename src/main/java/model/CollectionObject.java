@@ -13,13 +13,42 @@ import services.GameManager;
 
 import java.io.File;
 
+/**
+ * The type Collection object.
+ */
 public class CollectionObject extends ImageView {
+    /**
+     * The Avatar.
+     */
     String avatar;
+    /**
+     * The Image.
+     */
     Image image;
+    /**
+     * The Game manager.
+     */
     GameManager gameManager= Main.gameManager;
+    /**
+     * The H box 1.
+     */
     HBox hBox1;
+    /**
+     * The H box 2.
+     */
     HBox hBox2;
+    /**
+     * The Card.
+     */
     Card card;
+
+    /**
+     * Instantiates a new Collection object.
+     *
+     * @param hBox1 the h box 1
+     * @param hBox2 the h box 2
+     * @param card  the card
+     */
     public CollectionObject(HBox hBox1,HBox hBox2,Card card){
         this.avatar= card.getAvatar();
         image=new Image(new File("src/main/resources/pics/cards/"+avatar).toURI().toString());
@@ -37,6 +66,10 @@ public class CollectionObject extends ImageView {
         });
 
     }
+
+    /**
+     * Fun.
+     */
     public void fun(){
         HBox hBox;
         if (hBox1.getChildren().stream().count()<4)

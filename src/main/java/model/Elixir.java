@@ -15,12 +15,28 @@ import java.lang.*;
 import java.util.Timer;
 import java.util.TimerTask;
 
+/**
+ * The type Elixir.
+ */
 public class Elixir extends ProgressBar {
-   double value;
-   double maxValue;
-   Text valueText;
+    /**
+     * The Value.
+     */
+    double value;
+    /**
+     * The Max value.
+     */
+    double maxValue;
+    /**
+     * The Value text.
+     */
+    Text valueText;
    private boolean gameFinished=false;
    private int sleep = 2000;
+
+    /**
+     * Instantiates a new Elixir.
+     */
     public Elixir(){
         maxValue=10;
         value=4;
@@ -43,6 +59,10 @@ public class Elixir extends ProgressBar {
         increase.setDaemon(true);
         increase.start();
     }
+
+    /**
+     * Increase task.
+     */
     void increaseTask(){
         Platform.runLater(new Runnable() {
            // Timeline timeline=null;
@@ -61,6 +81,12 @@ public class Elixir extends ProgressBar {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Sets elixir.
+     *
+     * @param value the value
+     */
     public void setElixir(double value) {
         if (value>=0) {
             this.value = value;
@@ -70,30 +96,65 @@ public class Elixir extends ProgressBar {
         }
     }
 
+    /**
+     * Sets game finished.
+     *
+     * @param gameFinished the game finished
+     */
     public void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
     }
 
+    /**
+     * Is game finished boolean.
+     *
+     * @return the boolean
+     */
     public boolean isGameFinished() {
         return gameFinished;
     }
 
+    /**
+     * Sets value.
+     *
+     * @param value the value
+     */
     public void setValue(double value) {
         this.value = value;
     }
 
+    /**
+     * Sets value text.
+     *
+     * @param valueText the value text
+     */
     public void setValueText(Text valueText) {
         this.valueText = valueText;
     }
 
+    /**
+     * Gets value.
+     *
+     * @return the value
+     */
     public double getValue() {
         return value;
     }
 
+    /**
+     * Sets sleep.
+     *
+     * @param sleep the sleep
+     */
     public void setSleep(int sleep) {
         this.sleep = sleep;
     }
 
+    /**
+     * Gets sleep.
+     *
+     * @return the sleep
+     */
     public int getSleep() {
         return sleep;
     }

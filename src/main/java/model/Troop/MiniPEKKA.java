@@ -8,7 +8,13 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type Mini pekka.
+ */
 public class MiniPEKKA extends Troop{
+    /**
+     * Instantiates a new Mini pekka.
+     */
     public MiniPEKKA(){
         setAvatar("mini-pekka.png");
         super.setCount(1);

@@ -13,6 +13,9 @@ import model.Troop.*;
 
 import java.util.ArrayList;
 
+/**
+ * The type Player.
+ */
 public class Player {
     private String level;
     private ArrayList<BattleHistory>battleHistories=new ArrayList<>();
@@ -29,8 +32,14 @@ public class Player {
     private int scores = 300;
     private int crownsWon = 0 ;
     private IntegerProperty crownProperty = new SimpleIntegerProperty(0);
+    /**
+     * The Anonymous.
+     */
     boolean anonymous=false;
 
+    /**
+     * Instantiates a new Player.
+     */
     public Player(){
         cards.add(new Giant());
         cards.add(new Arrows());
@@ -46,6 +55,10 @@ public class Player {
         cards.add(new Fireball());
         this.upPics();
     }
+
+    /**
+     * Set card level.
+     */
     public void setCardLevel(){
         if (level.equals("1")){
             for (Card c:cards){
@@ -92,82 +105,187 @@ public class Player {
         }
     }
 
+    /**
+     * Gets level.
+     *
+     * @return the level
+     */
     public String getLevel() {
         return level;
     }
 
+    /**
+     * Sets level.
+     *
+     * @param level the level
+     */
     public void setLevel(String level) {
         this.level = level;
     }
 
+    /**
+     * Gets battle histories.
+     *
+     * @return the battle histories
+     */
     public ArrayList<BattleHistory> getBattleHistories() {
         return battleHistories;
     }
 
+    /**
+     * Gets elixir.
+     *
+     * @return the elixir
+     */
     public Elixir getElixir() {
         return elixir;
     }
+
+    /**
+     * Crown property integer property.
+     *
+     * @return the integer property
+     */
     public IntegerProperty crownProperty() {
         return crownProperty;
     }
 
+    /**
+     * Sets elixir.
+     *
+     * @param value the value
+     */
     public void setElixir(double value) {
         elixir.setElixir(value);
     }
+
+    /**
+     * Creat elixir.
+     */
     public void creatElixir(){
         this.elixir=new Elixir();
     }
 
+    /**
+     * Gets attack cards on ground.
+     *
+     * @return the attack cards on ground
+     */
     public ArrayList<AttackCard> getAttackCardsOnGround() {
         return attackCardsOnGround;
     }
 
+    /**
+     * Gets cards.
+     *
+     * @return the cards
+     */
     public ArrayList<Card> getCards() {
         return cards;
     }
+
+    /**
+     * Sets anonymous.
+     *
+     * @param anonymous the anonymous
+     */
     public void setAnonymous(boolean anonymous) {
         this.anonymous = anonymous;
     }
 
+    /**
+     * Gets deck.
+     *
+     * @return the deck
+     */
     public Deck getDeck() {
         return deck;
     }
 
+    /**
+     * Sets name.
+     *
+     * @param name the name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Sets password.
+     *
+     * @param password the password
+     */
     public void setPassword(String password) {
         this.password = password;
     }
 
+    /**
+     * Is anonymous boolean.
+     *
+     * @return the boolean
+     */
     public boolean isAnonymous() {
         return anonymous;
     }
 
+    /**
+     * Gets name.
+     *
+     * @return the name
+     */
     public String getName() {
         return name;
     }
 
+    /**
+     * Gets password.
+     *
+     * @return the password
+     */
     public String getPassword() {
         return password;
     }
 
+    /**
+     * Gets troops.
+     *
+     * @return the troops
+     */
     public ArrayList<Troop> getTroops() {
         return troops;
     }
 
+    /**
+     * Gets king tower.
+     *
+     * @return the king tower
+     */
     public KingTower getKingTower() {
         return kingTower;
     }
 
+    /**
+     * Gets prince tower 1.
+     *
+     * @return the prince tower 1
+     */
     public PrinceTower getPrinceTower1() {
         return princeTower1;
     }
 
+    /**
+     * Gets prince tower 2.
+     *
+     * @return the prince tower 2
+     */
     public PrinceTower getPrinceTower2() {
         return princeTower2;
     }
+
+    /**
+     * Up pics.
+     */
     public void upPics()
     {
         for (int i = 0; i < cards.size(); i++) {
@@ -213,6 +331,10 @@ public class Player {
             }
         }
     }
+
+    /**
+     * Down pics.
+     */
     public void downPics()
     {
         for (int i = 0; i < cards.size(); i++) {
@@ -265,29 +387,62 @@ public class Player {
         }
     }
 
+    /**
+     * Gets scores.
+     *
+     * @return the scores
+     */
     public int getScores() {
         return scores;
     }
 
+    /**
+     * Sets scores.
+     *
+     * @param scores the scores
+     */
     public void setScores(int scores) {
         this.scores = scores;
     }
+
+    /**
+     * Win.
+     */
     public void win()
     {
         this.scores+=200;
     }
+
+    /**
+     * Lose.
+     */
     public void lose()
     {
         this.scores +=70;
     }
 
+    /**
+     * Gets crowns won.
+     *
+     * @return the crowns won
+     */
     public int getCrownsWon() {
         return crownsWon;
     }
+
+    /**
+     * Increment crowns won.
+     */
     public void incrementCrownsWon()
     {
         crownsWon++;
     }
+
+    /**
+     * Sets crowns won.
+     *
+     * @param crownsWon the crowns won
+     */
     public void setCrownsWon(int crownsWon) {
         this.crownsWon = crownsWon;
     }

@@ -7,6 +7,9 @@ import enums.Directions;
 
 import java.util.ArrayList;
 
+/**
+ * The type Troop.
+ */
 public abstract class Troop extends AttackCard {
     private int count;
     private Speed speed;
@@ -16,100 +19,240 @@ public abstract class Troop extends AttackCard {
     private double y_destination;
     private ArrayList<Commands> path = new ArrayList<>();
     private Directions lastDirection;
+
+    /**
+     * Gets count.
+     *
+     * @return the count
+     */
     public int getCount() {
         return count;
     }
+
+    /**
+     * Is area splash boolean.
+     *
+     * @return the boolean
+     */
     public boolean isAreaSplash() {
         return isAreaSplash;
     }
 
+    /**
+     * Sets area splash.
+     *
+     * @param areaSplash the area splash
+     */
     public void setAreaSplash(boolean areaSplash) {
         isAreaSplash = areaSplash;
     }
+
+    /**
+     * Sets count.
+     *
+     * @param count the count
+     */
     public void setCount(int count) {
         this.count = count;
     }
 
+    /**
+     * Gets speed.
+     *
+     * @return the speed
+     */
     public Speed getSpeed() {
         return speed;
     }
 
+    /**
+     * Sets speed.
+     *
+     * @param speed the speed
+     */
     public void setSpeed(Speed speed) {
         this.speed = speed;
     }
+
+    /**
+     * Left.
+     */
     public void Left()
     {
         lastDirection = Directions.LEFT;
         super.setX_Current( super.getPicHandler().getX()-speed.getVelocity());
         super.getPicHandler().setX(super.getX_Current());
     }
+
+    /**
+     * Right.
+     */
     public void Right()
     {
         lastDirection = Directions.RIGHT;
         super.setX_Current( super.getPicHandler().getX()+speed.getVelocity());
         super.getPicHandler().setX(super.getX_Current());
     }
+
+    /**
+     * Forward.
+     */
     public void Forward()
     {
         lastDirection = Directions.TOP;
         super.setY_Current( super.getPicHandler().getY()-speed.getVelocity());
         super.getPicHandler().setY(super.getY_Current());
     }
+
+    /**
+     * Backward.
+     */
     public void Backward()
     {
         lastDirection= Directions.DOWN;
         super.setY_Current( super.getPicHandler().getY()+speed.getVelocity());
         super.getPicHandler().setY(super.getY_Current());;
     }
+
+    /**
+     * Left.
+     *
+     * @param dist the dist
+     */
     public void Left(double dist)
     {
         lastDirection = Directions.LEFT;
         super.setX_Current( super.getPicHandler().getX()-dist);
         super.getPicHandler().setX(super.getX_Current());
     }
+
+    /**
+     * Right.
+     *
+     * @param dist the dist
+     */
     public void Right(double dist)
     {
         lastDirection = Directions.RIGHT;
         super.setX_Current( super.getPicHandler().getX()+dist);
         super.getPicHandler().setX(super.getX_Current());
     }
+
+    /**
+     * Forward.
+     *
+     * @param dist the dist
+     */
     public void Forward(double dist)
     {
         lastDirection = Directions.TOP;
         super.setY_Current( super.getPicHandler().getY()-dist);
         super.getPicHandler().setY(super.getY_Current());
     }
+
+    /**
+     * Backward.
+     *
+     * @param dist the dist
+     */
     public void Backward(double dist)
     {
         lastDirection= Directions.DOWN;
         super.setY_Current( super.getPicHandler().getY()+dist);
         super.getPicHandler().setY(super.getY_Current());;
     }
+
+    /**
+     * Sets walking.
+     *
+     * @param walking the walking
+     */
     public void setWalking(String walking) {
         this.WalkingPic = walking;
     }
+
+    /**
+     * Gets walking.
+     *
+     * @return the walking
+     */
     public String getWalking() {
         return this.WalkingPic;
     }
+
+    /**
+     * Sets destination.
+     *
+     * @param x the x
+     * @param y the y
+     */
     public void setDestination(int x,int y)
     {
         this.x_destination=x;
         this.y_destination=y;
     }
+
+    /**
+     * Gets x destination.
+     *
+     * @return the x destination
+     */
     public double getX_destination() {
         return x_destination;
     }
+
+    /**
+     * Gets y destination.
+     *
+     * @return the y destination
+     */
     public double getY_destination() {
         return y_destination;
     }
+
+    /**
+     * Walking top mode.
+     */
     public abstract void WalkingTopMode();
+
+    /**
+     * Walking left mode.
+     */
     public abstract void WalkingLeftMode();
+
+    /**
+     * Walking right mode.
+     */
     public abstract void WalkingRightMode();
+
+    /**
+     * Walking down mode.
+     */
     public abstract void WalkingDownMode();
+
+    /**
+     * Hit up mode.
+     */
     public abstract void HitUpMode();
+
+    /**
+     * Hit down mode.
+     */
     public abstract void HitDownMode();
+
+    /**
+     * Hit left mode.
+     */
     public abstract void HitLeftMode();
+
+    /**
+     * Hit right mode.
+     */
     public abstract void HitRightMode();
+
+    /**
+     * Change picto target.
+     */
     public void changePictoTarget()
     {
         if(super.isLocked())
@@ -160,6 +303,14 @@ public abstract class Troop extends AttackCard {
             }
         }
     }
+
+    /**
+     * Closest direction to directions.
+     *
+     * @param x_dist the x dist
+     * @param y_dist the y dist
+     * @return the directions
+     */
     public Directions closestDirectionTo(double x_dist,double y_dist)
     {
         double x_Vector =x_dist-this.getPicHandler().getX();
@@ -188,6 +339,11 @@ public abstract class Troop extends AttackCard {
         }
     }
 
+    /**
+     * Gets path.
+     *
+     * @return the path
+     */
     public ArrayList<Commands> getPath() {
         return path;
     }
