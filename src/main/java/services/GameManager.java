@@ -1,5 +1,4 @@
 package services;
-import com.sun.scenario.effect.impl.sw.java.JSWBlend_SRC_OUTPeer;
 import enums.Target;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -638,18 +637,21 @@ public class GameManager {
             {
                 if(troop.getX_Current()>180)
                 {
-                    smartLeft(troop,troop.getSpeed().getVelocity());
+                    troop.WalkingLeftMode();
+                    troop.Left();
                 }
                 else if(troop.getX_Current() <180)
                 {
-                    smartRight(troop,troop.getSpeed().getVelocity());
+                    troop.WalkingRightMode();
+                    troop.Right();
                 }
             }
             else
             {
-//                troop.WalkingTopMode();
+               troop.WalkingTopMode();
 //                troop.Forward();
-                smartUp(troop,troop.getSpeed().getVelocity());
+                troop.Forward();
+               // smartUp(troop,troop.getSpeed().getVelocity());
                 //collision(troop);
             }
         }
@@ -671,19 +673,21 @@ public class GameManager {
             {
                 if(troop.getX_Current()>180)
                 {
-                    smartLeft(troop,troop.getSpeed().getVelocity());
+                    troop.WalkingLeftMode();
+                    troop.Left();
                 }
                 else if(troop.getX_Current() <180)
                 {
-                    smartRight(troop,troop.getSpeed().getVelocity());
+                    troop.WalkingRightMode();
+                    troop.Right();
                 }
             }
             else
             {
-//                troop.WalkingDownMode();
-//                troop.Backward();
+                troop.WalkingDownMode();
+                troop.Backward();
 //                collision(troop);
-                smartDown(troop,troop.getSpeed().getVelocity());
+               // smartDown(troop,troop.getSpeed().getVelocity());
             }
         }
     }
@@ -980,9 +984,9 @@ public class GameManager {
                     }
                     else if(troop.getX_Current() >= 180 && troop.getX_Current() < 300)
                     {
-//                        troop.WalkingRightMode();
-//                        troop.Right();
-                        smartRight(troop,troop.getSpeed().velocity);
+                        troop.WalkingRightMode();
+                        troop.Right();
+                       // smartRight(troop,troop.getSpeed().velocity);
                     }
                     else if(troop.getX_Current() <40)
                     {
@@ -1878,59 +1882,60 @@ public class GameManager {
     }
     private void checkTowersLife()
     {
-        Iterator<Tower> iterator = towers.iterator();
-        while (iterator.hasNext())
-        {
-            Tower temp = iterator.next();
-            if(temp==player.getPrinceTower1() && temp.getLevelInformation().getHp()<=0)
+            if(player.getPrinceTower1().getLevelInformation().getHp()<=0 && !player.getPrinceTower1().isDead())
             {
                 player.getKingTower().setCanShoot(true);
                 removeTower(player.getPrinceTower1());
                 princeTowerDeath(player.getPrinceTower1());
                 opponent.incrementCrownsWon();
                 opponent.crownProperty().set(opponent.getCrownsWon());
+                player.getPrinceTower1().setDead(true);
             }
-            if(temp==player.getPrinceTower2() && temp.getLevelInformation().getHp()<=0)
+            if(player.getPrinceTower2().getLevelInformation().getHp()<=0 && !player.getPrinceTower2().isDead())
             {
                 player.getKingTower().setCanShoot(true);
                 removeTower(player.getPrinceTower2());
                 princeTowerDeath(player.getPrinceTower2());
                 opponent.incrementCrownsWon();
                 opponent.crownProperty().set(opponent.getCrownsWon());
+                player.getPrinceTower2().setDead(true);
             }
-            if(temp ==opponent.getPrinceTower1() && temp.getLevelInformation().getHp() <=0)
+            if(opponent.getPrinceTower1().getLevelInformation().getHp()<=0 && !opponent.getPrinceTower1().isDead())
             {
                 opponent.getKingTower().setCanShoot(true);
                 removeTower(opponent.getPrinceTower1());
                 princeTowerDeath(opponent.getPrinceTower1());
                 player.incrementCrownsWon();
                 player.crownProperty().set(player.getCrownsWon());
+                opponent.getPrinceTower1().setDead(true);
             }
-            if(temp==opponent.getPrinceTower2() && temp.getLevelInformation().getHp()<=0)
+            if(opponent.getPrinceTower2().getLevelInformation().getHp()<=0 && !opponent.getPrinceTower2().isDead() )
             {
                 opponent.getKingTower().setCanShoot(true);
                 removeTower(opponent.getPrinceTower2());
                 princeTowerDeath(opponent.getPrinceTower2());
                 player.incrementCrownsWon();
                 player.crownProperty().set(player.getCrownsWon());
+                opponent.getPrinceTower2().setDead(true);
             }
-            if(temp==player.getKingTower() && temp.getLevelInformation().getHp() <=0)
+            if(player.getKingTower().getLevelInformation().getHp()<=0 && !player.getKingTower().isDead())
             {
                 removeTower(player.getKingTower());
                 kingTowerDeath(player.getKingTower());
                 opponent.setCrownsWon(3);
                 opponent.crownProperty().set(3);
                 gameFinished=true;
+                player.getKingTower().setDead(true);
             }
-            if(temp==opponent.getKingTower() && temp.getLevelInformation().getHp()<=0)
+            if(opponent.getKingTower().getLevelInformation().getHp() <=0 && !opponent.getKingTower().isDead())
             {
                 removeTower(opponent.getKingTower());
                 kingTowerDeath(opponent.getKingTower());
                 player.setCrownsWon(3);
                 player.crownProperty().set(3);
                 gameFinished=true;
+                opponent.getKingTower().setDead(true);
             }
-        }
     }
     private void removeTower(Tower tower)
     {
@@ -2089,7 +2094,7 @@ public class GameManager {
                // double max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize);
                 //------------------------
                  min_x = tower.getImageViews()[0][0].getX() - (attackCard.getRange()*blockSize);
-                 max_x = tower.getImageViews()[2][2].getX() + blockSize + (attackCard.getRange()* blockSize);
+                 max_x = tower.getImageViews()[2][2].getX() + (attackCard.getRange()* blockSize);
                 if(attackCard.getType().equals("+"))
                 {
                     if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()> min_y && attackCard.getY_Current()< max_y)
@@ -2100,16 +2105,16 @@ public class GameManager {
                             {
                                 if(attackCard.getY_Current() <180)
                                 {
-                                    ((Troop) attackCard).Right(20);
+                                    ((Troop) attackCard).Right(tower.getImageViews()[0][0].getX()-(attackCard.getX_Current()+blockSize));
                                 }
                                 else
                                 {
-                                    ((Troop) attackCard).Left(20);
+                                    ((Troop) attackCard).Left(attackCard.getX_Current()-tower.getImageViews()[0][0].getX());
                                 }
                             }
                             else
                             {
-                                ((Troop) attackCard).Forward(20);
+                                ((Troop) attackCard).Forward(attackCard.getY_Current() - (tower.getImageViews()[2][2].getY()+blockSize));
                             }
                         }
                         return true;
@@ -2136,16 +2141,16 @@ public class GameManager {
                             {
                                 if(attackCard.getY_Current() <180)
                                 {
-                                    ((Troop) attackCard).Right(20);
+                                    ((Troop) attackCard).Right(tower.getImageViews()[0][0].getX()-(attackCard.getX_Current()+blockSize));
                                 }
                                 else
                                 {
-                                    ((Troop) attackCard).Left(20);
+                                    ((Troop) attackCard).Left(attackCard.getX_Current()-tower.getImageViews()[0][0].getX());
                                 }
                             }
                             else
                             {
-                                ((Troop) attackCard).Backward(20);
+                                ((Troop) attackCard).Backward(tower.getImageViews()[0][0].getY() - (attackCard.getY_Current()+blockSize));
                             }
                         }
                         return true;
@@ -2246,12 +2251,24 @@ public class GameManager {
     private void resetTowersBlocks(double x , double y)
     {
         Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+        Image grass2 = new Image(new File("src/main/resources/pics/lightGreenBlock.png").toURI().toString());
         for (int i = 0; i < 32; i++) {
             for (int j = 0; j < 18; j++) {
-                if(blocks[i][j].getX()==x && blocks[i][j].getY()==y)
+                if((i%2==1 && j%2==1) || (i%2==0 && j%2==0))
                 {
-                    blocks[i][j].setImage(grass);
-                    break;
+                    if(blocks[i][j].getX()==x && blocks[i][j].getY()==y)
+                    {
+                        blocks[i][j].setImage(grass2);
+                        break;
+                    }
+                }
+                else if((i%2 == 0 && j%2 ==1) || (i%2==1 && j%2 == 0 ))
+                {
+                    if(blocks[i][j].getX()==x && blocks[i][j].getY()==y)
+                    {
+                        blocks[i][j].setImage(grass);
+                        break;
+                    }
                 }
             }
         }

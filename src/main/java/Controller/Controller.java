@@ -174,18 +174,25 @@ public class Controller {
             return true;
         }
     }
-
     private void Task(double x,double y,Card card,GameDeckObject g) {
-        //if (!(card instanceof Spell)) {
-//            Platform.runLater(new Runnable() {
-//                @Override
-//                public void run() {
                     if(card instanceof Archer)
                     {
                         Archer temp1 = new Archer();
                         Archer temp2 = new Archer();
                         FixLocation(temp1,x,y);
-                        FixLocation(temp2,x+2*blockSize,y);
+                        if(temp1.getX_Current()<20)
+                        {
+                            FixLocation(temp2,x+2*blockSize,y);
+
+                        }
+                        else if(temp1.getX_Current()>300)
+                        {
+                            FixLocation(temp2,x-2*blockSize,y);
+                        }
+                        else
+                        {
+                            FixLocation(temp2,x+2*blockSize,y);
+                        }
                         if(card.getType().equals("+"))
                         {
                             temp1.setType("+");
@@ -244,9 +251,24 @@ public class Controller {
                         Barbarian temp3 = new Barbarian();
                         Barbarian temp4 = new Barbarian();
                         FixLocation(temp1,x,y);
-                        FixLocation(temp2,x+2*blockSize,y);
-                        FixLocation(temp3,x,y+2*blockSize);
-                        FixLocation(temp4,x+2*blockSize,y+2*blockSize);
+                        if(temp1.getX_Current()<20)
+                        {
+                            FixLocation(temp2,temp1.getX_Current()+blockSize,y);
+                            FixLocation(temp3,temp2.getX_Current()+blockSize,y);
+                            FixLocation(temp4,temp3.getX_Current()+blockSize,y);
+                        }
+                        else if(temp1.getX_Current()>280)
+                        {
+                            FixLocation(temp2,temp1.getX_Current()-blockSize,y);
+                            FixLocation(temp3,temp2.getX_Current()-blockSize,y);
+                            FixLocation(temp4,temp3.getX_Current()-blockSize,y);
+                        }
+                        else
+                        {
+                            FixLocation(temp2,temp1.getX_Current()+blockSize,y);
+                            FixLocation(temp3,temp2.getX_Current()+blockSize,y);
+                            FixLocation(temp4,temp3.getX_Current()+blockSize,y);
+                        }
                         if(card.getType().equals("+"))
                         {
                             temp1.setType("+");
@@ -495,16 +517,24 @@ public class Controller {
        // }
     }
     private void TaskR(double x,double y,Card card,GameDeckObject g) {
-        //if (!(card instanceof Spell)) {
-//            Platform.runLater(new Runnable() {
-//                @Override
-//                public void run() {
         if(card instanceof Archer)
         {
             Archer temp1 = new Archer();
             Archer temp2 = new Archer();
             FixLocation(temp1,x,y);
-            FixLocation(temp2,x+2*blockSize,y);
+            if(temp1.getX_Current()<20)
+            {
+                FixLocation(temp2,x+2*blockSize,y);
+
+            }
+            else if(temp1.getX_Current()>300)
+            {
+                FixLocation(temp2,x-2*blockSize,y);
+            }
+            else
+            {
+                FixLocation(temp2,x+2*blockSize,y);
+            }
             if(card.getType().equals("+"))
             {
                 temp1.setType("+");
@@ -563,9 +593,25 @@ public class Controller {
             Barbarian temp3 = new Barbarian();
             Barbarian temp4 = new Barbarian();
             FixLocation(temp1,x,y);
-            FixLocation(temp2,x+2*blockSize,y);
-            FixLocation(temp3,x,y+2*blockSize);
-            FixLocation(temp4,x+2*blockSize,y+2*blockSize);
+            FixLocation(temp1,x,y);
+            if(temp1.getX_Current()<20)
+            {
+                FixLocation(temp2,temp1.getX_Current()+blockSize,y);
+                FixLocation(temp3,temp2.getX_Current()+blockSize,y);
+                FixLocation(temp4,temp3.getX_Current()+blockSize,y);
+            }
+            else if(temp1.getX_Current()>280)
+            {
+                FixLocation(temp2,temp1.getX_Current()-blockSize,y);
+                FixLocation(temp3,temp2.getX_Current()-blockSize,y);
+                FixLocation(temp4,temp3.getX_Current()-blockSize,y);
+            }
+            else
+            {
+                FixLocation(temp2,temp1.getX_Current()+blockSize,y);
+                FixLocation(temp3,temp2.getX_Current()+blockSize,y);
+                FixLocation(temp4,temp3.getX_Current()+blockSize,y);
+            }
             if(card.getType().equals("+"))
             {
                 temp1.setType("+");

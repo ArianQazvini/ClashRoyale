@@ -31,8 +31,17 @@ public abstract class Tower extends WarObject {
     private boolean gotHurt = false;
     private boolean isRaged =false;
     private Rage rage=null;
+    private boolean isDead = false;
     public float getHitSpeed() {
         return hitSpeed;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 
     public void setRaged(boolean raged) {
