@@ -14,6 +14,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 import model.*;
@@ -27,6 +28,7 @@ import model.Spell.Spell;
 import model.Troop.*;
 import model.Troop.Troop;
 import model.Troop.Wizard;
+import model.TimeWorks;
 import sample.Main;
 import services.DatabaseSaving;
 import services.GameManager;
@@ -61,6 +63,13 @@ public class Controller {
     private TextField minText;
     @FXML
     private TextField secondsText;
+    @FXML
+    private ImageView doubleElixirImage;
+    @FXML
+    private TextField RobotCrownsText;
+
+    @FXML
+    private TextField PlayerCrownsText;
     private GameDeck gameDeck;
     private Timer timer;
     private final int blockSize = 20;
@@ -71,8 +80,14 @@ public class Controller {
     private ImageView[][] river = new ImageView[2][16];
     private GameManager gameManager= Main.gameManager;
     private TimeWorks gameTimer  = new TimeWorks();
+    private boolean gameisFinished=false;
     public void initialize()
     {
+        ViewService.setBackground(MainGround,"menubg1.jpg");
+        doubleElixirImage.setVisible(false);
+        gameManager.getPlayer().getElixir().setStyle("-fx-accent: purple");
+        minText.setEditable(false);
+        secondsText.setEditable(false);
         gameResult.setVisible(false);
        // gameManager.getOpponent().gameManager=gameManager;
         //ViewService.setBackground(MainGround, "jungle.jpg");
@@ -91,7 +106,7 @@ public class Controller {
         StartTimer();
         startOpponent();
         gameTimer.gameTimer();
-        setTimerBinders();
+        setBinders();
     }
     private void setDeckOnClick(){
         for (GameDeckObject g:gameDeck.getGameDeckObjects()){
@@ -110,10 +125,12 @@ public class Controller {
             });
         }
     }
-    private void setTimerBinders()
+    private void setBinders()
     {
         minText.textProperty().bind(gameTimer.minProperty().asString());
         secondsText.textProperty().bind(gameTimer.secsProperty().asString());
+        PlayerCrownsText.textProperty().bind(gameManager.getPlayer().crownProperty().asString());
+        RobotCrownsText.textProperty().bind(gameManager.getOpponent().crownProperty().asString());
     }
     @FXML
     void press(Card card,GameDeckObject g) {
@@ -159,16 +176,24 @@ public class Controller {
 //    }
 
     private void Task(double x,double y,Card card,GameDeckObject g) {
-        //if (!(card instanceof Spell)) {
-//            Platform.runLater(new Runnable() {
-//                @Override
-//                public void run() {
                     if(card instanceof Archer)
                     {
                         Archer temp1 = new Archer();
                         Archer temp2 = new Archer();
                         FixLocation(temp1,x,y);
-                        FixLocation(temp2,x+2*blockSize,y);
+                        if(temp1.getX_Current()<20)
+                        {
+                            FixLocation(temp2,x+2*blockSize,y);
+
+                        }
+                        else if(temp1.getX_Current()>300)
+                        {
+                            FixLocation(temp2,x-2*blockSize,y);
+                        }
+                        else
+                        {
+                            FixLocation(temp2,x+2*blockSize,y);
+                        }
                         if(card.getType().equals("+"))
                         {
                             temp1.setType("+");
@@ -227,9 +252,24 @@ public class Controller {
                         Barbarian temp3 = new Barbarian();
                         Barbarian temp4 = new Barbarian();
                         FixLocation(temp1,x,y);
-                        FixLocation(temp2,x+2*blockSize,y);
-                        FixLocation(temp3,x,y+2*blockSize);
-                        FixLocation(temp4,x+2*blockSize,y+2*blockSize);
+                        if(temp1.getX_Current()<20)
+                        {
+                            FixLocation(temp2,temp1.getX_Current()+blockSize,y);
+                            FixLocation(temp3,temp2.getX_Current()+blockSize,y);
+                            FixLocation(temp4,temp3.getX_Current()+blockSize,y);
+                        }
+                        else if(temp1.getX_Current()>280)
+                        {
+                            FixLocation(temp2,temp1.getX_Current()-blockSize,y);
+                            FixLocation(temp3,temp2.getX_Current()-blockSize,y);
+                            FixLocation(temp4,temp3.getX_Current()-blockSize,y);
+                        }
+                        else
+                        {
+                            FixLocation(temp2,temp1.getX_Current()+blockSize,y);
+                            FixLocation(temp3,temp2.getX_Current()+blockSize,y);
+                            FixLocation(temp4,temp3.getX_Current()+blockSize,y);
+                        }
                         if(card.getType().equals("+"))
                         {
                             temp1.setType("+");
@@ -478,16 +518,24 @@ public class Controller {
        // }
     }
     private void TaskR(double x,double y,Card card,GameDeckObject g) {
-        //if (!(card instanceof Spell)) {
-//            Platform.runLater(new Runnable() {
-//                @Override
-//                public void run() {
         if(card instanceof Archer)
         {
             Archer temp1 = new Archer();
             Archer temp2 = new Archer();
             FixLocation(temp1,x,y);
-            FixLocation(temp2,x+2*blockSize,y);
+            if(temp1.getX_Current()<20)
+            {
+                FixLocation(temp2,x+2*blockSize,y);
+
+            }
+            else if(temp1.getX_Current()>300)
+            {
+                FixLocation(temp2,x-2*blockSize,y);
+            }
+            else
+            {
+                FixLocation(temp2,x+2*blockSize,y);
+            }
             if(card.getType().equals("+"))
             {
                 temp1.setType("+");
@@ -546,9 +594,25 @@ public class Controller {
             Barbarian temp3 = new Barbarian();
             Barbarian temp4 = new Barbarian();
             FixLocation(temp1,x,y);
-            FixLocation(temp2,x+2*blockSize,y);
-            FixLocation(temp3,x,y+2*blockSize);
-            FixLocation(temp4,x+2*blockSize,y+2*blockSize);
+            FixLocation(temp1,x,y);
+            if(temp1.getX_Current()<20)
+            {
+                FixLocation(temp2,temp1.getX_Current()+blockSize,y);
+                FixLocation(temp3,temp2.getX_Current()+blockSize,y);
+                FixLocation(temp4,temp3.getX_Current()+blockSize,y);
+            }
+            else if(temp1.getX_Current()>280)
+            {
+                FixLocation(temp2,temp1.getX_Current()-blockSize,y);
+                FixLocation(temp3,temp2.getX_Current()-blockSize,y);
+                FixLocation(temp4,temp3.getX_Current()-blockSize,y);
+            }
+            else
+            {
+                FixLocation(temp2,temp1.getX_Current()+blockSize,y);
+                FixLocation(temp3,temp2.getX_Current()+blockSize,y);
+                FixLocation(temp4,temp3.getX_Current()+blockSize,y);
+            }
             if(card.getType().equals("+"))
             {
                 temp1.setType("+");
@@ -861,15 +925,18 @@ public class Controller {
                 {
                     gameManager.getPlayer().getElixir().setSleep(1000);
                     gameManager.getOpponent().getElixir().setSleep(1000);
+                    doubleElixirImage.setVisible(true);
                 }
                 UpdatePage();
                 gameManager.Step();
             }
             else
             {
+                gameTimer.setGameTimesUp(true);
+                gameisFinished=true;
+                timer.cancel();
                 gameManager.getPlayer().getElixir().setGameFinished(true);
                 gameManager.getOpponent().getElixir().setGameFinished(true);
-                timer.cancel();
                 if(gameManager.getWinner()== gameManager.getPlayer())
                 {
                     gameResult.setVisible(true);
@@ -924,7 +991,7 @@ public class Controller {
             @Override
             public void run() {
                 gameManager.getOpponent().setBattleDeck();
-                while (true)
+                while (!gameisFinished)
                 {
                     robotTask();
                 }

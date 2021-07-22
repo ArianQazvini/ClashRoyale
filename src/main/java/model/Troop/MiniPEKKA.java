@@ -33,21 +33,21 @@ public class MiniPEKKA extends Troop{
         {
             if(super.getTowerTarget()!=null)
             {
-                if(this.towerDistance()<= ((this.getRange()+1) * 20))
-                {
+           //     if(this.towerDistance()<= ((this.getRange()+1) * 20))
+            //    {
                     changePictoTarget();
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
-                }
-                else
-                {
-                    super.setLockedTarget(null);
-                    super.setTowerTarget(null);
-                    setShootingTimeTick(0);
-                }
+             //   }
+//                else
+//                {
+//                    super.setLockedTarget(null);
+//                    super.setTowerTarget(null);
+//                    setShootingTimeTick(0);
+//                }
             }
             else if(super.getLockedTarget()!=null)
             {
@@ -175,7 +175,7 @@ public class MiniPEKKA extends Troop{
     @Override
     public void undoRage() {
         this.setHitSpeed(1.8F);
-        this.getSpeed().setVelocity(2.5);
+        this.getSpeed().setVelocity(2.0);
         if(this.getLevelInformation().level==Level.LEVEL1)
         {
             this.getLevelInformation().getDamage().setValue((Double)325.0);
@@ -227,8 +227,8 @@ public class MiniPEKKA extends Troop{
             }
             else if(super.getTowerTarget()!=null)
             {
-                if(super.towerDistance()<= ((this.getRange()+1) * 20))
-                {
+               // if(super.towerDistance()<= ((this.getRange()+1) * 20))
+             //   {
                     if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.TOP)
                     {
                         HitUpMode();
@@ -245,7 +245,7 @@ public class MiniPEKKA extends Troop{
                     {
                         HitLeftMode();
                     }
-                }
+              //  }
             }
         }
     }

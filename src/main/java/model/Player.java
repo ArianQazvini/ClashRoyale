@@ -1,5 +1,7 @@
 package model;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import model.Building.Cannon;
 import model.Building.InfernoTower;
 import model.Spell.Arrows;
@@ -26,6 +28,7 @@ public class Player {
     private PrinceTower princeTower2= new PrinceTower();
     private int scores = 300;
     private int crownsWon = 0 ;
+    private IntegerProperty crownProperty = new SimpleIntegerProperty(0);
     boolean anonymous=false;
 
     public Player(){
@@ -58,6 +61,9 @@ public class Player {
 
     public Elixir getElixir() {
         return elixir;
+    }
+    public IntegerProperty crownProperty() {
+        return crownProperty;
     }
 
     public void setElixir(double value) {

@@ -2,6 +2,7 @@ package model.Spell;
 
 import enums.CardId;
 import enums.Level;
+import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Circle;
@@ -14,6 +15,8 @@ import java.util.ArrayList;
 
 public class Arrows extends Spell{
     private Circle Arrows = new Circle();
+    private boolean isDone = false;
+    private boolean isUsed = false;
     public Arrows(){
         setAvatar("arrows.png");
         setRadius(4);
@@ -26,9 +29,37 @@ public class Arrows extends Spell{
         setLevelInformation(getLevel1());
         setId(CardId.arrows);
     }
+    public void arrowThread()
+    {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                isUsed=true;
+                graphicStaff();
+            }
+        });
+        thread.setDaemon(true);
+        thread.start();
+    }
+    public void graphicStaff()
+    {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                setPic();
+                Hit();
+            }
+        });
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        isDone= true;
+    }
     private void setPic()
     {
-        Image arrows = new Image(new File("src/main/resources/pics/Characters/Arrows.png").toURI().toString());
+        Image arrows = new Image(new File("src/main/resources/pics/Characters/Arrows4.jpg").toURI().toString());
         ImagePattern imagePattern = new ImagePattern(arrows);
         this.Arrows.setFill(imagePattern);
         this.Arrows.setRadius(4*10);
@@ -38,7 +69,6 @@ public class Arrows extends Spell{
     }
     public void Hit()
     {
-        setPic();
         for (int i = 0; i < getAttackCards().size(); i++) {
             getAttackCards().get(i).Hurt(this.getLevelInformation().getValue());
         }
@@ -49,5 +79,13 @@ public class Arrows extends Spell{
 
     public Circle getArrows() {
         return Arrows;
+    }
+
+    public boolean isUsed() {
+        return isUsed;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 }

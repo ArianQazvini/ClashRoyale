@@ -7,6 +7,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import model.AttackCard;
 import model.Damage;
+import model.Spell.Rage;
 import model.WarObject;
 import model.informations.ACLevelValue;
 import model.informations.LevelInformation;
@@ -29,8 +30,18 @@ public abstract class Tower extends WarObject {
     private String type ;
     private boolean gotHurt = false;
     private boolean isRaged =false;
+    private Rage rage=null;
+    private boolean isDead = false;
     public float getHitSpeed() {
         return hitSpeed;
+    }
+
+    public void setDead(boolean dead) {
+        isDead = dead;
+    }
+
+    public boolean isDead() {
+        return isDead;
     }
 
     public void setRaged(boolean raged) {
@@ -197,8 +208,15 @@ public abstract class Tower extends WarObject {
     }
     public void rageImpact()
     {
-        this.setHitSpeed(this.getHitSpeed() * 1.4F);
-        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.4);
+        this.setHitSpeed(this.getHitSpeed() - 0.2F);
+        this.getLevelInformation().getDamage().setValue((Double)this.getLevelInformation().getDamage().getValue()*1.5);
     }
     public abstract void undoRage();
+
+    public void setRage(Rage rage) {
+        this.rage = rage;
+    }
+    public Rage getRage() {
+        return rage;
+    }
 }

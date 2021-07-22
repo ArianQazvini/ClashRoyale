@@ -215,7 +215,7 @@ public class InfernoTower extends Building{
     @Override
     public void rageImpact()
     {
-        this.setHitSpeed(this.getHitSpeed() * 1.4F);
+        this.setHitSpeed(this.getHitSpeed() -0.2F);
         DamageVary damage = (DamageVary) super.getLevelInformation().getDamage().getValue();
         damage.setMax(damage.max*1.4);
     }

@@ -95,4 +95,18 @@ public class TimeWorks {
     public boolean isDoubleElxirTime() {
         return doubleElxirTime;
     }
+
+    public void setDoubleElxirTime(boolean doubleElxirTime) {
+        this.doubleElxirTime = doubleElxirTime;
+    }
+    public void setMin(int min) {
+        this.min.set(min);
+    }
+    public void setSecs(int secs) {
+        this.secs.set(secs);
+    }
+
+    public void setGameTimesUp(boolean gameTimesUp) {
+        this.gameTimesUp = gameTimesUp;
+    }
 }

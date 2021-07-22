@@ -27,10 +27,7 @@ import model.robot.SmartRobot;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
-import java.util.Random;
+import java.util.*;
 
 public class GameManager {
     private final int blockSize=20;
@@ -91,17 +88,58 @@ public class GameManager {
         double help_row=0.0;
         double help_col=0.0;
         Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+        Image grass2 = new Image(new File("src/main/resources/pics/lightGreenBlock.png").toURI().toString());
         for (int i = 0; i < 32; i++) {
-            for (int j = 0; j < 18; j++) {
-                blocks[i][j]=new ImageView(grass);
-                blocks[i][j].setFitWidth(20);
-                blocks[i][j].setFitHeight(20);
-                blocks[i][j].setY(help_row);
-                blocks[i][j].setX(help_col);
-                help_col+=blockSize;
+            if(i%2==1)
+            {
+                for (int j = 0; j < 18; j++) {
+                    if(j%2 ==1)
+                    {
+                        blocks[i][j]=new ImageView(grass2);
+                        blocks[i][j].setFitWidth(20);
+                        blocks[i][j].setFitHeight(20);
+                        blocks[i][j].setY(help_row);
+                        blocks[i][j].setX(help_col);
+                        help_col+=blockSize;
+                    }
+                    else
+                    {
+                        blocks[i][j]=new ImageView(grass);
+                        blocks[i][j].setFitWidth(20);
+                        blocks[i][j].setFitHeight(20);
+                        blocks[i][j].setY(help_row);
+                        blocks[i][j].setX(help_col);
+                        help_col+=blockSize;
+                    }
+                }
+                help_row+=blockSize;
+                help_col=0.0;
             }
-            help_row+=blockSize;
-            help_col=0.0;
+            else
+            {
+                for (int j = 0; j < 18; j++) {
+                    if(j%2 ==1)
+                    {
+                        blocks[i][j]=new ImageView(grass);
+                        blocks[i][j].setFitWidth(20);
+                        blocks[i][j].setFitHeight(20);
+                        blocks[i][j].setY(help_row);
+                        blocks[i][j].setX(help_col);
+                        help_col+=blockSize;
+                    }
+                    else
+                    {
+                        blocks[i][j]=new ImageView(grass2);
+                        blocks[i][j].setFitWidth(20);
+                        blocks[i][j].setFitHeight(20);
+                        blocks[i][j].setY(help_row);
+                        blocks[i][j].setX(help_col);
+                        help_col+=blockSize;
+                    }
+                }
+                help_row+=blockSize;
+                help_col=0.0;
+            }
         }
         road();
         river();
@@ -209,8 +247,8 @@ public class GameManager {
     public void createPlayerTowers()
     {
         Image ground = new Image(new File("src/main/resources/pics/terrainTile4.png").toURI().toString());
-        Image pCrown = new Image(new File("src/main/resources/pics/PrinceCrown.png").toURI().toString());
-        Image kCrown = new Image(new File("src/main/resources/pics/KingCrown.png").toURI().toString());
+        Image pCrown = new Image(new File("src/main/resources/pics/PrinceUp.png").toURI().toString());
+        Image kCrown = new Image(new File("src/main/resources/pics/BlueKing.png").toURI().toString());
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(i==1 && j==1)
@@ -291,8 +329,8 @@ public class GameManager {
     public void createBotTowers()
     {
         Image ground = new Image(new File("src/main/resources/pics/terrainTile4.png").toURI().toString());
-        Image pCrown = new Image(new File("src/main/resources/pics/PrinceCrown.png").toURI().toString());
-        Image kCrown = new Image(new File("src/main/resources/pics/KingCrown.png").toURI().toString());
+        Image pCrown = new Image(new File("src/main/resources/pics/PrinceDown.png").toURI().toString());
+        Image kCrown = new Image(new File("src/main/resources/pics/RedKing.png").toURI().toString());
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(i==1 && j==1)
@@ -440,6 +478,10 @@ public class GameManager {
     }
     public void Step()
     {
+        spellsImpact();
+        removeSpells();
+        addTargetforRage();
+        rageImpactControll();
         checkTowersLife();
         checkBuildingsLife();
         checkTroopsLife();
@@ -482,10 +524,47 @@ public class GameManager {
                 move(troops.get(i));
             }
         }
-        spellsImpact();
-        addTargetforRage();
-        Rage();
-        removeSpells();
+    }
+    private void rageImpactControll()
+    {
+        for (int i = 0; i < troops.size(); i++) {
+            if(troops.get(i).isRaged())
+            {
+                if(troops.get(i).getRage().isDone() || distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),troops.get(i).getRage().getX(),troops.get(i).getRage().getY())> troops.get(i).getRage().getRadius()*blockSize)
+                {
+                    troops.get(i).undoRage();
+                    troops.get(i).setShootingTimeTick(0);
+                    troops.get(i).setRaged(false);
+                    troops.get(i).setRage(null);
+                    System.out.println(troops.get(i).getClass()+ " is un raged");
+                }
+            }
+        }
+        for (int i = 0; i < buildings.size(); i++) {
+            if(buildings.get(i).isRaged())
+            {
+                if(buildings.get(i).getRage().isDone())
+                {
+                    buildings.get(i).undoRage();
+                    buildings.get(i).setShootingTimeTick(0);
+                    buildings.get(i).setRaged(false);
+                    buildings.get(i).setRage(null);
+                }
+            }
+        }
+        for (int i = 0; i < towers.size(); i++) {
+            if(towers.get(i).isRaged())
+            {
+                if(towers.get(i).getRage().isDone())
+                {
+                    towers.get(i).undoRage();
+                    towers.get(i).setShootingTimeTick(0);
+                    towers.get(i).setRaged(false);
+                    towers.get(i).setRage(null);
+                }
+            }
+        }
+
     }
 
     private void addTargetforRage() {
@@ -494,23 +573,30 @@ public class GameManager {
             if(spells.get(i) instanceof Rage)
             {
                 temp = (Rage) spells.get(i);
-                if(!temp.isDone())
-                {
+            //    if(!temp.isDone())
+             //   {
                     for (int j = 0; j < troops.size(); j++) {
-                        if(troops.get(i).getType().equals(temp.getType()) && distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
+                        if(troops.get(j).getType().equals(temp.getType()) && !troops.get(j).isRaged() && distance(troops.get(j).getX_Current(),troops.get(j).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
                         {
-                            temp.getAttackCards().add(troops.get(i));
-                            troops.get(i).setRaged(true);
+                            temp.getAttackCards().add(troops.get(j));
+                            troops.get(j).setRaged(true);
+                            troops.get(j).rageImpact();
+                            troops.get(j).setRage(temp);
+                            troops.get(j).setShootingTimeTick(0);
+                            System.out.println(troops.get(j).getClass()+" is raged");
                         }
                     }
                     for (int j = 0; j < buildings.size(); j++) {
-                        if(buildings.get(i).getType().equals(temp.getType()) && distance(buildings.get(i).getX_Current(),buildings.get(i).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
+                        if(buildings.get(j).getType().equals(temp.getType()) && !buildings.get(j).isRaged() && distance(buildings.get(j).getX_Current(),buildings.get(j).getY_Current(),temp.getX(),temp.getY())<= temp.getRadius()*blockSize)
                         {
-                            temp.getAttackCards().add(buildings.get(i));
-                            buildings.get(i).setRaged(true);
+                            temp.getAttackCards().add(buildings.get(j));
+                            buildings.get(j).setRaged(true);
+                            buildings.get(j).rageImpact();
+                            buildings.get(j).setRage(temp);
+                            buildings.get(j).setShootingTimeTick(0);
                         }
                     }
-                }
+               // }
             }
         }
     }
@@ -533,7 +619,7 @@ public class GameManager {
     }
     private boolean checkPalace(Troop troop)
     {
-        if(troop.getX_Current() >= 0 && troop.getX_Current() <360 && troop.getY_Current()>0 && troop.getY_Current()<620) {
+        if(troop.getX_Current() >= 0 && troop.getX_Current() <360 && troop.getY_Current()>0 && troop.getY_Current()<640) {
             return true;
         }
         else
@@ -541,10 +627,6 @@ public class GameManager {
             return false;
         }
     }
-//    private boolean locationIsInside(double x, double y)
-//    {
-//
-//    }
     private void move(Troop troop)
     {
         if(troop.getType().equals("+"))
@@ -557,15 +639,29 @@ public class GameManager {
             {
                 roadMove(troop);
             }
-            else if(towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            else if(towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity())!=null)
             {
                 towerMove(troop);
             }
+            else if(moveToKingTower(troop))
+            {
+                if(troop.getX_Current()>180)
+                {
+                    troop.WalkingLeftMode();
+                    troop.Left();
+                }
+                else if(troop.getX_Current() <180)
+                {
+                    troop.WalkingRightMode();
+                    troop.Right();
+                }
+            }
             else
             {
-//                troop.WalkingTopMode();
+               troop.WalkingTopMode();
 //                troop.Forward();
-                smartUp(troop,troop.getSpeed().getVelocity());
+                troop.Forward();
+               // smartUp(troop,troop.getSpeed().getVelocity());
                 //collision(troop);
             }
         }
@@ -579,16 +675,90 @@ public class GameManager {
             {
                 roadMove(troop);
             }
-            else if(towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            else if(towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize)!=null)
             {
                towerMove(troop);
             }
+            else if(moveToKingTower(troop))
+            {
+                if(troop.getX_Current()>180)
+                {
+                    troop.WalkingLeftMode();
+                    troop.Left();
+                }
+                else if(troop.getX_Current() <180)
+                {
+                    troop.WalkingRightMode();
+                    troop.Right();
+                }
+            }
             else
             {
-//                troop.WalkingDownMode();
-//                troop.Backward();
+                troop.WalkingDownMode();
+                troop.Backward();
 //                collision(troop);
-                smartDown(troop,troop.getSpeed().getVelocity());
+               // smartDown(troop,troop.getSpeed().getVelocity());
+            }
+        }
+    }
+    private boolean moveToKingTower(Troop troop)
+    {
+        if(troop.getType().equals("+"))
+        {
+            if(troop.getX_Current() > 180 && opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
+            {
+                if(troop.getY_Current()- troop.getSpeed().getVelocity() < 20)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if(troop.getX_Current() <180 && opponent.getPrinceTower1().getLevelInformation().getHp()<=0)
+            {
+                if(troop.getY_Current()- troop.getSpeed().getVelocity() < 20)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if(troop.getX_Current() > 180 && player.getPrinceTower2().getLevelInformation().getHp()<=0)
+            {
+                if(troop.getY_Current()+ troop.getSpeed().getVelocity() > 620)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else if(troop.getX_Current() <180 && player.getPrinceTower1().getLevelInformation().getHp()<=0)
+            {
+                if(troop.getY_Current()+ troop.getSpeed().getVelocity() > 620)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
     }
@@ -615,33 +785,33 @@ public class GameManager {
             return false;
         }
     }
-    private boolean towerHit(double x, double y)
+    private Tower towerHit(double x, double y)
     {
         if(x<80 && x>=20 && y<=620 && y>=560 && player.getPrinceTower1().getLevelInformation().getHp()>0)
         {
-            return true;
+            return player.getPrinceTower1();
         }
         else  if( x<340 && x>=280 && y<=620 && y>=560 && player.getPrinceTower2().getLevelInformation().getHp()>0)
         {
-            return true;
+            return player.getPrinceTower2();
         }
         else  if( x<200 && x>=140 && y<=640 && y>=580 && player.getKingTower().getLevelInformation().getHp()>0) {
-            return true;
+            return player.getKingTower();
         }
         else if( x<80 && x>=20 && y<=80 && y>=20 && opponent.getPrinceTower1().getLevelInformation().getHp()>0)
         {
-            return true;
+            return opponent.getPrinceTower1();
         }
         else  if( x<340 && x>=280 && y<=80 && y>=20 && opponent.getPrinceTower2().getLevelInformation().getHp()>0)
         {
-            return true;
+            return opponent.getPrinceTower2();
         }
         else if( x<200 && x>=140 && y<=60 && y>=0 && opponent.getKingTower().getLevelInformation().getHp()>0) {
-            return true;
+            return opponent.getKingTower();
         }
         else
         {
-            return false;
+            return null;
         }
     }
     private boolean attackCardHit(Troop curr)
@@ -810,13 +980,13 @@ public class GameManager {
             {
                 if(riverHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
                 {
-                    if(troop.getX_Current()>=60 && troop.getX_Current() <=80)
+                    if(troop.getX_Current()>=60 && troop.getX_Current() <=70)
                     {
                         troop.WalkingLeftMode();
-                        troop.Left(20);
+                        troop.Left(troop.getX_Current()-40);
                        // smartLeft(troop,20);
                     }
-                    else if(troop.getX_Current()>=80 && troop.getX_Current() <=180)
+                    else if(troop.getX_Current()>70 && troop.getX_Current() <=180)
                     {
                         troop.WalkingLeftMode();
                         troop.Left(troop.getSpeed().getVelocity());
@@ -824,9 +994,9 @@ public class GameManager {
                     }
                     else if(troop.getX_Current() >= 180 && troop.getX_Current() < 300)
                     {
-//                        troop.WalkingRightMode();
-//                        troop.Right();
-                        smartRight(troop,troop.getSpeed().velocity);
+                        troop.WalkingRightMode();
+                        troop.Right();
+                       // smartRight(troop,troop.getSpeed().velocity);
                     }
                     else if(troop.getX_Current() <40)
                     {
@@ -837,7 +1007,7 @@ public class GameManager {
                     else if(troop.getX_Current() >= 320 && troop.getX_Current()<340)
                     {
                         troop.WalkingLeftMode();
-                        troop.Left(20);
+                        troop.Left(troop.getX_Current()-300);
                         //smartLeft(troop,20);
                     }
                     else if (troop.getX_Current()>=340)
@@ -851,13 +1021,13 @@ public class GameManager {
             else {
                 if(riverHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
                 {
-                    if(troop.getX_Current()>=60 && troop.getX_Current() <=80)
+                    if(troop.getX_Current()>=60 && troop.getX_Current() <=70)
                     {
                         troop.WalkingLeftMode();
-                        troop.Left(20);
-                   //     smartLeft(troop,20);
+                        troop.Left(troop.getX_Current()-40);
+                        //     smartLeft(troop,20);
                     }
-                    else if(troop.getX_Current()>=80 && troop.getX_Current() <=180)
+                    else if(troop.getX_Current()>70 && troop.getX_Current() <=180)
                     {
                         troop.WalkingLeftMode();
                         troop.Left(troop.getSpeed().getVelocity());
@@ -878,7 +1048,7 @@ public class GameManager {
                     else if(troop.getX_Current() >= 320 && troop.getX_Current()<340)
                     {
                         troop.WalkingLeftMode();
-                        troop.Left(20);
+                        troop.Left(troop.getX_Current()-300);
                        // smartLeft(troop,20);
                     }
                     else if (troop.getX_Current()>=340)
@@ -929,22 +1099,118 @@ public class GameManager {
     }
     private void towerMove(Troop troop)
     {
-        if (troop.getType().equals("+"))
+        if(!(troop instanceof BabyDragon))
         {
-            if(towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity()))
+            if (troop.getType().equals("+"))
             {
-                troop.WalkingTopMode();
+                Tower temp = towerHit(troop.getX_Current(),troop.getY_Current()-troop.getSpeed().getVelocity());
+                if(temp == player.getPrinceTower1())
+                {
+                    if(troop.getX_Current()<=20)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>20)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                    //troop.WalkingTopMode();
 //                troop.Forward();
-               // smartUp(troop,troop.getSpeed().getVelocity());
+                    // smartUp(troop,troop.getSpeed().getVelocity());
+                }
+                else if(temp == player.getPrinceTower2())
+                {
+                    if(troop.getX_Current()<=300)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>300)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                }
+                else if(temp==player.getKingTower())
+                {
+                    if(troop.getX_Current()<=160)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>160)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                }
+                else
+                {
+                    troop.WalkingTopMode();
+                }
+            }
+            else
+            {
+                Tower temp = towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize);
+                if(temp == opponent.getPrinceTower1())
+                {
+                    if(troop.getX_Current()<=20)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>20)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                    //troop.WalkingTopMode();
+//                troop.Forward();
+                    // smartUp(troop,troop.getSpeed().getVelocity());
+                }
+                else if(temp == opponent.getPrinceTower2())
+                {
+                    if(troop.getX_Current()<=300)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>300)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                }
+                else if(temp==opponent.getKingTower())
+                {
+                    if(troop.getX_Current()<=160)
+                    {
+                        troop.WalkingLeftMode();
+                        troop.Left(20);
+                    }
+                    else if(troop.getX_Current()>160)
+                    {
+                        troop.WalkingRightMode();
+                        troop.Right();
+                    }
+                }
+                else
+                {
+                    troop.WalkingDownMode();
+                }
             }
         }
         else
         {
-            if(towerHit(troop.getX_Current(),troop.getY_Current()+troop.getSpeed().getVelocity()+blockSize))
+            if(troop.getType().equals("+"))
             {
-                troop.WalkingDownMode();
-//                troop.Backward();
-               // smartDown(troop,troop.getSpeed().getVelocity());
+                troop.Forward();
+            }
+            else
+            {
+                troop.Backward();
             }
         }
        // collision(troop);
@@ -1290,6 +1556,41 @@ public class GameManager {
                         }
                     }
                 }
+                else if(shooter instanceof Valkyrie)
+                {
+                    Valkyrie valkyrie = (Valkyrie) shooter;
+                    ArrayList<AttackCard> temp = attackCardsInArea(valkyrie.getX_Current(),valkyrie.getY_Current(),shooter.getRange()*blockSize);
+                    for (int i = 0; i < temp.size(); i++) {
+                        if(shooter.getTarget()== Target.AIR)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && temp.get(i) instanceof BabyDragon)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.AIR_GROUND)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.GROUND)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && !(temp.get(i) instanceof BabyDragon))
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                        else if(shooter.getTarget()==Target.BUILDING)
+                        {
+                            if(temp.get(i)!= shooter && temp.get(i).getType().equals(shooter.getType()) && temp.get(i)!=target && temp.get(i) instanceof Building)
+                            {
+                                temp.get(i).Hurt((double) shooter.getLevelInformation().getDamage().getValue());
+                            }
+                        }
+                    }
+                }
             }
         }
     }
@@ -1591,48 +1892,60 @@ public class GameManager {
     }
     private void checkTowersLife()
     {
-        if(player.getPrinceTower1().getLevelInformation().getHp()<=0)
-        {
-            player.getKingTower().setCanShoot(true);
-            removeTower(player.getPrinceTower1());
-            princeTowerDeath(player.getPrinceTower1());
-            opponent.incrementCrownsWon();
-        }
-        if(player.getPrinceTower2().getLevelInformation().getHp()<=0)
-        {
-            player.getKingTower().setCanShoot(true);
-            removeTower(player.getPrinceTower2());
-            princeTowerDeath(player.getPrinceTower2());
-            opponent.incrementCrownsWon();
-        }
-        if(opponent.getPrinceTower1().getLevelInformation().getHp()<=0)
-        {
-            opponent.getKingTower().setCanShoot(true);
-            removeTower(opponent.getPrinceTower1());
-            princeTowerDeath(opponent.getPrinceTower1());
-            player.incrementCrownsWon();
-        }
-        if(opponent.getPrinceTower2().getLevelInformation().getHp()<=0)
-        {
-            opponent.getKingTower().setCanShoot(true);
-            removeTower(opponent.getPrinceTower2());
-            princeTowerDeath(opponent.getPrinceTower2());
-            player.incrementCrownsWon();
-        }
-        if(player.getKingTower().getLevelInformation().getHp()<=0)
-        {
-            removeTower(player.getKingTower());
-            kingTowerDeath(player.getKingTower());
-            opponent.setCrownsWon(3);
-            gameFinished=true;
-        }
-        if(opponent.getKingTower().getLevelInformation().getHp()<=0)
-        {
-            removeTower(opponent.getKingTower());
-            kingTowerDeath(opponent.getKingTower());
-            player.setCrownsWon(3);
-            gameFinished=true;
-        }
+            if(player.getPrinceTower1().getLevelInformation().getHp()<=0 && !player.getPrinceTower1().isDead())
+            {
+                player.getKingTower().setCanShoot(true);
+                removeTower(player.getPrinceTower1());
+                princeTowerDeath(player.getPrinceTower1());
+                opponent.incrementCrownsWon();
+                opponent.crownProperty().set(opponent.getCrownsWon());
+                player.getPrinceTower1().setDead(true);
+            }
+            if(player.getPrinceTower2().getLevelInformation().getHp()<=0 && !player.getPrinceTower2().isDead())
+            {
+                player.getKingTower().setCanShoot(true);
+                removeTower(player.getPrinceTower2());
+                princeTowerDeath(player.getPrinceTower2());
+                opponent.incrementCrownsWon();
+                opponent.crownProperty().set(opponent.getCrownsWon());
+                player.getPrinceTower2().setDead(true);
+            }
+            if(opponent.getPrinceTower1().getLevelInformation().getHp()<=0 && !opponent.getPrinceTower1().isDead())
+            {
+                opponent.getKingTower().setCanShoot(true);
+                removeTower(opponent.getPrinceTower1());
+                princeTowerDeath(opponent.getPrinceTower1());
+                player.incrementCrownsWon();
+                player.crownProperty().set(player.getCrownsWon());
+                opponent.getPrinceTower1().setDead(true);
+            }
+            if(opponent.getPrinceTower2().getLevelInformation().getHp()<=0 && !opponent.getPrinceTower2().isDead() )
+            {
+                opponent.getKingTower().setCanShoot(true);
+                removeTower(opponent.getPrinceTower2());
+                princeTowerDeath(opponent.getPrinceTower2());
+                player.incrementCrownsWon();
+                player.crownProperty().set(player.getCrownsWon());
+                opponent.getPrinceTower2().setDead(true);
+            }
+            if(player.getKingTower().getLevelInformation().getHp()<=0 && !player.getKingTower().isDead())
+            {
+                removeTower(player.getKingTower());
+                kingTowerDeath(player.getKingTower());
+                opponent.setCrownsWon(3);
+                opponent.crownProperty().set(3);
+                gameFinished=true;
+                player.getKingTower().setDead(true);
+            }
+            if(opponent.getKingTower().getLevelInformation().getHp() <=0 && !opponent.getKingTower().isDead())
+            {
+                removeTower(opponent.getKingTower());
+                kingTowerDeath(opponent.getKingTower());
+                player.setCrownsWon(3);
+                player.crownProperty().set(3);
+                gameFinished=true;
+                opponent.getKingTower().setDead(true);
+            }
     }
     private void removeTower(Tower tower)
     {
@@ -1765,20 +2078,99 @@ public class GameManager {
     {
         if(!tower.getType().equals(attackCard.getType()))
         {
-                double min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize);
-                double max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize);
+            double min_y = 0.0;
+            double min_x = 0.0;
+            double max_x = 0.0;
+            double max_y = 0.0;
+            if(attackCard instanceof  Troop)
+            {
+                Troop help = (Troop) attackCard;
+             //   if(attackCard.getType().equals("+"))
+            //    {
+                    max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize)+ help.getSpeed().getVelocity();
+                    min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize)- help.getSpeed().getVelocity();
+//                }
+//                else
+//                {
+//                    max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize)+ help.getSpeed().getVelocity();
+//                    min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize)- help.getSpeed().getVelocity();
+//                }
+            }
+            else {
+                min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange() * blockSize);
+                max_y = tower.getImageViews()[2][2].getY() + blockSize + (attackCard.getRange() * blockSize);
+            }
+               // double min_y = tower.getImageViews()[0][0].getY() - (attackCard.getRange()*blockSize);
+               // double max_y = tower.getImageViews()[2][2].getY() + blockSize  + (attackCard.getRange() * blockSize);
                 //------------------------
-                double min_x = tower.getImageViews()[0][0].getX() - (attackCard.getRange()*blockSize);
-                double max_x = tower.getImageViews()[2][2].getX() + blockSize + (attackCard.getRange()+ blockSize);
-                //*********************
-                if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()>= min_y && attackCard.getY_Current()<= max_y)
+                 min_x = tower.getImageViews()[0][0].getX() - (attackCard.getRange()*blockSize);
+                 max_x = tower.getImageViews()[2][2].getX() + (attackCard.getRange()* blockSize);
+                if(attackCard.getType().equals("+"))
                 {
-                    return true;
+                    if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()> min_y && attackCard.getY_Current()< max_y)
+                    {
+                        if(attackCard instanceof Valkyrie || attackCard instanceof Barbarian || attackCard instanceof Giant || attackCard instanceof  MiniPEKKA)
+                        {
+                            if(tower==opponent.getKingTower())
+                            {
+                                if(attackCard.getY_Current() <180)
+                                {
+                                    ((Troop) attackCard).Right(tower.getImageViews()[0][0].getX()-(attackCard.getX_Current()+blockSize));
+                                }
+                                else
+                                {
+                                    ((Troop) attackCard).Left(attackCard.getX_Current()-tower.getImageViews()[0][0].getX());
+                                }
+                            }
+                            else
+                            {
+                                ((Troop) attackCard).Forward(attackCard.getY_Current() - (tower.getImageViews()[2][2].getY()+blockSize));
+                            }
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
                 else
                 {
-                    return false;
+//                    System.out.println(attackCard.getClass()+" "+attackCard.getX_Current());
+//                    System.out.println(attackCard.getClass()+" "+attackCard.getY_Current());
+//                    System.out.println(max_x + " max x ");
+//                    System.out.println(min_x + " min x ");
+//                    System.out.println(max_y + " max y ");
+//                    System.out.println(min_y + " min y ");
+//                    System.out.println("--------------------------");
+                    if(attackCard.getX_Current() >= min_x && attackCard.getX_Current() < max_x && attackCard.getY_Current()> min_y && attackCard.getY_Current()< max_y)
+                    {
+                        if(attackCard instanceof Valkyrie || attackCard instanceof Barbarian || attackCard instanceof Giant || attackCard instanceof  MiniPEKKA)
+                        {
+                            if(tower==player.getKingTower())
+                            {
+                                if(attackCard.getY_Current() <180)
+                                {
+                                    ((Troop) attackCard).Right(tower.getImageViews()[0][0].getX()-(attackCard.getX_Current()+blockSize));
+                                }
+                                else
+                                {
+                                    ((Troop) attackCard).Left(attackCard.getX_Current()-tower.getImageViews()[0][0].getX());
+                                }
+                            }
+                            else
+                            {
+                                ((Troop) attackCard).Backward(tower.getImageViews()[0][0].getY() - (attackCard.getY_Current()+blockSize));
+                            }
+                        }
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
                 }
+       //     }
         }
         else
         {
@@ -1869,12 +2261,24 @@ public class GameManager {
     private void resetTowersBlocks(double x , double y)
     {
         Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+        Image grass2 = new Image(new File("src/main/resources/pics/lightGreenBlock.png").toURI().toString());
         for (int i = 0; i < 32; i++) {
             for (int j = 0; j < 18; j++) {
-                if(blocks[i][j].getX()==x && blocks[i][j].getY()==y)
+                if((i%2==1 && j%2==1) || (i%2==0 && j%2==0))
                 {
-                    blocks[i][j].setImage(grass);
-                    break;
+                    if(blocks[i][j].getX()==x && blocks[i][j].getY()==y)
+                    {
+                        blocks[i][j].setImage(grass2);
+                        break;
+                    }
+                }
+                else if((i%2 == 0 && j%2 ==1) || (i%2==1 && j%2 == 0 ))
+                {
+                    if(blocks[i][j].getX()==x && blocks[i][j].getY()==y)
+                    {
+                        blocks[i][j].setImage(grass);
+                        break;
+                    }
                 }
             }
         }
@@ -1937,14 +2341,20 @@ public class GameManager {
                 if(spells.get(i) instanceof Arrows)
                 {
                     Arrows temp = (Arrows) spells.get(i);
-                    bullets.add(temp.getArrows());
-                    temp.Hit();
+                    if(!temp.isUsed())
+                    {
+                        bullets.add(temp.getArrows());
+                        temp.arrowThread();
+                    }
                 }
                 else
                 {
                     Fireball temp = (Fireball) spells.get(i);
-                    bullets.add(temp.getFireball());
-                    temp.Hit();
+                    if(!temp.isUsed())
+                    {
+                        bullets.add(temp.getFireball());
+                        temp.fireThread();
+                    }
                 }
             }
         }
@@ -1976,7 +2386,10 @@ public class GameManager {
                 if(rage.isUsed())
                 {
                     for (int j = 0; j < rage.getAttackCards().size(); j++) {
-                        rage.getAttackCards().get(i).rageImpact();
+                        if(rage.getAttackCards().get(i).isRaged())
+                        {
+                            rage.getAttackCards().get(i).rageImpact();
+                        }
                     }
                     for (int j = 0; j < rage.getTowers().size(); j++) {
                         rage.getTowers().get(i).rageImpact();
@@ -1992,26 +2405,32 @@ public class GameManager {
             Spell spell = spellIterator.next();
             if (spell instanceof Arrows) {
                 Arrows temp = (Arrows) spell;
-                Iterator<Shape> bulletsIterator = bullets.iterator();
-                while (bulletsIterator.hasNext()) {
-                    Shape help = bulletsIterator.next();
-                    if (help == temp.getArrows()) {
-                        bulletsIterator.remove();
-                        break;
+                if(temp.isDone())
+                {
+                    Iterator<Shape> bulletsIterator = bullets.iterator();
+                    while (bulletsIterator.hasNext()) {
+                        Shape help = bulletsIterator.next();
+                        if (help == temp.getArrows()) {
+                            bulletsIterator.remove();
+                            break;
+                        }
                     }
+                    spellIterator.remove();
                 }
-                spellIterator.remove();
             } else if (spell instanceof Fireball) {
                 Fireball temp = (Fireball) spell;
-                Iterator<Shape> bulletsIterator = bullets.iterator();
-                while (bulletsIterator.hasNext()) {
-                    Shape help = bulletsIterator.next();
-                    if (help == temp.getFireball()) {
-                        bulletsIterator.remove();
-                        break;
+                if(temp.isDone())
+                {
+                    Iterator<Shape> bulletsIterator = bullets.iterator();
+                    while (bulletsIterator.hasNext()) {
+                        Shape help = bulletsIterator.next();
+                        if (help == temp.getFireball()) {
+                            bulletsIterator.remove();
+                            break;
+                        }
                     }
+                    spellIterator.remove();
                 }
-                spellIterator.remove();
             }
             else
             {
@@ -2019,32 +2438,32 @@ public class GameManager {
                 if(temp.isDone())
                 {
                     resetBlocksImage(temp);
-                    for (int i = 0; i < temp.getTowers().size(); i++) {
-                        temp.getTowers().get(i).setRaged(false);
-                        temp.getTowers().get(i).undoRage();
-                    }
-                    for (int i = 0; i < temp.getAttackCards().size(); i++) {
-                        temp.getAttackCards().get(i).setRaged(false);
-                        temp.getAttackCards().get(i).undoRage();
-                    }
+//                    for (int i = 0; i < temp.getTowers().size(); i++) {
+//                        temp.getTowers().get(i).setRaged(false);
+//                        temp.getTowers().get(i).undoRage();
+//                    }
+//                    for (int i = 0; i < temp.getAttackCards().size(); i++) {
+//                        temp.getAttackCards().get(i).setRaged(false);
+//                        temp.getAttackCards().get(i).undoRage();
+//                    }
                     road();
                     river();
                     spellIterator.remove();
                 }
             }
         }
-        for (int i = 0; i < troops.size(); i++) {
-            if(!troops.get(i).isRaged())
-            {
-                troops.get(i).undoRage();
-            }
-        }
-        for (int i = 0; i <buildings.size(); i++) {
-            if(buildings.get(i).isRaged())
-            {
-                buildings.get(i).undoRage();
-            }
-        }
+//        for (int i = 0; i < troops.size(); i++) {
+//            if(!troops.get(i).isRaged())
+//            {
+//                troops.get(i).undoRage();
+//            }
+//        }
+//        for (int i = 0; i <buildings.size(); i++) {
+//            if(buildings.get(i).isRaged())
+//            {
+//                buildings.get(i).undoRage();
+//            }
+//        }
     }
     private void rageSpellPurpleBlocks(Rage rage)
     {
@@ -2066,22 +2485,38 @@ public class GameManager {
     {
         if(spell instanceof Rage)
         {
+            Rage rage = (Rage) spell;
             for (int i = 0; i < troops.size(); i++) {
                 if(troops.get(i).getType().equals(spell.getType()) && distance(troops.get(i).getX_Current(),troops.get(i).getY_Current(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
                 {
                     spell.getAttackCards().add(troops.get(i));
+                    troops.get(i).setRage(rage);
+                    troops.get(i).setRaged(true);
+                    System.out.println(troops.get(i).getSpeed().getVelocity());
+                    troops.get(i).rageImpact();
+                    troops.get(i).setShootingTimeTick(0);
+                    System.out.println(troops.get(i).getClass()+" is raged");
+                    System.out.println(troops.get(i).getSpeed().getVelocity());
                 }
             }
             for (int i = 0; i < buildings.size(); i++) {
                 if(buildings.get(i).getType().equals(spell.getType()) && distance(buildings.get(i).getX_Current(),buildings.get(i).getY_Current(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
                 {
                     spell.getAttackCards().add(buildings.get(i));
+                    buildings.get(i).setRage(rage);
+                    buildings.get(i).setRaged(true);
+                    buildings.get(i).rageImpact();
+                    buildings.get(i).setShootingTimeTick(0);
                 }
             }
             for (int i = 0; i <towers.size() ; i++) {
                 if(towers.get(i).getType().equals(spell.getType()) && distance(towers.get(i).getX(),towers.get(i).getY(),spell.getX(),spell.getY())<= spell.getRadius()*blockSize)
                 {
                     spell.getTowers().add(towers.get(i));
+                    towers.get(i).setRage(rage);
+                    towers.get(i).setRaged(true);
+                    towers.get(i).rageImpact();
+                    towers.get(i).setShootingTimeTick(0);
                 }
             }
         }
@@ -2206,13 +2641,26 @@ public class GameManager {
             if(!blockIsRiver(rage.getGroundImages().get(i).getX(),rage.getGroundImages().get(i).getY()) && !blockIsRoad(rage.getGroundImages().get(i).getX(),rage.getGroundImages().get(i).getY()))
             {
                 Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
+                Image grass2 = new Image(new File("src/main/resources/pics/lightGreenBlock.png").toURI().toString());
                 for (int j = 0; j < 32; j++) {
                     for (int k = 0; k < 18; k++) {
-                        if(blocks[j][k].getX()==rage.getGroundImages().get(i).getX() && blocks[j][k].getY()==rage.getGroundImages().get(i).getY())
+                        if((j%2==1 && k%2==1) || (j%2==0 && k%2==0))
                         {
-                            blocks[j][k].setImage(grass);
+                            if(blocks[j][k].getX()==rage.getGroundImages().get(i).getX() && blocks[j][k].getY()==rage.getGroundImages().get(i).getY())
+                            {
+                                blocks[j][k].setImage(grass2);
 //                            blocks[j][k].setFitWidth(20);
 //                            blocks[j][k].setFitHeight(20);
+                            }
+                        }
+                        else
+                        {
+                            if(blocks[j][k].getX()==rage.getGroundImages().get(i).getX() && blocks[j][k].getY()==rage.getGroundImages().get(i).getY())
+                            {
+                                blocks[j][k].setImage(grass);
+//                            blocks[j][k].setFitWidth(20);
+//                            blocks[j][k].setFitHeight(20);
+                            }
                         }
                     }
                 }

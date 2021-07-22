@@ -33,21 +33,21 @@ public class Barbarian extends Troop{
         {
             if(super.getTowerTarget()!=null)
             {
-                if(this.towerDistance()<= ((this.getRange()+1) * 20))
-                {
+              //  if(this.towerDistance()<= ((this.getRange()+1) * 20))
+             //   {
                     changePictoTarget();
                     incrementTimeTick();
                     if(getShootingTimeTick()== (super.getHitSpeed() *10))
                     {
                         super.getTowerTarget().Hurt((Double) super.getLevelInformation().getDamage().getValue());
                     }
-                }
-                else
-                {
-                    super.setLockedTarget(null);
-                    super.setTowerTarget(null);
-                    setShootingTimeTick(0);
-                }
+            //    }
+          //      else
+             //   {
+             //       super.setLockedTarget(null);
+             //       super.setTowerTarget(null);
+             //       setShootingTimeTick(0);
+             //   }
             }
             else if(super.getLockedTarget()!=null)
             {
@@ -176,7 +176,7 @@ public class Barbarian extends Troop{
     @Override
     public void undoRage() {
         this.setHitSpeed(1.5F);
-        this.getSpeed().setVelocity(2);
+        this.getSpeed().setVelocity(1.5);
         if(this.getLevelInformation().level==Level.LEVEL1)
         {
             this.getLevelInformation().getDamage().setValue((Double)75.0);
@@ -234,8 +234,8 @@ public class Barbarian extends Troop{
             }
             else if(super.getTowerTarget()!=null)
             {
-                if(super.towerDistance()<= ((this.getRange()+1) * 20))
-                {
+            //    if(super.towerDistance()<= ((this.getRange()+1) * 20))
+              //  {
                     if(this.closestDirectionTo(super.getTowerTarget().getX(),super.getTowerTarget().getY())== Directions.TOP)
                     {
                         HitUpMode();
@@ -252,7 +252,7 @@ public class Barbarian extends Troop{
                     {
                         HitLeftMode();
                     }
-                }
+             //   }
             }
         }
     }
