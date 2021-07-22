@@ -32,7 +32,7 @@ import java.util.*;
 public class GameManager {
     private final int blockSize=20;
     private final double Renedering=0.1;
-    private Player player=new Player();
+    private Player player;
     private Robot opponent;
     private Parent root;
     private Stage stage;
@@ -49,6 +49,11 @@ public class GameManager {
     private ArrayList<Spell> spells = new ArrayList<>();
     private boolean gameFinished = false;
     private Player winner = null;
+
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+
     public void setPlayerLevel(){
         if (player.getScores()>=300&& player.getScores()<800)
             player.setLevel("1");

@@ -76,8 +76,10 @@ public class DatabaseSaving {
                 for (int i = 3; i <= 10; i++) {
                     int id = resultSet.getInt(i);
                     Card card =findOnCards(id);
+                    if (card!=null) {
                         gameManager.getPlayer().getDeck().getCards().add(card);
                         gameManager.getPlayer().getCards().remove(card);
+                    }
                 }
 
             }
