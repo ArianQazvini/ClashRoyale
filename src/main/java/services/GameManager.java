@@ -613,10 +613,6 @@ public class GameManager {
             return false;
         }
     }
-//    private boolean locationIsInside(double x, double y)
-//    {
-//
-//    }
     private void move(Troop troop)
     {
         if(troop.getType().equals("+"))

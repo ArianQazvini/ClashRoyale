@@ -10,6 +10,7 @@ import model.Damage;
 import model.informations.ACLevelValue;
 
 import java.io.File;
+import java.nio.file.Paths;
 
 public class BabyDragon extends Troop{
     private Circle fireball = new Circle();
