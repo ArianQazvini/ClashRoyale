@@ -62,6 +62,7 @@ public class LogInController {
     }
 
     public void initialize() {
+        gameManager.getPlayer().getDeck().getCards().removeAll(gameManager.getPlayer().getDeck().getCards());
         databaseSaving.startConnection();
         ViewService.setBackground(pageArea, "start_page.jpg");
         signUpButton.setStyle("-fx-background-color:#48cf01");

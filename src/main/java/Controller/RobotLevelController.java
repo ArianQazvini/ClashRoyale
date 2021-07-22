@@ -34,4 +34,8 @@ public class RobotLevelController {
             gameManager.setOpponent(new FulSmartRobot());
         gameManager.setRoot("sample");
     }
+    @FXML
+    public void back() throws Exception {
+        gameManager.setRoot("menu");
+    }
 }

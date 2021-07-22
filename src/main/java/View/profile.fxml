@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="pageArea" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.ProfileController">
+   <children>
+      <VBox fx:id="vBox" layoutX="5.0" layoutY="192.0" prefHeight="200.0" prefWidth="290.0">
+         <children>
+            <HBox fx:id="hBox1" alignment="CENTER" prefHeight="100.0" prefWidth="290.0" />
+            <HBox fx:id="hBox2" alignment="CENTER" prefHeight="100.0" prefWidth="290.0" />
+         </children>
+      </VBox>
+      <ImageView fx:id="level" fitHeight="88.0" fitWidth="89.0" layoutX="58.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="levelText" fill="WHITE" layoutX="94.0" layoutY="94.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="25.0" />
+         </font>
+      </Text>
+      <Text fx:id="cupText" fill="#ffda00" layoutX="207.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" textAlignment="CENTER">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="cup" fitHeight="60.0" fitWidth="60.0" layoutX="191.0" layoutY="44.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Back" />
+   </children>
+</AnchorPane>

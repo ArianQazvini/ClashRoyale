@@ -1,6 +1,7 @@
 package Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import sample.Main;
@@ -11,10 +12,12 @@ public class MenuController {
     GameManager gameManager= Main.gameManager;
     @FXML
     AnchorPane pageArea;
+
     @FXML
     Text message;
 
     public void initialize(){
+        gameManager.setPlayerLevel();
         ViewService.setBackground(pageArea,"menubg1.jpg");
         message.setVisible(false);
     }
@@ -33,6 +36,14 @@ public class MenuController {
     @FXML
     public void history() throws Exception {
         gameManager.setRoot("battle_history");
+    }
+    @FXML
+    public void profile()throws Exception{
+        gameManager.setRoot("profile");
+    }
+    @FXML
+    public void back() throws Exception {
+        gameManager.setRoot("log_in");
     }
 
 }

@@ -52,62 +52,18 @@ public class GameManager {
     private ArrayList<Spell> spells = new ArrayList<>();
     private boolean gameFinished = false;
     private Player winner = null;
-//    public Directions CharacterExist(Troop troop, Directions directions)
-//    {
-//        if(directions==Directions.TOP)
-//        {
-//            for (int i=0;i<player.getTroops().size();i++)
-//            {
-//                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
-//                {
-//                    if(player.getTroops().get(i).getY_Current()- troop.getY_Current()== -20 && player.getTroops().get(i).getX_Current()==troop.getX_Current())
-//                    {
-//                        return Directions.TOP;
-//                    }
-//                }
-//            }
-//        }
-//        else if(directions==Directions.LEFT)
-//        {
-//            for (int i=0;i<player.getTroops().size();i++)
-//            {
-//                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
-//                {
-//                    if(player.getTroops().get(i).getX_Current()- troop.getX_Current()== -20 && player.getTroops().get(i).getY_Current()==troop.getY_Current())
-//                    {
-//                        return Directions.LEFT;
-//                    }
-//                }
-//            }
-//        }
-//        else if(directions==Directions.RIGHT)
-//        {
-//            for (int i=0;i<player.getTroops().size();i++)
-//            {
-//                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
-//                {
-//                    if(player.getTroops().get(i).getX_Current()- troop.getX_Current()== 20 && troop.getY_Current()==player.getTroops().get(i).getY_Current())
-//                    {
-//                        return Directions.RIGHT;
-//                    }
-//                }
-//            }
-//        }
-//        else if(directions==Directions.DOWN)
-//        {
-//            for (int i=0;i<player.getTroops().size();i++)
-//            {
-//                if(!player.getTroops().get(i).getPicHandler().equals(troop.getPicHandler()))
-//                {
-//                    if(player.getTroops().get(i).getY_Current()- troop.getY_Current()== 20 && player.getTroops().get(i).getX_Current()==troop.getX_Current())
-//                    {
-//                        return Directions.DOWN;
-//                    }
-//                }
-//            }
-//        }
-//        return null;
-//    }
+    public void setPlayerLevel(){
+        if (player.getScores()==300)
+            player.setLevel("1");
+        else if (player.getScores()==800)
+            player.setLevel("2");
+        else if (player.getScores()==900)
+            player.setLevel("3");
+        else if (player.getScores()==1700)
+            player.setLevel("4");
+        else if (player.getScores()==2500)
+            player.setLevel("5");
+    }
 
 
     public void setOpponent(Robot opponent) {

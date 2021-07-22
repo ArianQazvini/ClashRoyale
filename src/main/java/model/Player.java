@@ -12,6 +12,7 @@ import model.Troop.*;
 import java.util.ArrayList;
 
 public class Player {
+    private String level;
     private ArrayList<BattleHistory>battleHistories=new ArrayList<>();
     private ArrayList<Troop> troops = new ArrayList<>();
     private ArrayList<Card>cards=new ArrayList<>();
@@ -41,6 +42,14 @@ public class Player {
         cards.add(new Rage());
         cards.add(new Fireball());
         this.upPics();
+    }
+
+    public String getLevel() {
+        return level;
+    }
+
+    public void setLevel(String level) {
+        this.level = level;
     }
 
     public ArrayList<BattleHistory> getBattleHistories() {

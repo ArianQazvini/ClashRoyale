@@ -1,14 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BattleHistoryController">
+<AnchorPane fx:id="pageArea" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.BattleHistoryController">
    <children>
-      <VBox fx:id="historyVBox" layoutX="100.0" layoutY="100.0" prefHeight="200.0" prefWidth="100.0" />
+      <ScrollPane fx:id="sC" layoutY="54.0" prefHeight="328.0" prefWidth="300.0">
+         <content>
+            <VBox fx:id="historyVBox" alignment="TOP_CENTER" prefHeight="328.0" prefWidth="284.0">
+               <padding>
+                  <Insets top="10.0" />
+               </padding>
+            </VBox>
+         </content>
+      </ScrollPane>
+      <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#back" text="Back" />
    </children>
 </AnchorPane>
