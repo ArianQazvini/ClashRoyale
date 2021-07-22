@@ -12,6 +12,14 @@ public class SimpleRobot extends Robot{
         setName("simple robot");
         putSpeed=10000;
     }
+
+    @Override
+    public void setCardLevel() {
+        for (Card c:getCards()){
+            c.setLevelInformation(c.getLevel2());
+        }
+    }
+
     @Override
     public Card chooseFromDeck() {
 

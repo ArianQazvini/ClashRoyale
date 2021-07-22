@@ -39,6 +39,9 @@ public class DatabaseSaving {
                 +battleHistory.getDate()+"'"+","+"'"+gameManager.getPlayer().getName()
                 +"'"+","+"'"+gameManager.getPlayer().getPassword()+"')";
         statement.execute(query);
+        String query2="update clash_royal.player_profile set score="+gameManager.getPlayer().getScores()+" where name ="+"'"+gameManager.getPlayer().getName()+"'"+
+                " and password="+"'"+gameManager.getPlayer().getPassword()+"'";
+        statement.executeUpdate(query2);
 
     }
     public void getBattleHistories() throws SQLException {
@@ -69,39 +72,13 @@ public class DatabaseSaving {
             while (resultSet.next()) {
                 gameManager.getPlayer().setName(resultSet.getString("name"));
                 gameManager.getPlayer().setPassword(resultSet.getString("password"));
+                gameManager.getPlayer().setScores(resultSet.getInt("score"));
                 for (int i = 3; i <= 10; i++) {
                     int id = resultSet.getInt(i);
                     Card card =findOnCards(id);
-//                    if (id == 1)
                         gameManager.getPlayer().getDeck().getCards().add(card);
                         gameManager.getPlayer().getCards().remove(card);
-//                    else if (id == 2)
-//                        gameManager.getPlayer().getDeck().getCards().add(new InfernoTower());
-//                    else if (id == 3)
-//                        gameManager.getPlayer().getDeck().getCards().add(new Arrows());
-//                    else if (id == 4)
-//                        gameManager.getPlayer().getDeck().getCards().add(new Fireball());
-//                    else if (id == 5)
-//                        gameManager.getPlayer().getDeck().getCards().add(new Rage());
-//                    else if (id == 6)
-//                        gameManager.getPlayer().getDeck().getCards().add(new Archer());
-//                    else if (id == 7)
-//                        gameManager.getPlayer().getDeck().getCards().add(new BabyDragon());
-//                    else if (id == 8)
-//                        gameManager.getPlayer().getDeck().getCards().add(new Giant());
-//                    else if (id == 9)
-//                        gameManager.getPlayer().getDeck().getCards().add(new MiniPEKKA());
-//                    else if (id == 10)
-//                        gameManager.getPlayer().getDeck().getCards().add(new Valkyrie());
-//                    else if (id == 11)
-//                        gameManager.getPlayer().getDeck().getCards().add(new Wizard());
-//                    else if (id == 12)
-//                        gameManager.getPlayer().getDeck().getCards().add(new Barbarian());
-//                }
-//                for (int i=0;i<gameManager.getPlayer().getDeck().getCards().size();i++){
-//
                 }
-                gameManager.getPlayer().setScores(resultSet.getInt("score"));
 
             }
         }

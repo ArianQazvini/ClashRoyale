@@ -12,6 +12,12 @@ public class SmartRobot extends Robot{
         putSpeed=7000;
     }
     @Override
+    public void setCardLevel() {
+        for (Card c:getCards()){
+            c.setLevelInformation(c.getLevel3());
+        }
+    }
+    @Override
     public Card chooseFromDeck() {
         int index=random.nextInt(8);
         Card card=getDeck().getCards().get(index);

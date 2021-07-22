@@ -38,6 +38,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.*;
 
 public class Controller {
@@ -983,7 +984,7 @@ public class Controller {
         winner.win();
         looser.lose();
         try {
-            databaseSaving.addBattleHistory(new BattleHistory(winner.getName(),LocalDate.now().toString()));
+            databaseSaving.addBattleHistory(new BattleHistory(winner.getName(), LocalDateTime.now().toString()));
         }catch (SQLException q){
             System.out.println(q);
         }

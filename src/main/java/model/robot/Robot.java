@@ -38,6 +38,7 @@ public class Robot extends Player {
         getCards().add(new Fireball());
         super.downPics();
         negativeType();
+        setCardLevel();
     }
 
     public void setBattleDeck(){

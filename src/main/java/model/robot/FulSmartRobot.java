@@ -16,6 +16,12 @@ public class FulSmartRobot extends Robot{
         putSpeed=5000;
     }
     @Override
+    public void setCardLevel() {
+        for (Card c:getCards()){
+            c.setLevelInformation(c.getLevel5());
+        }
+    }
+    @Override
     public Card chooseFromDeck() {
         if (findCardOnDeck(CardId.giant)!=null){
             if (checkBuilding()) {

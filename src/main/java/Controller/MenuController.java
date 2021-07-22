@@ -18,6 +18,7 @@ public class MenuController {
 
     public void initialize(){
         gameManager.setPlayerLevel();
+        gameManager.getPlayer().setCardLevel();
         ViewService.setBackground(pageArea,"menubg1.jpg");
         message.setVisible(false);
     }

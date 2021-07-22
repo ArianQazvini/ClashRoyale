@@ -46,6 +46,51 @@ public class Player {
         cards.add(new Fireball());
         this.upPics();
     }
+    public void setCardLevel(){
+        if (level.equals("1")){
+            for (Card c:cards){
+                c.setLevelInformation(c.getLevel1());
+            }
+            kingTower.setLevelInformation(kingTower.getLevel1());
+            princeTower1.setLevelInformation(princeTower1.getLevel1());
+            princeTower2.setLevelInformation(princeTower2.getLevel1());
+
+        }else if (level.equals("2")){
+            for (Card c:cards){
+                c.setLevelInformation(c.getLevel2());
+            }
+            kingTower.setLevelInformation(kingTower.getLevel2());
+            princeTower1.setLevelInformation(princeTower1.getLevel2());
+            princeTower2.setLevelInformation(princeTower2.getLevel2());
+
+        }else if (level.equals("3")){
+            for (Card c:cards){
+                c.setLevelInformation(c.getLevel3());
+            }
+            kingTower.setLevelInformation(kingTower.getLevel3());
+            princeTower1.setLevelInformation(princeTower1.getLevel3());
+            princeTower2.setLevelInformation(princeTower2.getLevel3());
+
+        }else if (level.equals("4")){
+            for (Card c:cards){
+                c.setLevelInformation(c.getLevel4());
+            }
+            kingTower.setLevelInformation(kingTower.getLevel4());
+            princeTower1.setLevelInformation(princeTower1.getLevel4());
+            princeTower2.setLevelInformation(princeTower2.getLevel4());
+
+
+        }else if (level.equals("5")){
+            for (Card c:cards){
+                c.setLevelInformation(c.getLevel5());
+            }
+            kingTower.setLevelInformation(kingTower.getLevel5());
+            princeTower1.setLevelInformation(princeTower1.getLevel5());
+            princeTower2.setLevelInformation(princeTower2.getLevel5());
+
+
+        }
+    }
 
     public String getLevel() {
         return level;
