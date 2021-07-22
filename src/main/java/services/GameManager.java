@@ -50,15 +50,15 @@ public class GameManager {
     private boolean gameFinished = false;
     private Player winner = null;
     public void setPlayerLevel(){
-        if (player.getScores()==300)
+        if (player.getScores()>=300&& player.getScores()<800)
             player.setLevel("1");
-        else if (player.getScores()==800)
+        else if (player.getScores()>=800&&player.getScores()<900)
             player.setLevel("2");
-        else if (player.getScores()==900)
+        else if (player.getScores()>=900&&player.getScores()<1700)
             player.setLevel("3");
-        else if (player.getScores()==1700)
+        else if (player.getScores()>=1700&&player.getScores()<2500)
             player.setLevel("4");
-        else if (player.getScores()==2500)
+        else if (player.getScores()>=2500)
             player.setLevel("5");
     }
 
