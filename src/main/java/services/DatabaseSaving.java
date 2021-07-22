@@ -1,24 +1,12 @@
 package services;
 
 import model.BattleHistory;
-import model.Building.Cannon;
-import model.Building.InfernoTower;
 import model.Card;
-import model.Spell.Arrows;
-import model.Spell.Fireball;
-import model.Spell.Rage;
-import model.Troop.*;
 import sample.Main;
 
 import java.sql.*;
-import java.util.ArrayList;
 
 public class DatabaseSaving {
-    //        try {
-//            Class.forName("com.mysql.cj.jdbc.Driver");
-//        }catch (ClassNotFoundException c){
-//            System.out.println(c);
-//        }
     GameManager gameManager= Main.gameManager;
     String url="jdbc:mysql://localhost:3306";
     String username="root";
@@ -48,7 +36,7 @@ public class DatabaseSaving {
     }
     public void addBattleHistory(BattleHistory battleHistory) throws SQLException {
         String query="insert into clash_royal.battle_history values("+"'"+battleHistory.getWinner()+"'"+","+"'"
-                +battleHistory.getDate()+"'"+"'"+gameManager.getPlayer().getName()
+                +battleHistory.getDate()+"'"+","+"'"+gameManager.getPlayer().getName()
                 +"'"+","+"'"+gameManager.getPlayer().getPassword()+"')";
         statement.execute(query);
 

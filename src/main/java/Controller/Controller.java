@@ -83,19 +83,19 @@ public class Controller {
     private boolean gameisFinished=false;
     public void initialize()
     {
+        gameManager.CreateMap();
         ViewService.setBackground(MainGround,"menubg1.jpg");
         doubleElixirImage.setVisible(false);
-        gameManager.getPlayer().getElixir().setStyle("-fx-accent: purple");
         minText.setEditable(false);
         secondsText.setEditable(false);
         gameResult.setVisible(false);
        // gameManager.getOpponent().gameManager=gameManager;
         //ViewService.setBackground(MainGround, "jungle.jpg");
         //gameManager.getOpponent().gameManager=gameManager;
-        gameManager.CreateMap();
         Warnings.setVisible(false);
         gameManager.getPlayer().creatElixir();
         gameManager.getOpponent().creatElixir();
+        gameManager.getPlayer().getElixir().setStyle("-fx-accent: purple");
         elixirHBox.getChildren().add(gameManager.getPlayer().getElixir());
         valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         gameDeck=new GameDeck(deckOfGameHBox,nextCardImageView);
@@ -136,7 +136,6 @@ public class Controller {
     void press(Card card,GameDeckObject g) {
         card.setType("+");
         playGround.setDisable(false);
-        //valueTextOfElixir.setText(String.valueOf(gameManager.getPlayer().getElixir().getValue()));
         playGround.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -156,24 +155,6 @@ public class Controller {
             }
         });
     }
-//    private boolean checkValidity(double x,double y)
-//    {
-//        if( x<=80 && x>=20 && y<=620 && y>=560)
-//        {
-//            return false;
-//        }
-//        else  if( x<=340 && x>=280 && y<=620 && y>=560)
-//        {
-//            return false;
-//        }
-//        else  if( x<=200 && x>=140 && y<=640 && y>=580) {
-//            return false;
-//        }
-//        else
-//        {
-//            return true;
-//        }
-//    }
 
     private void Task(double x,double y,Card card,GameDeckObject g) {
                     if(card instanceof Archer)
@@ -907,7 +888,11 @@ public class Controller {
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
-                        update();
+                        try {
+                            update();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
                 });
             }
@@ -915,8 +900,7 @@ public class Controller {
         this.timer.schedule(timerTask,0,100);
 
     }
-    private void update()
-    {
+    private void update() throws Exception {
         if(gameManager.getTroops().size()!=0)
         {
             if(!gameManager.isGameFinished() && !gameTimer.isGameTimesUp())
@@ -961,6 +945,8 @@ public class Controller {
                         System.out.println(q);
                     }
                 }
+                Thread.sleep(8000);
+                gameManager.setRoot("menu");
             }
         }
     }
