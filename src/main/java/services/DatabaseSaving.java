@@ -10,7 +10,8 @@ public class DatabaseSaving {
     GameManager gameManager= Main.gameManager;
     String url="jdbc:mysql://localhost:3306";
     String username="root";
-    String password="1321an801123I";
+   // String password="1321an801123I";
+    String password = "@rian09122155747";
     Statement statement;
     public void startConnection(){
         try{

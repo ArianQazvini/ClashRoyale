@@ -41,7 +41,15 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.*;
 
+/**
+ * Game page controller
+ * @author ArianQazvini- NegarAnabestani
+ * @version 1.0
+ */
 public class Controller {
+    /**
+     * The Database saving.
+     */
     DatabaseSaving databaseSaving=Main.databaseSaving;
     @FXML
     Button menu;
@@ -86,6 +94,10 @@ public class Controller {
     private GameManager gameManager= Main.gameManager;
     private TimeWorks gameTimer  = new TimeWorks();
     private boolean gameisFinished=false;
+
+    /**
+     * Initialize method.
+     */
     public void initialize()
     {
         gameManager.CreateMap();
@@ -116,6 +128,10 @@ public class Controller {
         gameTimer.gameTimer();
         setBinders();
     }
+
+    /**
+     * deck clicking method
+     */
     private void setDeckOnClick(){
         for (GameDeckObject g:gameDeck.getGameDeckObjects()){
             g.setOnAction(new EventHandler<ActionEvent>() {
@@ -133,6 +149,10 @@ public class Controller {
             });
         }
     }
+
+    /**
+     *  binding page's text fields to their values
+     */
     private void setBinders()
     {
         minText.textProperty().bind(gameTimer.minProperty().asString());
@@ -140,6 +160,13 @@ public class Controller {
         PlayerCrownsText.textProperty().bind(gameManager.getPlayer().crownProperty().asString());
         RobotCrownsText.textProperty().bind(gameManager.getOpponent().crownProperty().asString());
     }
+
+    /**
+     * Press a card.
+     * check it's location validity then adds it to gameManger's arraylists
+     * @param card the card
+     * @param g    the g
+     */
     @FXML
     void press(Card card,GameDeckObject g) {
         card.setType("+");
@@ -164,6 +191,13 @@ public class Controller {
         });
     }
 
+    /**
+     * create an instance of selected card an add it to playground
+     * @param x
+     * @param y
+     * @param card
+     * @param g
+     */
     private void Task(double x,double y,Card card,GameDeckObject g) {
                     if(card instanceof Archer)
                     {
@@ -940,6 +974,10 @@ public class Controller {
             }
         }
     }
+
+    /**
+     * Robot task.
+     */
     void robotTask(){
         Platform.runLater(new Runnable() {
             @Override
@@ -962,6 +1000,10 @@ public class Controller {
             }
 
     }
+
+    /**
+     * Start opponent.
+     */
     void startOpponent(){
         Thread thread=new Thread(new Runnable() {
             @Override

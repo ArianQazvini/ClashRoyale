@@ -59,7 +59,7 @@ public class TimeWorks {
        Platform.runLater(new Runnable() {
            @Override
            public void run() {
-               if(secs.get() ==60) {
+               if(secs.get() ==59) {
                    int temp = min.get();
                    temp++;
                    min.setValue(temp);

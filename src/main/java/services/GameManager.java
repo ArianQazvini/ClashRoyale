@@ -29,6 +29,14 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * The type Game manager.
+ * This class controls all characters , spells , towers ,...
+ * movements and shootings
+ * and also delete an element if it dies
+ * @author ArianQazvini , NegarAnabestani
+ * @version 1.0
+ */
 public class GameManager {
     private final int blockSize=20;
     private final double Renedering=0.1;
@@ -49,6 +57,10 @@ public class GameManager {
     private ArrayList<Spell> spells = new ArrayList<>();
     private boolean gameFinished = false;
     private Player winner = null;
+
+    /**
+     * Set player level.
+     */
     public void setPlayerLevel(){
         if (player.getScores()==300)
             player.setLevel("1");
@@ -63,26 +75,64 @@ public class GameManager {
     }
 
 
+    /**
+     * Sets opponent.
+     *
+     * @param opponent the opponent
+     */
     public void setOpponent(Robot opponent) {
         this.opponent = opponent;
     }
 
+    /**
+     * Gets opponent.
+     *
+     * @return the opponent
+     */
     public Robot getOpponent() {
         return opponent;
     }
 
+    /**
+     * Is game finished boolean.
+     *
+     * @return the boolean
+     */
     public boolean isGameFinished() {
         return gameFinished;
     }
+
+    /**
+     * Sets game finished.
+     *
+     * @param gameFinished the game finished
+     */
     public void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
     }
+
+    /**
+     * Sets winner.
+     *
+     * @param winner the winner
+     */
     public void setWinner(Player winner) {
         this.winner = winner;
     }
+
+    /**
+     * Gets winner.
+     *
+     * @return the winner
+     */
     public Player getWinner() {
         return winner;
     }
+
+    /**
+     * Create map.
+     * using a 32*18 array for filling ground with blocks
+     */
     public void CreateMap()
     {
         double help_row=0.0;
@@ -147,6 +197,10 @@ public class GameManager {
         createBotTowers();
 
     }
+
+    /**
+     *creating road blocks
+     */
     private void road()
     {
         double y = 80.0;
@@ -199,6 +253,10 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * creating river blocks
+     */
     private void river()
     {
         double x = 0.0;
@@ -244,6 +302,10 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * Create player towers blocks.
+     */
     public void createPlayerTowers()
     {
         Image ground = new Image(new File("src/main/resources/pics/terrainTile4.png").toURI().toString());
@@ -326,6 +388,10 @@ public class GameManager {
         towers.add(player.getPrinceTower2());
         towers.add(player.getKingTower());
     }
+
+    /**
+     * Create bot towers blocks.
+     */
     public void createBotTowers()
     {
         Image ground = new Image(new File("src/main/resources/pics/terrainTile4.png").toURI().toString());
@@ -408,6 +474,14 @@ public class GameManager {
         towers.add(opponent.getPrinceTower2());
         towers.add(opponent.getKingTower());
     }
+
+    /**
+     * Fixblocks.
+     * check if any ground block's coordinates matches with x , y for changing it's image
+     * @param x     the x
+     * @param y     the y
+     * @param image the image
+     */
     public void fixblocks(double x,double y,Image image)
     {
         for (int i = 0; i < 32; i++) {
@@ -422,18 +496,40 @@ public class GameManager {
     }
 
 
-
-
+    /**
+     * Gets stage.
+     *
+     * @return the stage
+     */
     public Stage getStage() {
         return stage;
     }
+
+    /**
+     * Sets stage.
+     *
+     * @param stage the stage
+     */
     public void setStage(Stage stage) {
         this.stage = stage;
     }
+
+    /**
+     * Init.
+     *
+     * @throws IOException the io exception
+     */
     public void init() throws IOException {
         root = FXMLLoader.load(new File("src/main/java/View/log_in.fxml").toURI().toURL());
         scene=new Scene(root);
     }
+
+    /**
+     * Sets root.
+     *
+     * @param viewName the view name
+     * @throws Exception the exception
+     */
     public void setRoot(String viewName) throws Exception{
         root = FXMLLoader.load(new File("src/main/java/View/"+viewName+".fxml").toURI().toURL());
         scene.setRoot(root);
@@ -442,40 +538,102 @@ public class GameManager {
         stage.sizeToScene();
     }
 
+    /**
+     * Gets root.
+     *
+     * @return the root
+     */
     public Parent getRoot() {
         return root;
     }
 
+    /**
+     * Gets player.
+     *
+     * @return the player
+     */
     public Player getPlayer() {
         return player;
     }
 
+    /**
+     * Get blocks image view [ ] [ ].
+     *
+     * @return the image view [ ] [ ]
+     */
     public ImageView[][] getBlocks() {
         return blocks;
     }
+
+    /**
+     * Get river image view [ ] [ ].
+     *
+     * @return the image view [ ] [ ]
+     */
     public ImageView[][] getRiver() {
         return river;
     }
+
+    /**
+     * Get roads image view [ ] [ ].
+     *
+     * @return the image view [ ] [ ]
+     */
     public ImageView[][] getRoads() {
         return roads;
     }
 
+    /**
+     * Gets troops.
+     *
+     * @return the troops
+     */
     public ArrayList<Troop> getTroops() {
         return troops;
     }
 
+    /**
+     * Gets buildings.
+     *
+     * @return the buildings
+     */
     public ArrayList<Building> getBuildings() {
         return buildings;
     }
+
+    /**
+     * Is location usable boolean.
+     *
+     * @param x the x
+     * @param y the y
+     * @return the boolean
+     */
     public boolean isLocationUsable(double x,double y){
         return true;
     }
+
+    /**
+     * Gets bullets arraylist.
+     *
+     * @return the bullets
+     */
     public ArrayList<Shape> getBullets() {
         return bullets;
     }
+
+    /**
+     * Gets towers arraylist
+     *
+     * @return the towers
+     */
     public ArrayList<Tower> getTowers() {
         return towers;
     }
+
+    /**
+     * main method of this class
+     * which updates each frame of the game (moving elements , deleting dead elements,...)
+     */
     public void Step()
     {
         spellsImpact();
@@ -525,6 +683,11 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * unrage a character if it's rage spell time is finished or it's distance is out of the
+     * rage spell area
+     */
     private void rageImpactControll()
     {
         for (int i = 0; i < troops.size(); i++) {
@@ -567,6 +730,9 @@ public class GameManager {
 
     }
 
+    /**
+     * get troops , buildings and towers inside a rage spell area
+     */
     private void addTargetforRage() {
         Rage temp = null;
         for (int i = 0; i < spells.size(); i++) {
@@ -601,6 +767,9 @@ public class GameManager {
         }
     }
 
+    /**
+     * towers shooting to their target
+     */
     private void towersHit()
     {
         prepareTargetForTowers();
@@ -617,6 +786,12 @@ public class GameManager {
             checkTroopsLife();
         }
     }
+
+    /**
+     * check if a troop is inside game board or not
+     * @param troop troop
+     * @return true or false
+     */
     private boolean checkPalace(Troop troop)
     {
         if(troop.getX_Current() >= 0 && troop.getX_Current() <360 && troop.getY_Current()>0 && troop.getY_Current()<640) {
@@ -627,6 +802,11 @@ public class GameManager {
             return false;
         }
     }
+
+    /**
+     * move a troop (check if it reaches to a river or tower or ...)
+     * @param troop troop
+     */
     private void move(Troop troop)
     {
         if(troop.getType().equals("+"))
@@ -701,6 +881,12 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     *
+     * @param troop moving troop
+     * @return true -> if troop's next move is inside a tower territory flase -> if not
+     */
     private boolean moveToKingTower(Troop troop)
     {
         if(troop.getType().equals("+"))
@@ -762,6 +948,13 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     *
+     * @param x troop's next step x
+     * @param y troop's next step y
+     * @return true -> if it reaches to river blocks else -> false
+     */
     private boolean riverHit(double x, double y)
     {
         if((y>300.0 && y<340.0 && x>=0.0 && x<40.0) || (y>300.0 && y<340.0 && x>=60.0&& x<300.0) ||(y>300.0 && y<340.0 && x>=320.0) )
@@ -774,6 +967,13 @@ public class GameManager {
         }
 
     }
+
+    /**
+     *
+     * @param x troop's next step x
+     * @param y troop's next step y
+     * @return true -> if it reaches to road blocks else -> false
+     */
     private boolean roadHit(double x, double y)
     {
         if((x>=40.0 && x<60.0 && y<=560.0 && y>=80.0) || (x>=300.0&& x<320.0&& y<=560.0 && y>=80.0))
@@ -785,6 +985,12 @@ public class GameManager {
             return false;
         }
     }
+    /**
+     *
+     * @param x troop's next step x
+     * @param y troop's next step y
+     * @return true -> if it reaches to a tower's blocks else -> false
+     */
     private Tower towerHit(double x, double y)
     {
         if(x<80 && x>=20 && y<=620 && y>=560 && player.getPrinceTower1().getLevelInformation().getHp()>0)
@@ -814,6 +1020,10 @@ public class GameManager {
             return null;
         }
     }
+    /**
+     *
+     * @return true -> if it reaches to an other attack card's blocks else -> false
+     */
     private boolean attackCardHit(Troop curr)
     {
         if(curr instanceof BabyDragon)
@@ -841,6 +1051,13 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     *
+     * @param curr moving troop
+     * @param dist up moving distance
+     * @return true -> if there is a chance of collision  , else -> false
+     */
     private boolean upCollisionChance(Troop curr, double dist)
     {
         if(curr instanceof BabyDragon)
@@ -868,6 +1085,12 @@ public class GameManager {
             }
         }
     }
+    /**
+     *
+     * @param curr moving troop
+     * @param dist down moving distance
+     * @return true -> if there is a chance of collision  , else -> false
+     */
     private boolean downCollisionChance(Troop curr, double dist)
     {
         if(curr instanceof BabyDragon)
@@ -895,6 +1118,12 @@ public class GameManager {
             }
         }
     }
+    /**
+     *
+     * @param curr moving troop
+     * @param dist left moving distance
+     * @return true -> if there is a chance of collision  , else -> false
+     */
     private boolean leftCollisionChance(Troop curr, double dist)
     {
         if(curr instanceof BabyDragon)
@@ -922,6 +1151,12 @@ public class GameManager {
             }
         }
     }
+    /**
+     *
+     * @param curr moving troop
+     * @param dist right moving distance
+     * @return true -> if there is a chance of collision  , else -> false
+     */
     private boolean rightCollisionChance(Troop curr, double dist)
     {
         if(curr instanceof BabyDragon)
@@ -949,6 +1184,15 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     *
+     * @param x1 x1
+     * @param y1 y1
+     * @param x2 x2
+     * @param y2 y2
+     * @return distance between (x1,y1) and (x2,y2)
+     */
     private double distance(double x1,double y1,double x2 , double y2)
     {
         double tempx = x1-x2;
@@ -972,6 +1216,11 @@ public class GameManager {
 //            }
 //        }
 //    }
+
+    /**
+     * turn left or right if troop reaches to river territory
+     * @param troop moving troop
+     */
     private void riverMove(Troop troop)
     {
         if(!(troop instanceof BabyDragon))
@@ -1075,6 +1324,11 @@ public class GameManager {
         }
       // collision(troop);
     }
+
+    /**
+     * move forward(player's troops) or backward(robot's troops) if troop reaches to roads blocks
+     * @param troop moving troop
+     */
     private void roadMove(Troop troop)
     {
         if(troop.getType().equals("+"))
@@ -1097,6 +1351,11 @@ public class GameManager {
         }
         //collision(troop);
     }
+
+    /**
+     * turn left or right if troop reaches to tower's territory
+     * @param troop moving troop
+     */
     private void towerMove(Troop troop)
     {
         if(!(troop instanceof BabyDragon))
@@ -1215,6 +1474,13 @@ public class GameManager {
         }
        // collision(troop);
     }
+
+    /**
+     * turn left if there is no chance of collisions
+     * else move forward or backward
+     * @param troop moving troop
+     * @param dist distance
+     */
     private void smartLeft(Troop troop,double dist)
     {
         if(!leftCollisionChance(troop,dist))
@@ -1236,6 +1502,12 @@ public class GameManager {
             }
         }
     }
+    /**
+     * forward movement if there is no chance of collisions
+     * else turn left or right
+     * @param troop moving troop
+     * @param dist distance
+     */
     private void smartUp(Troop troop,double dist)
     {
             if(!upCollisionChance(troop,dist))
@@ -1257,6 +1529,12 @@ public class GameManager {
                 }
             }
     }
+    /**
+     * turn right if there is no chance of collisions
+     * else move forward or backward
+     * @param troop moving troop
+     * @param dist distance
+     */
     private void smartRight(Troop troop,double dist)
     {
             if(!rightCollisionChance(troop,dist))
@@ -1278,6 +1556,12 @@ public class GameManager {
                 }
             }
     }
+    /**
+     * backward movement if there is no chance of collisions
+     * else turn left or right
+     * @param troop moving troop
+     * @param dist distance
+     */
     private void smartDown(Troop troop,double dist)
     {
             if(!downCollisionChance(troop,dist))
@@ -1299,16 +1583,23 @@ public class GameManager {
                 }
             }
     }
+
+    /**
+     * invoking timer thread for buildings
+     */
     private void buildingsLifeDecrement()
     {
-//        for (int i = 0; i < buildings.size(); i++) {
-//            buildings.get(i).decrementLife(Renedering);
-//        }
         for (int i = 0; i < buildings.size(); i++) {
             TimeWorks timer = new TimeWorks();
             timer.buildingThread(buildings.get(i));
         }
     }
+
+    /**
+     * remove a building from buildings arraylist(if building is some other attackcard's target , this method will make it's target null )
+     * also removing it's bullets
+     * @param building dead building
+     */
     private void removeBuilding(Building building)
     {
         Iterator<Shape> iterator = bullets.iterator();
@@ -1374,6 +1665,11 @@ public class GameManager {
 //            tower.setLockedTarget(null);
 //        }
 //    }
+
+    /**
+     * if a building's health reaches to 0 or it's running time is finished , it will be
+     * removed
+     */
     private void checkBuildingsLife()
     {
         for (int i = 0; i < buildings.size(); i++) {
@@ -1383,6 +1679,11 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * if a troop's health reaches to 0  it will be
+     * removed
+     */
     private void checkTroopsLife()
     {
         for (int i = 0; i < troops.size(); i++) {
@@ -1392,6 +1693,12 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * remove a troop from troops arraylist
+     * also remove it's bullets
+     * @param troop
+     */
     private void removeTroops(Troop troop)
     {
         Iterator<Shape> it= bullets.iterator();
@@ -1463,6 +1770,14 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     *
+     * @param x circle area's x
+     * @param y circle area's y
+     * @param radius area' range
+     * @return elements inside the area
+     */
     private ArrayList<AttackCard> attackCardsInArea(double x,double y, double radius)
     {
         ArrayList<AttackCard> temp = new ArrayList<>();
@@ -1480,6 +1795,12 @@ public class GameManager {
         }
         return temp;
     }
+
+    /**
+     * area splash impact (hurt elements inside attacker's bullet location area)
+     * @param shooter attacker
+     * @param target attacker's target
+     */
     private void areaSplash(Troop shooter,AttackCard target)
     {
         if(shooter.isAreaSplash() && target!=null)
@@ -1594,6 +1915,11 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * set closest target for an attackCard
+     * @param attacker attacker
+     */
     private void prepareTargetFor(AttackCard attacker)
     {
         if(!attacker.isLocked())
@@ -1605,6 +1931,16 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * finding the closest target for an attack card
+     * also check attackcard's target kind (Air ,...)
+     * @param attacker attacker
+     * @param x attacker's x
+     * @param y attacker's y
+     * @param radius attacker's range
+     * @return closest target
+     */
     private AttackCard closestAttackCardinArea(AttackCard attacker,double x,double y , double radius)
     {
         ArrayList<Double> dists= new ArrayList<>();
@@ -1715,6 +2051,12 @@ public class GameManager {
         }
         return null;
     }
+
+    /**
+     * ignoring adding duplicate bullet to Playground
+     * @param attacker attacker
+     * @return true or false
+     */
     private boolean checkBulletExistence(AttackCard attacker)
     {
         Shape shape = null;
@@ -1751,6 +2093,12 @@ public class GameManager {
         }
         return false;
     }
+
+    /**
+     * ignoring adding duplicate bullet to Playground
+     * @param tower tower
+     * @return true or false
+     */
     private boolean checkBulletExistence(Tower tower)
     {
         Shape shape = tower.getCanonnBall();
@@ -1762,6 +2110,11 @@ public class GameManager {
         }
         return false;
     }
+
+    /**
+     * add attack card's bullet to bullets arraylist
+     * @param attacker attacker
+     */
     private void addBullet(AttackCard attacker)
     {
         if(attacker.isLocked() && !checkBulletExistence(attacker))
@@ -1793,6 +2146,11 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * add tower's bullet to bullets arraylist
+     * @param tower attacker
+     */
     private void addBullet(Tower tower)
     {
         if(tower.isLocked() && !checkBulletExistence(tower))
@@ -1800,6 +2158,11 @@ public class GameManager {
             bullets.add(tower.getCanonnBall());
         }
     }
+
+    /**
+     * remove attacker's bullet if it's timetick is done or it is not locked
+     * @param attacker attacker
+     */
     private void checkBulletsLife(AttackCard attacker)
     {
         if(attacker.getShootingTimeTick()==attacker.getHitSpeed()*10 || !attacker.isLocked())
@@ -1873,6 +2236,11 @@ public class GameManager {
             attacker.resetTimeTick();
         }
     }
+
+    /**
+     * remove tower's bullet if it's timetick is done or it is not locked
+     * @param tower attacker
+     */
     private void checkBulletsLife(Tower tower)
     {
         if(tower.getShootingTimeTick()==tower.getHitSpeed()*10 || !tower.isLocked())
@@ -1890,6 +2258,10 @@ public class GameManager {
             tower.resetTimeTick();
         }
     }
+
+    /**
+     *  check tower's life and increase players won crowns
+     */
     private void checkTowersLife()
     {
             if(player.getPrinceTower1().getLevelInformation().getHp()<=0 && !player.getPrinceTower1().isDead())
@@ -1947,6 +2319,11 @@ public class GameManager {
                 opponent.getKingTower().setDead(true);
             }
     }
+
+    /**
+     * remove a tower from towers arraylist
+     * @param tower tower
+     */
     private void removeTower(Tower tower)
     {
         Iterator<Shape> shapeIterator = bullets.iterator();
@@ -1982,6 +2359,10 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     *  set closest attackcards as a target for towers
+     */
     private void prepareTargetForTowers()
     {
         if(player.getPrinceTower1().getLevelInformation().getHp()>0 && !player.getPrinceTower1().isLocked())
@@ -2041,6 +2422,12 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * find the closest target for a tower
+     * @param tower tower
+     * @return closest target
+     */
     private AttackCard closestTargetForTower(Tower tower)
     {
         ArrayList<Double> dists= new ArrayList<>();
@@ -2074,6 +2461,13 @@ public class GameManager {
             }
         return null;
     }
+
+    /**
+     *
+     * @param attackCard attackcard
+     * @param tower tower
+     * @return true -> if attack card is in tower's area
+     */
     private boolean attackCardisinTowerArea(AttackCard attackCard,Tower tower)
     {
         if(!tower.getType().equals(attackCard.getType()))
@@ -2177,6 +2571,11 @@ public class GameManager {
             return false;
         }
     }
+
+    /**
+     * set closest tower target for an attack card
+     * @param attacker attackcard
+     */
     private void prepareTowerTarget(AttackCard attacker)
     {
         if(!attacker.isLocked())
@@ -2214,6 +2613,11 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * reset ground blocks images if a pricetower is dead
+     * @param princeTower dead prince tower
+     */
     private void princeTowerDeath(PrinceTower princeTower)
     {
         if(princeTower.getType().equals("+"))
@@ -2235,6 +2639,11 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * reset ground blocks images if a kingtower is dead
+     * @param kingTower dead kingtower
+     */
     private void kingTowerDeath(KingTower kingTower)
     {
         if(kingTower.getType().equals("+"))
@@ -2258,6 +2667,12 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * reset a ground block image
+     * @param x x coordinate
+     * @param y y coordinate
+     */
     private void resetTowersBlocks(double x , double y)
     {
         Image grass = new Image(new File("src/main/resources/pics/terrainTile3.png").toURI().toString());
@@ -2283,6 +2698,10 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * update winner (first check number of won crowns if equals -> check towers health)
+     */
     private void updateWinner()
     {
         if(player.getCrownsWon()>opponent.getCrownsWon())
@@ -2305,6 +2724,12 @@ public class GameManager {
             winner=opponent;
         }
     }
+
+    /**
+     *
+     * @param player player
+     * @return sum of all player's alive tower's health
+     */
     private double towersHealthSum(Player player)
     {
         double temp = 0.0;
@@ -2322,6 +2747,10 @@ public class GameManager {
         }
         return temp;
     }
+
+    /**
+     * spells effect
+     */
     private void spellsImpact()
     {
         for (int i = 0; i < spells.size(); i++) {
@@ -2377,27 +2806,31 @@ public class GameManager {
 ////            }
 ////        }
 //    }
-    private void Rage()
-    {
-        for (int i = 0; i < spells.size(); i++) {
-            if(spells.get(i) instanceof Rage)
-            {
-                Rage rage = (Rage) spells.get(i);
-                if(rage.isUsed())
-                {
-                    for (int j = 0; j < rage.getAttackCards().size(); j++) {
-                        if(rage.getAttackCards().get(i).isRaged())
-                        {
-                            rage.getAttackCards().get(i).rageImpact();
-                        }
-                    }
-                    for (int j = 0; j < rage.getTowers().size(); j++) {
-                        rage.getTowers().get(i).rageImpact();
-                    }
-                }
-            }
-        }
-    }
+//    private void Rage()
+//    {
+//        for (int i = 0; i < spells.size(); i++) {
+//            if(spells.get(i) instanceof Rage)
+//            {
+//                Rage rage = (Rage) spells.get(i);
+//                if(rage.isUsed())
+//                {
+//                    for (int j = 0; j < rage.getAttackCards().size(); j++) {
+//                        if(rage.getAttackCards().get(i).isRaged())
+//                        {
+//                            rage.getAttackCards().get(i).rageImpact();
+//                        }
+//                    }
+//                    for (int j = 0; j < rage.getTowers().size(); j++) {
+//                        rage.getTowers().get(i).rageImpact();
+//                    }
+//                }
+//            }
+//        }
+//    }
+
+    /**
+     * remove spells if they are finished
+     */
     private void removeSpells()
     {
         Iterator<Spell> spellIterator = spells.iterator();
@@ -2465,6 +2898,11 @@ public class GameManager {
 //            }
 //        }
     }
+
+    /**
+     * make rage 's spell area blocks purple
+     * @param rage rage spell
+     */
     private void rageSpellPurpleBlocks(Rage rage)
     {
         Image purpleBlock = new Image(new File("src/main/resources/pics/purpleTile.png").toURI().toString());
@@ -2481,6 +2919,11 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     *  set closest elements for a spell
+     * @param spell spell
+     */
     private void prepareTargetsforSpell(Spell spell)
     {
         if(spell instanceof Rage)
@@ -2542,6 +2985,13 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * check if given x , y is not inside a tower 's territory
+     * @param x x
+     * @param y y
+     * @return true or false
+     */
     private boolean blockisNotTower(double x , double y)
     {
         if(player.getPrinceTower1().getLevelInformation().getHp()>0)
@@ -2612,6 +3062,14 @@ public class GameManager {
         }
         return true;
     }
+
+
+    /**
+     * check if given x , y is not inside  river's territory
+     * @param x x
+     * @param y y
+     * @return true or false
+     */
     private boolean blockIsRiver(double x, double y)
     {
         for (int i = 0; i < 2; i++) {
@@ -2624,6 +3082,12 @@ public class GameManager {
         }
         return false;
     }
+    /**
+     * check if given x , y is not inside road's territory
+     * @param x x
+     * @param y y
+     * @return true or false
+     */
     private boolean blockIsRoad(double x , double y)
     {
         for (int i = 0; i < 24; i++) {
@@ -2636,6 +3100,11 @@ public class GameManager {
         }
         return false;
     }
+
+    /**
+     * reset rage area blocks pic
+     * @param rage rage spell
+     */
     private void resetBlocksImage(Rage rage){
         for (int i = 0; i < rage.getGroundImages().size(); i++) {
             if(!blockIsRiver(rage.getGroundImages().get(i).getX(),rage.getGroundImages().get(i).getY()) && !blockIsRoad(rage.getGroundImages().get(i).getX(),rage.getGroundImages().get(i).getY()))
@@ -2665,9 +3134,24 @@ public class GameManager {
             }
         }
     }
+
+    /**
+     * Gets spells.
+     *
+     * @return the spells
+     */
     public ArrayList<Spell> getSpells() {
         return spells;
     }
+
+    /**
+     * Is valid location boolean.
+     *
+     * @param type the type
+     * @param x    the x
+     * @param y    the y
+     * @return the boolean
+     */
     public boolean isValidLocation(String type,double x,double y) {
         if (y > 300 && y <= 340) {
             return x > 40 && x < 60 || x > 300 && x < 320;
