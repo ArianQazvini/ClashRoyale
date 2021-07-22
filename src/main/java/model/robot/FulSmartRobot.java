@@ -13,6 +13,7 @@ public class FulSmartRobot extends Robot{
     int[][] coordinate=new int[361][1];
     public FulSmartRobot(){
         setName("ful smart robot");
+        putSpeed=5000;
     }
     @Override
     public Card chooseFromDeck() {

@@ -10,6 +10,7 @@ public class SimpleRobot extends Robot{
     Random random=new Random();
     public SimpleRobot(){
         setName("simple robot");
+        putSpeed=10000;
     }
     @Override
     public Card chooseFromDeck() {

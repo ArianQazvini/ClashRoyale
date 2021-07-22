@@ -43,6 +43,10 @@ import java.util.*;
 public class Controller {
     DatabaseSaving databaseSaving=Main.databaseSaving;
     @FXML
+    Button menu;
+    @FXML
+    AnchorPane winningPage;
+    @FXML
     private ImageView nextCardImageView;
     @FXML
     private AnchorPane MainGround;
@@ -84,11 +88,14 @@ public class Controller {
     public void initialize()
     {
         gameManager.CreateMap();
+        ViewService.setBackground(winningPage, "menubg1.jpg");
         ViewService.setBackground(MainGround,"menubg1.jpg");
         doubleElixirImage.setVisible(false);
         minText.setEditable(false);
         secondsText.setEditable(false);
         gameResult.setVisible(false);
+        winningPage.setVisible(false);
+        menu.setVisible(false);
        // gameManager.getOpponent().gameManager=gameManager;
         //ViewService.setBackground(MainGround, "jungle.jpg");
         //gameManager.getOpponent().gameManager=gameManager;
@@ -923,30 +930,12 @@ public class Controller {
                 gameManager.getOpponent().getElixir().setGameFinished(true);
                 if(gameManager.getWinner()== gameManager.getPlayer())
                 {
-                    gameResult.setVisible(true);
-                    gameResult.setText("You won");
-                    gameManager.getPlayer().win();
-                    gameManager.getOpponent().lose();
-                    try {
-                        databaseSaving.addBattleHistory(new BattleHistory(gameManager.getPlayer().getName(),LocalDate.now().toString()));
-                    }catch (SQLException q){
-                        System.out.println(q);
-                    }
+                    showResult(gameManager.getPlayer(),gameManager.getOpponent());
                 }
                 else
                 {
-                    gameResult.setVisible(true);
-                    gameResult.setText("Robot won");
-                    gameManager.getOpponent().win();
-                    gameManager.getPlayer().lose();
-                    try {
-                        databaseSaving.addBattleHistory(new BattleHistory(gameManager.getOpponent().getName(),LocalDate.now().toString()));
-                    }catch (SQLException q){
-                        System.out.println(q);
-                    }
+                   showResult(gameManager.getOpponent(),gameManager.getPlayer());
                 }
-                Thread.sleep(8000);
-                gameManager.setRoot("menu");
             }
         }
     }
@@ -966,7 +955,7 @@ public class Controller {
             }
         });
             try {
-                Thread.sleep(15000);
+                Thread.sleep(gameManager.getOpponent().putSpeed);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
@@ -986,5 +975,22 @@ public class Controller {
         thread.setDaemon(true);
         thread.start();
     }
+    private void showResult(Player winner,Player looser){
+        gameResult.setVisible(true);
+        winningPage.setVisible(true);
+        menu.setVisible(true);
+        gameResult.setText(winner.getName()+" wins !");
+        winner.win();
+        looser.lose();
+        try {
+            databaseSaving.addBattleHistory(new BattleHistory(winner.getName(),LocalDate.now().toString()));
+        }catch (SQLException q){
+            System.out.println(q);
+        }
+    }
+    @FXML
+    public void menuButton() throws Exception {
+        gameManager.setRoot("menu");
 
+    }
 }

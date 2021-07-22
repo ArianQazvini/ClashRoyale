@@ -9,6 +9,7 @@ public class SmartRobot extends Robot{
     int[][] coordinate=new int[361][1];
     public SmartRobot(){
         setName("smart robot");
+        putSpeed=7000;
     }
     @Override
     public Card chooseFromDeck() {

@@ -18,6 +18,7 @@ import java.util.Random;
 public class Robot extends Player {
     double x,y;
     double maxY,maxX;
+    public int putSpeed;
     public GameManager gameManager;
     public Robot(){
         super();
