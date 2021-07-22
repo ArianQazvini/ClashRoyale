@@ -3,6 +3,7 @@ package services;
 import model.BattleHistory;
 import model.Building.Cannon;
 import model.Building.InfernoTower;
+import model.Card;
 import model.Spell.Arrows;
 import model.Spell.Fireball;
 import model.Spell.Rage;
@@ -72,8 +73,6 @@ public class DatabaseSaving {
 
     }
     public boolean importValues() throws SQLException {
-//        cannon(1),inferno(2),arrows(3),fireball(4),rage(5),archer(6),dragon(7),giant(8),mini(9),
-//                valkyrie(10),wizard(11),barbarian(12);
         ResultSet resultSet= statement.getResultSet();
         if (!resultSet.isBeforeFirst()){
             System.out.println("is empty");
@@ -84,36 +83,48 @@ public class DatabaseSaving {
                 gameManager.getPlayer().setPassword(resultSet.getString("password"));
                 for (int i = 3; i <= 10; i++) {
                     int id = resultSet.getInt(i);
-                    if (id == 1)
-                        gameManager.getPlayer().getDeck().getCards().add(new Cannon());
-                    else if (id == 2)
-                        gameManager.getPlayer().getDeck().getCards().add(new InfernoTower());
-                    else if (id == 3)
-                        gameManager.getPlayer().getDeck().getCards().add(new Arrows());
-                    else if (id == 4)
-                        gameManager.getPlayer().getDeck().getCards().add(new Fireball());
-                    else if (id == 5)
-                        gameManager.getPlayer().getDeck().getCards().add(new Rage());
-                    else if (id == 6)
-                        gameManager.getPlayer().getDeck().getCards().add(new Archer());
-                    else if (id == 7)
-                        gameManager.getPlayer().getDeck().getCards().add(new BabyDragon());
-                    else if (id == 8)
-                        gameManager.getPlayer().getDeck().getCards().add(new Giant());
-                    else if (id == 9)
-                        gameManager.getPlayer().getDeck().getCards().add(new MiniPEKKA());
-                    else if (id == 10)
-                        gameManager.getPlayer().getDeck().getCards().add(new Valkyrie());
-                    else if (id == 11)
-                        gameManager.getPlayer().getDeck().getCards().add(new Wizard());
-                    else if (id == 12)
-                        gameManager.getPlayer().getDeck().getCards().add(new Barbarian());
+                    Card card =findOnCards(id);
+//                    if (id == 1)
+                        gameManager.getPlayer().getDeck().getCards().add(card);
+                        gameManager.getPlayer().getCards().remove(card);
+//                    else if (id == 2)
+//                        gameManager.getPlayer().getDeck().getCards().add(new InfernoTower());
+//                    else if (id == 3)
+//                        gameManager.getPlayer().getDeck().getCards().add(new Arrows());
+//                    else if (id == 4)
+//                        gameManager.getPlayer().getDeck().getCards().add(new Fireball());
+//                    else if (id == 5)
+//                        gameManager.getPlayer().getDeck().getCards().add(new Rage());
+//                    else if (id == 6)
+//                        gameManager.getPlayer().getDeck().getCards().add(new Archer());
+//                    else if (id == 7)
+//                        gameManager.getPlayer().getDeck().getCards().add(new BabyDragon());
+//                    else if (id == 8)
+//                        gameManager.getPlayer().getDeck().getCards().add(new Giant());
+//                    else if (id == 9)
+//                        gameManager.getPlayer().getDeck().getCards().add(new MiniPEKKA());
+//                    else if (id == 10)
+//                        gameManager.getPlayer().getDeck().getCards().add(new Valkyrie());
+//                    else if (id == 11)
+//                        gameManager.getPlayer().getDeck().getCards().add(new Wizard());
+//                    else if (id == 12)
+//                        gameManager.getPlayer().getDeck().getCards().add(new Barbarian());
+//                }
+//                for (int i=0;i<gameManager.getPlayer().getDeck().getCards().size();i++){
+//
                 }
                 gameManager.getPlayer().setScores(resultSet.getInt("score"));
 
             }
         }
         return true;
+    }
+    private Card findOnCards(int id){
+        for (Card c:gameManager.getPlayer().getCards()){
+            if (c.getId().id==id)
+                return c;
+        }
+        return null;
     }
 
 }
