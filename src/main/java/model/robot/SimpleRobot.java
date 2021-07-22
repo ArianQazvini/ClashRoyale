@@ -6,8 +6,18 @@ import java.sql.Time;
 import java.util.Calendar;
 import java.util.Random;
 
+/**
+ * The type Simple robot.
+ */
 public class SimpleRobot extends Robot{
+    /**
+     * The Random.
+     */
     Random random=new Random();
+
+    /**
+     * Instantiates a new Simple robot.
+     */
     public SimpleRobot(){
         setName("simple robot");
         putSpeed=10000;

@@ -14,6 +14,8 @@ import java.nio.file.Paths;
 
 /**
  * The type Baby dragon.
+ *  @author ArianQazvini - NegarAnabestani
+ *  @version 1.0
  */
 public class BabyDragon extends Troop{
     private Circle fireball = new Circle();
@@ -39,6 +41,9 @@ public class BabyDragon extends Troop{
         setId(CardId.dragon);
     }
 
+    /**
+     * Hit method
+     */
     @Override
     public void Hit() {
         if(super.isLocked())
@@ -140,6 +145,9 @@ public class BabyDragon extends Troop{
         fireball.setCenterY(super.getY_Current());
     }
     }
+    /**
+     *  set Walking Top mode pic
+     */
     @Override
     public void WalkingTopMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BabyDragon_Up.png").toURI().toString());
@@ -157,7 +165,9 @@ public class BabyDragon extends Troop{
         fireball.setCenterX(this.getX_Current());
         fireball.setCenterY(this.getY_Current());
     }
-
+    /**
+     *  set Walking Left mode pic
+     */
     @Override
     public void WalkingLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BabyDragon_Left.png").toURI().toString());
@@ -175,7 +185,9 @@ public class BabyDragon extends Troop{
         fireball.setCenterX(this.getX_Current());
         fireball.setCenterY(this.getY_Current());
     }
-
+    /**
+     *  set Walking Right mode pic
+     */
     @Override
     public void WalkingRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BabyDragon_Right.png").toURI().toString());
@@ -193,7 +205,9 @@ public class BabyDragon extends Troop{
         fireball.setCenterX(this.getX_Current());
         fireball.setCenterY(this.getY_Current());
     }
-
+    /**
+     *  set Walking Down mode pic
+     */
     @Override
     public void WalkingDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/BabyDragon_Down.png").toURI().toString());
@@ -211,27 +225,37 @@ public class BabyDragon extends Troop{
         fireball.setCenterX(this.getX_Current());
         fireball.setCenterY(this.getY_Current());
     }
-
+    /**
+     *  set Hit Top mode pic
+     */
     @Override
     public void HitUpMode() {
         WalkingTopMode();
     }
-
+    /**
+     *  set Hit Down mode pic
+     */
     @Override
     public void HitDownMode() {
         WalkingDownMode();
     }
-
+    /**
+     *  set Hit Left mode pic
+     */
     @Override
     public void HitLeftMode() {
         WalkingLeftMode();
     }
-
+    /**
+     *  set Hit Right mode pic
+     */
     @Override
     public void HitRightMode() {
         WalkingRightMode();
     }
-
+    /**
+     *  set timetick to 0
+     */
     @Override
     public void resetTimeTick() {
         if(getShootingTimeTick()==getHitSpeed()*10)
@@ -241,7 +265,9 @@ public class BabyDragon extends Troop{
             this.getFireball().setCenterY(this.getY_Current());
         }
     }
-
+    /**
+     *  reset rage effect
+     */
     @Override
     public void undoRage() {
         this.setHitSpeed(1.8F);
@@ -316,6 +342,10 @@ public class BabyDragon extends Troop{
     public Circle getFireball() {
         return fireball;
     }
+
+    /**
+     * set explosion pic
+     */
     private void explosionPic()
     {
         Image image = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());

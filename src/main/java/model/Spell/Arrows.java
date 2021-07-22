@@ -13,10 +13,15 @@ import model.informations.SpellLevelValue;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * The type Arrows.
+ */
 public class Arrows extends Spell{
     private Circle Arrows = new Circle();
-    private boolean isDone = false;
-    private boolean isUsed = false;
+
+    /**
+     * Instantiates a new Arrows.
+     */
     public Arrows(){
         setAvatar("arrows.png");
         setRadius(4);
@@ -29,18 +34,26 @@ public class Arrows extends Spell{
         setLevelInformation(getLevel1());
         setId(CardId.arrows);
     }
+
+    /**
+     * Arrow thread.
+     */
     public void arrowThread()
     {
         Thread thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                isUsed=true;
+                setUsed(true);
                 graphicStaff();
             }
         });
         thread.setDaemon(true);
         thread.start();
     }
+
+    /**
+     * Graphic staff.
+     */
     public void graphicStaff()
     {
         Platform.runLater(new Runnable() {
@@ -55,7 +68,7 @@ public class Arrows extends Spell{
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        isDone= true;
+        setDone(true);
     }
     private void setPic()
     {
@@ -67,6 +80,10 @@ public class Arrows extends Spell{
         this.Arrows.setCenterY(this.getY());
 
     }
+
+    /**
+     * Hit.
+     */
     public void Hit()
     {
         for (int i = 0; i < getAttackCards().size(); i++) {
@@ -77,15 +94,12 @@ public class Arrows extends Spell{
         }
     }
 
+    /**
+     * Gets arrows.
+     *
+     * @return the arrows
+     */
     public Circle getArrows() {
         return Arrows;
-    }
-
-    public boolean isUsed() {
-        return isUsed;
-    }
-
-    public boolean isDone() {
-        return isDone;
     }
 }

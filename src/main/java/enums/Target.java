@@ -1,5 +1,23 @@
 package enums;
 
+/**
+ * The enum Target.
+ */
 public enum  Target {
-    GROUND,AIR,AIR_GROUND,BUILDING
+    /**
+     * Ground target.
+     */
+    GROUND,
+    /**
+     * Air target.
+     */
+    AIR,
+    /**
+     * Air ground target.
+     */
+    AIR_GROUND,
+    /**
+     * Building target.
+     */
+    BUILDING
 }

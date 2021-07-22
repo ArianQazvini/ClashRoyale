@@ -8,8 +8,15 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type King tower.
+ */
 public class KingTower extends Tower{
     private boolean canShoot = false;
+
+    /**
+     * Instantiates a new King tower.
+     */
     public KingTower(){
         setHitSpeed(1);
         setRange(7);
@@ -21,9 +28,20 @@ public class KingTower extends Tower{
         setLevelInformation(super.getLevel1());
     }
 
+    /**
+     * Sets can shoot.
+     *
+     * @param canShoot the can shoot
+     */
     public void setCanShoot(boolean canShoot) {
         this.canShoot = canShoot;
     }
+
+    /**
+     * Is can shoot boolean.
+     *
+     * @return the boolean
+     */
     public boolean isCanShoot() {
         return canShoot;
     }

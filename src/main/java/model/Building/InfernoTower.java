@@ -13,10 +13,17 @@ import model.informations.ACLevelValue;
 
 import java.io.File;
 
+/**
+ * The type Inferno tower.
+ */
 public class InfernoTower extends Building{
     private int FireTimeTick=0;
    // private Line fireLine = new Line();
     private Circle fireball = new Circle();
+
+    /**
+     * Instantiates a new Inferno tower.
+     */
     public InfernoTower(){
         setAvatar("inferno-tower.png");
         setHitSpeed(0.4F);
@@ -39,6 +46,10 @@ public class InfernoTower extends Building{
         super.getPicHandler().setY(super.getY_Current());
         setId(CardId.inferno);
     }
+
+    /**
+     * Hit method
+     */
     @Override
     public void Hit()
     {
@@ -151,12 +162,18 @@ public class InfernoTower extends Building{
 
     }
 
+    /**
+     * set time tick to 0
+     */
     @Override
     public void resetTimeTick() {
         setShootingTimeTick(0);
         FireTimeTick=0;
     }
 
+    /**
+     * inferno tower damage range which is increased by time
+     */
     private void Damage()
     {
         DamageVary damage = (DamageVary) super.getLevelInformation().getDamage().getValue();
@@ -171,13 +188,30 @@ public class InfernoTower extends Building{
             super.getLockedTarget().Hurt(harm);
         }
     }
+
+    /**
+     * Sets fire time tick.
+     *
+     * @param fireTimeTick the fire time tick
+     */
     public void setFireTimeTick(int fireTimeTick) {
         FireTimeTick = fireTimeTick;
     }
 
+    /**
+     * Gets fire time tick.
+     *
+     * @return the fire time tick
+     */
     public int getFireTimeTick() {
         return FireTimeTick;
     }
+
+    /**
+     * Gets fireball.
+     *
+     * @return the fireball
+     */
     public Circle getFireball() {
         return fireball;
     }
@@ -190,18 +224,42 @@ public class InfernoTower extends Building{
         this.fireball.setCenterX(this.getX_Current());
         this.fireball.setCenterY(this.getY_Current());
     }
+
+    /**
+     * Fire ball forward.
+     *
+     * @param dist the dist
+     */
     public void fireBallForward(double dist)
     {
         this.fireball.setCenterY(this.fireball.getCenterY()-dist);
     }
+
+    /**
+     * Fire ball back ward.
+     *
+     * @param dist the dist
+     */
     public void fireBallBackWard(double dist)
     {
         this.fireball.setCenterY(this.fireball.getCenterY()+dist);
     }
+
+    /**
+     * Fire ball left.
+     *
+     * @param dist the dist
+     */
     public void fireBallLeft(double dist)
     {
         this.fireball.setCenterX(this.fireball.getCenterX()-dist);
     }
+
+    /**
+     * Fire ball right.
+     *
+     * @param dist the dist
+     */
     public void fireBallRight(double dist)
     {
         this.fireball.setCenterX(this.fireball.getCenterX()+dist);
@@ -212,6 +270,10 @@ public class InfernoTower extends Building{
         ImagePattern imagePattern = new ImagePattern(image);
         fireball.setFill(imagePattern);
     }
+
+    /**
+     * rage effect
+     */
     @Override
     public void rageImpact()
     {
@@ -219,6 +281,10 @@ public class InfernoTower extends Building{
         DamageVary damage = (DamageVary) super.getLevelInformation().getDamage().getValue();
         damage.setMax(damage.max*1.4);
     }
+
+    /**
+     * undo rage effect
+     */
     @Override
     public void undoRage()
     {
@@ -247,22 +313,63 @@ public class InfernoTower extends Building{
 
     }
 }
+
+/**
+ * The type Damage vary.
+ */
 class DamageVary {
+    /**
+     * The Min.
+     */
     double min;
+    /**
+     * The Max.
+     */
     double max;
+
+    /**
+     * Instantiates a new Damage vary.
+     *
+     * @param min the min
+     * @param max the max
+     */
     public DamageVary(double min,double max){
         this.min=min;
         this.max=max;
     }
+
+    /**
+     * Gets max.
+     *
+     * @return the max
+     */
     public double getMax() {
         return max;
     }
+
+    /**
+     * Gets min.
+     *
+     * @return the min
+     */
     public double getMin() {
         return min;
     }
+
+    /**
+     * Sets max.
+     *
+     * @param max the max
+     */
     public void setMax(double max) {
         this.max = max;
     }
+
+    /**
+     * Sets min.
+     *
+     * @param min the min
+     */
     public void setMin(double min) {
         this.min = min;
     }

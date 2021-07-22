@@ -11,6 +11,8 @@ import java.io.File;
 
 /**
  * The type Wizard.
+ * @author ArianQazvini - NegarAnabestani
+ * @version 1.0
  */
 public class Wizard extends Troop{
     private Circle fireball = new Circle();
@@ -35,6 +37,10 @@ public class Wizard extends Troop{
         super.setLevelInformation(super.getLevel1());
         setId(CardId.wizard);
     }
+
+    /**
+     * Hit method
+     */
     @Override
     public void Hit() {
         if(super.isLocked())
@@ -140,6 +146,10 @@ public class Wizard extends Troop{
             fireball.setCenterY(super.getY_Current());
         }
     }
+
+    /**
+     * set Walking top mode pic
+     */
     @Override
     public void WalkingTopMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardWalk_Up.png").toURI().toString());
@@ -151,6 +161,9 @@ public class Wizard extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set Walking left mode pic
+     */
     @Override
     public void WalkingLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardWalk_Left.png").toURI().toString());
@@ -162,6 +175,9 @@ public class Wizard extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set Walking right mode pic
+     */
     @Override
     public void WalkingRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardWalk_Right.png").toURI().toString());
@@ -173,6 +189,9 @@ public class Wizard extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set walking down mode pic
+     */
     @Override
     public void WalkingDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardWalk_Down.png").toURI().toString());
@@ -185,6 +204,9 @@ public class Wizard extends Troop{
 
     }
 
+    /**
+     * set hit up mode pic
+     */
     @Override
     public void HitUpMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardHit_Up.png").toURI().toString());
@@ -203,6 +225,9 @@ public class Wizard extends Troop{
         fireball.setCenterY(this.getY_Current());
     }
 
+    /**
+     * set hit down mode pic
+     */
     @Override
     public void HitDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardHit_Down.png").toURI().toString());
@@ -221,6 +246,9 @@ public class Wizard extends Troop{
         fireball.setCenterY(this.getY_Current());
     }
 
+    /**
+     * set hit left mode pic
+     */
     @Override
     public void HitLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardHit_Left.png").toURI().toString());
@@ -239,6 +267,9 @@ public class Wizard extends Troop{
         fireball.setCenterY(this.getY_Current());
     }
 
+    /**
+     * set hit right mode pic
+     */
     @Override
     public void HitRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/WizardHit_Right.png").toURI().toString());
@@ -305,6 +336,10 @@ public class Wizard extends Troop{
     public Circle getFireball() {
         return fireball;
     }
+
+    /**
+     * set timetick to 0
+     */
     @Override
     public void resetTimeTick() {
         if(getShootingTimeTick()==getHitSpeed()*10)
@@ -315,6 +350,9 @@ public class Wizard extends Troop{
         }
     }
 
+    /**
+     * reset rage effects
+     */
     @Override
     public void undoRage() {
         this.setHitSpeed(1.7F);
@@ -349,6 +387,10 @@ public class Wizard extends Troop{
         this.fireball.setCenterX(this.getX_Current());
         this.fireball.setCenterY(this.getY_Current());
     }
+
+    /**
+     * set explosion pic
+     */
     private void explosionPic()
     {
         Image image = new Image(new File("src/main/resources/pics/Characters/Explosion.png").toURI().toString());

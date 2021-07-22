@@ -9,7 +9,10 @@ import model.informations.ACLevelValue;
 import java.io.File;
 
 /**
- * The type Valkyrie.
+ * The type Valkyrie
+ * @author ArianQazvini - NegarAnabestani
+ * @version 1.0
+ *
  */
 public class Valkyrie extends Troop{
     /**
@@ -32,6 +35,10 @@ public class Valkyrie extends Troop{
         super.setLevelInformation(super.getLevel1());
         setId(CardId.valkyrie);
     }
+
+    /**
+     * Hit method
+     */
     @Override
     public void Hit() {
         if(this.isLocked())
@@ -82,6 +89,9 @@ public class Valkyrie extends Troop{
         }
     }
 
+    /**
+     * set Walking top mode pic
+     */
     @Override
     public void WalkingTopMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieWalk_Up.png").toURI().toString());
@@ -93,6 +103,9 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set Walking left mode pic
+     */
     @Override
     public void WalkingLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieWalk_Left.png").toURI().toString());
@@ -104,6 +117,9 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set Walking right mode pic
+     */
     @Override
     public void WalkingRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieWalk_Right.png").toURI().toString());
@@ -115,6 +131,9 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set walking down mode pic
+     */
     @Override
     public void WalkingDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieWalk_Down.png").toURI().toString());
@@ -126,6 +145,9 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set hit up mode pic
+     */
     @Override
     public void HitUpMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieHit_Up.png").toURI().toString());
@@ -137,6 +159,9 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set hit down mode pic
+     */
     @Override
     public void HitDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieHit_Down.png").toURI().toString());
@@ -148,6 +173,9 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set hit left mode pic
+     */
     @Override
     public void HitLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieHit_Left.png").toURI().toString());
@@ -159,6 +187,9 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set hit right mode pic
+     */
     @Override
     public void HitRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/ValkyrieHit_Right.png").toURI().toString());
@@ -169,6 +200,10 @@ public class Valkyrie extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
+
+    /**
+     * set timetick to 0
+     */
     @Override
     public void resetTimeTick() {
         if(getShootingTimeTick()==getHitSpeed()*10)
@@ -177,6 +212,9 @@ public class Valkyrie extends Troop{
         }
     }
 
+    /**
+     * reset rage effect
+     */
     @Override
     public void undoRage() {
         this.setHitSpeed(1.5F);
@@ -202,7 +240,9 @@ public class Valkyrie extends Troop{
             this.getLevelInformation().getDamage().setValue((Double)175.0);
         }
     }
-
+    /**
+     * change characters pic direction based on it's target closest direction
+     */
     @Override
     public void changePictoTarget()
     {

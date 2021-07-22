@@ -10,6 +10,8 @@ import java.io.File;
 
 /**
  * The type Mini pekka.
+ * @author ArianQazvini  - NegarAnabestani
+ * @version 1.0
  */
 public class MiniPEKKA extends Troop{
     /**
@@ -33,6 +35,9 @@ public class MiniPEKKA extends Troop{
         setId(CardId.mini);
     }
 
+    /**
+     * Hit method
+     */
     @Override
     public void Hit() {
         if(this.isLocked())
@@ -83,6 +88,9 @@ public class MiniPEKKA extends Troop{
         }
     }
 
+    /**
+     * Set walking top mode pic
+     */
     @Override
     public void WalkingTopMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/MiniPekkaWalk_Up.png").toURI().toString());
@@ -94,6 +102,9 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set Walking left mode pic
+     */
     @Override
     public void WalkingLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/MiniPekkaWalk_Left.png").toURI().toString());
@@ -105,6 +116,9 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set walking right mode pic
+     */
     @Override
     public void WalkingRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/MiniPekkaWalk_Right.png").toURI().toString());
@@ -116,6 +130,9 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set walking down mode pic
+     */
     @Override
     public void WalkingDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/MiniPekkaWalk_Down.png").toURI().toString());
@@ -127,6 +144,9 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set hit up mode pic
+     */
     @Override
     public void HitUpMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/MiniPekkaHit_Up.png").toURI().toString());
@@ -138,6 +158,9 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set hit down mode pic
+     */
     @Override
     public void HitDownMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/MiniPekkaHit_Down.png").toURI().toString());
@@ -149,6 +172,9 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set hit left mode pic
+     */
     @Override
     public void HitLeftMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/MiniPekkaHit_Left.png").toURI().toString());
@@ -160,6 +186,9 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setY(super.getY_Current());
     }
 
+    /**
+     * set hit right mode pic
+     */
     @Override
     public void HitRightMode() {
         Image image = new Image(new File("src/main/resources/pics/Characters/MiniPekkaHit_Right.png").toURI().toString());
@@ -170,6 +199,10 @@ public class MiniPEKKA extends Troop{
         super.getPicHandler().setX(super.getX_Current());
         super.getPicHandler().setY(super.getY_Current());
     }
+
+    /**
+     * set timetick to 0
+     */
     @Override
     public void resetTimeTick() {
         if(getShootingTimeTick()==getHitSpeed()*10)
@@ -178,6 +211,9 @@ public class MiniPEKKA extends Troop{
         }
     }
 
+    /**
+     * reset rage effect
+     */
     @Override
     public void undoRage() {
         this.setHitSpeed(1.8F);
@@ -203,7 +239,9 @@ public class MiniPEKKA extends Troop{
             this.getLevelInformation().getDamage().setValue((Double)474.0);
         }
     }
-
+    /**
+     * change characters pic direction based on it's target closest direction
+     */
     @Override
     public void changePictoTarget()
     {

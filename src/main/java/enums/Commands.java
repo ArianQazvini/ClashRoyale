@@ -1,5 +1,27 @@
 package enums;
 
+/**
+ * The enum Commands.
+ */
 public enum Commands {
-    LEFT,RIGHT,FORWARD,BACKWARD,HIT
+    /**
+     * Left commands.
+     */
+    LEFT,
+    /**
+     * Right commands.
+     */
+    RIGHT,
+    /**
+     * Forward commands.
+     */
+    FORWARD,
+    /**
+     * Backward commands.
+     */
+    BACKWARD,
+    /**
+     * Hit commands.
+     */
+    HIT
 }

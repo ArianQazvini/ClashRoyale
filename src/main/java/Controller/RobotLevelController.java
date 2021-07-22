@@ -13,16 +13,38 @@ import services.GameManager;
 import services.ViewService;
 
 
+/**
+ * The type Robot level controller.
+ */
 public class RobotLevelController {
+    /**
+     * The Game manager.
+     */
     GameManager gameManager= Main.gameManager;
+    /**
+     * The Page area.
+     */
     @FXML
     AnchorPane pageArea;
+    /**
+     * The Simple.
+     */
     @FXML
     Button simple;
 
+    /**
+     * Initialize.
+     */
     public void initialize() {
         ViewService.setBackground(pageArea, "menubg1.jpg");
     }
+
+    /**
+     * Press.
+     *
+     * @param actionEvent the action event
+     * @throws Exception the exception
+     */
     @FXML
     public void press(ActionEvent actionEvent) throws Exception {
         String value=((Button)actionEvent.getSource()).getText();
@@ -34,6 +56,12 @@ public class RobotLevelController {
             gameManager.setOpponent(new FulSmartRobot());
         gameManager.setRoot("sample");
     }
+
+    /**
+     * Back.
+     *
+     * @throws Exception the exception
+     */
     @FXML
     public void back() throws Exception {
         gameManager.setRoot("menu");
