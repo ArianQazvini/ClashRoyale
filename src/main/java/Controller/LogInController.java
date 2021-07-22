@@ -8,6 +8,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import model.Player;
 
 import sample.Main;
@@ -62,6 +64,7 @@ public class LogInController {
     }
 
     public void initialize() {
+        gameManager.playMusic("New Menu 01.mp3");
         gameManager.setPlayer(new Player());
         gameManager.getPlayer().getDeck().getCards().removeAll(gameManager.getPlayer().getDeck().getCards());
         databaseSaving.startConnection();

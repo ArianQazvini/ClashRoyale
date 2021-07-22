@@ -1,6 +1,7 @@
 package Controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -12,6 +13,8 @@ public class MenuController {
     GameManager gameManager= Main.gameManager;
     @FXML
     AnchorPane pageArea;
+    @FXML
+    Button music;
 
     @FXML
     Text message;
@@ -21,6 +24,13 @@ public class MenuController {
         gameManager.getPlayer().setCardLevel();
         ViewService.setBackground(pageArea,"menubg1.jpg");
         message.setVisible(false);
+    }
+    @FXML
+    public void music(){
+        if (gameManager.isMusicPlaying)
+            gameManager.pause();
+        else
+            gameManager.resume();
     }
     @FXML
     public void trainingCamp() throws Exception {

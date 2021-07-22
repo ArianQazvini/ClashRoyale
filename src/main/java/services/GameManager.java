@@ -5,6 +5,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 import model.AttackCard;
@@ -38,6 +40,9 @@ import java.util.*;
  * @version 1.0
  */
 public class GameManager {
+    private Media media;
+    public boolean isMusicPlaying;
+    private MediaPlayer mediaPlayer;
     private final int blockSize=20;
     private final double Renedering=0.1;
     private Player player;
@@ -77,6 +82,20 @@ public class GameManager {
             player.setLevel("4");
         else if (player.getScores()>=2500)
             player.setLevel("5");
+    }
+    public void playMusic(String name){
+        media=new Media(new File("src/main/resources/Musics/"+name).toURI().toString());
+        mediaPlayer=new MediaPlayer(media);
+        mediaPlayer.play();
+        isMusicPlaying=true;
+    }
+    public void pause(){
+        mediaPlayer.pause();
+        isMusicPlaying=true;
+    }
+    public void resume(){
+        mediaPlayer.play();
+        isMusicPlaying=false;
     }
 
 
