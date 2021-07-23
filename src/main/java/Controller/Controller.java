@@ -107,6 +107,7 @@ public class Controller {
      */
     public void initialize()
     {
+        gameManager.pause();
         gameManager.playMusic("2min Loop Battle 03.mp3");
         gameManager.CreateMap();
         ViewService.setBackground(winningPage, "menubg1.jpg");
