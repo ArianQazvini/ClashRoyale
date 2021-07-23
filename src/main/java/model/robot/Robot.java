@@ -49,18 +49,18 @@ public class Robot extends Player {
         super();
         maxY=300;
         gameManager=Main.gameManager;
-        getCards().add(new Giant());
-        getCards().add(new Arrows());
-        getCards().add(new Archer());
-        getCards().add(new Barbarian());
-        getCards().add(new BabyDragon());
-        getCards().add(new MiniPEKKA());
-        getCards().add(new Valkyrie());
-        getCards().add(new Wizard());
-        getCards().add(new Cannon());
-        getCards().add(new InfernoTower());
-        getCards().add(new Rage());
-        getCards().add(new Fireball());
+//        getCards().add(new Giant());
+//        getCards().add(new Arrows());
+//        getCards().add(new Archer());
+//        getCards().add(new Barbarian());
+//        getCards().add(new BabyDragon());
+//        getCards().add(new MiniPEKKA());
+//        getCards().add(new Valkyrie());
+//        getCards().add(new Wizard());
+//        getCards().add(new Cannon());
+//        getCards().add(new InfernoTower());
+//        getCards().add(new Rage());
+//        getCards().add(new Fireball());
         super.downPics();
         negativeType();
         setCardLevel();
@@ -75,7 +75,12 @@ public class Robot extends Player {
             Card tmp=getCards().get(random.nextInt(getCards().size()));
             getDeck().getCards().add(tmp);
             getCards().remove(tmp);
+           // System.out.println(getCards());
         }
+       // System.out.println("-------------------------");
+//        for (int i = 0; i < 8; i++) {
+//           // System.out.println(getDeck().getCards().get(i));
+//        }
     }
 
     /**
