@@ -1020,10 +1020,10 @@ public class Controller {
                     gameManager.getOpponent().chooseLocation();
                     Card card = gameManager.getOpponent().chooseFromDeck();
                     card.setType("-");
-                    if (card instanceof AttackCard) {
-                        TaskR(gameManager.getOpponent().getX(), gameManager.getOpponent().getY(), (AttackCard) card, null);
+                  //  if (card instanceof AttackCard) {
+                        TaskR(gameManager.getOpponent().getX(), gameManager.getOpponent().getY(), card, null);
                         gameManager.getOpponent().getElixir().setValue(gameManager.getOpponent().getElixir().getValue() - card.getCost());
-                    }
+                  //  }
                 }
             }
         });
