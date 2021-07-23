@@ -13,10 +13,6 @@ import java.util.Random;
  */
 public class FulSmartRobot extends Robot{
     /**
-     * The Random.
-     */
-    Random random=new Random();
-    /**
      * The Coordinate.
      */
     int[][] coordinate=new int[361][1];
@@ -36,6 +32,7 @@ public class FulSmartRobot extends Robot{
     }
     @Override
     public Card chooseFromDeck() {
+        Random random=new Random();
         if (findCardOnDeck(CardId.giant)!=null){
             if (checkBuilding()) {
                 buildingChooseLocation();
@@ -73,6 +70,7 @@ public class FulSmartRobot extends Robot{
     }
 
     private void mainChooseLocation(CardId id){
+        Random random=new Random();
         if (id.equals(CardId.dragon)){
             x=findClosestDragon();
             y=random.nextInt(300);
@@ -81,6 +79,7 @@ public class FulSmartRobot extends Robot{
         }
     }
     private void buildingChooseLocation(){
+        Random random=new Random();
         Building building=null;
         for (Building b:gameManager.getBuildings()){
             if (b.getType().equals("+")){
@@ -98,6 +97,7 @@ public class FulSmartRobot extends Robot{
 
     @Override
     public void chooseLocation() {
+        Random random=new Random();
         int a=random.nextInt(3);
         int moodX=random.nextInt(2);
         int moodY=random.nextInt(2);

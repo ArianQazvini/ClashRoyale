@@ -6,11 +6,11 @@
 
 <AnchorPane fx:id="pageArea" prefHeight="400.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.RobotLevelController">
    <children>
-      <Button layoutX="55.0" layoutY="213.0" mnemonicParsing="false" onAction="#press" prefWidth="190.0" style="-fx-background-color: #ffff6b;" text="Medium">
+      <Button layoutX="55.0" layoutY="213.0" mnemonicParsing="false" onAction="#press" prefWidth="190.0" style="-fx-background-color: #ffff6b;" text="medium">
          <font>
             <Font name="Verdana" size="12.0" />
          </font></Button>
-      <Button fx:id="simple" layoutX="55.0" layoutY="169.0" mnemonicParsing="false" onAction="#press" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #80e27e;" text="Simple">
+      <Button fx:id="simple" layoutX="55.0" layoutY="169.0" mnemonicParsing="false" onAction="#press" prefHeight="30.0" prefWidth="190.0" style="-fx-background-color: #80e27e;" text="simple">
          <font>
             <Font name="Verdana Bold Italic" size="12.0" />
          </font></Button>

@@ -18,7 +18,7 @@ import java.util.Random;
 /**
  * The type Robot.
  */
-public class Robot extends Player {
+public abstract class Robot extends Player {
     /**
      * The X.
      */
@@ -88,7 +88,7 @@ public class Robot extends Player {
      *
      * @return the card
      */
-    public  Card chooseFromDeck(){return null;}
+    public abstract Card chooseFromDeck();
 
     /**
      * Choose location.

@@ -10,10 +10,6 @@ import java.util.Random;
  * The type Simple robot.
  */
 public class SimpleRobot extends Robot{
-    /**
-     * The Random.
-     */
-    Random random=new Random();
 
     /**
      * Instantiates a new Simple robot.
@@ -32,8 +28,11 @@ public class SimpleRobot extends Robot{
 
     @Override
     public Card chooseFromDeck() {
-
+        Random random=new Random();
+        System.out.println(this.getDeck().getCards());
         int index=random.nextInt(8);
+       // System.out.println("-----------------------");
+      //  System.out.println(index);
         Card card=getDeck().getCards().get(index);
         while (card.getCost()> getElixir().getValue()){
             index=random.nextInt(8);
@@ -48,6 +47,7 @@ public class SimpleRobot extends Robot{
 
     @Override
     public void chooseLocation() {
+        Random random=new Random();
         x=random.nextInt(360);
         y=random.nextInt(300);
         while (!checkValidity(x,y))

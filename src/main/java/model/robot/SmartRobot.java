@@ -8,10 +8,7 @@ import java.util.Random;
  * The type Smart robot.
  */
 public class SmartRobot extends Robot{
-    /**
-     * The Random.
-     */
-    Random random=new Random();
+
     /**
      * The Coordinate.
      */
@@ -32,6 +29,7 @@ public class SmartRobot extends Robot{
     }
     @Override
     public Card chooseFromDeck() {
+        Random random=new Random();
         int index=random.nextInt(8);
         Card card=getDeck().getCards().get(index);
         while (card.getCost()> getElixir().getValue()){
@@ -47,6 +45,7 @@ public class SmartRobot extends Robot{
 
     @Override
     public void chooseLocation() {
+        Random random=new Random();
         int a=random.nextInt(3);
         int moodX=random.nextInt(2);
         int moodY=random.nextInt(2);
